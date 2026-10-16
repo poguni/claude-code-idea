@@ -497,54 +497,176 @@ function listenBtn(text, lang, label = '🔊') {
 
 /* ───────────── 음성 인식(STT) ───────────── */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-let rec = null;
+// 안드로이드 크롬 계열은 continuous 모드에서 결과가 중복되는 문제가 있어 한 문장씩 듣고 필요하면 다시 시작합니다.
+const IS_ANDROID = /Android/i.test(navigator.userAgent);
+const MAX_LISTEN_MS = 60000;   // 한 번 누르면 최대 60초까지 듣기
+let rec = null;                // 현재 SpeechRecognition 객체
+let listening = false;         // 사용자가 마이크를 켜 둔 상태
 let recGotResult = false;
+let micDiag = null;            // 진단: 마이크 열림·소리 감지·말 감지 여부
+let autoStopTimer = null;
 function setMicStatus(t) { $('#micStatus').textContent = t; }
-function stopMic() { if (rec) { try { rec.stop(); } catch { /* 무시 */ } } }
+function stopMic() {
+  if (listening && micDiag) micDiag.manual = true;
+  listening = false;
+  clearTimeout(autoStopTimer);
+  if (rec) { try { rec.stop(); } catch { /* 무시 */ } }
+}
+const SR_ERRORS = {
+  'not-allowed': '마이크 권한이 거부되었습니다. 주소창 왼쪽 자물쇠(사이트 정보) 아이콘에서 마이크를 "허용"으로 바꾼 뒤 새로고침해 주세요.',
+  'service-not-allowed': '브라우저가 음성 인식 서비스를 막았습니다. HTTPS 주소(GitHub Pages)에서 열었는지, 브라우저의 음성 인식 기능이 꺼져 있지 않은지 확인해 주세요.',
+  'audio-capture': '마이크를 찾을 수 없습니다. 마이크가 연결되어 있는지, 다른 앱(줌, 팀즈 등)이 마이크를 쓰고 있지 않은지 확인해 주세요.',
+  'network': '음성 인식 서버에 연결할 수 없습니다. 인터넷 연결이나 회사·학교 방화벽을 확인해 주세요.',
+  'language-not-supported': '이 브라우저에서 해당 언어의 음성 인식을 지원하지 않습니다.',
+  'bad-grammar': '음성 인식 설정 오류가 발생했습니다.',
+};
 function toggleMic() {
   if (!SR) { toast('이 브라우저는 음성 인식을 지원하지 않습니다. Edge·삼성 인터넷·크롬을 사용하거나 입력창에 타자로 입력해 주세요.', true); return; }
-  if (rec) { stopMic(); return; }
+  if (listening) { stopMic(); return; }
   if ('speechSynthesis' in window) speechSynthesis.cancel();
+  listening = true;
+  recGotResult = false;
+  micDiag = { audio: false, sound: false, speech: false, restarts: 0, startedAt: Date.now() };
+  $('#micBtn').classList.add('on');
+  setMicStatus('마이크를 여는 중…');
+  startRecognition();
+}
+function startRecognition() {
   const input = $('#input');
   const sep = session.lang === 'ja' ? '' : ' ';
   const base = input.value.trim() ? input.value.trim() + sep : '';
-  recGotResult = false;
-  rec = new SR();
-  rec.lang = LANGS[session.lang].stt;
-  rec.interimResults = true;
-  rec.continuous = false;
-  rec.maxAlternatives = 1;
-  rec.onstart = () => { $('#micBtn').classList.add('on'); setMicStatus('듣고 있어요… 말을 마치면 잠시 기다리거나 다시 누르세요.'); };
-  rec.onresult = (e) => {
+  const r = new SR();
+  let roundResult = false;
+  rec = r;
+  r.lang = LANGS[session.lang].stt;
+  r.interimResults = true;
+  r.continuous = !IS_ANDROID;
+  r.maxAlternatives = 1;
+  r.onaudiostart = () => {
+    micDiag.audio = true;
+    setMicStatus('🎙️ 마이크가 켜졌어요. 지금 말씀하세요. (다 말하면 마이크를 다시 누르세요)');
+  };
+  r.onsoundstart = () => { micDiag.sound = true; };
+  r.onspeechstart = () => { micDiag.speech = true; setMicStatus('듣고 있어요… 다 말하면 마이크를 다시 누르세요.'); };
+  r.onresult = (e) => {
     let finalText = '';
     let interim = '';
     for (let i = 0; i < e.results.length; i++) {
-      const r = e.results[i];
-      if (r.isFinal) finalText += r[0].transcript; else interim += r[0].transcript;
+      const res = e.results[i];
+      if (res.isFinal) finalText += res[0].transcript; else interim += res[0].transcript;
     }
     input.value = base + (finalText + interim).trim();
-    if (finalText.trim()) recGotResult = true;
+    if (finalText.trim()) { recGotResult = true; roundResult = true; }
     autoResize();
+    // 자동 전송을 켠 경우: 마지막 결과 뒤 2초 동안 말이 없으면 멈추고 보냅니다.
+    if (settings.autoSend && recGotResult) {
+      clearTimeout(autoStopTimer);
+      autoStopTimer = setTimeout(() => { if (listening) stopMic(); }, 2000);
+    }
   };
-  rec.onerror = (e) => {
-    const map = {
-      'not-allowed': '마이크 권한이 거부되었습니다. 주소창의 자물쇠 아이콘에서 마이크를 허용해 주세요.',
-      'service-not-allowed': '음성 인식 서비스를 사용할 수 없습니다. HTTPS 주소에서 열었는지 확인해 주세요.',
-      'no-speech': '음성이 감지되지 않았습니다. 다시 눌러 말해 보세요.',
-      'audio-capture': '마이크를 찾을 수 없습니다.',
-      'network': '음성 인식 서버에 연결할 수 없습니다. 인터넷 연결을 확인해 주세요.',
-      'language-not-supported': '이 브라우저에서 해당 언어의 음성 인식을 지원하지 않습니다.',
-    };
-    if (e.error !== 'aborted') toast(map[e.error] || `음성 인식 오류: ${e.error}`, e.error !== 'no-speech');
+  r.onerror = (e) => {
+    r.lastError = e.error;
+    if (e.error === 'no-speech' || e.error === 'aborted') return; // onend에서 처리
+    listening = false;
+    toast(SR_ERRORS[e.error] || `음성 인식 오류: ${e.error}`, true);
   };
-  rec.onend = () => {
+  r.onend = () => {
+    if (rec === r) rec = null;
+    const elapsed = Date.now() - micDiag.startedAt;
+    // 사용자가 아직 멈추지 않았으면 다시 듣습니다(무음으로 끊긴 경우, 또는 연속 듣기가 서버에서 끊긴 경우).
+    const silentEnd = r.lastError === 'no-speech' || (!r.lastError && !(IS_ANDROID && roundResult));
+    if (listening && elapsed < MAX_LISTEN_MS && silentEnd && micDiag.restarts < 12) {
+      micDiag.restarts++;
+      setTimeout(() => { if (listening) startRecognition(); }, 200);
+      return;
+    }
+    finishListening(r.lastError);
+  };
+  try { r.start(); } catch (e) {
     rec = null;
-    $('#micBtn').classList.remove('on');
-    setMicStatus(recGotResult ? (settings.autoSend ? '보내는 중…' : '인식된 문장을 확인한 뒤 보내기를 누르세요.') : '마이크를 눌러 말해 보세요.');
-    if (recGotResult && settings.autoSend && input.value.trim()) sendUser();
-    else input.focus();
-  };
-  try { rec.start(); } catch (e) { rec = null; toast('음성 인식을 시작하지 못했습니다: ' + e.message, true); }
+    listening = false;
+    toast('음성 인식을 시작하지 못했습니다: ' + e.message, true);
+    finishListening('start-failed');
+  }
+}
+function finishListening(err) {
+  listening = false;
+  clearTimeout(autoStopTimer);
+  $('#micBtn').classList.remove('on');
+  const input = $('#input');
+  if (recGotResult) {
+    setMicStatus(settings.autoSend ? '보내는 중…' : '인식된 문장을 확인한 뒤 보내기를 누르세요.');
+    if (settings.autoSend && input.value.trim()) sendUser(); else input.focus();
+    return;
+  }
+  setMicStatus('마이크를 눌러 말해 보세요.');
+  if (err && err !== 'no-speech' && err !== 'aborted') return; // 이미 안내함
+  // 직접 멈춘 경우에는 소리가 들어왔으면 조용히 끝내고, 소리가 전혀 없었을 때만 안내합니다.
+  if (micDiag.manual && (micDiag.sound || Date.now() - micDiag.startedAt < 3000)) return;
+  // 무엇이 안 됐는지 단계별로 알려 줍니다.
+  let msg;
+  if (!micDiag.audio) msg = '마이크가 열리지 않았습니다. 브라우저의 마이크 권한과 Windows(또는 휴대폰)의 마이크 접근 설정을 확인해 주세요.';
+  else if (!micDiag.sound) msg = '마이크에 소리가 들어오지 않습니다. 기본 마이크(입력 장치)가 맞는지, 음소거나 입력 볼륨 0이 아닌지 확인해 주세요. ⚙️ 설정 → 🎤 마이크 테스트로 확인할 수 있습니다.';
+  else if (!micDiag.speech) msg = '소리는 들어오지만 말소리로 인식되지 않았습니다. 마이크 입력 볼륨을 높이거나 조금 더 가까이에서 또렷하게 말해 보세요.';
+  else msg = '말소리는 들렸지만 글자로 바꾸지 못했습니다. 연습 언어와 같은 언어로, 조금 천천히 말해 보세요.';
+  toast(msg, true);
+}
+
+/** 설정의 마이크 테스트: 브라우저가 기본 마이크에서 소리를 받는지 5초 동안 확인합니다. */
+async function micTest() {
+  const out = $('#micTestResult');
+  const meter = $('#micMeter i');
+  const btn = $('#micTestBtn');
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    out.textContent = '이 브라우저에서는 마이크 테스트를 할 수 없습니다(HTTPS 주소에서 열어 주세요).';
+    return;
+  }
+  stopMic();
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (e) {
+    out.textContent = e.name === 'NotAllowedError' ? '❌ 마이크 권한이 거부되었습니다. 주소창 왼쪽 자물쇠 아이콘에서 마이크를 허용해 주세요.'
+      : e.name === 'NotFoundError' ? '❌ 연결된 마이크를 찾을 수 없습니다.'
+      : e.name === 'NotReadableError' ? '❌ 마이크를 열 수 없습니다. 다른 앱이 마이크를 쓰고 있는지 확인해 주세요.'
+      : '❌ 마이크를 열지 못했습니다: ' + e.message;
+    return;
+  }
+  btn.disabled = true;
+  const track = stream.getAudioTracks()[0];
+  const label = (track && track.label) || '기본 마이크';
+  let devices = [];
+  try { devices = (await navigator.mediaDevices.enumerateDevices()).filter((d) => d.kind === 'audioinput'); } catch { /* 무시 */ }
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  const ctx = new Ctx();
+  const analyser = ctx.createAnalyser();
+  analyser.fftSize = 1024;
+  ctx.createMediaStreamSource(stream).connect(analyser);
+  const buf = new Float32Array(analyser.fftSize);
+  let peak = 0;
+  const until = performance.now() + 5000;
+  out.textContent = `사용 중인 마이크: ${label} — 5초 동안 아무 말이나 해 보세요.`;
+  await new Promise((resolve) => {
+    (function tick() {
+      analyser.getFloatTimeDomainData(buf);
+      let sum = 0;
+      for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
+      const rms = Math.sqrt(sum / buf.length);
+      peak = Math.max(peak, rms);
+      meter.style.width = Math.min(100, rms * 500) + '%';
+      if (performance.now() < until) requestAnimationFrame(tick); else resolve();
+    })();
+  });
+  stream.getTracks().forEach((t) => t.stop());
+  ctx.close();
+  meter.style.width = '0%';
+  btn.disabled = false;
+  const list = devices.length > 1 ? ` (연결된 마이크 ${devices.length}개: ${devices.map((d) => d.label || '이름 없음').join(', ')})` : '';
+  if (peak < 0.01) {
+    out.textContent = `❌ "${label}"에서 소리가 거의 들어오지 않았습니다. 이 마이크가 꺼져 있거나 음소거 상태일 수 있습니다. Windows 설정 → 시스템 → 소리 → 입력에서 실제로 쓰는 마이크를 기본 장치로 고르고 입력 볼륨을 확인해 주세요.${list}`;
+  } else {
+    out.textContent = `✅ "${label}"에서 소리가 잘 들어옵니다. 그래도 음성 인식이 안 되면 브라우저의 음성 인식 서비스 문제일 수 있으니, README의 "음성 인식 문제 해결"을 참고해 주세요.${list}`;
+  }
 }
 
 /* ───────────── 0. 키 화면 ───────────── */
@@ -1488,6 +1610,7 @@ function saveSettingsDialog() {
 function initSettings() {
   $('#btnSettings').onclick = openSettings;
   $('#setSave').onclick = saveSettingsDialog;
+  $('#micTestBtn').onclick = () => micTest().catch((e) => { $('#micTestResult').textContent = '마이크 테스트 실패: ' + e.message; $('#micTestBtn').disabled = false; });
   $('#setRate').oninput = () => { $('#rateVal').textContent = `${Number($('#setRate').value).toFixed(2)}배`; };
   for (const id of ['#setPartner', '#setCoach', '#setReport']) $(id).addEventListener('change', renderPriceRows);
   $('#setKeyChange').onclick = () => { $('#settingsDlg').close(); showView('key'); $('#keyInput').focus(); };

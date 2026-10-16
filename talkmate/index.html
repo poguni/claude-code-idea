@@ -201,6 +201,11 @@
           <label class="check"><input type="checkbox" id="setAutoSend"><span>음성 입력이 끝나면 바로 보내기 (끄면 확인·수정 후 보냅니다)</span></label>
           <label class="field"><span>읽기 속도 <b id="rateVal"></b></span><input type="range" id="setRate" min="0.6" max="1.3" step="0.05" style="width:100%"></label>
           <div id="voiceRows"></div>
+          <div class="mic-test">
+            <button id="micTestBtn" class="btn sm" type="button">🎤 마이크 테스트</button>
+            <div class="meter" id="micMeter" aria-hidden="true"><i></i></div>
+          </div>
+          <p class="small" id="micTestResult" role="status">음성 인식이 안 될 때 눌러 보세요. 브라우저가 마이크 소리를 받는지 5초 동안 확인합니다.</p>
         </fieldset>
 
         <fieldset>

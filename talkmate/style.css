@@ -287,6 +287,9 @@ fieldset { border: 1px solid var(--border); border-radius: 12px; padding: 4px 14
 legend { font-weight: 700; padding: 0 6px; }
 .price-row { display: grid; grid-template-columns: minmax(0, 1fr) 90px 90px; gap: 8px; align-items: center; font-size: .85rem; margin: 6px 0; }
 .price-row code { word-break: break-all; }
+.mic-test { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.meter { flex: 1; height: 10px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: var(--ok); transition: width .08s linear; }
 
 /* 알림 */
 #toast {
