@@ -5,7 +5,7 @@
 | 문서 버전 | v0.2 |
 | 작성일 | 2026-10-16 |
 | 가칭 | **토크메이트(TalkMate)**: 상황극으로 연습하는 AI 외국어 회화 |
-| 형태 | 단일 HTML 웹 앱, GitHub Pages 배포, 개인 전용(로그인·서버·DB 없음) |
+| 형태 | 정적 웹 앱(index.html·style.css·app.js), GitHub Pages 배포, 개인 전용(로그인·서버·DB 없음) |
 | 원 아이디어 | `app-ideas-hobbies.md`의 3-7 |
 
 ## 변경 이력
