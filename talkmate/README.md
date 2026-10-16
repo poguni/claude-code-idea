@@ -17,22 +17,23 @@ OpenRouter API 키 하나로 **Gemini 3.8 Flash**(대화 상대), **GPT-6 Luna**
 | `DESIGN.md` | 디자인 가이드(콘셉트, 토큰, 컴포넌트, 화면 명세) |
 | `design-mockup.html` | 디자인 시안. 브라우저로 열어 7개 화면과 밝은·어두운 테마를 확인 |
 
-빌드 과정이 없습니다. 세 파일을 같은 폴더에 두면 됩니다.
+빌드 과정이 없습니다. `index.html`, `style.css`, `app.js` 세 파일을 같은 폴더에 두면 됩니다. 화면 디자인은 `DESIGN.md`(Café Notebook)를 따릅니다.
 
 ## GitHub Pages로 배포하기
 
-1. GitHub에서 새 저장소를 만듭니다(예: `talkmate`).
-2. 이 폴더의 파일(`index.html`, `style.css`, `app.js`, `README.md`)을 저장소 최상위에 올립니다.
+정식 저장소: [poguni/talk-mate](https://github.com/poguni/talk-mate)
+
+1. 이 폴더의 파일(`index.html`, `style.css`, `app.js`, `README.md`, `DESIGN.md`, `design-mockup.html`)을 저장소 최상위에 덮어씁니다.
    ```bash
-   git init
-   git add index.html style.css app.js README.md
-   git commit -m "토크메이트 첫 버전"
-   git branch -M main
-   git remote add origin https://github.com/<사용자명>/talkmate.git
-   git push -u origin main
+   git clone https://github.com/poguni/talk-mate.git
+   cd talk-mate
+   # 압축을 푼 talkmate 폴더의 파일을 이 폴더에 복사한 뒤
+   git add .
+   git commit -m "Café Notebook 디자인 적용"
+   git push origin main
    ```
-3. 저장소의 **Settings → Pages**에서 Source를 `Deploy from a branch`, Branch를 `main` / `/(root)`로 정하고 저장합니다.
-4. 1~2분 뒤 `https://<사용자명>.github.io/talkmate/`로 접속합니다.
+2. 저장소의 **Settings → Pages**에서 Source가 `Deploy from a branch`, Branch가 `main` / `/(root)`인지 확인합니다.
+3. 1~2분 뒤 `https://poguni.github.io/talk-mate/`로 접속합니다. 예전 화면이 보이면 **Ctrl+F5**(모바일은 새로고침 두세 번)로 새로 불러옵니다.
 
 > 마이크(음성 인식)는 **HTTPS 주소**에서만 안정적으로 동작합니다. GitHub Pages는 HTTPS이므로 그대로 쓰면 됩니다.
 > PC에서 파일을 바로 열면(`file://`) 마이크 권한이 거부될 수 있으니, 이때는 폴더에서 `python -m http.server 8000`을 실행한 뒤 `http://localhost:8000`으로 여세요.
@@ -117,7 +118,8 @@ OpenRouter API 키 하나로 **Gemini 3.8 Flash**(대화 상대), **GPT-6 Luna**
 
 ## 외부 라이브러리
 
-내보내기 버튼을 누를 때만 CDN에서 불러옵니다.
+- 글꼴: Google Fonts의 IBM Plex Sans KR, Nanum Pen Script(빨간 펜 손글씨), JetBrains Mono, Noto Sans JP. 인터넷이 안 되면 시스템 글꼴로 대신 표시됩니다.
+- 아래 두 라이브러리는 내보내기 버튼을 누를 때만 CDN에서 불러옵니다.
 
 - [SheetJS (xlsx) 0.18.5](https://cdnjs.com/libraries/xlsx): Excel 생성
 - [docx 8.5.0](https://www.npmjs.com/package/docx): Word 생성
