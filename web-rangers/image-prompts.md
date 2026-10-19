@@ -2,11 +2,12 @@
 
 | 항목 | 내용 |
 |---|---|
-| 문서 버전 | v0.1 |
+| 문서 버전 | v0.2 |
 | 작성일 | 2026-10-19 |
-| 대상 PRD | `../prd-ecosystem-foodweb.md` (v0.3) 5.5절 |
+| 대상 PRD | `../prd-ecosystem-foodweb.md` (v0.4) 5.5절 |
 | 권장 도구 | Google Gemini 이미지 생성(나노바나나). 다른 도구도 같은 프롬프트로 쓸 수 있습니다. |
-| 필요한 그림 | 생물 39장 + 비생물 요소 4장 + 사건 18장 + 관리인 행동 6장 + 기타 6장 = **73장** |
+| 필요한 그림 | 생물 41장(숲 16, 강 11, 바다 13, 외래종 1) + 분류 놀이용 3장 + 비생물 요소 4장 + 사건 18장 + 관리인 행동 6장 + 기타 6장 = **78장** |
+| 변경 | v0.2: 테마를 교과서 43~45쪽과 같은 숲·강·바다로 변경(논·갯벌 그림 삭제), 분류 놀이용 교과서 47쪽 생물 3장 추가 |
 
 > 이 개발 환경에서는 이미지를 직접 만들 수 없어서, 생성 도구에 그대로 붙여 넣을 수 있는 프롬프트를 정리했습니다. 프롬프트는 영어로 쓰면 결과가 더 안정적이라 영어로 쓰고, 확인할 점은 한국어로 적었습니다.
 
@@ -82,38 +83,50 @@ FORMAT: Landscape 4:3, 1600 x 1200.
 | `forest-mushroom` | 버섯 | A small group of brown wild mushrooms growing from a mossy piece of fallen, decaying log, with visible gills under the caps. | 썩은 나무에서 자라는 모습(분해자) |
 | `forest-mold` | 곰팡이 | A fallen brown oak leaf partly covered with soft gray-green fuzzy mold, and a circular magnifying-lens inset at the upper right showing thin branching mold threads with round spore heads. | 확대 원 안에 실 모양 균사 |
 
-### 3.2 논 (11장 + 외래종 1장)
+### 3.2 강 — 교과서 44쪽 (11장 + 외래종 1장)
+"추가"는 교과서에 없지만 먹이그물에 꼭 필요해 넣은 생물입니다.
 
 | 파일 이름 | 생물 | 프롬프트(주제) | 확인할 점 |
 |---|---|---|---|
-| `paddy-rice` | 벼 | A few rice plants (Oryza sativa) standing in shallow paddy water: long narrow green leaves and drooping golden-green grain panicles. | 이삭이 고개 숙임 |
-| `paddy-weed` | 논 잡초(피) | Barnyard grass (Echinochloa crus-galli), Korean "피", growing in a rice paddy: similar to rice but with a purplish-green bristly seed head. | 벼와 비슷하지만 이삭이 다름 |
-| `paddy-waterplant` | 물풀 | Small floating water plants (duckweed) and soft green filamentous algae on the surface of clear shallow paddy water, seen slightly from above. | 물에 떠 있는 작은 식물 |
-| `paddy-grasshopper` | 벼메뚜기 | A rice grasshopper (Oxya chinensis) clinging to a rice leaf: slender bright green body, brown side stripe, six legs, long hind legs. | 숲 메뚜기와 같은 종, 벼 잎 위 |
-| `paddy-snail` | 우렁이 | A Chinese mystery snail (Cipangopaludina chinensis), Korean "논우렁이": round dark olive-brown spiral shell, body and short tentacles out, crawling on mud. | 껍데기가 둥글고 짙은 올리브색 |
-| `paddy-loach` | 미꾸라지 | A pond loach (Misgurnus anguillicaudatus): slender eel-like brownish body with small dark spots, small mouth with whiskers (barbels), rounded tail fin. | 입수염, 가늘고 긴 몸 |
-| `paddy-spider` | 거미 | A wolf spider standing on a rice leaf: brown and gray striped body, eight legs, several small eyes. | 다리 8개(곤충 아님) |
-| `paddy-frog` | 개구리 | (숲 `forest-frog` 그림을 그대로 써도 됩니다.) Black-spotted pond frog sitting on the edge of a rice paddy. | 숲 개구리와 같은 종 |
-| `paddy-snake` | 뱀 | A tiger keelback (Rhabdophis lateralis), Korean "유혈목이": olive-green body with black bars and a bright red-orange patch on the neck, round pupils, calm pose, mouth closed. | 목의 붉은 무늬, 위협하지 않는 자세 |
-| `paddy-egret` | 백로 | A little egret (Egretta garzetta) standing in shallow water: pure white feathers, long black bill, long black legs with yellow feet, slender S-shaped neck. | 검은 부리·다리, 노란 발 |
-| `paddy-bacteria` | 세균·곰팡이 | Rice straw lying on wet soil, with a circular magnifying-lens inset showing many tiny rod-shaped and round bacteria and thin mold threads. | 확대 원 안의 작은 세균 |
-| `paddy-bullfrog` | 황소개구리(외래종) | An American bullfrog (Lithobates catesbeianus): very large heavy frog, green to olive-brown, large round eardrum behind the eye bigger than the eye, no ridges along the back. | 눈보다 큰 고막, 참개구리보다 훨씬 큼 |
+| `river-closterium` | 반달말 | A circular magnifying-lens view of Closterium, Korean "반달말": several bright green crescent-moon-shaped single-celled algae with rounded tips, floating in clear water. | 초승달 모양 초록 세포, 확대 원 안(교과서 130배) |
+| `river-hornwort` | 붕어마름 | Rigid hornwort (Ceratophyllum demersum), Korean "붕어마름", under water: long stems with whorls of stiff, forked, dark green needle-like leaves. | 물속에 잠긴 줄기, 바늘 같은 잎이 돌려남 |
+| `river-cattail` | 부들 | A clump of cattail (Typha orientalis), Korean "부들", at the water's edge: tall flat sword-like leaves and brown sausage-shaped flower spikes on long stems. | 갈색 소시지 모양 이삭 |
+| `river-daphnia` | 물벼룩(추가) | A circular magnifying-lens view of a water flea (Daphnia): transparent oval body with visible insides, one large dark compound eye, long branched antennae used for swimming. | 투명한 몸, 갈라진 더듬이 |
+| `river-melania` | 다슬기 | Two freshwater snails (Semisulcospira libertina), Korean "다슬기", on a smooth stream stone: tall narrow cone-shaped dark brown to black spiral shells, body and tentacles out. | 길쭉한 원뿔 모양 짙은 껍데기 |
+| `river-nymph` | 잠자리 애벌레(추가) | A dragonfly nymph (larva) under water on a stone: stout brownish body, six legs, large eyes, short wing pads on the back, no wings. | 날개 없음, 다리 6개 |
+| `river-crucian` | 붕어(추가) | A crucian carp (Carassius auratus), Korean "붕어": deep, rounded body, silvery olive-gold scales, no whiskers (barbels), forked tail. | 입수염 없음(잉어와 구별) |
+| `river-duck` | 오리 | (숲 `forest-duck` 그림을 그대로 써도 됩니다.) Eastern spot-billed duck swimming on a calm river. | 숲 오리와 같은 종 |
+| `river-heron` | 왜가리 | A grey heron (Ardea cinerea) standing in shallow water: gray back and wings, white head and neck with a black stripe from eye to a black crest plume, long yellow dagger-like bill, long legs. | 머리의 검은 줄과 댕기, 노란 부리 |
+| `river-falcon` | 매 | (숲 `forest-falcon` 그림을 그대로 써도 됩니다.) | 숲 매와 같은 종 |
+| `river-bacteria` | 세균(추가) | Dead leaves on wet riverbed mud with a circular magnifying-lens inset showing many tiny rod-shaped and round bacteria. | 확대 원 안의 세균 |
+| `invasive-bass` | 큰입배스(외래종) | A largemouth bass (Micropterus salmoides): olive-green back, a dark broken stripe along the side, white belly, very large mouth with the jaw reaching past the eye. | 눈 뒤까지 오는 큰 입, 옆구리 짙은 줄 |
 
-### 3.3 갯벌 (11장)
+### 3.3 바다 — 교과서 45쪽 (13장)
 
 | 파일 이름 | 생물 | 프롬프트(주제) | 확인할 점 |
 |---|---|---|---|
-| `mudflat-plankton` | 식물 플랑크톤 | A circular magnifying-lens view of marine phytoplankton: several transparent golden-brown diatoms of different shapes (round, boat-shaped, chain-like) floating in blue-green water. | 현미경으로 본 모습임이 드러나게 |
-| `mudflat-sealettuce` | 파래 | Bright green thin filamentous seaweed (Ulva, Korean "파래") spread over a wet rock on a muddy tidal flat. | 밝은 초록 실 모양 해조류 |
-| `mudflat-clam` | 바지락 | A Manila clam (Ruditapes philippinarum) half buried in mud with two short siphons out; oval shell with fine crossing ridges and varied brown-gray patterns. | 껍데기 무늬, 수관 2개 |
-| `mudflat-crab` | 칠게 | A Japanese sentinel crab (Macrophthalmus japonicus), Korean "칠게", on mud: wide rectangular grayish-brown shell, two long eye stalks, one pair of claws, eight walking legs. | 눈자루가 긺, 다리 8개 + 집게 2개 |
-| `mudflat-worm` | 갯지렁이 | A clam worm (Hediste/Nereis), Korean "갯지렁이": long reddish-brown segmented worm with many small paddle-like side appendages, partly coming out of a hole in the mud. | 옆에 다리 같은 돌기가 많음 |
-| `mudflat-snail` | 고둥 | Two small mud creeper snails (Batillaria), Korean "갯고둥": tall cone-shaped dark gray-brown spiral shells crawling on wet mud, leaving faint trails. | 길쭉한 원뿔 모양 껍데기 |
-| `mudflat-goby` | 망둑어 | A finetail goby (Acanthogobius hasta), Korean "풀망둑": long tapered pale brown body with dark blotches, large head, two dorsal fins, resting on mud. | 길쭉한 몸, 등지느러미 2개 |
-| `mudflat-octopus` | 낙지 | A long-arm octopus (Octopus minor), Korean "낙지": small reddish-gray body, eight very long thin arms with suckers, coming out of a mud burrow. | 팔 8개, 가늘고 김 |
-| `mudflat-sandpiper` | 도요새 | A dunlin (Calidris alpina) walking on wet mud: small shorebird, gray-brown back, white belly, black legs, long slightly down-curved black bill. | 부리가 길고 끝이 살짝 휨 |
-| `mudflat-spoonbill` | 저어새 | A black-faced spoonbill (Platalea minor) standing in shallow water: white body, long flat black bill with a wide spoon-shaped tip, black bare skin on the face around the eye, black legs. | 주걱 모양 부리, 얼굴의 검은 피부 |
-| `mudflat-bacteria` | 세균 | Wet gray tidal-flat mud with a circular magnifying-lens inset showing many tiny rod-shaped and round bacteria among small bits of dead plants. | 확대 원 안의 세균 |
+| `sea-phytoplankton` | 식물 플랑크톤(추가) | A circular magnifying-lens view of marine phytoplankton: several transparent golden-brown diatoms of different shapes (round, boat-shaped, chain-like) floating in blue-green water. | 현미경으로 본 모습 |
+| `sea-wakame` | 미역 | Wakame seaweed (Undaria pinnatifida), Korean "미역", attached to a rock: brownish-green wide frond divided into feather-like blades with a central midrib. | 가운데 줄기, 깃털처럼 갈라진 잎 |
+| `sea-hijiki` | 톳 | Hijiki seaweed (Sargassum fusiforme), Korean "톳", on a rock: dark olive-brown branches covered with many small spindle-shaped, bead-like leaflets. | 통통한 작은 잎이 줄기에 많이 붙음 |
+| `sea-zooplankton` | 동물 플랑크톤(추가) | A circular magnifying-lens view of marine zooplankton: several transparent copepods with long antennae and tiny shrimp-like larvae swimming in blue water. | 긴 더듬이가 있는 작은 동물 |
+| `sea-coral` | 산호 | A colony of soft coral on a rock, as found in Korean waters near Jeju: pinkish-orange branches covered with many small flower-like polyps with eight tentacles each. | 꽃처럼 보이지만 촉수 달린 폴립(동물)이 보이게 |
+| `sea-jellyfish` | 해파리 | A moon jellyfish (Aurelia aurita): translucent bell-shaped dome with four pinkish horseshoe-shaped rings inside, short fringe tentacles and four frilly oral arms. | 반투명한 갓, 안쪽 고리 4개 |
+| `sea-mackerel` | 고등어 | A chub mackerel (Scomber japonicus), Korean "고등어": streamlined body, blue-green back with dark wavy stripes, silvery belly, small finlets near the forked tail. | 등의 물결무늬, 꼬리 앞 작은 지느러미 |
+| `sea-crab` | 게 | A swimming crab (Portunus trituberculatus), Korean "꽃게": wide grayish-green to purple shell with a long sharp spine on each side, one pair of claws, last pair of legs shaped like paddles. | 다리 8개 + 집게 2개, 마지막 다리가 노 모양 |
+| `sea-turtle` | 바다거북 | A green sea turtle (Chelonia mydas), Korean "푸른바다거북", swimming: smooth heart-shaped olive-brown shell with patterned plates, four long flippers, small rounded head. | 다리 대신 지느러미발 |
+| `sea-ray` | 가오리 | A red stingray (Hemitrygon akajei), Korean "노랑가오리", seen from above: flat diamond-shaped brown body with orange underside edges, eyes on top, long thin whip-like tail. | 납작한 마름모 몸, 긴 꼬리 |
+| `sea-dolphin` | 돌고래 | An Indo-Pacific bottlenose dolphin (Tursiops aduncus), Korean "남방큰돌고래", leaping slightly out of the water: gray body, short beak, curved dorsal fin. | 짧은 주둥이, 굽은 등지느러미 |
+| `sea-gull` | 갈매기 | A black-tailed gull (Larus crassirostris), Korean "괭이갈매기", standing: white head and body, dark gray wings, yellow bill with a red and black tip, black band on the white tail, yellow legs. | 부리 끝 빨강·검정, 꼬리의 검은 띠 |
+| `sea-bacteria` | 세균(추가) | Seabed sand with bits of dead seaweed and a circular magnifying-lens inset showing many tiny rod-shaped and round bacteria. | 확대 원 안의 세균 |
+
+### 3.3-1 분류 놀이용 — 교과서 47쪽 예시 (3장)
+교과서 47쪽에 나오는 생산자·소비자 예시입니다(애벌레·버섯·곰팡이는 숲 그림을 함께 씁니다).
+
+| 파일 이름 | 생물 | 프롬프트(주제) | 확인할 점 |
+|---|---|---|---|
+| `sort-woodsorrel` | 괭이밥 | Creeping woodsorrel (Oxalis corniculata), Korean "괭이밥": low creeping plant with three heart-shaped leaflets per leaf and small five-petaled yellow flowers. | 하트 모양 잎 3장, 노란 꽃잎 5장 |
+| `sort-fleabane` | 개망초 | Annual fleabane (Erigeron annuus), Korean "개망초": branching stem with several small daisy-like flowers with thin white petals and yellow centers. | 계란프라이 같은 작은 꽃 |
+| `sort-tit` | 박새 | A Japanese tit (Parus minor), Korean "박새", perched: black head with large white cheek patches, black stripe running down the middle of a whitish belly, gray back with a greenish upper back. | 흰 뺨, 배 가운데 검은 세로줄 |
 
 ### 3.4 비생물 요소 (4장)
 분류 놀이(교과서 42쪽)에 씁니다. 생물 카드와 같은 공통 스타일을 씁니다.
@@ -138,27 +151,27 @@ FORMAT: Landscape 4:3, 1600 x 1200.
 | `event-forest-road` | 숲에 길을 냈어요 | A new paved road cutting through the middle of a green forest, with trees on both sides, seen from a slight height. |
 | `event-forest-snake-poaching` | 뱀을 마구 잡아갔어요 | A forest floor with an empty wire trap and a cloth sack left behind on the ground, no animals in view. |
 | `event-forest-rabbit-boom` | 토끼가 크게 늘었어요 | A forest meadow with many wild brown hares eating grass, the grass looking short and thin. |
-| `event-paddy-pesticide` | 농약을 뿌렸어요 | A rice paddy with a fine white mist being sprayed from a backpack sprayer seen from behind at a distance, no person's face visible. |
-| `event-paddy-bullfrog` | 황소개구리가 들어왔어요 | A large American bullfrog sitting at the edge of a Korean rice paddy, much bigger than the small native frogs nearby that keep their distance. |
-| `event-paddy-dry` | 논에 물이 말랐어요 | A rice paddy with dried, cracked mud and thirsty rice plants, a dry irrigation channel. |
-| `event-paddy-frog-gone` | 논 개구리가 사라졌어요 | A calm rice paddy at the water edge with no frogs; a faint gray silhouette of a frog on a rice-field ridge. |
-| `event-paddy-egret-fewer` | 백로가 줄었어요 | A wide rice paddy landscape with only one little egret far away and many empty spots in the water. |
-| `event-mudflat-overharvest` | 바지락을 너무 많이 캤어요 | A tidal flat with many dug holes and several full baskets of clams lined up, digging tools left on the mud, no people's faces. |
-| `event-mudflat-oil` | 기름이 흘렀어요 | A tidal flat shoreline with a dark shiny oil slick spreading over the mud and water, cleanup buoys in the distance, no animals shown. |
-| `event-mudflat-reclaim` | 갯벌을 메웠어요 | A tidal flat being filled with sand and soil behind a long concrete seawall, one side mud and the other side flat new land. |
-| `event-mudflat-trash` | 갯벌에 쓰레기가 쌓였어요 | A tidal flat with scattered plastic bottles, fishing nets and bags stuck in the mud. |
-| `event-mudflat-spoonbill-fewer` | 저어새가 줄었어요 | A shallow tidal channel with only two black-faced spoonbills feeding, the rest of the wide flat empty. |
+| `event-river-heron-gone` | 왜가리가 사라졌어요 | A quiet river bank with tall reeds and shallow water but no herons; one faint gray see-through silhouette of a grey heron standing in the water. |
+| `event-river-pollution` | 강물이 더러워졌어요 | A river with murky gray-green water and white foam near a drain pipe on the bank, water plants looking pale, no dead animals shown. |
+| `event-river-bass` | 큰입배스가 들어왔어요 | A large largemouth bass swimming under water in a Korean river, small crucian carp keeping their distance among the water plants. |
+| `event-river-drought` | 강물이 줄었어요 | A shrunken stream under a hot sun, exposed dry stones and cracked mud along the banks, little water left. |
+| `event-river-overfish` | 붕어를 너무 많이 잡았어요 | Fishing nets and full buckets of crucian carp left on a river bank, seen from a distance, no people's faces. |
+| `event-sea-turtle-fewer` | 바다거북이 크게 줄었어요 | A blue sea with plastic bags drifting that look like jellyfish, and only one green sea turtle far in the distance. |
+| `event-sea-overfish` | 고등어를 너무 많이 잡았어요 | A fishing boat seen from a distance lifting a huge net full of silvery mackerel out of the sea. |
+| `event-sea-warm` | 바닷물이 따뜻해졌어요 | A bright, hot sunlit shallow sea with pale bleached coral and thin, sparse seaweed on the rocks. |
+| `event-sea-oil` | 기름이 흘렀어요 | A rocky seashore with a dark shiny oil slick spreading over the water and rocks, cleanup buoys in the distance, no animals shown. |
+| `event-sea-jelly-boom` | 해파리가 크게 늘었어요 | A blue sea crowded with many moon jellyfish drifting near the surface. |
 
 ### 3.6 관리인 행동 카드 (6장)
 
 | 파일 이름 | 행동 | 프롬프트(주제) |
 |---|---|---|
 | `action-reintroduce` | 되살리기 | A small open wooden box on the grass by a stream, with a few frogs hopping out into the habitat. |
-| `action-remove-invasive` | 외래종 잡기 | A large wire live-trap containing an American bullfrog at the edge of a rice paddy, ready to be taken away. |
+| `action-remove-invasive` | 외래종 잡기 | A fishing net lifting a largemouth bass out of a river at the bank, ready to be taken away, no people's faces. |
 | `action-protect` | 보호 구역 정하기 | A wooden signpost with a green leaf emblem in a forest, a low rope fence around a protected green area. |
 | `action-water` | 물 대 주기 | Clear water flowing from an irrigation channel into dry ground, green sprouts recovering. |
-| `action-less-pesticide` | 농약 줄이기 | A healthy rice paddy with spiders' webs on rice plants, dragonflies flying, and ducks in the water as natural pest control. |
-| `action-clean-mudflat` | 갯벌 청소 | Collected bags of trash and absorbent pads lined up on a clean wet tidal flat, a crab coming back out of its hole. |
+| `action-clean-river` | 강물 깨끗하게 하기 | Clear water flowing in a river again, collected trash bags on the bank, hornwort and freshwater snails recovering in the clean water. |
+| `action-clean-sea` | 바다 쓰레기 치우기 | Collected bags of plastic trash lined up on a clean beach, a sea turtle swimming in clear water nearby. |
 
 ### 3.7 기타 (6장)
 
@@ -167,8 +180,8 @@ FORMAT: Landscape 4:3, 1600 x 1200.
 | `ui-mascot` | 탐정 배지(마스코트) | A friendly gender-neutral child detective of about 10 years old wearing a navy blue coat and a small hat, holding a big golden magnifying glass, half-body, smiling. Same watercolor style, plain white background, square. |
 | `ui-app-icon` | 앱 아이콘 | A golden magnifying glass over a simple web of thin lines connecting five small dots (leaf, grasshopper, frog, snake, falcon silhouettes), on a navy blue rounded square. Flat, bold, readable at 48 px, no text. Square. |
 | `ui-bg-forest` | 숲 테마 배경 | A wide soft watercolor landscape of a Korean forest edge with a small stream, oak trees and a grassy bank, light and airy colors, lots of empty space at the top, no animals. Landscape 16:9. |
-| `ui-bg-paddy` | 논 테마 배경 | A wide soft watercolor landscape of Korean rice paddies with water reflections and low hills, light colors, empty space at the top, no animals. Landscape 16:9. |
-| `ui-bg-mudflat` | 갯벌 테마 배경 | A wide soft watercolor landscape of a Korean west-coast tidal flat at low tide with water channels and a distant island, light colors, empty space at the top, no animals. Landscape 16:9. |
+| `ui-bg-river` | 강 테마 배경 | A wide soft watercolor landscape of a calm Korean river with reeds and cattails on the banks and low hills, light colors, empty space at the top, no animals. Landscape 16:9. |
+| `ui-bg-sea` | 바다 테마 배경 | A wide soft watercolor seascape of the Korean coast with clear blue water, a rocky shore and a distant island, light colors, empty space at the top, no animals. Landscape 16:9. |
 | `ui-card-back` | 카드 뒷면 | A repeating pattern of small leaves, footprints and mushrooms in soft cream and navy, with a golden magnifying glass in the center. Square, no text. |
 
 ---
@@ -192,8 +205,8 @@ FORMAT: Landscape 4:3, 1600 x 1200.
 
 Claude가 개발 중 1차 검수를 돕고, 최종 확인은 선생님이 합니다(PRD 5.6).
 
-- [ ] 생물의 종이 맞는가(예: 다람쥐 ≠ 청설모, 참개구리 ≠ 황소개구리)
-- [ ] 다리·날개·더듬이·지느러미 수가 맞는가(곤충 다리 6개, 거미 다리 8개, 게 다리 8개 + 집게 2개, 낙지 팔 8개)
+- [ ] 생물의 종이 맞는가(예: 다람쥐 ≠ 청설모, 붕어 ≠ 큰입배스, 산호는 동물이므로 촉수가 보이게)
+- [ ] 다리·날개·더듬이·지느러미 수가 맞는가(곤충 다리 6개, 거미 다리 8개, 게 다리 8개 + 집게 2개, 잠자리 애벌레 다리 6개)
 - [ ] 특징 무늬가 보이는가(위 표의 "확인할 점")
 - [ ] 글자, 숫자, 로고, 워터마크가 없는가
 - [ ] 배경이 흰색이고 생물 하나만 있는가(생물 카드)
@@ -211,7 +224,7 @@ Claude가 개발 중 1차 검수를 돕고, 최종 확인은 선생님이 합니
 | 크기 | 생물·비생물 카드: 정사각형 512×512, 256×256 / 사건·행동 카드: 800×600 / 배경: 1920×1080 |
 | 형식 | WebP(품질 80 안팎). 크롬·엣지 모두 지원하고 용량이 작아 오프라인 저장에 유리합니다. |
 | 파일 이름 | `파일이름-512.webp`, `파일이름-256.webp` (예: `forest-frog-512.webp`) |
-| 저장 위치 | `public/img/forest/`, `public/img/paddy/`, `public/img/mudflat/`, `public/img/abiotic/`, `public/img/event/`, `public/img/action/`, `public/img/ui/` |
+| 저장 위치 | `public/img/forest/`, `public/img/river/`, `public/img/sea/`, `public/img/sort/`, `public/img/abiotic/`, `public/img/event/`, `public/img/action/`, `public/img/ui/` |
 | 기록 | 그림마다 생성 도구, 날짜, 검수자를 `public/img/credits.json`에 남깁니다. |
 
 - Gemini로 만든 그림에는 눈에 보이지 않는 디지털 워터마크(SynthID)가 들어갑니다. 수업 자료로 쓰는 데는 문제가 없지만, 학교나 교육청에 AI 생성 그림 사용 지침이 있으면 그에 따릅니다.

@@ -18,7 +18,7 @@
  /* 변화 */
  --up:#1F8A70;--up-2:#DDF2EA;--down:#D1495B;--down-2:#FBE3E6;--same:#8C8577;
  /* 테마 */
- --forest:#2F6B3B;--paddy:#6E9A3A;--water:#3F86A0;--mudflat:#6A7A88;--sand:#CDB892;
+ --forest:#2F6B3B;--river:#3F86A0;--sea:#1F5F8B;
  --r-lg:20px;--r-md:14px;--r-sm:10px;
  --shadow:0 2px 0 rgba(43,42,38,.08),0 8px 24px rgba(43,42,38,.08);
  --f-title:"Jua","Noto Sans KR",sans-serif;--f-body:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
@@ -100,8 +100,8 @@ h1,h2,h3,h4{font-family:var(--f-title);font-weight:400;margin:0;line-height:1.3}
 .theme .art{height:120px;display:flex;align-items:flex-end;justify-content:center;gap:6px;font-size:38px;padding-bottom:10px;position:relative}
 .theme .art .tag{position:absolute;top:10px;left:10px;background:rgba(255,253,247,.92);border-radius:999px;padding:2px 10px;font-size:13px;font-weight:700}
 .theme.forest .art{background:linear-gradient(180deg,#CFE6C4,#7FB27A)}
-.theme.paddy .art{background:linear-gradient(180deg,#E6F0C2 0%,#B5D27A 60%,#8CC0CF 100%)}
-.theme.mudflat .art{background:linear-gradient(180deg,#D6E3EA 0%,#B9C6CE 55%,#B49E78 100%)}
+.theme.river .art{background:linear-gradient(180deg,#DDEFD6 0%,#A9D3B0 45%,#8CC0CF 100%)}
+.theme.sea .art{background:linear-gradient(180deg,#D6EAF5 0%,#7FB3D5 55%,#2E6F9E 100%)}
 .theme .info{padding:10px 14px 12px;display:flex;flex-direction:column;gap:6px}
 .theme h3{font-size:22px;margin:0;display:flex;align-items:center;gap:8px}
 .tb-tag{font-family:var(--f-body);font-size:12px;font-weight:700;background:var(--navy);color:#fff;border-radius:6px;padding:1px 7px}
@@ -365,7 +365,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <body>
 
 <header class="mock-bar">
- <strong>🔍 먹이그물 탐정단 · 디자인 시안 v0.2</strong>
+ <strong>🔍 먹이그물 탐정단 · 디자인 시안 v0.3</strong>
  <nav aria-label="시안 화면">
   <a href="#main" data-tab="main">01 메인</a>
   <a href="#sort" data-tab="sort">02 분류 놀이</a>
@@ -384,7 +384,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
   <a href="image-prompts.md" download="web-rangers-image-prompts.md">⬇ 그림 프롬프트</a>
  </div>
 </header>
-<p class="mock-note">초등 4학년 2학기 2단원 '생물과 환경'(교과서 42~49쪽) 기준 시안입니다. 숲은 <b>교과서 49쪽 먹이그물</b>을 그대로 옮겼고, 생물 그림은 이모지로 대신한 <b>임시 그림</b>입니다(실제 그림은 AI로 생성, <code>image-prompts.md</code>). 05 화면의 ▶ 재생을 누르면 생물 수 막대가 움직입니다.</p>
+<p class="mock-note">초등 4학년 2학기 2단원 '생물과 환경'(교과서 42~49쪽) 기준 시안입니다. 테마는 교과서 43~45쪽과 같은 <b>숲·강·바다</b>이고, 숲 먹이그물은 <b>교과서 49쪽</b>을 그대로 옮겼습니다(교사 확인 완료).  생물 그림은 이모지로 대신한 <b>임시 그림</b>입니다(실제 그림은 AI로 생성, <code>image-prompts.md</code>). 05 화면의 ▶ 재생을 누르면 생물 수 막대가 움직입니다.</p>
 
 <div class="stage">
 <div class="device-label" id="devLabel"><b>크롬북 1280×800 · 크롬</b><span>브라우저 창 안쪽 약 1280×690 기준. 핵심 조작은 스크롤 없이 보이게 배치</span></div>
@@ -396,7 +396,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
   <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
   <span class="sp"></span>
   <span class="pill gold">⭐ 별 9개</span>
-  <span class="pill">🃏 카드 14/39</span>
+  <span class="pill">🃏 카드 14/41</span>
   <span class="pill navy">👤 4학년 2반 13번</span>
   <button class="iconbtn" aria-label="설정">⚙️</button>
  </div>
@@ -418,20 +418,20 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
      <div class="meter"><i style="width:40%"></i></div>
     </div>
    </button>
-   <button class="theme paddy">
-    <div class="art"><span class="tag">사건 1/3</span>🌾🦗🐸🐟🪶</div>
+   <button class="theme river">
+    <div class="art"><span class="tag">사건 1/3</span>🌾🐌🐟🦆🪶</div>
     <div class="info">
-     <h3>논</h3>
-     <div class="sub">벼·개구리·미꾸라지·백로가 사는 곳</div>
+     <h3>강 <span class="tb-tag">교과서 44쪽</span></h3>
+     <div class="sub">붕어마름·다슬기·오리·왜가리가 사는 곳</div>
      <div class="stars">★★★★<span class="off">★★★★★</span></div>
-     <div class="meter"><i style="width:33%;background:var(--paddy)"></i></div>
+     <div class="meter"><i style="width:33%;background:var(--river)"></i></div>
     </div>
    </button>
-   <button class="theme mudflat">
-    <div class="art"><span class="tag">🔒 논 사건 2 해결하면 열려요</span>🦀🐚🪱🐦🐙</div>
+   <button class="theme sea">
+    <div class="art"><span class="tag">🔒 강 사건 2 해결하면 열려요</span>🌿🪼🐟🐢🐬</div>
     <div class="info">
-     <h3>갯벌</h3>
-     <div class="sub">칠게·바지락·저어새가 사는 곳</div>
+     <h3>바다 <span class="tb-tag">교과서 45쪽</span></h3>
+     <div class="sub">미역·해파리·고등어·바다거북이 사는 곳</div>
      <div class="stars"><span class="off">★★★★★★★★★</span></div>
      <div class="meter"><i style="width:0%"></i></div>
     </div>
@@ -453,7 +453,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <section class="screen" id="sort" aria-label="02 분류 놀이" hidden>
  <div class="appbar">
   <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
-  <span class="crumb">숲 › 분류 놀이</span>
+  <span class="crumb">분류 놀이 <span class="tb-tag">교과서 46~47쪽</span></span>
   <span class="sp"></span>
   <div class="seg" role="tablist"><button class="on">생산자·소비자·분해자</button><button>생물 요소·비생물 요소</button></div>
   <button class="iconbtn" aria-label="나가기">✕</button>
@@ -465,15 +465,15 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
   </div>
   <div class="deck">
    <div class="scard lift"><span class="e">🍄</span><b>버섯</b></div>
-   <div class="scard"><span class="e">☘️</span><b>토끼풀</b></div>
-   <div class="scard"><span class="e">🐿️</span><b>다람쥐</b></div>
-   <div class="scard"><span class="e">🍒</span><b>산수유</b></div>
+   <div class="scard"><span class="e">🍀</span><b>괭이밥</b></div>
+   <div class="scard"><span class="e">🐦</span><b>박새</b></div>
+   <div class="scard"><span class="e">🌼</span><b>개망초</b></div>
    <div class="scard"><span class="e">🧫</span><b>곰팡이</b></div>
-   <div class="scard"><span class="e">🦅</span><b>매</b></div>
+   <div class="scard"><span class="e">🪸</span><b>산호</b></div>
   </div>
   <div class="bins">
-   <div class="bin" style="--c:var(--producer);--c2:var(--producer-2)"><h3>🌱 생산자</h3><div class="desc">햇빛 등을 이용해 스스로 양분을 만들어요.</div><div class="got"><span>🌿 풀</span><span>🌰 도토리</span></div></div>
-   <div class="bin" style="--c:var(--consumer);--c2:var(--consumer-2)"><h3>🐾 소비자</h3><div class="desc">다른 생물을 먹이로 하여 살아가요.</div><div class="got"><span>🦗 메뚜기</span><span>🐇 토끼</span><span>🐸 개구리</span></div></div>
+   <div class="bin" style="--c:var(--producer);--c2:var(--producer-2)"><h3>🌱 생산자</h3><div class="desc">햇빛 등을 이용해 스스로 양분을 만들어요.</div><div class="got"><span>🌿 풀</span><span>🌰 도토리</span><span>🌊 미역</span></div></div>
+   <div class="bin" style="--c:var(--consumer);--c2:var(--consumer-2)"><h3>🐾 소비자</h3><div class="desc">다른 생물을 먹이로 하여 살아가요.</div><div class="got"><span>🐛 애벌레</span><span>🐇 토끼</span><span>🐸 개구리</span></div></div>
    <div class="bin target" style="--c:var(--decomposer);--c2:var(--decomposer-2)"><h3>🍄 분해자</h3><div class="desc">죽은 생물이나 배출물을 분해해 양분을 얻고, 다른 생물이 이용할 수 있게 해요.</div><div class="got"></div></div>
   </div>
   <div class="toast ok" role="status"><span class="ic">✅</span><div><b>맞아요! 버섯은 분해자예요.</b> 죽은 나무나 낙엽을 분해해서 양분을 얻어요. 분해자가 없으면 죽은 생물이 그대로 쌓이게 돼요.</div></div>
@@ -658,10 +658,10 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
   <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
   <span class="crumb">카드 도감</span>
   <span class="sp"></span>
-  <span class="pill">🃏 14 / 39</span>
+  <span class="pill">🃏 14 / 41</span>
  </div>
  <div class="body">
-  <div class="tabs"><button class="tab on">🌳 숲 12/16</button><button class="tab">🌾 논 2/11</button><button class="tab">🦀 갯벌 0/11</button><button class="tab">⭐ 특별 카드 1/4</button></div>
+  <div class="tabs"><button class="tab on">🌳 숲 12/16</button><button class="tab">🏞️ 강 2/11</button><button class="tab">🌊 바다 0/13</button><button class="tab">⭐ 특별 카드 1/4</button></div>
   <div class="row" style="align-items:flex-start">
    <div class="dex grow" style="flex:2 1 520px" id="dexGrid"></div>
    <div class="panel detail" style="flex:1 1 300px;min-width:0">
@@ -683,17 +683,17 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <section class="screen" id="team" aria-label="08 모둠 대항전" hidden>
  <div class="board-wrap"><div class="board">
   <div class="bh">
-   <h2>🏆 모둠 대항전 · 논 · 2라운드 / 3</h2>
+   <h2>🏆 모둠 대항전 · 강 · 2라운드 / 3</h2>
    <span style="flex:1"></span>
    <span class="bpill">👁 답 가리기 켜짐</span>
    <span class="bpill">전자칠판 진행</span>
   </div>
   <div class="big-event">
-   <span class="e">🐸</span>
+   <span class="e">🐟</span>
    <div style="flex:1 1 300px">
     <div class="k">외래종이 들어왔어요 · 실제로 있었던 일</div>
-    <h3>황소개구리가 논에 들어왔어요</h3>
-    <p>질문: 8년 뒤 논에 사는 <b>개구리</b>는 어떻게 될까요?</p>
+    <h3>큰입배스가 강에 들어왔어요</h3>
+    <p>질문: 8년 뒤 강에 사는 <b>붕어마름</b>은 어떻게 될까요?</p>
    </div>
    <svg class="timer" viewBox="0 0 130 130" aria-label="남은 시간 48초"><circle cx="65" cy="65" r="56" fill="#FFF3D1" stroke="#EADBB3" stroke-width="12"/><circle cx="65" cy="65" r="56" fill="none" stroke="#E3A81B" stroke-width="12" stroke-linecap="round" stroke-dasharray="352" stroke-dashoffset="141" transform="rotate(-90 65 65)"/><text x="65" y="65">0:48</text></svg>
   </div>
@@ -731,9 +731,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
    <table class="tbl">
     <thead><tr><th>번호</th><th>사전 → 사후</th><th>간접 효과(5번)</th><th>까닭 쓰기(6번, 사후)</th><th>진행</th><th>예측 정답률</th></tr></thead>
     <tbody>
-     <tr><td>4-2-13</td><td><div class="prepost"><span class="b pre" style="width:40px"></span><span class="b post" style="width:100px"></span><b>2 → 5</b></div></td><td><span class="no-t">✕</span> → <span class="ok-t">○</span></td><td>"뱀이 없어지면 개구리가 많아지고 개구리가 메뚜기를 많이 먹어서 벼가 늘어요"</td><td>숲 2 · 논 1</td><td>75%</td></tr>
-     <tr><td>4-2-14</td><td><div class="prepost"><span class="b pre" style="width:80px"></span><span class="b post" style="width:120px"></span><b>4 → 6</b></div></td><td><span class="ok-t">○</span> → <span class="ok-t">○</span></td><td>"먹이그물은 다 이어져 있어서 멀리 있는 벼도 바뀌어요"</td><td>숲 3 · 논 2</td><td>86%</td></tr>
-     <tr><td>4-2-15</td><td><div class="prepost"><span class="b pre" style="width:40px"></span><span class="b post" style="width:80px"></span><b>2 → 4</b></div></td><td><span class="no-t">✕</span> → <span class="ok-t">○</span></td><td>"뱀은 벼를 안 먹어서 상관없어요"</td><td>숲 1</td><td>50%</td></tr>
+     <tr><td>4-2-13</td><td><div class="prepost"><span class="b pre" style="width:40px"></span><span class="b post" style="width:100px"></span><b>2 → 5</b></div></td><td><span class="no-t">✕</span> → <span class="ok-t">○</span></td><td>"갈매기가 없어지면 게가 많아지고 게가 미역을 많이 먹어서 미역이 줄어요"</td><td>숲 2 · 강 1</td><td>75%</td></tr>
+     <tr><td>4-2-14</td><td><div class="prepost"><span class="b pre" style="width:80px"></span><span class="b post" style="width:120px"></span><b>4 → 6</b></div></td><td><span class="ok-t">○</span> → <span class="ok-t">○</span></td><td>"먹이그물은 다 이어져 있어서 멀리 있는 미역도 바뀌어요"</td><td>숲 3 · 강 2</td><td>86%</td></tr>
+     <tr><td>4-2-15</td><td><div class="prepost"><span class="b pre" style="width:40px"></span><span class="b post" style="width:80px"></span><b>2 → 4</b></div></td><td><span class="no-t">✕</span> → <span class="ok-t">○</span></td><td>"갈매기는 미역을 안 먹어서 상관없어요"</td><td>숲 1</td><td>50%</td></tr>
     </tbody>
    </table>
    <p class="sub" style="margin:10px 0 0">💡 4-2-15 학생은 5번은 맞혔지만 까닭 쓰기에서 "직접 이어진 생물만 영향을 받는다"는 생각이 보여요. 숲 사건 수사 1을 다시 해 보도록 안내해 주세요.</p>
@@ -767,8 +767,8 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
   <div class="panel"><h3>테마 색</h3>
    <div class="swatches">
     <div class="sw"><i style="background:linear-gradient(180deg,#CFE6C4,#7FB27A)"></i><div><b>숲</b>--forest #2F6B3B</div></div>
-    <div class="sw"><i style="background:linear-gradient(180deg,#E6F0C2,#B5D27A 60%,#8CC0CF)"></i><div><b>논</b>--paddy #6E9A3A · --water #3F86A0</div></div>
-    <div class="sw"><i style="background:linear-gradient(180deg,#D6E3EA,#B9C6CE 55%,#B49E78)"></i><div><b>갯벌</b>--mudflat #6A7A88 · --sand #CDB892</div></div>
+    <div class="sw"><i style="background:linear-gradient(180deg,#DDEFD6,#A9D3B0 45%,#8CC0CF)"></i><div><b>강</b>--river #3F86A0</div></div>
+    <div class="sw"><i style="background:linear-gradient(180deg,#D6EAF5,#7FB3D5 55%,#2E6F9E)"></i><div><b>바다</b>--sea #1F5F8B</div></div>
    </div>
   </div>
   <div class="panel"><h3>글꼴 <span class="sub">— 크롬북 기준. 전자칠판 화면은 화면 너비에 비례해 커져요</span></h3>
@@ -777,7 +777,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
     <div><code>제목 M · Jua 20px</code><span style="font-family:var(--f-title);font-size:20px">탐정의 예측</span></div>
     <div><code>본문 · Noto Sans KR 16~17px</code><span style="font-size:16px">메뚜기를 먹는 개구리가 사라졌기 때문이에요.</span></div>
     <div><code>보조 · Noto Sans KR 14px</code><span class="sub">끌어서 넣거나, 카드를 누른 다음 바구니를 눌러도 돼요.</span></div>
-    <div><code>전자칠판 제목 · Jua 2.8cqw (1920px에서 54px)</code><span style="font-family:var(--f-title);font-size:34px">황소개구리가 논에 들어왔어요</span></div>
+    <div><code>전자칠판 제목 · Jua 2.8cqw (1920px에서 54px)</code><span style="font-family:var(--f-title);font-size:34px">큰입배스가 강에 들어왔어요</span></div>
    </div>
   </div>
   <div class="panel"><h3>컴포넌트</h3>
