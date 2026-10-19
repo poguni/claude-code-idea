@@ -1,0 +1,1454 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>먹이그물 탐정단(Web Rangers): 제품 기획서(PRD)</title>
+<style>
+:root{--bg:#fafaf8;--panel:#f1f0ec;--text:#1f2328;--muted:#656d76;--line:#dcdad3;--accent:#2f6fed;--accent-bg:#e6eefe;--code:#eceae4;--star:#d98a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#7aa2ff;--accent-bg:#26324d;--code:#2a2c30;--star:#f0b43c}}
+:root[data-theme=dark]{--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#7aa2ff;--accent-bg:#26324d;--code:#2a2c30;--star:#f0b43c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;word-break:keep-all}
+#side{position:fixed;inset:0 auto 0 0;width:300px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:20;transition:transform .2s}
+.side-top{padding:16px 16px 10px;border-bottom:1px solid var(--line)}
+.side-top h2{font-size:15px;margin:0 0 10px;line-height:1.4}
+#q{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;font-size:14px}
+.dl{display:flex;gap:6px;margin-top:10px}
+.dl a{flex:1;text-align:center;font-size:13px;padding:6px 4px;border:1px solid var(--line);border-radius:8px;color:var(--text);text-decoration:none;background:var(--bg)}
+.dl a:hover{border-color:var(--accent);color:var(--accent)}
+#nav{overflow-y:auto;padding:8px 8px 40px;flex:1}
+.grp{margin:2px 0}
+.grp-h{display:flex;width:100%;align-items:center;justify-content:space-between;background:none;border:0;color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:8px;border-radius:6px;cursor:pointer;text-align:left}
+.grp-h.static{cursor:default;color:var(--muted);font-size:12px;letter-spacing:.04em}
+.grp-h a{color:inherit;text-decoration:none;flex:1}
+.grp-h:hover:not(.static){background:var(--accent-bg)}
+.chev{transition:transform .15s;color:var(--muted)}
+.grp:not(.open) .chev{transform:rotate(-90deg)}
+.grp:not(.open) ul{display:none}
+.grp ul{list-style:none;margin:0 0 6px;padding:0}
+.grp li a{display:block;padding:5px 10px 5px 18px;font-size:13px;line-height:1.45;color:var(--muted);text-decoration:none;border-left:2px solid transparent;border-radius:0 6px 6px 0}
+.grp li a:hover{color:var(--text);background:var(--accent-bg)}
+.grp li a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);font-weight:600}
+li.hide{display:none}
+main{margin-left:300px;padding:40px 32px 120px}
+article{max-width:820px;margin:0 auto}
+h1{font-size:28px;line-height:1.35;margin:1.6em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--line)}
+article>h1:first-child{margin-top:0}
+h2{font-size:21px;margin:2em 0 .6em}
+h3{font-size:18px;margin:2em 0 .5em;padding:10px 14px;background:var(--accent-bg);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;line-height:1.5}
+blockquote{margin:1em 0;padding:.4em 1em;border-left:4px solid var(--line);color:var(--muted);background:var(--panel);border-radius:0 8px 8px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel)}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-size:.9em}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+ul,ol{padding-left:1.4em}
+li{margin:.2em 0}
+.stars{color:var(--star);letter-spacing:1px;font-weight:700}
+#menu,#top{position:fixed;z-index:30;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;cursor:pointer;font-size:16px}
+#menu{display:none;top:12px;left:12px;width:42px;height:42px}
+#top{right:16px;bottom:16px;width:42px;height:42px;opacity:0;pointer-events:none;transition:opacity .2s}
+#top.show{opacity:1;pointer-events:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;cursor:pointer;padding:6px 8px;font-size:13px;margin-left:6px}
+#scrim{display:none}
+@media (max-width:900px){
+ #side{transform:translateX(-100%);width:min(320px,86vw)}
+ body.open #side{transform:none}
+ body.open #scrim{display:block;position:fixed;inset:0;background:#0006;z-index:15}
+ #menu{display:block}
+ body.open #menu{display:none}
+ main{margin-left:0;padding:70px 16px 100px}
+ h1{font-size:23px}
+}
+@media print{#side,#menu,#top{display:none}main{margin:0}}
+</style>
+</head>
+<body>
+<button id="menu" aria-label="목차 열기">☰</button>
+<div id="scrim"></div>
+<aside id="side">
+ <div class="side-top">
+  <h2>먹이그물 탐정단 PRD v0.2 <button id="theme" title="테마 전환">🌓</button></h2>
+  <input id="q" type="search" placeholder="목차 검색 (예: 시뮬레이션, 갯벌)" aria-label="목차 검색">
+  <div class="dl">
+   <a href="prd-ecosystem-foodweb.md" download="prd-ecosystem-foodweb.md">⬇ MD</a>
+   <a id="dlhtml" href="prd-ecosystem-foodweb.html" download="prd-ecosystem-foodweb.html">⬇ HTML</a>
+  </div>
+ </div>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-차별점">1.3 차별점</a></li><li><a href="#1-4-범위에서-제외하는-것-non-goals">1.4 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-사용자">2.1 사용자</a></li><li><a href="#2-2-사용-환경-가정">2.2 사용 환경 가정</a></li><li><a href="#2-3-대표-수업-시나리오">2.3 대표 수업 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-시작과-학생-식별-p0">F1. 시작과 학생 식별 (P0)</a></li><li><a href="#f2-생물-카드와-카드-도감-p0">F2. 생물 카드와 카드 도감 (P0)</a></li><li><a href="#f3-먹이-그물-만들기-p0">F3. 먹이 그물 만들기 (P0)</a></li><li><a href="#f4-시뮬레이션-엔진-p0-핵심">F4. 시뮬레이션 엔진 (P0, 핵심)</a></li><li><a href="#f5-사건-카드-p0">F5. 사건 카드 (P0)</a></li><li><a href="#f6-관리인-모드-예측-관찰-설명-p0-핵심">F6. 관리인 모드: 예측·관찰·설명 (P0, 핵심)</a></li><li><a href="#f7-탐구-모드-자유-실험-p0">F7. 탐구 모드: 자유 실험 (P0)</a></li><li><a href="#f8-모둠-대항전-p1-서버-없음">F8. 모둠 대항전 (P1, 서버 없음)</a></li><li><a href="#f9-사전-사후-진단-p0">F9. 사전·사후 진단 (P0)</a></li><li><a href="#f10-교사-기능-p0-p1">F10. 교사 기능 (P0~P1)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-콘텐츠-설계">5. 콘텐츠 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-콘텐츠-원칙">5.1 콘텐츠 원칙</a></li><li><a href="#5-2-테마별-생물-구성-초안-검토-필요">5.2 테마별 생물 구성(초안, 검토 필요)</a></li><li><a href="#5-3-관리인-행동-카드">5.3 관리인 행동 카드</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-시뮬레이션-모델">6. 시뮬레이션 모델</a><span class=chev>▾</span></button><ul><li><a href="#6-1-설계-원칙">6.1 설계 원칙</a></li><li><a href="#6-2-계산식">6.2 계산식</a></li><li><a href="#6-3-자동-보정-균형-상태-만들기">6.3 자동 보정(균형 상태 만들기)</a></li><li><a href="#6-4-안정성-확보">6.4 안정성 확보</a></li><li><a href="#6-5-설명-문장-생성">6.5 설명 문장 생성</a></li><li><a href="#6-6-시뮬레이션-검증-테스트">6.6 시뮬레이션 검증 테스트</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#7-오개념과-대응-설계">7. 오개념과 대응 설계</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-기술-스택">8. 기술 스택</a><span class=chev>▾</span></button><ul><li><a href="#8-1-폴더-구조-안">8.1 폴더 구조(안)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-데이터-모델">9. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#9-1-생물-카드">9.1 생물 카드</a></li><li><a href="#9-2-사건-카드">9.2 사건 카드</a></li><li><a href="#9-3-학생-진행-상황-localstorage">9.3 학생 진행 상황(localStorage)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-화면-구성">10. 화면 구성</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m1-데이터와-시뮬레이션-엔진-화면-없음">M1. 데이터와 시뮬레이션 엔진 (화면 없음)</a></li><li><a href="#m2-먹이-그물-만들기">M2. 먹이 그물 만들기</a></li><li><a href="#m3-관리인-모드-핵심-게임-루프">M3. 관리인 모드(핵심 게임 루프)</a></li><li><a href="#m4-논-갯벌-콘텐츠와-카드-수집">M4. 논·갯벌 콘텐츠와 카드 수집</a></li><li><a href="#m5-교실-기능">M5. 교실 기능</a></li><li><a href="#m6-파일럿-수업과-개선">M6. 파일럿 수업과 개선</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표">14. 성공 지표</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-2">15.1 결정된 사항 (v0.2)</a></li><li><a href="#15-2-확인이-필요한-사항">15.2 확인이 필요한 사항</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#참고-자료">참고 자료</a></button><ul></ul></div></nav>
+</aside>
+<main><article id="doc"><h1 id="먹이그물-탐정단-web-rangers-제품-기획서-prd">먹이그물 탐정단(Web Rangers): 제품 기획서(PRD)</h1>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>문서 버전</td>
+<td>v0.2</td>
+</tr>
+<tr>
+<td>작성일</td>
+<td>2026-10-19</td>
+</tr>
+<tr>
+<td>앱 이름</td>
+<td><strong>먹이그물 탐정단(Web Rangers)</strong>: 숲·논·갯벌 생태계의 연쇄 반응을 추리하고 지키는 탐정단</td>
+</tr>
+<tr>
+<td>대상</td>
+<td>초등 4~6학년, 과학 '생물과 환경'(먹이 사슬·먹이 그물·생태계 평형)</td>
+</tr>
+<tr>
+<td>형태</td>
+<td>교실 수업용 웹 앱(PWA), 태블릿·크롬북·전자칠판, 로그인 없음, GitHub Pages 배포</td>
+</tr>
+<tr>
+<td>원 아이디어</td>
+<td>초등교육 게이미피케이션 앱 추천 중 7번 "생태계 연결망(먹이그물 카드 배틀)"</td>
+</tr>
+</tbody>
+</table>
+<h2 id="변경-이력">변경 이력</h2>
+<table>
+<thead>
+<tr>
+<th>버전</th>
+<th>날짜</th>
+<th>주요 변경</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v0.1</td>
+<td>2026-10-19</td>
+<td>최초 작성. 사용 환경(교실 수업), 플레이 방식(1인 + 모둠 경쟁), 데이터 정책(로그인 없는 로컬 저장), MVP 테마(숲·논·갯벌 모두) 반영</td>
+</tr>
+<tr>
+<td>v0.2</td>
+<td>2026-10-19</td>
+<td>앱 이름을 <strong>먹이그물 탐정단</strong>(Web Rangers)으로 확정(가칭 '에코링크' 대체). 학생 역할을 '탐정단원(생태계 관리인)'으로 정리, 폴더·저장 키 이름 변경, MD·HTML 문서 버전 제공</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-개요">1. 개요</h2>
+<h3 id="1-1-배경">1.1 배경</h3>
+<p>초등 과학의 먹이 사슬·먹이 그물 수업은 대부분 "누가 누구를 먹는가"를 화살표로 잇는 활동에서 끝납니다. 시중의 카드 게임과 학습 앱도 어휘와 순서 암기에 머무는 경우가 많습니다. 그러나 이 단원의 핵심은 "<strong>한 생물이 사라지거나 늘어나면 연결된 다른 생물에게 어떤 연쇄 반응이 일어나는가</strong>"를 추론하는 시스템 사고입니다.</p>
+<p>교실에서는 털실로 학생들을 연결해 한 명이 줄을 당기면 다른 학생이 흔들리는 활동(Human Food Web)이나, 포식자-피식자 카드 게임 뒤에 특정 종을 제거하는 탐구(Mystery Science)가 널리 쓰입니다. 하지만 종이와 털실로는 <strong>시간에 따른 개체 수 변화</strong>와 <strong>간접 효과</strong>(예: 뱀이 사라지면 개구리가 늘고, 그 결과 메뚜기가 줄고, 풀이 늘어남)를 눈으로 확인하기 어렵습니다.</p>
+<p>이 앱은 학생을 생태계의 연쇄 반응을 추리하고 지키는 <strong>탐정단원</strong>(생태계 관리인)으로 설정하고, 다음 흐름으로 시스템 사고를 연습하게 합니다.</p>
+<ol>
+<li>생물 카드를 모아 먹이 그물을 직접 연결합니다.</li>
+<li>사건 카드(가뭄, 외래종 유입, 특정 종 감소 등)가 발동됩니다.</li>
+<li>무슨 일이 일어날지 <strong>먼저 예측</strong>합니다.</li>
+<li>몇 턴에 걸쳐 개체 수 막대가 변하는 시뮬레이션을 관찰합니다.</li>
+<li>예측과 결과를 비교하고, 화살표를 따라 "왜 그렇게 되었는지"를 설명합니다.</li>
+</ol>
+<h3 id="1-2-목표">1.2 목표</h3>
+<ul>
+<li><strong>교육 목표</strong></li>
+<li>먹이 사슬과 먹이 그물의 차이를 설명할 수 있습니다.</li>
+<li>생산자·소비자·분해자의 역할을 알고, 화살표가 "먹히는 생물 → 먹는 생물"(에너지 이동 방향)임을 정확히 표현합니다.</li>
+<li>한 생물의 변화가 직접 연결되지 않은 생물에게까지 영향을 준다는 것(간접 효과)을 추론합니다.</li>
+<li>먹이 관계가 다양할수록 생태계가 변화에 덜 흔들린다(생태계 평형)는 것을 경험으로 이해합니다.</li>
+<li>우리나라의 숲·논·갯벌 생태계와 외래종·서식지 파괴 같은 실제 환경 문제를 연결합니다.</li>
+<li><strong>제품 목표</strong></li>
+<li>40분 수업 1~2차시 안에 도입부터 성찰까지 끝낼 수 있는 흐름을 제공합니다.</li>
+<li>설치·로그인 없이 주소 하나로 바로 실행되고, 학교 와이파이가 불안정해도 동작합니다(오프라인 지원).</li>
+<li>사전·사후 진단 문항을 내장해 교사가 간단히 학습 효과를 확인할 수 있게 합니다.</li>
+</ul>
+<h3 id="1-3-차별점">1.3 차별점</h3>
+<table>
+<thead>
+<tr>
+<th>기존 먹이 사슬 게임·활동</th>
+<th>먹이그물 탐정단</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>먹이 관계 짝짓기, 순서 맞히기</td>
+<td>먹이 그물 전체를 만들고 <strong>종 제거·사건 시뮬레이션</strong>이 핵심</td>
+</tr>
+<tr>
+<td>정답이 하나인 퀴즈</td>
+<td><strong>예측 → 관찰 → 설명</strong> 순환(POE: Predict-Observe-Explain)</td>
+</tr>
+<tr>
+<td>결과만 보여 줌</td>
+<td>화살표 따라 영향이 퍼지는 과정을 애니메이션과 문장으로 설명</td>
+</tr>
+<tr>
+<td>외국 생물(사자, 얼룩말) 중심</td>
+<td>우리나라 숲·논·갯벌 생물과 실제 환경 이슈(황소개구리, 갯끈풀 등)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4-범위에서-제외하는-것-non-goals">1.4 범위에서 제외하는 것 (Non-goals)</h3>
+<ul>
+<li>로그인, 회원가입, 학생 개인정보(이름 등) 수집, 서버 백엔드</li>
+<li>기기 간 실시간 대전(서버 필요). 모둠 경쟁은 서버 없이 가능한 방식으로만 제공합니다(4장 F8 참고).</li>
+<li>생성형 AI 호출(아동 대상 서비스의 안전·비용 문제로 제외). 설명 문장은 미리 작성한 템플릿으로 만듭니다.</li>
+<li>실제 생태학 연구 수준의 정밀한 개체 수 예측. 이 앱의 시뮬레이션은 <strong>경향을 보여 주는 단순 모델</strong>입니다.</li>
+<li>결제, 광고, 외부 분석 도구(추적 스크립트)</li>
+</ul>
+<hr />
+<h2 id="2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</h2>
+<h3 id="2-1-사용자">2.1 사용자</h3>
+<table>
+<thead>
+<tr>
+<th>사용자</th>
+<th>특징</th>
+<th>필요한 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>학생(초4~6)</strong></td>
+<td>긴 글 읽기를 어려워하는 학생도 있음. 터치 조작에 익숙함. 경쟁과 수집을 좋아함</td>
+<td>짧고 쉬운 문장, 큰 버튼, 즉각적인 피드백, 모으는 재미</td>
+</tr>
+<tr>
+<td><strong>교사(주 사용자이자 운영자)</strong></td>
+<td>40분 안에 수업을 끝내야 함. 기기 문제에 대응할 시간이 부족함</td>
+<td>바로 켜지는 앱, 전자칠판용 진행 화면, 차시별 지도안, 결과 확인</td>
+</tr>
+<tr>
+<td><strong>개발자(본인)</strong></td>
+<td>바이브 코딩으로 개발. 콘텐츠(생물 데이터)도 직접 작성</td>
+<td>단순한 구조, 데이터와 로직 분리, 시뮬레이션을 검증할 테스트</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-사용-환경-가정">2.2 사용 환경 가정</h3>
+<ul>
+<li>학생 1인 1기기 또는 2인 1기기(태블릿, 크롬북). 화면 크기 10인치 안팎.</li>
+<li>교실 앞 전자칠판(또는 프로젝터 + 교사 노트북) 1대.</li>
+<li>학교 기기는 여러 반이 함께 쓰므로, 기기에 남는 데이터는 <strong>학생 번호(예: 5-2반 13번)만</strong> 사용합니다.</li>
+</ul>
+<h3 id="2-3-대표-수업-시나리오">2.3 대표 수업 시나리오</h3>
+<blockquote>
+<p>6학년 2반, 과학 '생물과 환경' 단원 4~5차시. 학생 24명, 태블릿 24대, 전자칠판 1대.</p>
+</blockquote>
+<p><strong>1차시(40분): 먹이 그물 만들기</strong>
+1. (5분) 교사가 전자칠판에서 앱을 열고 <strong>수업 모드</strong>를 켭니다. 학생은 태블릿에서 같은 주소를 열고 학급·번호를 입력합니다.
+2. (5분) 학생이 <strong>사전 진단</strong> 5문항을 풉니다("뱀이 사라지면 개구리는 어떻게 될까요?" 등).
+3. (5분) 숲 테마 튜토리얼: 카드 3장으로 먹이 사슬(풀 → 메뚜기 → 개구리)을 연결해 보고, 화살표 방향의 의미를 배웁니다.
+4. (15분) <strong>먹이 그물 만들기</strong>: 숲 생물 카드 12장을 놓고 화살표로 연결합니다. 틀린 연결은 즉시 알려 주고 힌트를 줍니다. 완성하면 새 카드를 얻습니다.
+5. (10분) 교사가 전자칠판에서 대표 학생의 먹이 그물을 띄워 함께 확인하고, "먹이 사슬과 무엇이 다른가요?"를 묻습니다.</p>
+<p><strong>2차시(40분): 생태계 관리인</strong>
+1. (20분) <strong>관리인 모드</strong>: 사건 카드 "뱀이 크게 줄었어요"가 발동됩니다. 학생은 개구리·메뚜기·풀이 어떻게 될지 예측하고, 가장 큰 영향을 받을 생물을 고릅니다. 시뮬레이션을 8턴 동안 관찰하고 점수를 받습니다. 이어서 관리인 행동 카드로 생태계 균형을 되찾습니다.
+2. (12분) <strong>모둠 대항전</strong>: 교사가 전자칠판에서 논 테마 사건 카드 "황소개구리가 들어왔어요"를 띄웁니다. 6개 모둠이 토의해 예측을 고르고, 교사가 모둠별 예측을 입력한 뒤 시뮬레이션을 함께 봅니다. 점수판에 모둠 점수가 쌓입니다.
+3. (8분) <strong>사후 진단</strong>과 성찰 질문("내가 사는 동네에서 사라지면 큰일 날 생물은?")에 답합니다. 교사는 수업이 끝난 뒤 기기별 결과를 확인하거나 CSV로 모읍니다.</p>
+<hr />
+<h2 id="3-전체-사용-흐름">3. 전체 사용 흐름</h2>
+<pre><code>[시작]  학급·번호 입력(선택) → 메인 화면
+   │
+   ├─ [튜토리얼]  먹이 사슬 3장 연결 → 화살표 의미 → 먹이 그물로 확장
+   │
+   ├─ [먹이 그물 만들기]  테마 선택(숲/논/갯벌) → 카드 배치 → 화살표 연결 → 검증 → 카드 보상
+   │
+   ├─ [관리인 모드(캠페인)]  테마별 5개 스테이지
+   │      안정 상태 관찰 → 사건 카드 발동 → 예측 → 시뮬레이션 관찰 → 채점·설명 → 관리인 행동 → 균형 점수
+   │
+   ├─ [탐구 모드(자유 실험)]  아무 생물이나 없애기·늘리기·외래종 넣기 → 결과 관찰
+   │
+   ├─ [카드 도감]  모은 카드 보기, 생물 정보, 먹이·천적 관계
+   │
+   └─ [진단]  사전·사후 진단 5문항
+
+[교사 메뉴]  수업 모드(전자칠판), 모둠 대항전 점수판, 기기별 결과 보기·CSV 내보내기, 전체 카드 잠금 해제, 설정
+</code></pre>
+<hr />
+<h2 id="4-기능-요구사항">4. 기능 요구사항</h2>
+<p>우선순위는 <strong>P0</strong>(MVP 필수), <strong>P1</strong>(v1 포함), <strong>P2</strong>(이후 확장)로 표시합니다.</p>
+<h3 id="f1-시작과-학생-식별-p0">F1. 시작과 학생 식별 (P0)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>요구사항</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1-1</td>
+<td>시작 화면에서 학년·반·번호 입력(이름 입력란은 두지 않음). 건너뛰기 가능(손님 모드)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F1-2</td>
+<td>같은 기기를 여러 학생이 쓰는 경우를 위해 "학생 바꾸기" 버튼과 학생별 진행 상황 분리 저장</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F1-3</td>
+<td>진행 상황(카드, 별, 점수, 진단 결과)은 기기의 localStorage에 자동 저장</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F1-4</td>
+<td>교사용 "이 기기 데이터 모두 지우기"(학기 말 정리용, 확인 2회)</td>
+<td>P0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="f2-생물-카드와-카드-도감-p0">F2. 생물 카드와 카드 도감 (P0)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>요구사항</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F2-1</td>
+<td>생물 카드 구성: 그림, 이름, 역할(생산자/1차 소비자/2차 소비자/최종 소비자/분해자) 색상 띠, 사는 곳, 먹이, 천적, 한 줄 사실("고라니는 우리나라에 천적이 거의 없어요")</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F2-2</td>
+<td>역할별 색상 + 모양 아이콘을 함께 사용(색각 이상 학생 고려). 예: 생산자 초록 잎, 소비자 주황 발자국, 분해자 갈색 버섯</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F2-3</td>
+<td>카드 획득: 튜토리얼 완료, 먹이 그물 완성, 스테이지 별 획득, 정확한 예측 연속 성공 시 보상</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F2-4</td>
+<td>카드 도감: 테마별 수집 현황(예: 숲 9/12), 미획득 카드는 그림자로 표시</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F2-5</td>
+<td>희귀 카드: 멸종위기종(수리부엉이, 저어새, 삵 등)과 외래종(황소개구리, 갯끈풀 등)은 특별 테두리와 "보호가 필요해요/생태계 교란 생물" 설명</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F2-6</td>
+<td>교사 모드에서 모든 카드 잠금 해제(수업 진도에 맞춰 바로 사용)</td>
+<td>P0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="f3-먹이-그물-만들기-p0">F3. 먹이 그물 만들기 (P0)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>요구사항</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F3-1</td>
+<td>테마 선택 후 카드 보관함에서 생물 카드를 판(캔버스)으로 끌어다 놓기</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F3-2</td>
+<td>카드에서 카드로 손가락을 끌어 화살표 연결. 방향은 <strong>먹히는 생물 → 먹는 생물</strong></td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F3-3</td>
+<td>연결 즉시 판정: 맞으면 초록 화살표와 짧은 효과음, 틀리면 흔들림 + 이유("참새는 뱀을 먹지 않아요. 오히려 뱀이 참새를 먹어요")</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F3-4</td>
+<td>방향을 반대로 그린 경우를 따로 감지해 "화살표 방향을 다시 생각해 봐요" 안내(가장 흔한 오개념)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F3-5</td>
+<td>힌트 버튼: 아직 연결하지 않은 관계 하나를 점선으로 보여 줌(사용 시 별 감점)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F3-6</td>
+<td>자동 정렬 버튼: 영양 단계별로 층을 나눠 배치(아래 생산자 → 위 최종 소비자, 분해자는 옆)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F3-7</td>
+<td>분해자 연결은 기본으로 숨김(모든 생물과 이어져 화면이 복잡해지므로). "분해자 연결 보기" 토글</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F3-8</td>
+<td>완성 판정: 필수 관계의 80% 이상 연결 시 완성. 남은 관계는 "더 찾아볼 수 있어요"로 표시</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F3-9</td>
+<td><strong>먹이 사슬 뽑아 보기</strong>: 먹이 그물에서 생산자부터 최종 소비자까지 한 줄을 골라 강조. "이 먹이 그물 안에 먹이 사슬이 몇 개 있을까요?" 미션</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F3-10</td>
+<td>내가 만든 먹이 그물을 이미지로 저장(학습지·포트폴리오용)</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="f4-시뮬레이션-엔진-p0-핵심">F4. 시뮬레이션 엔진 (P0, 핵심)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>요구사항</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F4-1</td>
+<td>턴제 개체 수 계산. 각 생물의 개체 수는 <strong>기준 100</strong>인 지수로 표시(실제 마릿수가 아님)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F4-2</td>
+<td>포식 관계에 따라 먹는 쪽은 늘고 먹히는 쪽은 줄어드는 상호작용 계산(계산식은 6장)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F4-3</td>
+<td>사건이 없으면 모든 생물이 기준값 근처에서 안정(자동 보정, 6.3)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F4-4</td>
+<td>개체 수가 매우 낮아지면(지수 2 미만) <strong>사라짐(지역 멸종)</strong> 처리. 관리인 행동 "복원"으로만 다시 등장</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F4-5</td>
+<td>분해자 효과: 분해자가 줄면 죽은 생물(찌꺼기)이 쌓이고 생산자의 양분이 줄어 천천히 감소</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F4-6</td>
+<td>같은 조건이면 항상 같은 결과(결정론적 계산). 모둠 대항전과 채점의 공정성을 위해 무작위 요소 없음</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F4-7</td>
+<td>영향 원인 추적: 매 턴 각 생물의 증감이 "먹이 부족/먹이 증가/천적 증가/천적 감소/사건 직접 영향" 중 무엇 때문인지 기록(설명 생성에 사용)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F4-8</td>
+<td>생산자끼리의 공간 경쟁(예: 갯끈풀이 칠면초 자리를 차지)</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F4-9</td>
+<td>계절 변화(겨울에 생산자 성장 감소)</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="f5-사건-카드-p0">F5. 사건 카드 (P0)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>요구사항</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F5-1</td>
+<td>사건 카드 구성: 그림, 이름, 짧은 상황 설명(뉴스 형식, 2문장 이내), 영향 대상, 지속 턴</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F5-2</td>
+<td>사건 유형(아래 표)을 데이터로 정의하고, 엔진은 유형별 효과만 구현</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F5-3</td>
+<td>테마별 사건 카드 최소 6장(공통 3장 + 테마 고유 3장)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F5-4</td>
+<td>실제 사례 연결 카드: "실제로 있었던 일" 배지와 함께 짧은 설명(예: 황소개구리 식용 수입 후 야생화)</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>사건 유형</strong>
+| 유형 | 효과 | 예시 카드 |
+|---|---|---|
+| 종 감소 | 특정 생물 개체 수를 즉시 일정 비율로 줄임 | 뱀이 크게 줄었어요(밀렵), 바지락 남획 |
+| 종 사라짐 | 특정 생물을 0으로 만듦 | 들쥐가 모두 사라졌어요 |
+| 생산자 환경 변화 | 생산자의 최대 성장 한도를 몇 턴 동안 낮춤 | 가뭄, 산불, 냉해 |
+| 외래종 유입 | 새 생물 카드가 먹이 그물에 들어옴(천적이 적어 사망률 낮음) | 황소개구리, 갯끈풀, 왕우렁이 |
+| 사망률 증가 | 특정 무리의 사망률을 몇 턴 동안 높임 | 농약 살포(곤충), 기름 유출(조개·게) |
+| 서식지 감소 | 테마 전체 생물의 최대 한도를 영구히 낮춤 | 숲 개발, 갯벌 간척 |
+| 종 증가 | 특정 생물을 즉시 늘림 | 고라니가 크게 늘었어요 |</p>
+<h3 id="f6-관리인-모드-예측-관찰-설명-p0-핵심">F6. 관리인 모드: 예측·관찰·설명 (P0, 핵심)</h3>
+<p>한 판(라운드)은 약 5~8분이며 다음 순서로 진행합니다.</p>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>내용</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① 안정 관찰</td>
+<td>먹이 그물과 개체 수 막대가 3턴 동안 거의 변하지 않는 모습을 보여 줌("지금은 균형 상태예요")</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>② 사건 발동</td>
+<td>사건 카드가 뒤집히며 등장. 직접 영향받는 생물이 깜빡임</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>③ 예측</td>
+<td>질문 1: "○○는 어떻게 될까요?" (늘어요/줄어요/비슷해요) — 직접 연결되지 않은 생물을 우선 출제<br>질문 2: "가장 크게 영향을 받을 생물은?" (사건이 직접 건드린 생물 제외, 카드 탭으로 선택)<br>질문 3: "왜 그렇게 생각했나요?" (보기 3개 중 고르기)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>③-1</td>
+<td>질문 3을 <strong>화살표 경로 그리기</strong>로 답하기(예: 뱀 → 개구리 → 메뚜기 순서로 탭)</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>④ 관찰</td>
+<td>8턴 시뮬레이션 재생. 막대가 턴마다 움직이고, 영향이 전달되는 화살표에 빛이 흐름. 재생/일시정지/한 턴씩/다시 보기</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>⑤ 채점·설명</td>
+<td>예측과 결과 비교, 점수 표시. 생물별 "왜 이렇게 변했나요?" 설명 카드(F4-7 기록으로 자동 생성)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>⑥ 관리인 행동</td>
+<td>행동 카드 3장 중 1장 선택(복원, 외래종 퇴치, 보호구역 지정, 서식지 복원 등) → 추가 4턴 시뮬레이션</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>⑦ 균형 점수</td>
+<td>살아남은 생물 수와 기준값과의 차이로 균형 점수 계산, 별 1~3개</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>⑧ 성찰</td>
+<td>한 문장 질문(선택): "먹이 사슬 하나만 있었다면 결과가 어땠을까요?"</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>채점 규칙(초안)</strong>
+| 항목 | 점수 |
+|---|---|
+| 질문 1 정답 | 100점 |
+| 질문 2 정답(실제 변화율 1위) | 150점, 2위면 50점 |
+| 질문 3 정답 | 100점 |
+| 관리인 행동 후 균형 점수 | 0~150점 |
+| 연속 정답 보너스 | 3회 연속 시 카드 1장 |</p>
+<ul>
+<li>정답 판정 기준: 8턴 뒤 변화율이 +10% 초과면 "늘어요", -10% 미만이면 "줄어요", 그 사이면 "비슷해요".</li>
+<li>출제 시 자동 검사: 결과가 경계값(±8~12%) 근처인 생물은 질문 1로 내지 않습니다(애매한 문제 방지).</li>
+</ul>
+<p><strong>스테이지 구성(테마별 5개)</strong>
+| 스테이지 | 학습 초점 | 예시(숲) |
+|---|---|---|
+| 1 | 직접 효과(먹이 감소 → 포식자 감소) | 가뭄으로 풀이 줄었어요 |
+| 2 | 천적 제거 효과(포식자 감소 → 피식자 증가) | 뱀이 크게 줄었어요 |
+| 3 | 간접 효과(두 단계 이상 떨어진 생물) | 수리부엉이가 사라졌어요 → 풀은? |
+| 4 | 먹이 그물의 완충(먹이가 여러 가지인 생물은 덜 흔들림) | 메뚜기가 줄었는데 개구리는 왜 괜찮을까? |
+| 5 | 외래종·인간 활동과 관리인 행동 | 숲 개발 + 고라니 증가 |</p>
+<h3 id="f7-탐구-모드-자유-실험-p0">F7. 탐구 모드: 자유 실험 (P0)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>요구사항</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F7-1</td>
+<td>테마의 완성된 먹이 그물에서 생물을 탭해 "없애기/줄이기/늘리기"</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F7-2</td>
+<td>사건 카드를 직접 골라 발동</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F7-3</td>
+<td>시뮬레이션 턴 수 선택(4/8/16턴), 결과 그래프(턴별 꺾은선) 보기</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F7-4</td>
+<td><strong>먹이 사슬 vs 먹이 그물 비교 실험</strong>: 같은 사건을 "한 줄짜리 먹이 사슬"과 "먹이 그물"에 동시에 적용해 나란히 비교</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F7-5</td>
+<td>실험 기록장: 내가 한 실험과 결과를 목록으로 남기고 한 줄 메모</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="f8-모둠-대항전-p1-서버-없음">F8. 모둠 대항전 (P1, 서버 없음)</h3>
+<p>서버 없이 운영할 수 있는 두 가지 방식을 제공합니다.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>방식</th>
+<th>설명</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F8-1</td>
+<td><strong>전자칠판 진행형</strong></td>
+<td>교사 기기 1대에서 진행. 사건 카드를 크게 띄움 → 모둠별 토의(타이머 1~2분) → 교사가 모둠별 예측을 입력(모둠 버튼 탭) → 시뮬레이션을 함께 관찰 → 점수판 자동 갱신</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F8-2</td>
+<td><strong>도전 코드형</strong></td>
+<td>교사가 생성한 4자리 도전 코드를 입력하면 모든 기기에서 같은 테마·사건 순서로 3라운드 진행(F4-6 결정론적 계산 덕분에 같은 문제). 끝나면 점수와 검증 문자(점수 위조 방지용 짧은 해시)를 표시하고, 모둠 대표가 점수를 발표하거나 교사가 점수판에 입력</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F8-3</td>
+<td>점수판: 모둠 이름(1모둠~8모둠 또는 직접 입력), 라운드별 점수, 순위, 최종 결과 화면</td>
+<td>P1</td>
+<td></td>
+</tr>
+<tr>
+<td>F8-4</td>
+<td>학생이 화면을 보며 함께 토의할 수 있도록 큰 글씨·고대비 "발표 화면" 레이아웃</td>
+<td>P1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="f9-사전-사후-진단-p0">F9. 사전·사후 진단 (P0)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>요구사항</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F9-1</td>
+<td>진단 문항 5개(사전·사후 같은 구조, 다른 생물로 평행 문항)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F9-2</td>
+<td>문항 유형: ① 화살표 방향 ② 먹이 사슬 vs 먹이 그물 ③ 직접 효과 ④ 간접 효과 ⑤ 이유 설명(선택형 + 짧은 서술)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F9-3</td>
+<td>결과는 점수를 학생에게 바로 보여 주지 않고(사전 진단 위축 방지) 교사 결과 화면에서 확인</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F9-4</td>
+<td>서술형 답은 그대로 저장해 교사가 읽을 수 있게 함(자동 채점 안 함)</td>
+<td>P0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>진단 문항 예시</strong>
+1. 다음 중 화살표를 바르게 그린 것은? (풀 → 메뚜기 / 메뚜기 → 풀)
+2. 먹이 그물이 먹이 사슬보다 생물이 살아가기에 더 유리한 까닭은?
+3. 논에서 개구리가 모두 사라지면, 메뚜기의 수는 처음에 어떻게 될까요?
+4. 숲에서 뱀이 사라지면, 풀의 양은 어떻게 될까요? (간접 효과)
+5. 4번 답을 고른 까닭을 써 보세요.</p>
+<h3 id="f10-교사-기능-p0-p1">F10. 교사 기능 (P0~P1)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>요구사항</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F10-1</td>
+<td>교사 메뉴 진입: 간단한 4자리 PIN(기기별 설정, 학생의 실수 진입 방지용)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F10-2</td>
+<td>기기별 결과 보기: 학생 번호별 진단 점수(사전/사후), 스테이지 진행, 예측 정답률</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F10-3</td>
+<td>CSV 내보내기(기기별). 교사가 여러 기기의 CSV를 모으면 학급 전체로 합칠 수 있는 형식(학년, 반, 번호, 문항별 응답)</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>F10-4</td>
+<td><strong>결과 QR 모으기</strong>: 학생 기기에 결과를 담은 QR 코드를 띄우고, 교사 기기 카메라로 차례로 찍어 학급 결과를 한 기기에 모음(서버 없이 수집)</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>F10-5</td>
+<td>수업 모드: 전자칠판용 큰 화면, 학생 기기에서 특정 테마·스테이지만 열리도록 하는 "오늘의 수업 코드"</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F10-6</td>
+<td>교사 가이드 페이지: 차시별 지도안, 발문 예시, 오개념 지도 팁, 시뮬레이션 모델의 한계 설명</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-콘텐츠-설계">5. 콘텐츠 설계</h2>
+<h3 id="5-1-콘텐츠-원칙">5.1 콘텐츠 원칙</h3>
+<ul>
+<li>테마마다 생물 <strong>11~13종</strong>(화면 복잡도와 태블릿 터치 정확도를 고려한 상한).</li>
+<li>먹이 관계는 초등 교과서 수준에서 <strong>틀리지 않는 대표 관계</strong>만 넣습니다. 실제로는 먹지만 드문 관계는 제외합니다.</li>
+<li>생물의 생활 단계(올챙이와 개구리 등)는 별도 카드로 나누지 않습니다(혼동 방지).</li>
+<li>모든 관계와 사실 문장은 출처를 데이터에 기록하고(교과서, 국립생물자원관, 국립생태원 자료 등), 출시 전 <strong>과학 교사 1인 이상의 검토</strong>를 받습니다.</li>
+<li>그림은 자체 제작하거나 저작권 문제가 없는 일러스트를 사용합니다(실제 사진은 저작권 확인이 어려우므로 사용하지 않음).</li>
+</ul>
+<h3 id="5-2-테마별-생물-구성-초안-검토-필요">5.2 테마별 생물 구성(초안, 검토 필요)</h3>
+<p><strong>숲</strong>
+| 역할 | 생물 | 먹이 |
+|---|---|---|
+| 생산자 | 참나무(잎·도토리), 풀 | — |
+| 1차 소비자 | 메뚜기, 나방 애벌레, 다람쥐, 들쥐, 고라니 | 풀 / 참나무 / 참나무 / 풀·참나무 / 풀·참나무 |
+| 2차 소비자 | 거미, 개구리, 박새 | 메뚜기·애벌레 / 메뚜기·애벌레·거미 / 애벌레·거미 |
+| 최종 소비자 | 뱀, 수리부엉이, 삵 | 들쥐·개구리·박새 / 들쥐·다람쥐·뱀·박새 / 들쥐·다람쥐·박새·개구리 |
+| 분해자 | 곰팡이·버섯, 세균 | 죽은 생물, 배설물 |</p>
+<ul>
+<li>학습 포인트: 고라니는 천적이 거의 없어 사건 "고라니 증가"로 생산자 감소를 보여 줄 수 있습니다.</li>
+</ul>
+<p><strong>논</strong>
+| 역할 | 생물 | 먹이 |
+|---|---|---|
+| 생산자 | 벼, 논 잡초(피·물풀), 식물성 플랑크톤(조류) | — |
+| 1차 소비자 | 벼메뚜기, 벼멸구, 우렁이, 물벼룩 | 벼·잡초 / 벼 / 잡초·조류 / 식물성 플랑크톤 |
+| 2차 소비자 | 거미, 참개구리, 미꾸라지 | 메뚜기·멸구 / 메뚜기·멸구·거미 / 물벼룩 |
+| 최종 소비자 | 유혈목이(뱀), 백로 | 개구리·미꾸라지 / 미꾸라지·개구리·메뚜기 |
+| 분해자 | 세균·곰팡이 | 죽은 생물, 볏짚 |
+| 외래종(사건) | 황소개구리, 왕우렁이 | 개구리·미꾸라지·곤충 / 잡초·어린 벼 |</p>
+<ul>
+<li>학습 포인트: 농약 살포(곤충 감소 → 개구리·거미 감소 → 해충 천적 감소)로 사람의 활동이 먹이 그물에 미치는 영향을 다룹니다.</li>
+</ul>
+<p><strong>갯벌</strong>
+| 역할 | 생물 | 먹이 |
+|---|---|---|
+| 생산자 | 식물성 플랑크톤(규조류), 칠면초, 갈대 | — |
+| 1차 소비자 | 바지락, 갯지렁이, 칠게, 고둥 | 식물성 플랑크톤 / 규조류·찌꺼기 / 규조류·찌꺼기 / 규조류 |
+| 2차 소비자 | 망둑어, 낙지 | 갯지렁이·칠게 / 칠게·바지락 |
+| 최종 소비자 | 도요새, 저어새, 괭이갈매기 | 갯지렁이·칠게·고둥 / 망둑어·칠게 / 망둑어·칠게·바지락 |
+| 분해자 | 세균 | 죽은 생물, 찌꺼기(갯벌 정화) |
+| 외래종(사건) | 갯끈풀 | 칠면초와 자리 경쟁 |</p>
+<ul>
+<li>학습 포인트: 갯벌 세균의 정화 역할(분해자), 저어새(멸종위기종) 보호, 간척과 기름 유출.</li>
+<li>칠면초·갈대는 직접 먹는 동물보다 서식처·찌꺼기 공급 역할이 커서, 모델에서는 "찌꺼기 공급원"으로 단순화합니다(검토 필요).</li>
+</ul>
+<h3 id="5-3-관리인-행동-카드">5.3 관리인 행동 카드</h3>
+<table>
+<thead>
+<tr>
+<th>카드</th>
+<th>효과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>복원(방사)</td>
+<td>사라진 생물 하나를 지수 30으로 되살림</td>
+</tr>
+<tr>
+<td>외래종 퇴치</td>
+<td>외래종 개체 수를 50% 줄임(2번 써야 거의 제거)</td>
+</tr>
+<tr>
+<td>보호구역 지정</td>
+<td>선택한 생물의 사망률을 4턴 동안 낮춤</td>
+</tr>
+<tr>
+<td>서식지 복원</td>
+<td>생산자의 최대 한도를 원래대로 회복</td>
+</tr>
+<tr>
+<td>농약 줄이기</td>
+<td>농약 사건 효과 즉시 종료(논 전용)</td>
+</tr>
+<tr>
+<td>갯벌 청소</td>
+<td>기름 유출 효과 즉시 종료(갯벌 전용)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>행동마다 "관리 예산" 비용이 있고 한 판에 쓸 수 있는 예산이 정해져 있어, "무엇을 먼저 해야 가장 효과적일까?"를 고민하게 합니다(P1).</li>
+</ul>
+<hr />
+<h2 id="6-시뮬레이션-모델">6. 시뮬레이션 모델</h2>
+<h3 id="6-1-설계-원칙">6.1 설계 원칙</h3>
+<ul>
+<li>초등학생이 결과를 보고 "화살표를 따라가면 이해가 되는" 수준의 단순 모델을 씁니다.</li>
+<li>기본 형태는 생태학의 <strong>로트카-볼테라(Lotka-Volterra) 포식자-피식자 모델</strong>을 단순화한 턴제 계산입니다.</li>
+<li>화면에는 수식을 보여 주지 않습니다. 교사 가이드에만 원리를 쉬운 말로 설명합니다.</li>
+</ul>
+<h3 id="6-2-계산식">6.2 계산식</h3>
+<p>개체 수 지수를 기준값 1.0(화면 표시는 100)으로 정규화합니다. 한 턴은 작은 계산 단계 10번(dt = 0.1)으로 나누어 계산해 값이 튀지 않게 합니다.</p>
+<p><strong>생산자 i</strong></p>
+<pre><code>변화량 = r_i × N_i × (1 − N_i / (K_i × E_i × S_i)) − Σ_j a_ij × N_i × N_j
+</code></pre>
+<ul>
+<li>r_i: 성장률, K_i: 최대 한도, E_i: 환경 계수(가뭄·산불 시 1보다 작음), S_i: 양분 계수(분해자 상태에 따라 0.7~1.0)</li>
+<li>Σ_j: 생산자 i를 먹는 모든 소비자 j</li>
+</ul>
+<p><strong>소비자 j</strong></p>
+<pre><code>변화량 = e × Σ_i a_ij × N_i × N_j  −  Σ_k a_jk × N_j × N_k  −  m_j × N_j
+</code></pre>
+<ul>
+<li>첫째 항: 먹이에서 얻는 성장(e: 먹이 전환 효율)</li>
+<li>둘째 항: 천적 k에게 먹혀서 줄어듦</li>
+<li>셋째 항: 자연 사망(m_j: 사망률)</li>
+</ul>
+<p><strong>분해자 d와 찌꺼기 D</strong></p>
+<pre><code>찌꺼기 변화량 = (그 턴에 죽은 양의 합) − b × N_d × D
+분해자 변화량 = e_d × b × N_d × D − m_d × N_d
+양분 계수 S = 0.7 + 0.3 × min(1, N_d)
+</code></pre>
+<ul>
+<li>분해자가 줄면 찌꺼기가 쌓이고 양분 계수가 떨어져 생산자가 천천히 줄어듭니다.</li>
+</ul>
+<p><strong>공통 처리</strong>
+- 모든 값은 0 이상, 상한 3.0(지수 300)으로 제한합니다.
+- 지수 2(0.02) 미만이 되면 0으로 만들고 "사라짐" 상태로 바꿉니다.</p>
+<h3 id="6-3-자동-보정-균형-상태-만들기">6.3 자동 보정(균형 상태 만들기)</h3>
+<p>생물 데이터를 작성할 때 계수를 일일이 맞추기는 어렵습니다. 그래서 <strong>모든 생물이 기준값 1.0일 때 변화량이 0이 되도록</strong> 계수를 자동으로 계산합니다.</p>
+<ol>
+<li>데이터에는 먹이 관계와 <strong>먹이 선호도</strong>(예: 뱀은 들쥐 50%, 개구리 30%, 박새 20%)만 적습니다.</li>
+<li>선호도에 소비자별 섭식량 c_j를 곱해 a_ij를 정합니다.</li>
+<li>소비자 사망률: <code>m_j = e × Σ_i a_ij − Σ_k a_jk</code> (균형 조건에서 역산). 값이 0 이하이면 데이터 오류로 보고 빌드 단계에서 경고합니다.</li>
+<li>생산자 최대 한도: <code>K_i = 1 / (1 − Σ_j a_ij / r_i)</code> (Σ_j a_ij &lt; r_i 이어야 함).</li>
+</ol>
+<p>이렇게 하면 사건이 없을 때 생태계가 저절로 균형을 유지하고, 사건이 생긴 뒤의 변화만 순수하게 관찰할 수 있습니다.</p>
+<h3 id="6-4-안정성-확보">6.4 안정성 확보</h3>
+<p>로트카-볼테라 모델은 진동(늘었다 줄었다 반복)이 커질 수 있습니다. 다음 장치로 아이들이 이해하기 쉬운 변화 곡선을 만듭니다.
+- 포식자 간섭 항(같은 포식자끼리 경쟁)으로 진동 줄이기
+- 계산 단계를 잘게 나누기(dt = 0.1)
+- <strong>자동 테스트</strong>(6.6)로 테마별 안정성과 사건별 결과 방향을 검증</p>
+<h3 id="6-5-설명-문장-생성">6.5 설명 문장 생성</h3>
+<p>매 턴 생물별로 변화량의 각 항(먹이에서 얻는 양, 천적에게 먹히는 양, 사건 효과)을 기준 상태와 비교해 가장 큰 원인을 찾고, 템플릿 문장으로 바꿉니다.</p>
+<table>
+<thead>
+<tr>
+<th>원인</th>
+<th>템플릿</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>먹이 감소</td>
+<td>"{생물}이(가) 줄었어요. 먹이인 {먹이}이(가) 줄었기 때문이에요."</td>
+</tr>
+<tr>
+<td>먹이 증가</td>
+<td>"{생물}이(가) 늘었어요. 먹이인 {먹이}이(가) 많아졌기 때문이에요."</td>
+</tr>
+<tr>
+<td>천적 증가</td>
+<td>"{생물}이(가) 줄었어요. {생물}을(를) 먹는 {천적}이(가) 늘었기 때문이에요."</td>
+</tr>
+<tr>
+<td>천적 감소</td>
+<td>"{생물}이(가) 늘었어요. {생물}을(를) 먹는 {천적}이(가) 줄었기 때문이에요."</td>
+</tr>
+<tr>
+<td>먹이 여러 가지</td>
+<td>"{생물}은(는) {먹이1}이(가) 줄었지만 {먹이2}을(를) 먹어서 크게 줄지 않았어요."</td>
+</tr>
+<tr>
+<td>사건 직접 영향</td>
+<td>"{사건} 때문에 {생물}이(가) 직접 줄었어요."</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>한국어 조사(이/가, 을/를, 은/는)는 받침 여부로 자동 선택합니다.</li>
+<li>이 기록을 거꾸로 따라가면 "뱀 감소 → 개구리 증가 → 메뚜기 감소 → 풀 증가" 같은 <strong>영향 경로</strong>를 만들 수 있고, 질문 3의 정답과 화살표 빛 애니메이션에 사용합니다.</li>
+</ul>
+<h3 id="6-6-시뮬레이션-검증-테스트">6.6 시뮬레이션 검증 테스트</h3>
+<table>
+<thead>
+<tr>
+<th>테스트</th>
+<th>기준</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>무사건 안정성</td>
+<td>30턴 동안 모든 생물이 기준값 ±2% 안에 머묾</td>
+</tr>
+<tr>
+<td>복원력</td>
+<td>한 생물을 20% 줄인 뒤 30턴 안에 ±5% 안으로 돌아옴</td>
+</tr>
+<tr>
+<td>교과서 정답 일치</td>
+<td>"포식자 제거 → 피식자 증가", "생산자 감소 → 1차 소비자 감소" 등 교과서 핵심 관계가 모든 테마에서 성립</td>
+</tr>
+<tr>
+<td>출제 품질</td>
+<td>스테이지 질문의 정답 생물 변화율이 ±12% 밖에 있음(애매하지 않음)</td>
+</tr>
+<tr>
+<td>데이터 검증</td>
+<td>모든 소비자에게 먹이가 1개 이상, 사망률 &gt; 0, 생산자 조건 충족</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-오개념과-대응-설계">7. 오개념과 대응 설계</h2>
+<table>
+<thead>
+<tr>
+<th>흔한 오개념</th>
+<th>대응</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>화살표를 "먹는 생물 → 먹히는 생물"로 그림</td>
+<td>방향 반대 감지 피드백(F3-4), 화살표에 "에너지가 이동해요" 빛 흐름 애니메이션</td>
+</tr>
+<tr>
+<td>먹이 사슬 위쪽 생물은 아래 생물을 모두 먹는다</td>
+<td>먹이 그물 만들기에서 잘못된 연결에 구체적 이유 제시</td>
+</tr>
+<tr>
+<td>포식자가 사라지면 피식자에게는 무조건 좋다</td>
+<td>스테이지 3~4: 피식자가 너무 늘어 먹이가 부족해지고 결국 다시 줄어드는 과정 관찰</td>
+</tr>
+<tr>
+<td>한 생물의 변화는 바로 옆 생물에게만 영향을 준다</td>
+<td>질문 1을 직접 연결되지 않은 생물 위주로 출제, 영향 경로 애니메이션</td>
+</tr>
+<tr>
+<td>변화는 즉시 일어난다</td>
+<td>턴별 재생으로 시간 지연 관찰("3턴 뒤에야 풀이 늘기 시작했어요")</td>
+</tr>
+<tr>
+<td>분해자는 중요하지 않다</td>
+<td>탐구 모드 미션 "분해자를 없애 보세요" → 찌꺼기 증가, 생산자 서서히 감소</td>
+</tr>
+<tr>
+<td>시뮬레이션 결과 = 실제 자연</td>
+<td>결과 화면에 "실제 자연은 날씨, 질병 등 더 많은 것이 영향을 줘요" 안내, 교사 가이드에 모델 한계 설명</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-기술-스택">8. 기술 스택</h2>
+<table>
+<thead>
+<tr>
+<th>영역</th>
+<th>선택</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>프레임워크</td>
+<td><strong>React + TypeScript + Vite</strong></td>
+<td>바이브 코딩 자료가 많고, 타입으로 데이터 오류를 줄임</td>
+</tr>
+<tr>
+<td>먹이 그물 시각화</td>
+<td><strong>D3.js(d3-force)</strong> + SVG</td>
+<td>힘 기반 배치에 영양 단계별 세로 위치 힘(forceY)을 더해 "아래 생산자 → 위 최종 소비자" 층 구조 유지</td>
+</tr>
+<tr>
+<td>끌어서 연결</td>
+<td>SVG 포인터 이벤트 직접 구현</td>
+<td>노드 13개 수준이라 별도 라이브러리 불필요. 대안: React Flow(연결 UI가 기본 제공되나 층 배치는 직접 구현)</td>
+</tr>
+<tr>
+<td>개체 수 막대·그래프</td>
+<td>CSS 막대 + 간단한 SVG 꺾은선</td>
+<td>라이브러리 없이 충분, 애니메이션 제어 쉬움</td>
+</tr>
+<tr>
+<td>상태 관리</td>
+<td>Zustand</td>
+<td>단순하고 코드가 짧음</td>
+</tr>
+<tr>
+<td>시뮬레이션 엔진</td>
+<td>순수 TypeScript 모듈(화면과 분리)</td>
+<td>단위 테스트(Vitest)로 검증, 모둠 대항전 결정론 보장</td>
+</tr>
+<tr>
+<td>저장</td>
+<td>localStorage</td>
+<td>학생 번호별 진행 상황, 수 KB 수준</td>
+</tr>
+<tr>
+<td>오프라인</td>
+<td>PWA(vite-plugin-pwa)</td>
+<td>학교 와이파이 불안정 대응, 첫 접속 후 오프라인 실행</td>
+</tr>
+<tr>
+<td>효과음</td>
+<td>Web Audio(짧은 효과음 몇 개)</td>
+<td>교실 기본값은 소리 끔</td>
+</tr>
+<tr>
+<td>QR(P2)</td>
+<td>qrcode 생성 + 카메라 인식 라이브러리</td>
+<td>서버 없이 결과 수집</td>
+</tr>
+<tr>
+<td>배포</td>
+<td>GitHub Pages</td>
+<td>무료, 주소 하나로 배포</td>
+</tr>
+<tr>
+<td>테스트</td>
+<td>Vitest(엔진·데이터), Playwright(주요 화면 흐름)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-1-폴더-구조-안">8.1 폴더 구조(안)</h3>
+<pre><code>web-rangers/
+├─ src/
+│  ├─ data/            # 생물·사건·행동 카드, 스테이지, 진단 문항 (JSON 또는 TS)
+│  │  ├─ forest.ts
+│  │  ├─ paddy.ts
+│  │  └─ mudflat.ts
+│  ├─ engine/          # 시뮬레이션 엔진 (화면 코드에 의존하지 않음)
+│  │  ├─ calibrate.ts  # 6.3 자동 보정
+│  │  ├─ simulate.ts   # 6.2 턴 계산
+│  │  ├─ events.ts     # 사건 효과
+│  │  ├─ explain.ts    # 6.5 원인 추적·문장 생성
+│  │  └─ scoring.ts    # 채점·균형 점수
+│  ├─ components/      # 카드, 먹이 그물 캔버스, 개체 수 막대 등
+│  ├─ screens/         # 메인, 만들기, 관리인, 탐구, 도감, 진단, 교사
+│  ├─ store/           # Zustand 상태
+│  └─ utils/korean.ts  # 조사 자동 선택
+└─ tests/
+   ├─ engine/          # 6.6 검증 테스트
+   └─ data/            # 데이터 무결성 테스트
+</code></pre>
+<hr />
+<h2 id="9-데이터-모델">9. 데이터 모델</h2>
+<h3 id="9-1-생물-카드">9.1 생물 카드</h3>
+<pre><code class="language-ts">type Role = &quot;producer&quot; | &quot;primary&quot; | &quot;secondary&quot; | &quot;apex&quot; | &quot;decomposer&quot;;
+
+interface Species {
+  id: string;              // &quot;forest.snake&quot;
+  theme: &quot;forest&quot; | &quot;paddy&quot; | &quot;mudflat&quot;;
+  name: string;            // &quot;뱀&quot;
+  role: Role;
+  image: string;           // &quot;img/forest/snake.svg&quot;
+  habitat: string;         // &quot;숲 바닥, 돌 틈&quot;
+  fact: string;            // &quot;겨울에는 땅속에서 겨울잠을 자요.&quot;
+  prey: { id: string; preference: number }[];  // 먹이와 선호도(합 1.0)
+  intake?: number;         // 섭식량 c_j (기본값 사용 가능)
+  growth?: number;         // 생산자 성장률 r_i
+  tags?: (&quot;endangered&quot; | &quot;invasive&quot;)[];
+  sources: string[];       // 관계·사실의 출처
+}
+</code></pre>
+<h3 id="9-2-사건-카드">9.2 사건 카드</h3>
+<pre><code class="language-ts">interface EventCard {
+  id: string;              // &quot;paddy.bullfrog&quot;
+  theme: &quot;forest&quot; | &quot;paddy&quot; | &quot;mudflat&quot; | &quot;common&quot;;
+  title: string;           // &quot;황소개구리가 들어왔어요&quot;
+  story: string;           // 뉴스 형식 2문장
+  type: &quot;reduce&quot; | &quot;remove&quot; | &quot;environment&quot; | &quot;invasive&quot; | &quot;mortality&quot; | &quot;habitat&quot; | &quot;boost&quot;;
+  targets: string[];       // 영향 대상 생물 id 또는 &quot;role:producer&quot;
+  amount: number;          // 감소율, 환경 계수 등
+  duration?: number;       // 지속 턴
+  invader?: Species;       // 외래종 유입 시 새 생물
+  realCase?: string;       // &quot;실제로 있었던 일&quot; 설명
+}
+</code></pre>
+<h3 id="9-3-학생-진행-상황-localstorage">9.3 학생 진행 상황(localStorage)</h3>
+<pre><code class="language-ts">// 키: &quot;webrangers.v1.students&quot;
+interface StudentRecord {
+  key: string;             // &quot;6-2-13&quot; (학년-반-번호) 또는 &quot;guest&quot;
+  cards: string[];         // 획득한 카드 id
+  stages: Record&lt;string, { stars: number; best: number }&gt;;
+  predictions: { stageId: string; q: 1 | 2 | 3; correct: boolean; at: string }[];
+  diagnostic?: {
+    pre?: { answers: (string | number)[]; score: number; at: string };
+    post?: { answers: (string | number)[]; score: number; at: string };
+  };
+}
+</code></pre>
+<ul>
+<li>기타 키: <code>webrangers.v1.settings</code>(소리, 글자 크기, 교사 PIN 해시), <code>webrangers.v1.scoreboard</code>(모둠 대항전).</li>
+<li>키 이름에 버전(v1)을 넣어 이후 데이터 구조가 바뀌어도 이전 데이터를 옮길 수 있게 합니다.</li>
+</ul>
+<hr />
+<h2 id="10-화면-구성">10. 화면 구성</h2>
+<table>
+<thead>
+<tr>
+<th>화면</th>
+<th>주요 요소</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>시작</td>
+<td>앱 이름, 학년·반·번호 입력, 손님으로 시작, 교사 메뉴(자물쇠 아이콘)</td>
+</tr>
+<tr>
+<td>메인</td>
+<td>테마 3개(숲·논·갯벌) 큰 카드, 모드 버튼(만들기/관리인/탐구), 도감, 진단</td>
+</tr>
+<tr>
+<td>먹이 그물 만들기</td>
+<td>왼쪽(또는 아래) 카드 보관함, 가운데 캔버스, 상단 진행률·힌트·자동 정렬·분해자 보기</td>
+</tr>
+<tr>
+<td>관리인</td>
+<td>위: 먹이 그물(축소), 아래: 생물별 개체 수 막대, 오른쪽: 사건·예측·행동 패널, 턴 진행 컨트롤</td>
+</tr>
+<tr>
+<td>결과·설명</td>
+<td>예측 vs 결과 비교, 점수, 생물별 설명 카드, 영향 경로 다시 보기</td>
+</tr>
+<tr>
+<td>탐구</td>
+<td>먹이 그물 + 생물 탭 메뉴(없애기/줄이기/늘리기), 사건 선택, 꺾은선 그래프</td>
+</tr>
+<tr>
+<td>도감</td>
+<td>테마별 탭, 카드 격자, 카드 상세(먹이·천적 미니 그물)</td>
+</tr>
+<tr>
+<td>진단</td>
+<td>한 화면에 한 문항, 큰 보기 버튼, 진행 표시</td>
+</tr>
+<tr>
+<td>교사</td>
+<td>수업 모드, 모둠 대항전, 기기별 결과, CSV 내보내기, 카드 잠금 해제, 데이터 지우기</td>
+</tr>
+<tr>
+<td>모둠 대항전(전자칠판)</td>
+<td>큰 사건 카드, 타이머, 모둠별 예측 입력 버튼, 점수판</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>기본 방향은 가로 화면(태블릿·전자칠판). 세로 화면에서는 막대와 그물을 위아래로 배치합니다.</li>
+</ul>
+<hr />
+<h2 id="11-비기능-요구사항">11. 비기능 요구사항</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>기준</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>대상 기기</td>
+<td>갤럭시 탭 A 시리즈급 저가 태블릿, 크롬북, 전자칠판 브라우저(크롬 기반)</td>
+</tr>
+<tr>
+<td>성능</td>
+<td>첫 화면 3초 이내(학교 와이파이 기준), 시뮬레이션 1턴 재생 중 끊김 없음(초당 30프레임 이상)</td>
+</tr>
+<tr>
+<td>오프라인</td>
+<td>한 번 접속한 뒤에는 인터넷 없이 모든 기능 사용 가능</td>
+</tr>
+<tr>
+<td>터치</td>
+<td>버튼·카드 최소 48×48px, 카드끼리 붙어 있어도 연결 실수 줄이도록 자석 효과(가까운 카드에 자동으로 붙음)</td>
+</tr>
+<tr>
+<td>글</td>
+<td>초4 수준 어휘, 한 문장 25자 안팎, 어려운 낱말(생산자 등)은 탭하면 뜻 풀이</td>
+</tr>
+<tr>
+<td>접근성</td>
+<td>색 + 아이콘 + 글자로 증감 표시(▲ 늘어요/▼ 줄어요), 고대비 모드, 글자 크기 2단계</td>
+</tr>
+<tr>
+<td>개인정보</td>
+<td>이름·사진 등 개인정보 수집 없음, 외부 전송 없음, 추적 스크립트 없음</td>
+</tr>
+<tr>
+<td>소리</td>
+<td>기본값 끔(교실), 켜면 짧은 효과음만</td>
+</tr>
+<tr>
+<td>수업 시간</td>
+<td>한 판(관리인 라운드) 5~8분, 먹이 그물 만들기 10~15분</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</h2>
+<h3 id="m1-데이터와-시뮬레이션-엔진-화면-없음">M1. 데이터와 시뮬레이션 엔진 (화면 없음)</h3>
+<ul>
+<li>숲 테마 데이터 작성, 자동 보정·턴 계산·사건 효과 구현</li>
+<li>6.6 검증 테스트 통과, 명령줄에서 사건별 결과 표 출력</li>
+<li><strong>완료 기준</strong>: "뱀 감소 → 개구리 증가 → 메뚜기 감소 → 풀 증가"가 테스트로 확인됨</li>
+</ul>
+<h3 id="m2-먹이-그물-만들기">M2. 먹이 그물 만들기</h3>
+<ul>
+<li>D3 층 배치 캔버스, 끌어서 연결, 즉시 판정·힌트, 자동 정렬</li>
+<li>튜토리얼(먹이 사슬 3장)</li>
+<li><strong>완료 기준</strong>: 태블릿에서 숲 먹이 그물을 10분 안에 완성할 수 있음</li>
+</ul>
+<h3 id="m3-관리인-모드-핵심-게임-루프">M3. 관리인 모드(핵심 게임 루프)</h3>
+<ul>
+<li>사건 발동 → 예측 → 시뮬레이션 재생 → 채점·설명 → 관리인 행동 → 별</li>
+<li>설명 문장 생성, 영향 경로 애니메이션</li>
+<li>숲 5개 스테이지</li>
+<li><strong>완료 기준</strong>: 숲 테마로 한 차시 수업 진행 가능</li>
+</ul>
+<h3 id="m4-논-갯벌-콘텐츠와-카드-수집">M4. 논·갯벌 콘텐츠와 카드 수집</h3>
+<ul>
+<li>논·갯벌 데이터·사건·스테이지 작성, 테마 고유 사건(농약, 기름 유출, 갯끈풀 등)</li>
+<li>카드 도감과 보상, 탐구 모드</li>
+<li>과학 교사 콘텐츠 검토 1차</li>
+<li><strong>완료 기준</strong>: 세 테마 모두 검증 테스트 통과, 콘텐츠 검토 의견 반영</li>
+</ul>
+<h3 id="m5-교실-기능">M5. 교실 기능</h3>
+<ul>
+<li>학생 번호 관리, 사전·사후 진단, 교사 결과 화면·CSV</li>
+<li>모둠 대항전(전자칠판 진행형, 도전 코드형)</li>
+<li>PWA 오프라인, 교사 가이드</li>
+<li><strong>완료 기준</strong>: 실제 교실 기기(태블릿 + 전자칠판)에서 2차시 수업 리허설 성공</li>
+</ul>
+<h3 id="m6-파일럿-수업과-개선">M6. 파일럿 수업과 개선</h3>
+<ul>
+<li>1~2개 학급에서 2차시 파일럿, 사전·사후 진단 비교</li>
+<li>학생 관찰 기록과 교사 의견으로 난이도·문장 수정</li>
+<li>먹이 사슬 vs 먹이 그물 비교 실험(F7-4), 실험 기록장 등 P1 기능 추가</li>
+</ul>
+<hr />
+<h2 id="13-위험-요소와-대응">13. 위험 요소와 대응</h2>
+<table>
+<thead>
+<tr>
+<th>위험</th>
+<th>영향</th>
+<th>대응</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>시뮬레이션 결과가 직관이나 교과서와 다름</td>
+<td>학생 혼란, 교사 신뢰 하락</td>
+<td>자동 보정 + 교과서 정답 일치 테스트, 애매한 문제 자동 제외, 결과마다 설명 문장 제공</td>
+</tr>
+<tr>
+<td>진동이 커서 결과가 이상하게 출렁임</td>
+<td>해석 어려움</td>
+<td>포식자 간섭 항, 작은 계산 단계, 안정성 테스트</td>
+</tr>
+<tr>
+<td>생물 관계 데이터 오류</td>
+<td>잘못된 개념 학습</td>
+<td>출처 기록, 과학 교사 검토, 대표 관계만 사용</td>
+</tr>
+<tr>
+<td>세 테마 콘텐츠 작성량이 많음</td>
+<td>일정 지연</td>
+<td>데이터 형식을 먼저 확정하고 숲으로 엔진 검증 후 논·갯벌은 데이터만 추가, 데이터 무결성 테스트 자동화</td>
+</tr>
+<tr>
+<td>먹이 그물이 복잡해 화면이 어지러움</td>
+<td>저학년·느린 학습자 어려움</td>
+<td>테마당 13종 이하, 분해자 연결 숨김, 층 배치, 쉬움 단계(생물 8종) 제공</td>
+</tr>
+<tr>
+<td>저가 태블릿 성능 부족</td>
+<td>끊김</td>
+<td>SVG 노드 20개 이하, 애니메이션 단순화, 실제 학교 기기로 조기 테스트</td>
+</tr>
+<tr>
+<td>공용 기기에 학생 기록이 섞임</td>
+<td>결과 신뢰도 저하</td>
+<td>학생 바꾸기 버튼, 수업 시작 시 번호 확인, 교사의 데이터 지우기 기능</td>
+</tr>
+<tr>
+<td>경쟁이 과열되어 추론보다 찍기에 집중</td>
+<td>학습 효과 저하</td>
+<td>질문 3(이유)에 높은 배점, 모둠 토의 시간 확보, 오답에도 설명으로 배움 제공</td>
+</tr>
+<tr>
+<td>효과 검증 연구 부족(근거 강도 ★☆☆)</td>
+<td>효과 불확실</td>
+<td>사전·사후 진단 내장, 파일럿에서 간단한 효과 측정</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="14-성공-지표">14. 성공 지표</h2>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>목표(파일럿 기준)</th>
+<th>측정 방법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>간접 효과 문항 정답률 상승</td>
+<td>사전 대비 사후 +20%p 이상</td>
+<td>진단 4번 문항</td>
+</tr>
+<tr>
+<td>이유 설명 수준</td>
+<td>사후 서술형에서 2단계 이상 영향 경로를 쓴 학생 비율 50% 이상</td>
+<td>진단 5번 문항, 교사 채점</td>
+</tr>
+<tr>
+<td>화살표 방향 오류</td>
+<td>먹이 그물 만들기 마지막 시도에서 방향 오류 10% 이하</td>
+<td>앱 기록</td>
+</tr>
+<tr>
+<td>수업 내 완료율</td>
+<td>1차시 먹이 그물 완성 90% 이상</td>
+<td>앱 기록</td>
+</tr>
+<tr>
+<td>예측 정답률 변화</td>
+<td>첫 스테이지 대비 마지막 스테이지 정답률 상승</td>
+<td>앱 기록</td>
+</tr>
+<tr>
+<td>교사 만족도</td>
+<td>"다시 수업에 쓰겠다" 응답</td>
+<td>파일럿 교사 면담</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</h2>
+<h3 id="15-1-결정된-사항-v0-2">15.1 결정된 사항 (v0.2)</h3>
+<ul>
+<li>앱 이름: <strong>먹이그물 탐정단(Web Rangers)</strong></li>
+<li>사용 환경: <strong>교실 수업 중심</strong>(태블릿·크롬북 + 전자칠판)</li>
+<li>플레이 방식: <strong>1인 관리인 모드 + 모둠 대항전</strong>(실시간 서버 없이 전자칠판 진행형·도전 코드형)</li>
+<li>데이터: <strong>로그인 없이 기기에 저장</strong>, 학생은 학년·반·번호만 입력, 결과는 교사 화면과 CSV로 확인</li>
+<li>MVP 테마: <strong>숲·논·갯벌 세 가지 모두</strong></li>
+<li>생성형 AI는 사용하지 않음, 설명 문장은 템플릿으로 생성</li>
+</ul>
+<h3 id="15-2-확인이-필요한-사항">15.2 확인이 필요한 사항</h3>
+<ol>
+<li><strong>교육과정 연결</strong>: 수업에 쓸 교과서(2022 개정 교육과정 적용 학년·출판사)와 해당 차시를 알려 주시면, 생물 목록과 진단 문항을 교과서 예시에 맞추겠습니다.</li>
+<li><strong>학교 기기 환경</strong>: 실제로 쓸 태블릿 기종(갤럭시 탭, 아이패드, 크롬북)과 전자칠판 브라우저를 확인하고 싶습니다.</li>
+<li><strong>그림 제작 방식</strong>: 직접 그리기, 이모지·아이콘 활용, AI 이미지 생성 중 어떤 방식을 선호하시나요? (생물 약 40종 + 사건·행동 카드 약 30장 필요)</li>
+<li><strong>난이도 단계</strong>: 4학년도 쓸 수 있게 "쉬움(생물 8종)" 단계를 MVP에 넣을지, 5~6학년 기준으로만 만들지 정해야 합니다.</li>
+<li><strong>콘텐츠 검토자</strong>: 생물 관계를 검토해 줄 과학 교사나 전문가가 있는지 확인이 필요합니다.</li>
+<li><strong>모둠 대항전 우선순위</strong>: 전자칠판 진행형과 도전 코드형 중 먼저 만들 방식을 정하면 M5 범위를 줄일 수 있습니다.</li>
+</ol>
+<hr />
+<h2 id="참고-자료">참고 자료</h2>
+<ul>
+<li>Mystery Science, Ecosystems: The Food Web — 포식자-피식자 카드 게임과 종 제거 탐구 수업: https://mysteryscience.com/ecosystems/ecosystems-the-food-web</li>
+<li>Jeffers Foundation, Human Food Web 활동(털실 연결): https://jeffersfoundation.org/wp-content/uploads/2021/01/Activity-Human-Food-Web.pdf</li>
+<li>The Design and Development of an Educational Game for Upper Elementary School Children: Down with Food: https://www.academia.edu/22029852/The_Design_and_Development_of_an_Educational_Game_for_Upper_Elementary_School_Children_Down_with_Food</li>
+<li>로트카-볼테라 포식자-피식자 모델(시뮬레이션 기본 원리)</li>
+<li>생물 정보 확인용: 국립생물자원관, 국립생태원, 환경부 생태계교란 생물 지정 목록(황소개구리, 갯끈풀 등)</li>
+</ul></article></main>
+<button id="top" aria-label="맨 위로">↑</button>
+<script>
+(function(){
+ var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+ // 그룹 접기/펼치기
+ $$('.grp-h:not(.static)').forEach(function(b){b.addEventListener('click',function(e){
+  if(e.target.closest('a')){return}
+  var g=b.parentNode;g.classList.toggle('open');b.setAttribute('aria-expanded',g.classList.contains('open'))})});
+ // 모바일 메뉴
+ function close(){document.body.classList.remove('open')}
+ $('#menu').onclick=function(){document.body.classList.toggle('open')};
+ $('#scrim').onclick=close;
+ $$('#nav a').forEach(function(a){a.addEventListener('click',close)});
+ // 검색
+ $('#q').addEventListener('input',function(){
+  var v=this.value.trim().toLowerCase();
+  $$('#nav .grp').forEach(function(g){
+   var any=false,gh=$('.grp-h',g),gm=!!v&&gh.textContent.toLowerCase().indexOf(v)>-1;if(gm)any=true;
+   $$('li',g).forEach(function(li){var ok=!v||gm||li.textContent.toLowerCase().indexOf(v)>-1;li.classList.toggle('hide',!ok);if(ok)any=true});
+   g.style.display=(!v||any)?'':'none';
+   if(v&&any)g.classList.add('open');
+  });
+ });
+ // 스크롤 위치 표시
+ var links=$$('#nav li a'),map={};
+ links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+ var heads=$$('#doc h2[id],#doc h3[id]');
+ $$('#nav .grp-h a').forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+ links=$$('#nav a');
+ function spy(){
+  var y=window.scrollY+80,cur=null;
+  heads.forEach(function(h){if(h.offsetTop<=y)cur=h});
+  links.forEach(function(a){a.classList.remove('active')});
+  if(cur&&map[cur.id]){var a=map[cur.id];a.classList.add('active');
+   var g=a.closest('.grp');if(g&&!g.classList.contains('open')&&!$('#q').value)g.classList.add('open');
+   var nav=$('#nav'),r=a.getBoundingClientRect(),nr=nav.getBoundingClientRect();
+   if(r.top<nr.top||r.bottom>nr.bottom)nav.scrollTop+=r.top-nr.top-nr.height/3}
+  $('#top').classList.toggle('show',window.scrollY>600);
+ }
+ var t;window.addEventListener('scroll',function(){cancelAnimationFrame(t);t=requestAnimationFrame(spy)});spy();
+ $('#top').onclick=function(){window.scrollTo({top:0})};
+ // 테마
+ var root=document.documentElement;
+ try{var s=localStorage.getItem('theme');if(s)root.dataset.theme=s}catch(e){}
+ $('#theme').onclick=function(){
+  var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  root.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}};
+})();
+</script>
+</body>
+</html>
