@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>먹이그물 탐정단(Web Rangers): 제품 기획서(PRD)</title>
+<title>먹이그물 탐험대(Web Rangers): 제품 기획서(PRD)</title>
 <style>
 :root{--bg:#fafaf8;--panel:#f1f0ec;--text:#1f2328;--muted:#656d76;--line:#dcdad3;--accent:#2f6fed;--accent-bg:#e6eefe;--code:#eceae4;--star:#d98a00}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#7aa2ff;--accent-bg:#26324d;--code:#2a2c30;--star:#f0b43c}}
@@ -70,16 +70,16 @@ li{margin:.2em 0}
 <div id="scrim"></div>
 <aside id="side">
  <div class="side-top">
-  <h2>먹이그물 탐정단 PRD v0.4 <button id="theme" title="테마 전환">🌓</button></h2>
+  <h2>먹이그물 탐험대 PRD v0.5 <button id="theme" title="테마 전환">🌓</button></h2>
   <input id="q" type="search" placeholder="목차 검색 (예: 강, 바다, 교과서)" aria-label="목차 검색">
   <div class="dl">
    <a href="prd-ecosystem-foodweb.md" download="prd-ecosystem-foodweb.md">⬇ MD</a>
    <a id="dlhtml" href="prd-ecosystem-foodweb.html" download="prd-ecosystem-foodweb.html">⬇ HTML</a>
   </div>
  </div>
- <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-차별점">1.3 차별점</a></li><li><a href="#1-4-범위에서-제외하는-것-non-goals">1.4 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-사용자">2.1 사용자</a></li><li><a href="#2-2-사용-환경">2.2 사용 환경</a></li><li><a href="#2-3-대표-수업-시나리오">2.3 대표 수업 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-시작과-학생-식별-p0">F1. 시작과 학생 식별 (P0)</a></li><li><a href="#f2-생물-카드와-카드-도감-p0">F2. 생물 카드와 카드 도감 (P0)</a></li><li><a href="#f3-먹이그물-만들기-p0">F3. 먹이그물 만들기 (P0)</a></li><li><a href="#f4-시뮬레이션-엔진-p0-핵심">F4. 시뮬레이션 엔진 (P0, 핵심)</a></li><li><a href="#f5-사건-카드-p0">F5. 사건 카드 (P0)</a></li><li><a href="#f6-사건-수사-관리인-모드-예측-관찰-설명-p0-핵심">F6. 사건 수사(관리인 모드): 예측·관찰·설명 (P0, 핵심)</a></li><li><a href="#f7-자유-실험실-p0">F7. 자유 실험실 (P0)</a></li><li><a href="#f8-모둠-대항전-서버-없음">F8. 모둠 대항전 (서버 없음)</a></li><li><a href="#f9-사전-사후-진단-p0">F9. 사전·사후 진단 (P0)</a></li><li><a href="#f10-교사-기능-p0-p1">F10. 교사 기능 (P0~P1)</a></li><li><a href="#f11-분류-놀이-교과서-42-47쪽-연계">F11. 분류 놀이 (교과서 42~47쪽 연계)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-콘텐츠-설계">5. 콘텐츠 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-콘텐츠-원칙">5.1 콘텐츠 원칙</a></li><li><a href="#5-2-테마별-생물-구성">5.2 테마별 생물 구성</a></li><li><a href="#5-3-관리인-행동-카드">5.3 관리인 행동 카드</a></li><li><a href="#5-4-교과서-49쪽-먹이그물-대조표-claude-1차-검토-교사-확인-완료">5.4 교과서 49쪽 먹이그물 대조표 (Claude 1차 검토 → 교사 확인 완료)</a></li><li><a href="#5-5-그림-제작-ai-이미지-생성">5.5 그림 제작 (AI 이미지 생성)</a></li><li><a href="#5-6-콘텐츠-검토-절차">5.6 콘텐츠 검토 절차</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-시뮬레이션-모델">6. 시뮬레이션 모델</a><span class=chev>▾</span></button><ul><li><a href="#6-1-설계-원칙">6.1 설계 원칙</a></li><li><a href="#6-2-계산식">6.2 계산식</a></li><li><a href="#6-3-자동-보정-균형-상태-만들기">6.3 자동 보정(균형 상태 만들기)</a></li><li><a href="#6-4-안정성-확보">6.4 안정성 확보</a></li><li><a href="#6-5-설명-문장-생성">6.5 설명 문장 생성</a></li><li><a href="#6-6-시뮬레이션-검증-테스트">6.6 시뮬레이션 검증 테스트</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#7-오개념과-대응-설계">7. 오개념과 대응 설계</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-기술-스택">8. 기술 스택</a><span class=chev>▾</span></button><ul><li><a href="#8-1-폴더-구조-안">8.1 폴더 구조(안)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-데이터-모델">9. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#9-1-생물-카드">9.1 생물 카드</a></li><li><a href="#9-2-사건-카드">9.2 사건 카드</a></li><li><a href="#9-3-학생-진행-상황-localstorage">9.3 학생 진행 상황(localStorage)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-화면-구성">10. 화면 구성</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m1-데이터와-시뮬레이션-엔진-화면-없음">M1. 데이터와 시뮬레이션 엔진 (화면 없음)</a></li><li><a href="#m2-그림-1차와-먹이그물-만들기">M2. 그림 1차와 먹이그물 만들기</a></li><li><a href="#m3-사건-수사-핵심-게임-루프">M3. 사건 수사(핵심 게임 루프)</a></li><li><a href="#m4-교실-기능과-모둠-대항전-전자칠판-진행형">M4. 교실 기능과 모둠 대항전(전자칠판 진행형)</a></li><li><a href="#m5-강-바다-콘텐츠와-카드-수집">M5. 강·바다 콘텐츠와 카드 수집</a></li><li><a href="#m6-파일럿-수업과-도전-코드형">M6. 파일럿 수업과 도전 코드형</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표">14. 성공 지표</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-3">15.1 결정된 사항 (v0.3)</a></li><li><a href="#15-2-확인이-필요한-사항">15.2 확인이 필요한 사항</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#참고-자료">참고 자료</a></button><ul></ul></div></nav>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-차별점">1.3 차별점</a></li><li><a href="#1-4-범위에서-제외하는-것-non-goals">1.4 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-사용자">2.1 사용자</a></li><li><a href="#2-2-사용-환경">2.2 사용 환경</a></li><li><a href="#2-3-대표-수업-시나리오">2.3 대표 수업 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-시작과-학생-식별-p0">F1. 시작과 학생 식별 (P0)</a></li><li><a href="#f2-생물-카드와-카드-도감-p0">F2. 생물 카드와 카드 도감 (P0)</a></li><li><a href="#f3-먹이그물-만들기-p0">F3. 먹이그물 만들기 (P0)</a></li><li><a href="#f4-시뮬레이션-엔진-p0-핵심">F4. 시뮬레이션 엔진 (P0, 핵심)</a></li><li><a href="#f5-사건-카드-p0">F5. 사건 카드 (P0)</a></li><li><a href="#f6-사건-탐구-관리인-모드-예측-관찰-설명-p0-핵심">F6. 사건 탐구(관리인 모드): 예측·관찰·설명 (P0, 핵심)</a></li><li><a href="#f7-자유-실험실-p0">F7. 자유 실험실 (P0)</a></li><li><a href="#f8-모둠-대항전-서버-없음">F8. 모둠 대항전 (서버 없음)</a></li><li><a href="#f9-사전-사후-진단-p0">F9. 사전·사후 진단 (P0)</a></li><li><a href="#f10-교사-기능-p0-p1">F10. 교사 기능 (P0~P1)</a></li><li><a href="#f11-분류-놀이-교과서-42-47쪽-연계">F11. 분류 놀이 (교과서 42~47쪽 연계)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-콘텐츠-설계">5. 콘텐츠 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-콘텐츠-원칙">5.1 콘텐츠 원칙</a></li><li><a href="#5-2-테마별-생물-구성">5.2 테마별 생물 구성</a></li><li><a href="#5-3-관리인-행동-카드">5.3 관리인 행동 카드</a></li><li><a href="#5-4-교과서-49쪽-먹이그물-대조표-claude-1차-검토-교사-확인-완료">5.4 교과서 49쪽 먹이그물 대조표 (Claude 1차 검토 → 교사 확인 완료)</a></li><li><a href="#5-5-그림-제작-ai-이미지-생성">5.5 그림 제작 (AI 이미지 생성)</a></li><li><a href="#5-6-콘텐츠-검토-절차">5.6 콘텐츠 검토 절차</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-시뮬레이션-모델">6. 시뮬레이션 모델</a><span class=chev>▾</span></button><ul><li><a href="#6-1-설계-원칙">6.1 설계 원칙</a></li><li><a href="#6-2-계산식">6.2 계산식</a></li><li><a href="#6-3-자동-보정-균형-상태-만들기">6.3 자동 보정(균형 상태 만들기)</a></li><li><a href="#6-4-안정성-확보">6.4 안정성 확보</a></li><li><a href="#6-5-설명-문장-생성">6.5 설명 문장 생성</a></li><li><a href="#6-6-시뮬레이션-검증-테스트">6.6 시뮬레이션 검증 테스트</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#7-오개념과-대응-설계">7. 오개념과 대응 설계</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-기술-스택">8. 기술 스택</a><span class=chev>▾</span></button><ul><li><a href="#8-1-폴더-구조-안">8.1 폴더 구조(안)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-데이터-모델">9. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#9-1-생물-카드">9.1 생물 카드</a></li><li><a href="#9-2-사건-카드">9.2 사건 카드</a></li><li><a href="#9-3-학생-진행-상황-localstorage">9.3 학생 진행 상황(localStorage)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-화면-구성">10. 화면 구성</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m1-데이터와-시뮬레이션-엔진-화면-없음">M1. 데이터와 시뮬레이션 엔진 (화면 없음)</a></li><li><a href="#m2-그림-1차와-먹이그물-만들기">M2. 그림 1차와 먹이그물 만들기</a></li><li><a href="#m3-사건-탐구-핵심-게임-루프">M3. 사건 탐구(핵심 게임 루프)</a></li><li><a href="#m4-교실-기능과-모둠-대항전-전자칠판-진행형">M4. 교실 기능과 모둠 대항전(전자칠판 진행형)</a></li><li><a href="#m5-강-바다-콘텐츠와-카드-수집">M5. 강·바다 콘텐츠와 카드 수집</a></li><li><a href="#m6-파일럿-수업과-도전-코드형">M6. 파일럿 수업과 도전 코드형</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표">14. 성공 지표</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-5">15.1 결정된 사항 (v0.5)</a></li><li><a href="#15-2-확인이-필요한-사항">15.2 확인이 필요한 사항</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#참고-자료">참고 자료</a></button><ul></ul></div></nav>
 </aside>
-<main><article id="doc"><h1 id="먹이그물-탐정단-web-rangers-제품-기획서-prd">먹이그물 탐정단(Web Rangers): 제품 기획서(PRD)</h1>
+<main><article id="doc"><h1 id="먹이그물-탐험대-web-rangers-제품-기획서-prd">먹이그물 탐험대(Web Rangers): 제품 기획서(PRD)</h1>
 <table>
 <thead>
 <tr>
@@ -90,7 +90,7 @@ li{margin:.2em 0}
 <tbody>
 <tr>
 <td>문서 버전</td>
-<td>v0.4</td>
+<td>v0.5</td>
 </tr>
 <tr>
 <td>작성일</td>
@@ -98,7 +98,7 @@ li{margin:.2em 0}
 </tr>
 <tr>
 <td>앱 이름</td>
-<td><strong>먹이그물 탐정단(Web Rangers)</strong>: 숲·강·바다 생태계의 연쇄 반응을 추리하고 지키는 탐정단</td>
+<td><strong>먹이그물 탐험대(Web Rangers)</strong>: 숲·강·바다 생태계의 연쇄 반응을 추리하고 지키는 탐험대</td>
 </tr>
 <tr>
 <td>대상</td>
@@ -148,6 +148,11 @@ li{margin:.2em 0}
 <td>2026-10-19</td>
 <td>① 교과서 49쪽 대조표의 "확인 필요" 4개 관계를 교사 확인으로 <strong>확정</strong> ② 테마를 교과서 43~45쪽과 같은 <strong>숲·강·바다</strong>로 변경(논·갯벌 삭제). 강·바다 생물·먹이 관계·사건·스테이지·진단 문항·관리인 행동 다시 설계 ③ 실험관찰 대신 <strong>교과서 내용만으로</strong> 개발(분류 놀이 카드는 교과서 43~47쪽 생물 사용), 그림 목록 78장으로 갱신</td>
 </tr>
+<tr>
+<td>v0.5</td>
+<td>2026-10-19</td>
+<td>① 앱 한글 이름을 <strong>먹이그물 탐험대</strong>(Web Rangers)로 변경. 학생 역할(탐험대원), 활동 이름(사건 탐구, 탐구 보고서)도 함께 변경 ② 강 12개·바다 13개 먹이 관계(5.2)를 교사 확인으로 <strong>확정</strong></td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -155,7 +160,7 @@ li{margin:.2em 0}
 <h3 id="1-1-배경">1.1 배경</h3>
 <p>초등 과학의 먹이사슬·먹이그물 수업은 대부분 "누가 누구를 먹는가"를 화살표로 잇는 활동에서 끝납니다. 시중의 카드 게임과 학습 앱도 어휘와 순서 암기에 머무는 경우가 많습니다. 그러나 4학년 교과서도 "개구리가 사라졌을 때 생태계의 변화"(48쪽), "직박구리가 사라지면 어떤 일이 생길지"(49쪽), "분해자가 사라지면 어떤 일이 생길지"(47쪽)를 묻습니다. 이 단원의 핵심은 "<strong>한 생물이 사라지거나 늘어나면 연결된 다른 생물에게 어떤 일이 일어나는가</strong>"를 추론하는 것입니다.</p>
 <p>교실에서는 생물 카드로 먹이 관계 모형을 만드는 놀이(교과서 48쪽)나 털실로 학생들을 연결하는 활동(Human Food Web)을 합니다. 하지만 종이 카드와 털실로는 <strong>시간에 따른 생물 수의 변화</strong>와 <strong>간접 효과</strong>(예: 개구리가 사라지면 메뚜기가 늘고, 그 결과 풀이 줄어듦)를 눈으로 확인하기 어렵습니다.</p>
-<p>이 앱은 학생을 생태계의 연쇄 반응을 추리하고 지키는 <strong>탐정단원</strong>(생태계 관리인)으로 설정하고, 다음 흐름으로 시스템 사고를 연습하게 합니다.</p>
+<p>이 앱은 학생을 생태계의 연쇄 반응을 추리하고 지키는 <strong>탐험대원</strong>(생태계 관리인)으로 설정하고, 다음 흐름으로 시스템 사고를 연습하게 합니다.</p>
 <ol>
 <li>생물 카드를 모아 먹이그물을 직접 연결합니다.</li>
 <li>사건 카드(가뭄, 외래종 유입, 특정 생물이 사라짐 등)가 발동됩니다.</li>
@@ -182,7 +187,7 @@ li{margin:.2em 0}
 <thead>
 <tr>
 <th>기존 먹이사슬 게임·활동</th>
-<th>먹이그물 탐정단</th>
+<th>먹이그물 탐험대</th>
 </tr>
 </thead>
 <tbody>
@@ -278,8 +283,8 @@ li{margin:.2em 0}
 3. (5분) 튜토리얼: 카드 3장으로 먹이사슬(풀 → 메뚜기 → 개구리)을 잇고, 화살표 방향의 뜻을 배웁니다(교과서 49쪽 먹이사슬 예시).
 4. (15분) <strong>먹이그물 만들기</strong>: 교과서 49쪽 숲 생물 카드 14장을 화살표로 잇습니다. 교과서 "도우미"처럼 <strong>생산자 카드부터 시작</strong>하도록 안내합니다. 틀린 연결은 바로 알려 주고 힌트를 줍니다.
 5. (10분) 교사가 전자칠판에서 완성된 먹이그물을 띄우고 교과서 질문을 함께 이야기합니다. "먹이사슬과 무엇이 다른가요?" "개구리가 사라지면 어떻게 될까요?"</p>
-<p><strong>2차시(40분): 사건 수사(생태계 관리인)</strong>
-1. (18분) <strong>사건 수사</strong>: 사건 카드 "개구리가 모두 사라졌어요"(교과서 48쪽 질문)가 나옵니다. 학생은 풀이 어떻게 될지 예측하고, 가장 크게 변할 생물을 고릅니다. 8년 동안의 변화를 관찰하고 점수를 받습니다. 이어서 "직박구리가 사라졌어요"(교과서 49쪽 질문)를 수사합니다.
+<p><strong>2차시(40분): 사건 탐구(생태계 관리인)</strong>
+1. (18분) <strong>사건 탐구</strong>: 사건 카드 "개구리가 모두 사라졌어요"(교과서 48쪽 질문)가 나옵니다. 학생은 풀이 어떻게 될지 예측하고, 가장 크게 변할 생물을 고릅니다. 8년 동안의 변화를 관찰하고 점수를 받습니다. 이어서 "직박구리가 사라졌어요"(교과서 49쪽 질문)를 탐구합니다.
 2. (14분) <strong>모둠 대항전(전자칠판 진행형)</strong>: 교사가 강 테마 사건 카드 "큰입배스가 들어왔어요"를 띄웁니다. 6개 모둠이 토의해 예측을 고르면 교사가 전자칠판에서 모둠별 예측을 누르고, 시뮬레이션을 함께 봅니다. 점수판에 모둠 점수가 쌓입니다.
 3. (8분) <strong>사후 진단</strong>과 정리 질문("먹이그물이 복잡하면 왜 좋을까요?")에 답합니다. 교사는 수업이 끝난 뒤 기기별 결과를 확인하거나 CSV로 모읍니다.</p>
 <blockquote>
@@ -295,7 +300,7 @@ li{margin:.2em 0}
    │
    ├─ [먹이그물 만들기]  테마 선택(숲/강/바다) → 카드 놓기 → 화살표 잇기 → 확인 → 카드 보상
    │
-   ├─ [사건 수사(관리인 모드)]  숲 5개, 강·바다 각 3개 스테이지
+   ├─ [사건 탐구(관리인 모드)]  숲 5개, 강·바다 각 3개 스테이지
    │      안정 상태 관찰 → 사건 카드 발동 → 예측 → 시뮬레이션 관찰 → 채점·설명 → 관리인 행동 → 별
    │
    ├─ [자유 실험실]  아무 생물이나 없애기·늘리기·외래종 넣기 → 결과 관찰
@@ -555,7 +560,7 @@ li{margin:.2em 0}
 | 서식지 감소 | 테마 전체 생물의 한도를 계속 낮춤 | 숲에 길을 냈어요, 강가를 시멘트로 덮었어요 |
 | 분해자 사라짐 | 분해자를 0으로 만듦 | 버섯과 곰팡이가 사라졌어요 |
 | 생물 늘어남 | 특정 생물 수를 바로 늘림 | 토끼가 크게 늘었어요 |</p>
-<h3 id="f6-사건-수사-관리인-모드-예측-관찰-설명-p0-핵심">F6. 사건 수사(관리인 모드): 예측·관찰·설명 (P0, 핵심)</h3>
+<h3 id="f6-사건-탐구-관리인-모드-예측-관찰-설명-p0-핵심">F6. 사건 탐구(관리인 모드): 예측·관찰·설명 (P0, 핵심)</h3>
 <p>한 판은 약 5~7분이며 다음 순서로 진행합니다.</p>
 <table>
 <thead>
@@ -864,7 +869,7 @@ li{margin:.2em 0}
 <li>교과서 49쪽 그림에는 분해자가 없으므로, 분해자는 47쪽 내용을 바탕으로 추가하고 "분해자 연결 보기"를 켰을 때만 보입니다.</li>
 <li>학습 포인트: 개구리가 사라져도 오리·뱀·족제비·매는 다른 먹이가 있어 크게 줄지 않습니다(먹이그물의 안정성).</li>
 </ul>
-<p><strong>강 — 교과서 44쪽 생태계</strong> (11종, 초안)
+<p><strong>강 — 교과서 44쪽 생태계</strong> (11종, 관계 12개, 교사 확인 완료)
 | 역할 | 생물 | 먹이 | 교과서 |
 |---|---|---|---|
 | 생산자 | 반달말(물속 작은 조류) | — | 44쪽 |
@@ -883,7 +888,7 @@ li{margin:.2em 0}
 <li>학습 포인트: 왜가리가 사라지면 붕어가 늘어 붕어마름이 줄어드는 간접 효과, 물(비생물 요소)이 더러워지면 깨끗한 물에 사는 다슬기부터 줄어드는 모습, 외래종이 먹이그물을 흔드는 모습.</li>
 <li>붕어는 교과서 44쪽에 없지만, 붕어마름(교과서)을 먹고 왜가리(교과서)에게 먹히는 대표 물고기라서 추가했습니다.</li>
 </ul>
-<p><strong>바다 — 교과서 45쪽 생태계</strong> (13종, 초안)
+<p><strong>바다 — 교과서 45쪽 생태계</strong> (13종, 관계 13개, 교사 확인 완료)
 | 역할 | 생물 | 먹이 | 교과서 |
 |---|---|---|---|
 | 생산자 | 식물 플랑크톤 | — | 추가 |
@@ -1053,7 +1058,7 @@ li{margin:.2em 0}
 - 매(송골매)는 실제로는 주로 날아다니는 새를 사냥합니다. 먹이 관계는 교과서를 따르되, 도감의 한 줄 사실은 "주로 새를 사냥해요"처럼 사실에 맞게 씁니다.
 - 오리(그림은 흰뺨검둥오리)는 풀씨와 물풀을 많이 먹고 곤충·개구리도 먹습니다. 교과서 관계와 맞습니다.
 - 도토리·산수유는 식물의 열매입니다. 카드 이름은 교과서처럼 쓰고, 설명에 "상수리나무의 열매", "산수유나무의 열매"를 적습니다.
-- 강·바다는 교과서에 먹이 관계 그림이 없어서 Claude가 생물 정보를 바탕으로 관계를 정했습니다. 5.2 표의 관계는 선생님 검토 뒤 확정합니다.
+- 강·바다는 교과서에 먹이 관계 그림이 없어서 Claude가 생물 정보를 바탕으로 관계를 정했고, 교사가 확인해 <strong>확정</strong>했습니다(2026-10-19).
 - 반달말은 교과서 44쪽에 130배로 확대해 보여 주는 물속 조류(생산자)입니다. 카드 그림도 확대 원 안에 그립니다.
 - 산호는 교과서 45쪽에 생물 요소로 나옵니다. 분류 놀이에서 "식물일까, 동물일까?"를 묻는 좋은 예입니다(소비자).
 - 바다거북은 종에 따라 해파리를 주로 먹거나(장수거북·붉은바다거북) 해조류를 주로 먹습니다(푸른바다거북). 4학년 수준에서는 "해파리와 미역·톳을 먹어요"로 묶어 씁니다.
@@ -1358,7 +1363,7 @@ li{margin:.2em 0}
 │  │  ├─ explain.ts    # 6.5 원인 추적·문장 생성
 │  │  └─ scoring.ts    # 채점·균형 별
 │  ├─ components/      # 카드, 먹이그물 캔버스, 생물 수 막대 등
-│  ├─ screens/         # 메인, 분류 놀이, 만들기, 사건 수사, 실험실, 도감, 진단, 교사, 모둠 대항전
+│  ├─ screens/         # 메인, 분류 놀이, 만들기, 사건 탐구, 실험실, 도감, 진단, 교사, 모둠 대항전
 │  ├─ store/           # Zustand 상태
 │  └─ utils/korean.ts  # 조사 자동 선택
 ├─ public/img/         # AI 생성 그림 (WebP)
@@ -1436,7 +1441,7 @@ interface StudentRecord {
 </tr>
 <tr>
 <td>메인</td>
-<td>테마 3개(숲·강·바다) 큰 카드, 모드 버튼(분류 놀이/먹이그물 만들기/사건 수사/자유 실험실), 도감, 진단</td>
+<td>테마 3개(숲·강·바다) 큰 카드, 모드 버튼(분류 놀이/먹이그물 만들기/사건 탐구/자유 실험실), 도감, 진단</td>
 </tr>
 <tr>
 <td>분류 놀이</td>
@@ -1447,7 +1452,7 @@ interface StudentRecord {
 <td>왼쪽 카드 보관함, 가운데 판, 위쪽 진행률·힌트·자동 정렬·분해자 보기</td>
 </tr>
 <tr>
-<td>사건 수사</td>
+<td>사건 탐구</td>
 <td>왼쪽: 사건 카드와 먹이그물, 오른쪽: 예측 질문 3개</td>
 </tr>
 <tr>
@@ -1455,7 +1460,7 @@ interface StudentRecord {
 <td>위: 사건·내 예측 요약, 1~8년 타임라인, 왼쪽: 영향이 흐르는 먹이그물, 오른쪽: 생물 수 막대와 해설</td>
 </tr>
 <tr>
-<td>수사 보고서</td>
+<td>탐구 보고서</td>
 <td>점수, 질문별 결과, 영향이 퍼진 길, 생물별 설명, 관리인 행동</td>
 </tr>
 <tr>
@@ -1535,7 +1540,7 @@ interface StudentRecord {
 </tr>
 <tr>
 <td>수업 시간</td>
-<td>한 판(사건 수사) 5~7분, 먹이그물 만들기 10~15분, 분류 놀이 5~10분</td>
+<td>한 판(사건 탐구) 5~7분, 먹이그물 만들기 10~15분, 분류 놀이 5~10분</td>
 </tr>
 </tbody>
 </table>
@@ -1555,7 +1560,7 @@ interface StudentRecord {
 <li>분류 놀이(생산자·소비자·분해자)</li>
 <li><strong>완료 기준</strong>: 크롬북에서 숲 먹이그물을 15분 안에 완성할 수 있음</li>
 </ul>
-<h3 id="m3-사건-수사-핵심-게임-루프">M3. 사건 수사(핵심 게임 루프)</h3>
+<h3 id="m3-사건-탐구-핵심-게임-루프">M3. 사건 탐구(핵심 게임 루프)</h3>
 <ul>
 <li>사건 발동 → 예측 → 시뮬레이션 재생 → 채점·설명 → 관리인 행동 → 별</li>
 <li>설명 문장 생성, 영향이 퍼진 길 애니메이션</li>
@@ -1605,7 +1610,7 @@ interface StudentRecord {
 <tr>
 <td>강·바다에 교과서 밖 생물을 추가함</td>
 <td>교과서와 달라 혼란</td>
-<td>꼭 필요한 생물만 추가하고 "추가" 표시, 교사 검토 뒤 확정</td>
+<td>꼭 필요한 생물만 추가하고 "추가" 표시(교사 확인 완료). 수업에서 "교과서에는 없지만 이 생태계에 사는 생물"로 소개</td>
 </tr>
 <tr>
 <td>진동이 커서 결과가 이상하게 출렁임</td>
@@ -1694,24 +1699,23 @@ interface StudentRecord {
 </table>
 <hr />
 <h2 id="15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</h2>
-<h3 id="15-1-결정된-사항-v0-3">15.1 결정된 사항 (v0.3)</h3>
+<h3 id="15-1-결정된-사항-v0-5">15.1 결정된 사항 (v0.5)</h3>
 <ul>
-<li>앱 이름: <strong>먹이그물 탐정단(Web Rangers)</strong></li>
+<li>앱 이름: <strong>먹이그물 탐험대(Web Rangers)</strong></li>
 <li>대상: <strong>초등 4학년 2학기 과학 2단원 '생물과 환경'</strong>, 난이도와 용어는 4학년 교과서 기준</li>
 <li>숲 테마: <strong>교과서 49쪽 먹이그물</strong>(생물 14종 + 분해자 2종)</li>
 <li>기기: 학생 <strong>크롬북 1280×800·크롬</strong>, 교사 <strong>전자칠판 1920×1080·엣지</strong></li>
 <li>사용 환경: 교실 수업 중심, 1인 1기기 + 전자칠판</li>
-<li>플레이 방식: 1인 사건 수사 + 모둠 대항전(<strong>전자칠판 진행형 먼저</strong>, 도전 코드형은 그다음)</li>
+<li>플레이 방식: 1인 사건 탐구 + 모둠 대항전(<strong>전자칠판 진행형 먼저</strong>, 도전 코드형은 그다음)</li>
 <li>데이터: 로그인 없이 기기에 저장, 학생은 학년·반·번호만 입력, 결과는 교사 화면과 CSV로 확인</li>
 <li>MVP 테마: <strong>교과서와 같은 숲·강·바다</strong>(숲 5개, 강·바다 각 3개 스테이지)</li>
-<li>숲 먹이그물 32개 관계: 교사 확인 완료</li>
+<li>먹이 관계: 숲 32개(교과서 49쪽), 강 12개, 바다 13개 모두 교사 확인 완료</li>
 <li>개발 기준 자료: <strong>교과서</strong>(실험관찰은 참고하지 않음)</li>
 <li>그림: <strong>AI 이미지 생성</strong>(프롬프트 문서 제공), 앱 안에서는 생성형 AI를 쓰지 않음</li>
 <li>콘텐츠 검토: Claude 1차 검토 → 개발자 → 과학 담당 교사</li>
 </ul>
 <h3 id="15-2-확인이-필요한-사항">15.2 확인이 필요한 사항</h3>
 <ol>
-<li><strong>강·바다 먹이 관계</strong>(5.2): 교과서에 그림이 없어 Claude가 정한 관계입니다. 강 12개, 바다 13개 관계를 선생님이 검토해 주세요. 특히 "추가" 생물(물벼룩, 잠자리 애벌레, 붕어, 플랑크톤, 세균)을 넣어도 괜찮은지 봐 주세요.</li>
 <li><strong>그림 생성 도구</strong>: 나노바나나(Gemini) 외에 쓰실 도구가 있으면 프롬프트 형식을 맞추겠습니다.</li>
 </ol>
 <hr />

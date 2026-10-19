@@ -1,13 +1,13 @@
-# 먹이그물 탐정단 그림 생성 프롬프트 (image-prompts.md)
+# 먹이그물 탐험대 그림 생성 프롬프트 (image-prompts.md)
 
 | 항목 | 내용 |
 |---|---|
-| 문서 버전 | v0.2 |
+| 문서 버전 | v0.3 |
 | 작성일 | 2026-10-19 |
-| 대상 PRD | `../prd-ecosystem-foodweb.md` (v0.4) 5.5절 |
+| 대상 PRD | `../prd-ecosystem-foodweb.md` (v0.5) 5.5절 |
 | 권장 도구 | Google Gemini 이미지 생성(나노바나나). 다른 도구도 같은 프롬프트로 쓸 수 있습니다. |
 | 필요한 그림 | 생물 41장(숲 16, 강 11, 바다 13, 외래종 1) + 분류 놀이용 3장 + 비생물 요소 4장 + 사건 18장 + 관리인 행동 6장 + 기타 6장 = **78장** |
-| 변경 | v0.2: 테마를 교과서 43~45쪽과 같은 숲·강·바다로 변경(논·갯벌 그림 삭제), 분류 놀이용 교과서 47쪽 생물 3장 추가 |
+| 변경 | v0.2: 테마를 교과서 43~45쪽과 같은 숲·강·바다로 변경(논·갯벌 그림 삭제), 분류 놀이용 교과서 47쪽 생물 3장 추가 | / v0.3: 앱 이름 변경(먹이그물 탐험대)에 맞춰 마스코트를 어린이 탐험대원으로, 앱 아이콘에 나침반 추가
 
 > 이 개발 환경에서는 이미지를 직접 만들 수 없어서, 생성 도구에 그대로 붙여 넣을 수 있는 프롬프트를 정리했습니다. 프롬프트는 영어로 쓰면 결과가 더 안정적이라 영어로 쓰고, 확인할 점은 한국어로 적었습니다.
 
@@ -177,8 +177,8 @@ FORMAT: Landscape 4:3, 1600 x 1200.
 
 | 파일 이름 | 용도 | 프롬프트(주제) |
 |---|---|---|
-| `ui-mascot` | 탐정 배지(마스코트) | A friendly gender-neutral child detective of about 10 years old wearing a navy blue coat and a small hat, holding a big golden magnifying glass, half-body, smiling. Same watercolor style, plain white background, square. |
-| `ui-app-icon` | 앱 아이콘 | A golden magnifying glass over a simple web of thin lines connecting five small dots (leaf, grasshopper, frog, snake, falcon silhouettes), on a navy blue rounded square. Flat, bold, readable at 48 px, no text. Square. |
+| `ui-mascot` | 탐험대 배지(마스코트) | A friendly gender-neutral child nature explorer of about 10 years old wearing a navy blue field vest with many pockets and a wide-brim explorer hat, small binoculars around the neck, holding a big golden magnifying glass, a small backpack, half-body, smiling. Same watercolor style, plain white background, square. |
+| `ui-app-icon` | 앱 아이콘 | A golden compass needle over a simple web of thin lines connecting five small dots (leaf, grasshopper, frog, snake, falcon silhouettes), on a navy blue rounded square. Flat, bold, readable at 48 px, no text. Square. |
 | `ui-bg-forest` | 숲 테마 배경 | A wide soft watercolor landscape of a Korean forest edge with a small stream, oak trees and a grassy bank, light and airy colors, lots of empty space at the top, no animals. Landscape 16:9. |
 | `ui-bg-river` | 강 테마 배경 | A wide soft watercolor landscape of a calm Korean river with reeds and cattails on the banks and low hills, light colors, empty space at the top, no animals. Landscape 16:9. |
 | `ui-bg-sea` | 바다 테마 배경 | A wide soft watercolor seascape of the Korean coast with clear blue water, a rocky shore and a distant island, light colors, empty space at the top, no animals. Landscape 16:9. |

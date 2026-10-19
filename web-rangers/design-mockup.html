@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>먹이그물 탐정단 디자인 시안</title>
+<title>먹이그물 탐험대 디자인 시안</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
- /* 바탕: 탐정 수첩 종이 */
+ /* 바탕: 탐험 수첩 종이 */
  --paper:#FBF6EA;--paper-2:#F3EBD7;--card:#FFFDF7;--ink:#2B2A26;--ink-2:#6B6559;--line:#E2D6BC;
  /* 브랜드 */
  --navy:#24466B;--navy-2:#E3ECF5;--gold:#E3A81B;--gold-2:#FFF3D1;
@@ -365,14 +365,14 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <body>
 
 <header class="mock-bar">
- <strong>🔍 먹이그물 탐정단 · 디자인 시안 v0.3</strong>
+ <strong>🧭 먹이그물 탐험대 · 디자인 시안 v0.4</strong>
  <nav aria-label="시안 화면">
   <a href="#main" data-tab="main">01 메인</a>
   <a href="#sort" data-tab="sort">02 분류 놀이</a>
   <a href="#build" data-tab="build">03 먹이그물 만들기</a>
   <a href="#predict" data-tab="predict">04 사건·예측</a>
   <a href="#observe" data-tab="observe">05 관찰</a>
-  <a href="#result" data-tab="result">06 수사 보고서</a>
+  <a href="#result" data-tab="result">06 탐구 보고서</a>
   <a href="#dex" data-tab="dex">07 카드 도감</a>
   <a href="#team" data-tab="team">08 모둠 대항전</a>
   <a href="#teacher" data-tab="teacher">09 교사 화면</a>
@@ -393,7 +393,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <!-- ═════════ 01 메인 ═════════ -->
 <section class="screen" id="main" aria-label="01 메인">
  <div class="appbar">
-  <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
+  <div class="logo"><span class="mark">🧭</span>먹이그물 탐험대</div>
   <span class="sp"></span>
   <span class="pill gold">⭐ 별 9개</span>
   <span class="pill">🃏 카드 14/41</span>
@@ -402,9 +402,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
  </div>
  <div class="body">
   <div class="hello">
-   <div class="badge">🕵️</div>
+   <div class="badge">🎒</div>
    <div>
-    <h1>13번 탐정단원, 오늘의 사건을 해결해 볼까요?</h1>
+    <h1>13번 탐험대원, 오늘의 사건을 해결해 볼까요?</h1>
     <div class="sub">생태계에 무슨 일이 생기면, 화살표를 따라가며 까닭을 추리해 보세요.</div>
    </div>
   </div>
@@ -442,7 +442,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
    <div class="modes">
     <button class="mode" data-go="sort"><span class="ic" style="background:var(--producer-2)">🧺</span><span><b>분류 놀이</b><span>생산자·소비자·분해자 나누기</span></span></button>
     <button class="mode" data-go="build"><span class="ic" style="background:#E3F1DE">🕸️</span><span><b>먹이그물 만들기</b><span>카드를 화살표로 이어요</span></span></button>
-    <button class="mode" data-go="predict"><span class="ic" style="background:var(--navy-2)">🔎</span><span><b>사건 수사</b><span>예측하고 관찰해요</span></span></button>
+    <button class="mode" data-go="predict"><span class="ic" style="background:var(--navy-2)">🔎</span><span><b>사건 탐구</b><span>예측하고 관찰해요</span></span></button>
     <button class="mode"><span class="ic" style="background:var(--gold-2)">🧪</span><span><b>자유 실험실</b><span>마음대로 없애고 늘려 봐요</span></span></button>
    </div>
   </div>
@@ -452,7 +452,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <!-- ═════════ 02 분류 놀이 ═════════ -->
 <section class="screen" id="sort" aria-label="02 분류 놀이" hidden>
  <div class="appbar">
-  <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
+  <div class="logo"><span class="mark">🧭</span>먹이그물 탐험대</div>
   <span class="crumb">분류 놀이 <span class="tb-tag">교과서 46~47쪽</span></span>
   <span class="sp"></span>
   <div class="seg" role="tablist"><button class="on">생산자·소비자·분해자</button><button>생물 요소·비생물 요소</button></div>
@@ -483,7 +483,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <!-- ═════════ 03 먹이그물 만들기 ═════════ -->
 <section class="screen" id="build" aria-label="03 먹이그물 만들기" hidden>
  <div class="appbar">
-  <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
+  <div class="logo"><span class="mark">🧭</span>먹이그물 탐험대</div>
   <span class="crumb">숲 › 먹이그물 만들기 <span class="tb-tag">교과서 49쪽</span></span>
   <span class="sp"></span>
   <span class="pill gold">⭐ 이번 판 ★★☆</span>
@@ -520,8 +520,8 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <!-- ═════════ 04 사건·예측 ═════════ -->
 <section class="screen" id="predict" aria-label="04 사건·예측" hidden>
  <div class="appbar">
-  <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
-  <span class="crumb">숲 › 사건 수사 1</span>
+  <div class="logo"><span class="mark">🧭</span>먹이그물 탐험대</div>
+  <span class="crumb">숲 › 사건 탐구 1</span>
   <span class="sp"></span>
   <span class="pill navy">사건 → <b>예측</b> → 관찰 → 보고서</span>
  </div>
@@ -538,7 +538,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
     <div class="canvas"><svg class="web" id="webPredict" viewBox="0 0 960 530" role="img" aria-label="개구리가 깜빡이는 먹이그물"></svg></div>
    </div>
    <div class="panel" style="flex:1 1 470px;min-width:0">
-    <h3>🔎 탐정의 예측</h3>
+    <h3>🔎 탐험대원의 예측</h3>
     <div class="q">
      <div class="qh"><span class="num">1</span><b>8년 뒤 <u>풀</u>은 어떻게 될까요?</b><span class="pts">100점</span></div>
      <div class="choices" data-group="q1">
@@ -576,8 +576,8 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <!-- ═════════ 05 관찰 ═════════ -->
 <section class="screen" id="observe" aria-label="05 관찰" hidden>
  <div class="appbar">
-  <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
-  <span class="crumb">숲 › 사건 수사 1</span>
+  <div class="logo"><span class="mark">🧭</span>먹이그물 탐험대</div>
+  <span class="crumb">숲 › 사건 탐구 1</span>
   <span class="sp"></span>
   <span class="pill navy">사건 → 예측 → <b>관찰</b> → 보고서</span>
  </div>
@@ -605,17 +605,17 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
  </div>
 </section>
 
-<!-- ═════════ 06 수사 보고서 ═════════ -->
-<section class="screen" id="result" aria-label="06 수사 보고서" hidden>
+<!-- ═════════ 06 탐구 보고서 ═════════ -->
+<section class="screen" id="result" aria-label="06 탐구 보고서" hidden>
  <div class="appbar">
-  <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
-  <span class="crumb">숲 › 사건 수사 1</span>
+  <div class="logo"><span class="mark">🧭</span>먹이그물 탐험대</div>
+  <span class="crumb">숲 › 사건 탐구 1</span>
   <span class="sp"></span>
   <span class="pill navy">사건 → 예측 → 관찰 → <b>보고서</b></span>
  </div>
  <div class="body">
   <div class="panel total">
-   <div><div class="sub">이번 수사 점수</div><div class="big">350점</div></div>
+   <div><div class="sub">이번 탐구 점수</div><div class="big">350점</div></div>
    <div class="stars" style="font-size:30px">★★★</div>
    <div class="sub" style="flex:1 1 260px">개구리와 이어지지 않은 풀까지 정확히 추리했어요! 다음 사건에서는 직박구리가 사라지면 어떻게 될지 살펴봐요.</div>
    <span class="pill gold">🃏 새 카드: 매</span>
@@ -655,7 +655,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <!-- ═════════ 07 카드 도감 ═════════ -->
 <section class="screen" id="dex" aria-label="07 카드 도감" hidden>
  <div class="appbar">
-  <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
+  <div class="logo"><span class="mark">🧭</span>먹이그물 탐험대</div>
   <span class="crumb">카드 도감</span>
   <span class="sp"></span>
   <span class="pill">🃏 14 / 41</span>
@@ -713,7 +713,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
 <!-- ═════════ 09 교사 화면 ═════════ -->
 <section class="screen" id="teacher" aria-label="09 교사 화면" hidden>
  <div class="appbar">
-  <div class="logo"><span class="mark">🔍</span>먹이그물 탐정단</div>
+  <div class="logo"><span class="mark">🧭</span>먹이그물 탐험대</div>
   <span class="crumb">교사 메뉴 › 이 기기 결과</span>
   <span class="sp"></span>
   <button class="btn ghost sm">⬇ CSV 내보내기</button>
@@ -724,7 +724,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
    <div class="stat"><div class="v">3명</div><div class="l">이 기기를 쓴 학생</div></div>
    <div class="stat"><div class="v">2.7 → 5.0</div><div class="l">진단 평균 (사전 → 사후, 6점 만점)</div></div>
    <div class="stat"><div class="v">33% → 100%</div><div class="l">간접 효과 문항(5번) 정답률</div></div>
-   <div class="stat"><div class="v">71%</div><div class="l">사건 수사 예측 정답률</div></div>
+   <div class="stat"><div class="v">71%</div><div class="l">사건 탐구 예측 정답률</div></div>
   </div>
   <div class="panel" style="overflow-x:auto">
    <h3>학생별 결과</h3>
@@ -736,14 +736,14 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
      <tr><td>4-2-15</td><td><div class="prepost"><span class="b pre" style="width:40px"></span><span class="b post" style="width:80px"></span><b>2 → 4</b></div></td><td><span class="no-t">✕</span> → <span class="ok-t">○</span></td><td>"갈매기는 미역을 안 먹어서 상관없어요"</td><td>숲 1</td><td>50%</td></tr>
     </tbody>
    </table>
-   <p class="sub" style="margin:10px 0 0">💡 4-2-15 학생은 5번은 맞혔지만 까닭 쓰기에서 "직접 이어진 생물만 영향을 받는다"는 생각이 보여요. 숲 사건 수사 1을 다시 해 보도록 안내해 주세요.</p>
+   <p class="sub" style="margin:10px 0 0">💡 4-2-15 학생은 5번은 맞혔지만 까닭 쓰기에서 "직접 이어진 생물만 영향을 받는다"는 생각이 보여요. 숲 사건 탐구 1을 다시 해 보도록 안내해 주세요.</p>
   </div>
  </div>
 </section>
 
 <!-- ═════════ 10 디자인 토큰 ═════════ -->
 <section class="screen" id="tokens" aria-label="10 디자인 토큰" hidden>
- <div class="appbar"><div class="logo"><span class="mark">🔍</span>디자인 토큰</div></div>
+ <div class="appbar"><div class="logo"><span class="mark">🧭</span>디자인 토큰</div></div>
  <div class="body">
   <div class="panel"><h3>생물 역할 색 <span class="sub">— 교과서 4학년 분류(생산자·소비자·분해자). 색 + 아이콘 + 글자를 함께 써요</span></h3>
    <div class="swatches">
@@ -757,7 +757,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
     <div class="sw"><i style="background:var(--paper)"></i><div><b>종이</b>--paper #FBF6EA</div></div>
     <div class="sw"><i style="background:var(--card)"></i><div><b>카드</b>--card #FFFDF7</div></div>
     <div class="sw"><i style="background:var(--ink)"></i><div><b>잉크</b>--ink #2B2A26</div></div>
-    <div class="sw"><i style="background:var(--navy)"></i><div><b>탐정 남색</b>--navy #24466B</div></div>
+    <div class="sw"><i style="background:var(--navy)"></i><div><b>탐험 남색</b>--navy #24466B</div></div>
     <div class="sw"><i style="background:var(--gold)"></i><div><b>돋보기 금색</b>--gold #E3A81B</div></div>
     <div class="sw"><i style="background:var(--up)"></i><div><b>늘어요 ▲</b>--up #1F8A70</div></div>
     <div class="sw"><i style="background:var(--down)"></i><div><b>줄어요 ▼</b>--down #D1495B</div></div>
@@ -774,7 +774,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
   <div class="panel"><h3>글꼴 <span class="sub">— 크롬북 기준. 전자칠판 화면은 화면 너비에 비례해 커져요</span></h3>
    <div class="type-scale">
     <div><code>제목 L · Jua 26~28px</code><span style="font-family:var(--f-title);font-size:27px">개구리가 모두 사라졌어요</span></div>
-    <div><code>제목 M · Jua 20px</code><span style="font-family:var(--f-title);font-size:20px">탐정의 예측</span></div>
+    <div><code>제목 M · Jua 20px</code><span style="font-family:var(--f-title);font-size:20px">탐험대원의 예측</span></div>
     <div><code>본문 · Noto Sans KR 16~17px</code><span style="font-size:16px">메뚜기를 먹는 개구리가 사라졌기 때문이에요.</span></div>
     <div><code>보조 · Noto Sans KR 14px</code><span class="sub">끌어서 넣거나, 카드를 누른 다음 바구니를 눌러도 돼요.</span></div>
     <div><code>전자칠판 제목 · Jua 2.8cqw (1920px에서 54px)</code><span style="font-family:var(--f-title);font-size:34px">큰입배스가 강에 들어왔어요</span></div>
@@ -875,7 +875,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:15px}
  var FLOW=[[],[['frog','duck'],['frog','snake']],[['hopper','frog'],['cater','frog']],[['grass','hopper']],[['hopper','bulbul'],['cater','bulbul']],[['clover','cater']],[['cater','duck'],['hopper','duck']],[],[]];
  var NOTE=['▶ 재생을 눌러 해마다 무슨 일이 일어나는지 관찰해 보세요.','1년: 개구리가 사라졌어요. 개구리를 먹던 오리와 뱀은 어떻게 될까요?','2년: 메뚜기와 애벌레가 늘기 시작했어요. 자기를 먹던 개구리가 없어졌기 때문이에요.',
   '3년: 메뚜기가 늘자 풀이 줄기 시작했어요. 개구리와 이어지지 않은 풀까지 영향을 받았어요!','4년: 직박구리는 먹이(메뚜기·애벌레)가 늘어서 조금 늘었어요.','5년: 애벌레가 늘어 토끼풀도 조금 줄었어요.',
-  '6년: 오리는 개구리 대신 메뚜기와 애벌레를 더 먹고 있어요.','7년: 변화가 점점 느려지고 있어요.','8년: 관찰 끝! 수사 보고서에서 내 예측과 비교해 봐요.'];
+  '6년: 오리는 개구리 대신 메뚜기와 애벌레를 더 먹고 있어요.','7년: 변화가 점점 느려지고 있어요.','8년: 관찰 끝! 탐구 보고서에서 내 예측과 비교해 봐요.'];
  var bars=document.getElementById('bars'),turnsEl=document.getElementById('turns'),T=0,timer=null;
  ORDER.forEach(function(k){
   var d=N[k],row=document.createElement('div');row.className='bar'+(k==='grass'||k==='hopper'?' hl':'');row.id='b-'+k;
