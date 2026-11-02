@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연도별 독서 연대기 &amp; 책장 시각화: 제품 기획서(PRD)</title>
+<style>
+:root{--bg:#fafaf8;--panel:#f1f0ec;--text:#1f2328;--muted:#656d76;--line:#dcdad3;--accent:#8a5a2b;--accent-bg:#f3ebe0;--code:#eceae4;--star:#b8741a}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#e0a96d;--accent-bg:#3a2f24;--code:#2a2c30;--star:#f0b43c}}
+:root[data-theme=dark]{--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#e0a96d;--accent-bg:#3a2f24;--code:#2a2c30;--star:#f0b43c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;word-break:keep-all}
+#side{position:fixed;inset:0 auto 0 0;width:300px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:20;transition:transform .2s}
+.side-top{padding:16px 16px 10px;border-bottom:1px solid var(--line)}
+.side-top h2{font-size:15px;margin:0 0 10px;line-height:1.4}
+#q{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;font-size:14px}
+.dl{display:flex;gap:6px;margin-top:10px}
+.dl a{flex:1;text-align:center;font-size:13px;padding:6px 4px;border:1px solid var(--line);border-radius:8px;color:var(--text);text-decoration:none;background:var(--bg)}
+.dl a:hover{border-color:var(--accent);color:var(--accent)}
+#nav{overflow-y:auto;padding:8px 8px 40px;flex:1}
+.grp{margin:2px 0}
+.grp-h{display:flex;width:100%;align-items:center;justify-content:space-between;background:none;border:0;color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:8px;border-radius:6px;cursor:pointer;text-align:left}
+.grp-h.static{cursor:default;color:var(--muted);font-size:12px;letter-spacing:.04em}
+.grp-h a{color:inherit;text-decoration:none;flex:1}
+.grp-h:hover:not(.static){background:var(--accent-bg)}
+.chev{transition:transform .15s;color:var(--muted)}
+.grp:not(.open) .chev{transform:rotate(-90deg)}
+.grp:not(.open) ul{display:none}
+.grp ul{list-style:none;margin:0 0 6px;padding:0}
+.grp li a{display:block;padding:5px 10px 5px 18px;font-size:13px;line-height:1.45;color:var(--muted);text-decoration:none;border-left:2px solid transparent;border-radius:0 6px 6px 0}
+.grp li a:hover{color:var(--text);background:var(--accent-bg)}
+.grp li a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);font-weight:600}
+li.hide{display:none}
+main{margin-left:300px;padding:40px 32px 120px}
+article{max-width:820px;margin:0 auto}
+h1{font-size:28px;line-height:1.35;margin:1.6em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--line)}
+article>h1:first-child{margin-top:0}
+h2{font-size:21px;margin:2em 0 .6em}
+h3{font-size:18px;margin:2em 0 .5em;padding:10px 14px;background:var(--accent-bg);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;line-height:1.5}
+blockquote{margin:1em 0;padding:.4em 1em;border-left:4px solid var(--line);color:var(--muted);background:var(--panel);border-radius:0 8px 8px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel)}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-size:.9em}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+ul,ol{padding-left:1.4em}
+li{margin:.2em 0}
+.stars{color:var(--star);letter-spacing:1px;font-weight:700}
+#menu,#top{position:fixed;z-index:30;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;cursor:pointer;font-size:16px}
+#menu{display:none;top:12px;left:12px;width:42px;height:42px}
+#top{right:16px;bottom:16px;width:42px;height:42px;opacity:0;pointer-events:none;transition:opacity .2s}
+#top.show{opacity:1;pointer-events:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;cursor:pointer;padding:6px 8px;font-size:13px;margin-left:6px}
+#scrim{display:none}
+@media (max-width:900px){
+ #side{transform:translateX(-100%);width:min(320px,86vw)}
+ body.open #side{transform:none}
+ body.open #scrim{display:block;position:fixed;inset:0;background:#0006;z-index:15}
+ #menu{display:block}
+ body.open #menu{display:none}
+ main{margin-left:0;padding:70px 16px 100px}
+ h1{font-size:23px}
+}
+@media print{#side,#menu,#top{display:none}main{margin:0}}
+pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;font-size:13.5px;line-height:1.55}pre code{background:none;padding:0}
+</style>
+</head>
+<body>
+<button id="menu" aria-label="목차 열기">☰</button>
+<div id="scrim"></div>
+<aside id="side">
+ <div class="side-top">
+  <h2>나이테 책장 PRD v0.1 <button id="theme" title="테마 전환">🌓</button></h2>
+  <input id="q" type="search" placeholder="목차 검색 (예: 책등, CSV)" aria-label="목차 검색">
+  <div class="dl">
+   <a href="prd-reading-chronicle.md" download="prd-reading-chronicle.md">⬇ MD</a>
+   <a id="dlhtml" href="prd-reading-chronicle.html" download="prd-reading-chronicle.html">⬇ HTML</a>
+  </div>
+ </div>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#앱-이름-후보">앱 이름 후보</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-복원-내보내기-p0">F9. 백업·복원·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-pwa-오프라인-p0">F11. PWA·오프라인 (P0)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-도서-검색-api-연동-설계">5. 도서 검색 API 연동 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-알라딘-open-api-기본-사항">5.1 알라딘 Open API 기본 사항</a></li><li><a href="#5-2-호출-방식-브라우저-직접-호출의-한계와-프록시">5.2 호출 방식: 브라우저 직접 호출의 한계와 프록시</a></li><li><a href="#5-3-분야-매핑">5.3 분야 매핑</a></li><li><a href="#5-4-예비-api-알라딘에서-찾지-못할-때">5.4 예비 API (알라딘에서 찾지 못할 때)</a></li><li><a href="#5-5-호출-안정성">5.5 호출 안정성</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-대표색-추출">6.3 표지 대표색 추출</a></li><li><a href="#6-4-글자-색과-가독성">6.4 글자 색과 가독성</a></li><li><a href="#6-5-그리기-방식">6.5 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-indexeddb-저장소-구성">7.1 IndexedDB 저장소 구성</a></li><li><a href="#7-2-데이터-구조">7.2 데이터 구조</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-화면-구성">9. 화면 구성</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m1-데이터와-기본-책장-mvp-api-없음">M1. 데이터와 기본 책장 (MVP, API 없음)</a></li><li><a href="#m2-도서-검색과-표지-색">M2. 도서 검색과 표지 색</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-pwa와-다듬기">M5. PWA와 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정할-사항과-확인할-사항">14. 결정할 사항과 확인할 사항</a><span class=chev>▾</span></button><ul><li><a href="#14-1-사용자가-결정할-사항">14.1 사용자가 결정할 사항</a></li><li><a href="#14-2-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</a></li></ul></div></nav>
+</aside>
+<main><article id="doc"><h1 id="연도별-독서-연대기-책장-시각화-제품-기획서-prd">연도별 독서 연대기 &amp; 책장 시각화: 제품 기획서(PRD)</h1>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>문서 버전</td>
+<td>v0.1</td>
+</tr>
+<tr>
+<td>작성일</td>
+<td>2026-11-02</td>
+</tr>
+<tr>
+<td>가칭</td>
+<td><strong>나이테 책장(Ringshelf)</strong>: 해마다 한 겹씩 쌓이는 나의 독서 (이름 확정 시 교체)</td>
+</tr>
+<tr>
+<td>형태</td>
+<td>PWA(설치형 웹 앱), 오프라인 동작, 개인 전용(로그인 없음)</td>
+</tr>
+<tr>
+<td>저장</td>
+<td>브라우저 IndexedDB (기기 안에만 저장), JSON 백업·복원</td>
+</tr>
+<tr>
+<td>원 아이디어</td>
+<td><code>app-ideas-hobbies.md</code>의 4-1을 "연대기·책장 시각화" 중심으로 재구성</td>
+</tr>
+<tr>
+<td>난이도</td>
+<td><span class="stars">★★★</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="변경-이력">변경 이력</h2>
+<table>
+<thead>
+<tr>
+<th>버전</th>
+<th>날짜</th>
+<th>주요 변경</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v0.1</td>
+<td>2026-11-02</td>
+<td>최초 작성</td>
+</tr>
+</tbody>
+</table>
+<h2 id="앱-이름-후보">앱 이름 후보</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>한글 이름</th>
+<th>영어 이름</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>나이테 책장</strong></td>
+<td><strong>Ringshelf</strong></td>
+<td>나무가 해마다 나이테를 한 겹씩 두르듯, 1년에 한 칸씩 책장이 늘어납니다. 연대기라는 핵심 개념을 가장 잘 드러냅니다. (추천)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>책등 연대기</strong></td>
+<td><strong>Spine Chronicle</strong></td>
+<td>책등(spine)과 연대기를 그대로 합친 이름입니다. 기능이 이름만으로 바로 전달됩니다.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>해마다 서가</strong></td>
+<td><strong>Yearshelf</strong></td>
+<td>"해마다"의 다정한 어감과 "서가"의 단정함을 합쳤습니다. 짧고 기억하기 쉽습니다.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>책빛</strong></td>
+<td><strong>Spinelight</strong></td>
+<td>표지 대표색으로 칠해진 책등들이 모여 그해의 빛깔을 만든다는 뜻입니다. 회고 카드와 잘 어울립니다.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>책결</strong></td>
+<td><strong>Bookgrain</strong></td>
+<td>나뭇결처럼 해마다 다른 무늬로 쌓이는 독서의 결을 뜻합니다. 한 글자 같은 두 글자라 아이콘으로 만들기 좋습니다.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>이 문서에서는 1번 <strong>나이테 책장(Ringshelf)</strong>을 가칭으로 씁니다. 이름이 정해지면 문서 전체에서 바꾸면 됩니다.</p>
+</blockquote>
+<hr />
+<h2 id="1-개요">1. 개요</h2>
+<h3 id="1-1-배경">1.1 배경</h3>
+<p>독서 기록 앱은 많지만, 대부분 목록과 숫자(권수, 별점) 중심입니다. 몇 년치 기록이 쌓여도 "그해에 나는 어떤 책을 읽었나"를 한눈에 느끼기 어렵습니다. 실제 책장 앞에 서면 책 두께와 색깔만으로도 기억이 되살아나는데, 디지털 기록에는 그런 감각이 없습니다.</p>
+<p>이 앱은 다음 세 가지를 결합합니다.</p>
+<ol>
+<li><strong>책장 시각화</strong>: 쪽수로 책등 두께를, 표지 대표색으로 책등 색을 자동으로 만들어 연도별 책장에 꽂아 보여 줍니다.</li>
+<li><strong>연도 비교 분석</strong>: 권수, 쪽수, 분야 비중, 월별 추이를 여러 해에 걸쳐 겹쳐 봅니다.</li>
+<li><strong>회고 의식</strong>: "그해의 책"을 고르고 한 줄 회고를 남기며, 연말 회고 카드를 이미지로 내보내 공유합니다.</li>
+</ol>
+<h3 id="1-2-목표">1.2 목표</h3>
+<ul>
+<li>해마다 읽은 책을 <strong>한 칸의 책장</strong>으로 보여 주어, 독서 이력을 시각적으로 기억하게 합니다.</li>
+<li>연도 사이의 변화(많이 읽은 해, 분야가 바뀐 해, 독서가 몰린 달)를 숫자와 그래프로 비교합니다.</li>
+<li>책 한 권 등록에 <strong>10초 이내</strong>가 걸리도록 ISBN·제목 검색으로 정보를 자동 입력합니다.</li>
+<li>기존 기록(엑셀, 다른 앱)을 CSV로 가져와 첫날부터 여러 해의 책장을 채울 수 있게 합니다.</li>
+<li>서버 없이 기기 안에만 저장해 개인정보 부담을 없애고, 오프라인에서도 동작하게 합니다.</li>
+</ul>
+<h3 id="1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</h3>
+<ul>
+<li>로그인, 회원가입, 클라우드 동기화, 여러 기기 간 실시간 동기화 (JSON 백업으로 대체)</li>
+<li>친구 팔로우, 피드, 댓글 같은 소셜 기능</li>
+<li>인용문·독서 노트 중심 기능 (아이디어 4-1 원안의 인용문 수집은 P2로 미룸)</li>
+<li>전자책 뷰어, 도서 구매·대여 연동</li>
+<li>AI 추천 기능 (v1 이후 검토)</li>
+</ul>
+<hr />
+<h2 id="2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</h2>
+<h3 id="2-1-주-사용자">2.1 주 사용자</h3>
+<ul>
+<li>1년에 10~100권을 읽고, 읽은 책을 남겨 두고 싶은 개인 독자</li>
+<li>연말에 "올해의 책"을 정리해 블로그·SNS에 올리는 사람</li>
+<li>이미 엑셀이나 다른 앱에 몇 년치 기록이 있어 옮겨 오고 싶은 사람</li>
+</ul>
+<h3 id="2-2-대표-시나리오">2.2 대표 시나리오</h3>
+<p><strong>시나리오 A: 책 한 권 추가 (일상)</strong>
+1. 책을 다 읽고 앱을 엽니다. <code>+</code> 버튼을 누르고 제목 일부를 입력합니다.
+2. 알라딘 검색 결과에서 책을 고르면 제목, 저자, 출판사, 쪽수, 분야, 표지가 채워집니다.
+3. 다 읽은 날짜와 별점, 한 줄 메모를 넣고 저장합니다.
+4. 올해 책장 맨 끝에 표지색 책등이 "쏙" 꽂히는 애니메이션이 나옵니다.</p>
+<p><strong>시나리오 B: 과거 기록 옮기기 (첫 사용)</strong>
+1. 엑셀에 정리해 둔 2019~2025년 독서 목록을 CSV로 저장합니다.
+2. 앱에서 CSV를 불러오고, 열(제목, 저자, ISBN, 완독일)을 앱 항목에 맞춥니다.
+3. 앱이 ISBN 또는 제목으로 알라딘에서 쪽수·표지·분야를 보충합니다. 못 찾은 책은 목록으로 따로 보여 줍니다.
+4. 7개 연도의 책장이 한꺼번에 생깁니다.</p>
+<p><strong>시나리오 C: 연말 회고 (12월)</strong>
+1. 2026년 책장에서 "그해의 책"을 1권 고르고, 한 줄 회고를 씁니다.
+2. 연도 비교 화면에서 2025년과 겹쳐 보며 "올해는 인문 비중이 늘었다"를 확인합니다.
+3. 회고 카드(올해 책장 + 권수·쪽수 + 그해의 책 + 한 줄 회고)를 PNG로 저장해 SNS에 올립니다.</p>
+<hr />
+<h2 id="3-전체-사용-흐름">3. 전체 사용 흐름</h2>
+<pre><code>[첫 실행] ─ 환영 화면 ─┬─ 책 검색으로 시작
+                        └─ CSV 가져오기로 시작
+                                │
+                                ▼
+                     [책장 홈: 연도별 책장 목록]
+           ┌────────────┬───────┴──────┬──────────────┐
+           ▼            ▼              ▼              ▼
+     [책 추가/수정]  [연도 책장 상세]  [연도 비교]   [설정·백업]
+      ISBN·제목 검색   책등 탭→책 카드   지표 겹쳐 보기  CSV·JSON
+           │            │
+           │            ├─ 그해의 책 선정
+           │            ├─ 한 줄 회고 작성
+           │            └─ 회고 카드 내보내기(PNG)
+           └─ 저장 → 해당 연도 책장에 책등 추가
+</code></pre>
+<hr />
+<h2 id="4-기능-요구사항">4. 기능 요구사항</h2>
+<p>우선순위: <strong>P0</strong> = 첫 버전(MVP) 필수, <strong>P1</strong> = 첫 버전에 넣으면 좋음, <strong>P2</strong> = 이후 버전</p>
+<h3 id="f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</h3>
+<ul>
+<li>입력 항목: 제목, 저자, 출판사, 출간일, ISBN-13, 쪽수, 분야, 표지 이미지, 책등 색</li>
+<li>독서 기록 항목: 상태(읽는 중·완독·중단), 시작일, 완독일, 별점(0.5 단위, 5점 만점), 한 줄 메모</li>
+<li>같은 책을 다시 읽으면 <strong>독서 기록을 하나 더 추가</strong>합니다. 책 정보는 한 번만 저장하고, 기록은 여러 개를 가질 수 있습니다.</li>
+<li>책장에 꽂히는 연도는 <strong>완독일의 연도</strong>를 기준으로 합니다. 완독일이 없으면 "연도 미상" 칸에 둡니다.</li>
+<li>수동 입력도 지원합니다(검색 결과가 없는 독립 출판물, 외서 등).</li>
+</ul>
+<h3 id="f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</h3>
+<ul>
+<li><strong>ISBN 검색</strong>: ISBN-10 또는 ISBN-13을 입력하면 알라딘 상품 조회(ItemLookUp)로 한 권을 바로 채웁니다. ISBN-10은 ISBN-13으로 변환해 저장합니다.</li>
+<li><strong>제목·저자 검색</strong>: 알라딘 상품 검색(ItemSearch)으로 최대 20건을 보여 주고, 표지 썸네일·저자·출판사·출간 연도로 구분하게 합니다.</li>
+<li>입력 후 300ms 디바운스, 최근 검색어 5개 기억</li>
+<li>바코드 스캔(P1): 모바일에서 카메라로 ISBN 바코드를 읽습니다. 브라우저 <code>BarcodeDetector</code>를 쓰고, 지원하지 않는 브라우저에서는 ZXing 라이브러리로 대체합니다.</li>
+<li>자동 입력된 값은 모두 사용자가 고칠 수 있습니다.</li>
+<li>화면 하단에 <strong>"도서 DB 제공: 알라딘 인터넷서점"</strong> 출처를 표기합니다(알라딘 API 이용 조건).</li>
+</ul>
+<h3 id="f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</h3>
+<ul>
+<li>UTF-8과 CP949(엑셀 기본 한글 인코딩) 파일을 모두 읽습니다. 인코딩을 자동 판별하고, 깨지면 사용자가 직접 고를 수 있게 합니다.</li>
+<li><strong>열 매핑 화면</strong>: CSV의 열 이름을 앱 항목(제목, 저자, ISBN, 쪽수, 완독일, 별점, 메모, 분야)에 끌어 맞춥니다. 이름이 비슷하면 자동으로 맞춰 둡니다.</li>
+<li>날짜 형식 자동 인식: <code>2025-03-14</code>, <code>2025.3.14</code>, <code>2025/03/14</code>, <code>20250314</code>, <code>2025-03</code>(일 없음 → 15일로 저장하고 "일 미상" 표시)</li>
+<li><strong>보충 조회</strong>: ISBN이 있으면 ISBN으로, 없으면 "제목 + 저자"로 알라딘에서 쪽수·표지·분야를 채웁니다. 진행 막대를 보여 주고 중간에 멈출 수 있습니다.</li>
+<li>미리 보기에서 행별 상태를 표시합니다: 정상, 정보 보충됨, 후보 여러 개(직접 선택), 찾지 못함</li>
+<li>중복 판정: ISBN이 같거나, 제목·저자가 같으면 중복 후보로 표시하고 "건너뛰기 / 독서 기록만 추가 / 덮어쓰기" 중에서 고릅니다.</li>
+<li>프리셋(P1): Goodreads 내보내기 CSV 형식을 바로 인식합니다.</li>
+</ul>
+<h3 id="f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</h3>
+<ul>
+<li>연도마다 책장 한 칸(선반)을 그리고, 그해 완독한 책을 <strong>완독일 순서</strong>로 왼쪽부터 꽂습니다.</li>
+<li><strong>책등 자동 생성</strong> (상세 규칙은 6장)</li>
+<li>두께: 쪽수에 비례 (최소·최대 두께 제한)</li>
+<li>높이: 판형 정보가 있으면 반영, 없으면 분야별 기본 높이에 약간의 무작위 변화를 주어 실제 책장처럼 보이게 함</li>
+<li>색: 표지 이미지에서 대표색을 뽑아 칠함</li>
+<li>글자: 세로쓰기로 제목(필요하면 줄임), 아래쪽에 저자. 배경색에 맞춰 흰색·검은색 글자를 자동 선택</li>
+<li>선반 폭을 넘으면 다음 단으로 넘깁니다(한 연도가 여러 단이 될 수 있음).</li>
+<li>선반 왼쪽에 연도, 오른쪽에 그해 요약(권수, 총 쪽수)을 표시합니다.</li>
+<li>책등을 누르면(또는 마우스를 올리면) 책이 살짝 뽑혀 나오며 <strong>책 카드</strong>(표지, 정보, 별점, 메모)가 열립니다.</li>
+<li>보기 옵션</li>
+<li>정렬: 완독일순(기본) / 색상순(무지개 책장) / 분야순 / 별점순 / 쪽수순</li>
+<li>강조: 특정 분야나 별점 4.5 이상만 진하게, 나머지는 흐리게</li>
+<li>밀도: 연도 목록(여러 해를 위아래로 쌓아 보기) / 한 해 크게 보기</li>
+<li>그해의 책은 책등 위에 작은 리본(책갈피 끈) 표시를 답니다.</li>
+<li>읽는 중인 책은 선반 끝에 비스듬히 기대어 놓은 모습으로 표시합니다(P1).</li>
+</ul>
+<h3 id="f5-연도-비교-p0">F5. 연도 비교 (P0)</h3>
+<ul>
+<li>비교할 연도를 2~5개 고릅니다(기본값: 올해와 작년).</li>
+<li><strong>지표 카드</strong>: 권수, 총 쪽수, 평균 쪽수, 평균 별점, 가장 두꺼운 책, 가장 많이 읽은 분야. 작년 대비 증감을 화살표와 %로 표시</li>
+<li><strong>월별 그래프</strong>: 월별 권수(또는 쪽수)를 연도별 선으로 겹쳐 봅니다. "누적" 토글을 켜면 1월부터의 누적 곡선으로 바뀌어 연중 페이스를 비교할 수 있습니다.</li>
+<li><strong>분야 비중</strong>: 연도별 100% 누적 막대로 분야 구성 변화를 보여 줍니다. 분야는 상위 6개 + 기타로 묶습니다.</li>
+<li><strong>연도별 추이</strong>(P1): 전체 연도의 권수·쪽수를 막대로 보여 주는 "독서 나이테" 요약</li>
+<li>그래프의 연도 색은 고정된 연도 팔레트를 쓰고, 색 외에 선 모양(실선·점선)이나 범례 라벨로도 구분되게 합니다(색약 배려).</li>
+<li>표로 보기 토글: 그래프와 같은 값을 표로 보여 줍니다(접근성, 정확한 값 확인용).</li>
+</ul>
+<h3 id="f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</h3>
+<ul>
+<li>연도마다 "그해의 책"을 1권 고릅니다(P1: 최대 3권까지 순위로).</li>
+<li>한 줄 회고: 연도 전체에 대한 한 줄(최대 80자). 책별 한 줄 메모와는 별도입니다.</li>
+<li>선택하지 않은 해는 별점이 가장 높은 책을 "후보"로 제안만 하고, 자동으로 정하지는 않습니다.</li>
+<li>12월 1일 이후 앱을 열면 "올해의 책을 골라 볼까요?" 배너를 한 번 띄웁니다.</li>
+</ul>
+<h3 id="f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</h3>
+<ul>
+<li>카드 구성: 연도, 그해의 책장(축소 이미지), 권수·총 쪽수·최다 분야, 그해의 책 표지와 제목, 한 줄 회고, 앱 이름 워터마크</li>
+<li>크기 프리셋: 정사각형 1080×1080, 세로 1080×1350(인스타그램 피드), 스토리 1080×1920</li>
+<li>테마 3종: 밝은 종이, 어두운 서재, 그해 책등 색에서 뽑은 그러데이션</li>
+<li>내보내기: PNG 저장. 모바일에서는 Web Share API로 바로 공유</li>
+<li>표지 이미지가 외부 주소라 캔버스에 그릴 수 없는 경우를 막기 위해, 표지는 저장 시점에 IndexedDB에 Blob으로 보관해 둔 것을 씁니다(9장 위험 요소 참고).</li>
+</ul>
+<h3 id="f8-검색-필터-p1">F8. 검색·필터 (P1)</h3>
+<ul>
+<li>전체 책 목록에서 제목·저자 검색, 분야·별점·연도 필터</li>
+<li>다시 읽은 책 모아 보기</li>
+</ul>
+<h3 id="f9-백업-복원-내보내기-p0">F9. 백업·복원·내보내기 (P0)</h3>
+<ul>
+<li><strong>JSON 백업</strong>: 책, 독서 기록, 연도 회고, 설정, 표지 이미지(선택)를 한 파일로 저장</li>
+<li><strong>JSON 복원</strong>: 덮어쓰기 또는 합치기 선택</li>
+<li><strong>CSV 내보내기</strong>: 엑셀에서 열 수 있도록 UTF-8 BOM 포함</li>
+<li>마지막 백업 후 30일이 지나면 백업을 권하는 안내를 띄웁니다. 브라우저 저장소는 사용자가 사이트 데이터를 지우면 함께 지워지기 때문입니다.</li>
+<li><code>navigator.storage.persist()</code>로 영구 저장을 요청해 브라우저가 임의로 지우지 않게 합니다.</li>
+</ul>
+<h3 id="f10-설정-p0">F10. 설정 (P0)</h3>
+<ul>
+<li>알라딘 TTB 키 입력(직접 호출 방식일 때) 또는 프록시 주소 설정 (5장 참고)</li>
+<li>테마: 시스템 따름 / 밝게 / 어둡게</li>
+<li>한 해의 기준: 완독일 기준(기본) / 시작일 기준</li>
+<li>책장 나무 질감: 원목 / 화이트 / 다크 우드</li>
+<li>분야 이름 바꾸기·합치기</li>
+</ul>
+<h3 id="f11-pwa-오프라인-p0">F11. PWA·오프라인 (P0)</h3>
+<ul>
+<li>홈 화면에 설치, 오프라인에서 책장·비교·회고 카드 모두 동작</li>
+<li>오프라인에서 책을 추가하면 검색 없이 수동 입력으로 저장하고, 온라인이 되면 "정보 보충" 버튼을 보여 줍니다.</li>
+</ul>
+<hr />
+<h2 id="5-도서-검색-api-연동-설계">5. 도서 검색 API 연동 설계</h2>
+<h3 id="5-1-알라딘-open-api-기본-사항">5.1 알라딘 Open API 기본 사항</h3>
+<ul>
+<li>사용하려면 알라딘 블로그 계정으로 <strong>TTB 키</strong>를 발급받아야 합니다.</li>
+<li>사용하는 API</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>용도</th>
+<th>주요 파라미터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>상품 검색 <code>ItemSearch.aspx</code></td>
+<td>제목·저자 검색</td>
+<td><code>Query</code>, <code>QueryType=Title</code>·<code>Author</code>·<code>Keyword</code>, <code>MaxResults=20</code>, <code>SearchTarget=Book</code>, <code>Cover=Big</code>, <code>Output=js</code>, <code>Version=20131101</code></td>
+</tr>
+<tr>
+<td>상품 조회 <code>ItemLookUp.aspx</code></td>
+<td>ISBN으로 한 권 조회, 쪽수 보충</td>
+<td><code>ItemId</code>, <code>ItemIdType=ISBN13</code>, <code>Cover=Big</code>, <code>Output=js</code>, <code>Version=20131101</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>받아 쓰는 값: <code>title</code>, <code>author</code>, <code>publisher</code>, <code>pubDate</code>, <code>isbn13</code>, <code>cover</code>, <code>categoryName</code>, <code>subInfo.itemPage</code>(쪽수, 상품 조회에서 제공)</li>
+<li>판형 크기(가로·세로·두께)는 상품 조회의 부가 정보로 제공되는지 개발 시작 시 확인하고, 있으면 책등 높이·두께에 반영합니다.</li>
+<li>하루 호출 한도와 이용 약관(비상업적 이용, 출처 표기)은 개발 시작 시 최신 기준을 다시 확인합니다.</li>
+</ul>
+<h3 id="5-2-호출-방식-브라우저-직접-호출의-한계와-프록시">5.2 호출 방식: 브라우저 직접 호출의 한계와 프록시</h3>
+<p>알라딘 API는 브라우저에서 바로 부르면 <strong>CORS 제한</strong>에 걸릴 수 있고, TTB 키가 웹 페이지에 그대로 드러납니다. 표지 이미지도 CORS 헤더가 없으면 캔버스에서 색을 뽑을 수 없습니다. 그래서 다음 구조를 기본으로 합니다.</p>
+<pre><code>[PWA] ──HTTPS──▶ [서버리스 프록시: Cloudflare Workers] ──▶ [알라딘 Open API]
+                    · TTB 키는 프록시 환경 변수에 보관       [알라딘 표지 이미지]
+                    · 응답에 CORS 헤더 추가
+                    · /search, /lookup, /cover 세 경로만 허용
+                    · 결과 24시간 캐시, 앱 출처(Origin)만 허용
+</code></pre>
+<ul>
+<li>프록시는 무료 요금제 범위에서 충분합니다(개인 사용 기준).</li>
+<li>대안: 개발 초기에는 알라딘이 지원하는 JSONP 방식(콜백 함수 이름 지정)으로 프록시 없이 시험해 볼 수 있습니다. 단, 이 경우에도 표지 색 추출은 프록시가 필요합니다.</li>
+</ul>
+<h3 id="5-3-분야-매핑">5.3 분야 매핑</h3>
+<p>알라딘 <code>categoryName</code>은 <code>국내도서&gt;소설/시/희곡&gt;한국소설&gt;2000년대 이후 한국소설</code>처럼 계층으로 옵니다.</p>
+<ul>
+<li>2번째 단계(예: <code>소설/시/희곡</code>, <code>인문학</code>, <code>경제경영</code>, <code>과학</code>)를 앱의 <strong>기본 분야</strong>로 씁니다.</li>
+<li>1번째 단계가 <code>외국도서</code>면 2번째 단계 앞에 "외서" 표시를 붙입니다.</li>
+<li>사용자는 설정에서 분야 이름을 바꾸거나 합칠 수 있습니다(예: <code>에세이</code> + <code>시</code> → <code>문학</code>).</li>
+<li>원래 <code>categoryName</code> 전체는 따로 저장해 두어, 나중에 매핑 규칙을 바꿔도 다시 계산할 수 있게 합니다.</li>
+</ul>
+<h3 id="5-4-예비-api-알라딘에서-찾지-못할-때">5.4 예비 API (알라딘에서 찾지 못할 때)</h3>
+<ul>
+<li>카카오 책 검색 API: 쪽수 정보가 없으므로 제목·표지 보충용</li>
+<li>국립중앙도서관 ISBN 서지 정보 API: 독립 출판물·오래된 책 보충용</li>
+<li>v0.1에서는 알라딘만 구현하고, 예비 API는 P2로 둡니다.</li>
+</ul>
+<h3 id="5-5-호출-안정성">5.5 호출 안정성</h3>
+<ul>
+<li>요청 시간 제한 8초, 실패 시 1회 재시도</li>
+<li>CSV 보충 조회는 동시에 2건씩, 요청 사이 200ms 간격을 두어 한도를 넘지 않게 합니다.</li>
+<li>같은 ISBN 조회 결과는 IndexedDB에 30일간 캐시합니다.</li>
+</ul>
+<hr />
+<h2 id="6-책장-시각화-규칙">6. 책장 시각화 규칙</h2>
+<h3 id="6-1-책등-두께">6.1 책등 두께</h3>
+<pre><code>두께(px) = clamp(최소 8, 최대 56, 쪽수 × 0.06 × 확대 배율)
+</code></pre>
+<ul>
+<li>쪽수 300쪽 → 약 18px, 600쪽 → 약 36px (확대 배율 1 기준)</li>
+<li>쪽수를 모르면 분야 평균 쪽수, 그것도 없으면 280쪽으로 가정하고 책등에 점선 테두리를 둘러 "추정값"임을 표시합니다.</li>
+<li>판형 두께(mm) 정보가 있으면 쪽수 대신 그 값을 씁니다.</li>
+<li>화면 폭이 좁으면 확대 배율을 줄여 한 단에 들어가는 권수를 유지합니다.</li>
+</ul>
+<h3 id="6-2-책등-높이">6.2 책등 높이</h3>
+<ul>
+<li>기본 높이: 선반 높이의 80~95% 사이</li>
+<li>판형 세로 길이(mm)가 있으면 그 비율대로, 없으면 책 ID로 만든 고정 난수로 ±6% 변화를 줍니다. 고정 난수이므로 화면을 새로 고쳐도 높이가 바뀌지 않습니다.</li>
+</ul>
+<h3 id="6-3-표지-대표색-추출">6.3 표지 대표색 추출</h3>
+<ol>
+<li>표지 이미지를 64×64로 줄여 캔버스에 그립니다.</li>
+<li>흰색·검은색에 가까운 픽셀(밝기 5% 미만, 95% 초과)과 채도가 아주 낮은 테두리 픽셀을 제외합니다.</li>
+<li>남은 픽셀을 <strong>k-평균(k=5)</strong>으로 묶고, "픽셀 수 × (0.5 + 채도)" 점수가 가장 높은 묶음의 평균색을 대표색으로 합니다. 화려하지만 작은 영역보다는 넓고 선명한 색이 뽑히도록 하기 위함입니다.</li>
+<li>결과가 거의 무채색이면 무채색 그대로 씁니다(흑백 표지 책은 흑백 책등이 자연스럽습니다).</li>
+<li>추출은 Web Worker에서 돌려 화면이 멈추지 않게 합니다.</li>
+<li>사용자는 책 편집 화면에서 추출된 후보 5색 중 하나를 고르거나 직접 색을 지정할 수 있습니다.</li>
+</ol>
+<h3 id="6-4-글자-색과-가독성">6.4 글자 색과 가독성</h3>
+<ul>
+<li>대표색과 흰색·검은색의 명암비를 계산해 더 높은 쪽(WCAG 대비 4.5:1 이상 목표)을 글자색으로 씁니다.</li>
+<li>제목은 <code>writing-mode: vertical-rl</code>로 세로쓰기합니다. 영문·숫자는 옆으로 눕혀 표시합니다.</li>
+<li>책등이 좁아(14px 미만) 글자가 들어가지 않으면 제목을 숨기고 책 카드에서만 보여 줍니다.</li>
+</ul>
+<h3 id="6-5-그리기-방식">6.5 그리기 방식</h3>
+<ul>
+<li>책등 하나하나를 HTML 요소(또는 SVG)로 그립니다. 한 연도 100권 기준으로 충분히 가볍고, 클릭·포커스·스크린 리더 지원이 쉽습니다.</li>
+<li>회고 카드 이미지는 같은 데이터를 Canvas에 다시 그려 PNG로 만듭니다(HTML 화면 캡처보다 결과가 안정적입니다).</li>
+</ul>
+<hr />
+<h2 id="7-데이터-모델">7. 데이터 모델</h2>
+<h3 id="7-1-indexeddb-저장소-구성">7.1 IndexedDB 저장소 구성</h3>
+<p>Dexie.js로 IndexedDB를 다룹니다. DB 이름은 <code>ringshelf</code>, 스키마 버전 1부터 시작합니다.</p>
+<table>
+<thead>
+<tr>
+<th>저장소</th>
+<th>키</th>
+<th>인덱스</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>books</code></td>
+<td><code>id</code></td>
+<td><code>isbn13</code>, <code>title</code>, <code>category</code></td>
+<td>책 정보(한 권당 1개)</td>
+</tr>
+<tr>
+<td><code>readings</code></td>
+<td><code>id</code></td>
+<td><code>bookId</code>, <code>year</code>, <code>finishedAt</code>, <code>status</code></td>
+<td>독서 기록(한 책에 여러 개 가능)</td>
+</tr>
+<tr>
+<td><code>years</code></td>
+<td><code>year</code></td>
+<td></td>
+<td>연도별 회고(그해의 책, 한 줄 회고)</td>
+</tr>
+<tr>
+<td><code>covers</code></td>
+<td><code>bookId</code></td>
+<td></td>
+<td>표지 이미지 Blob</td>
+</tr>
+<tr>
+<td><code>apiCache</code></td>
+<td><code>key</code></td>
+<td><code>savedAt</code></td>
+<td>도서 검색 결과 캐시</td>
+</tr>
+<tr>
+<td><code>settings</code></td>
+<td><code>key</code></td>
+<td></td>
+<td>설정 값</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7-2-데이터-구조">7.2 데이터 구조</h3>
+<pre><code class="language-js">// books
+{
+  id: &quot;bk_01JB...&quot;,            // ULID
+  isbn13: &quot;9788936434120&quot;,
+  title: &quot;소년이 온다&quot;,
+  author: &quot;한강&quot;,
+  publisher: &quot;창비&quot;,
+  pubDate: &quot;2014-05-19&quot;,
+  pages: 216,
+  pagesEstimated: false,       // 쪽수 추정 여부
+  categoryRaw: &quot;국내도서&gt;소설/시/희곡&gt;한국소설&gt;2000년대 이후 한국소설&quot;,
+  category: &quot;소설/시/희곡&quot;,
+  size: { w: 140, h: 205, d: 15 },   // mm, 없으면 null
+  spineColor: &quot;#7A3B2E&quot;,
+  spineColorCandidates: [&quot;#7A3B2E&quot;, &quot;#D9C3A5&quot;, &quot;#2B2B2B&quot;, &quot;#B5523B&quot;, &quot;#E8E2D6&quot;],
+  spineColorManual: false,
+  source: &quot;aladin&quot;,            // aladin | csv | manual
+  createdAt: &quot;2026-11-02T10:00:00+09:00&quot;,
+  updatedAt: &quot;2026-11-02T10:00:00+09:00&quot;
+}
+
+// readings
+{
+  id: &quot;rd_01JB...&quot;,
+  bookId: &quot;bk_01JB...&quot;,
+  status: &quot;finished&quot;,          // reading | finished | dropped
+  startedAt: &quot;2026-03-02&quot;,
+  finishedAt: &quot;2026-03-14&quot;,
+  dateApprox: false,           // 일 미상 등 날짜 추정 여부
+  year: 2026,                  // 설정의 '한 해의 기준'에 따라 계산해 저장
+  rating: 4.5,
+  note: &quot;다시 읽어도 같은 장면에서 멈춘다.&quot;
+}
+
+// years
+{
+  year: 2026,
+  bookOfYear: [&quot;bk_01JB...&quot;],  // P1에서 최대 3권
+  oneLiner: &quot;느리게, 그러나 깊게 읽은 해&quot;,
+  updatedAt: &quot;2026-12-28T21:00:00+09:00&quot;
+}
+</code></pre>
+<h3 id="7-3-백업-파일-형식">7.3 백업 파일 형식</h3>
+<pre><code class="language-js">{
+  app: &quot;ringshelf&quot;,
+  schemaVersion: 1,
+  exportedAt: &quot;2026-12-31T23:00:00+09:00&quot;,
+  books: [...], readings: [...], years: [...], settings: {...},
+  covers: { &quot;bk_01JB...&quot;: &quot;data:image/jpeg;base64,...&quot; }   // 선택 사항
+}
+</code></pre>
+<ul>
+<li>복원 시 <code>schemaVersion</code>이 낮으면 변환 함수를 차례로 적용합니다.</li>
+</ul>
+<hr />
+<h2 id="8-기술-스택">8. 기술 스택</h2>
+<table>
+<thead>
+<tr>
+<th>영역</th>
+<th>선택</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>빌드</td>
+<td>Vite</td>
+<td>빠른 개발 서버, PWA 플러그인 지원</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Svelte 5 (또는 순수 TypeScript)</td>
+<td>코드가 짧아 바이브 코딩에 유리, 결과물이 가벼움</td>
+</tr>
+<tr>
+<td>언어</td>
+<td>TypeScript</td>
+<td>데이터 구조가 많아 타입 검사가 도움이 됨</td>
+</tr>
+<tr>
+<td>저장</td>
+<td>IndexedDB + Dexie.js</td>
+<td>큰 데이터·Blob 저장, 인덱스 조회</td>
+</tr>
+<tr>
+<td>PWA</td>
+<td>vite-plugin-pwa (Workbox)</td>
+<td>매니페스트·서비스 워커 자동 생성, 오프라인 캐시</td>
+</tr>
+<tr>
+<td>그래프</td>
+<td>Chart.js</td>
+<td>선·막대·누적 막대 지원, 용량 적당</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>Papa Parse</td>
+<td>따옴표·줄바꿈 포함 CSV 안정 처리</td>
+</tr>
+<tr>
+<td>인코딩</td>
+<td><code>TextDecoder('euc-kr')</code></td>
+<td>브라우저 내장으로 CP949 읽기</td>
+</tr>
+<tr>
+<td>바코드(P1)</td>
+<td><code>BarcodeDetector</code> + ZXing 대체</td>
+<td>모바일 ISBN 스캔</td>
+</tr>
+<tr>
+<td>이미지 내보내기</td>
+<td>Canvas API</td>
+<td>회고 카드 직접 그리기</td>
+</tr>
+<tr>
+<td>프록시</td>
+<td>Cloudflare Workers</td>
+<td>무료, TTB 키 숨김, CORS 해결</td>
+</tr>
+<tr>
+<td>배포</td>
+<td>GitHub Pages 또는 Cloudflare Pages</td>
+<td>무료 정적 호스팅, HTTPS(PWA 필수 조건)</td>
+</tr>
+<tr>
+<td>테스트</td>
+<td>Vitest, Playwright</td>
+<td>계산 로직 단위 테스트, 주요 흐름 E2E</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-화면-구성">9. 화면 구성</h2>
+<table>
+<thead>
+<tr>
+<th>화면</th>
+<th>주요 요소</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>책장 홈</td>
+<td>연도별 선반 목록(최신 연도가 위), 각 선반의 권수·쪽수, 하단 <code>+</code> 버튼, 상단 보기 옵션(정렬·강조)</td>
+</tr>
+<tr>
+<td>연도 책장 상세</td>
+<td>한 해 크게 보기, 그해의 책 리본, 한 줄 회고 입력란, "회고 카드 만들기" 버튼</td>
+</tr>
+<tr>
+<td>책 카드(시트)</td>
+<td>표지, 제목·저자·출판사, 쪽수, 분야, 독서 기록 목록(재독 포함), 별점, 메모, 책등 색 고르기</td>
+</tr>
+<tr>
+<td>책 추가</td>
+<td>검색창(ISBN·제목), 결과 목록, 바코드 버튼(P1), 수동 입력 전환</td>
+</tr>
+<tr>
+<td>연도 비교</td>
+<td>연도 선택 칩, 지표 카드, 월별 그래프(누적 토글), 분야 비중 막대, 표로 보기</td>
+</tr>
+<tr>
+<td>회고 카드 편집기</td>
+<td>미리 보기, 크기 프리셋, 테마, 포함 항목 체크, 저장·공유 버튼</td>
+</tr>
+<tr>
+<td>CSV 가져오기</td>
+<td>파일 선택 → 인코딩 확인 → 열 매핑 → 보충 조회 진행 → 미리 보기·중복 처리 → 가져오기</td>
+</tr>
+<tr>
+<td>설정·백업</td>
+<td>API 설정, 테마, 한 해의 기준, 분야 관리, JSON 백업·복원, CSV 내보내기, 저장 공간 사용량</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>모바일 우선으로 설계하고, 넓은 화면에서는 책장 홈과 책 카드를 나란히 보여 줍니다.</li>
+<li>하단 탭: 책장 / 비교 / 추가 / 설정</li>
+</ul>
+<hr />
+<h2 id="10-비기능-요구사항">10. 비기능 요구사항</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>기준</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>성능</td>
+<td>책 1,000권(10년치) 기준 책장 홈 첫 표시 1초 이내, 스크롤 60fps 목표. 화면 밖 연도는 지연 렌더링</td>
+</tr>
+<tr>
+<td>오프라인</td>
+<td>검색을 뺀 모든 기능이 오프라인에서 동작</td>
+</tr>
+<tr>
+<td>저장 공간</td>
+<td>표지는 최대 300px 폭 JPEG(품질 0.8)로 줄여 저장, 1권당 약 30KB → 1,000권 약 30MB</td>
+</tr>
+<tr>
+<td>접근성</td>
+<td>책등은 키보드로 이동 가능(좌우 화살표), 스크린 리더용 라벨("소년이 온다, 한강, 216쪽, 2026년 3월 완독"), 그래프는 표 대체 제공</td>
+</tr>
+<tr>
+<td>개인정보</td>
+<td>독서 기록은 기기 밖으로 보내지 않음. 프록시에는 검색어·ISBN만 전달하고 기록하지 않음</td>
+</tr>
+<tr>
+<td>호환성</td>
+<td>최신 Chrome, Edge, Safari(iOS 16.4 이상), Samsung Internet</td>
+</tr>
+<tr>
+<td>국제화</td>
+<td>v1은 한국어 UI. 문자열은 한곳에 모아 두어 영어 추가가 쉽게 함</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</h2>
+<h3 id="m1-데이터와-기본-책장-mvp-api-없음">M1. 데이터와 기본 책장 (MVP, API 없음)</h3>
+<ul>
+<li>Vite + Svelte + Dexie 프로젝트 구성, 데이터 모델과 저장</li>
+<li>수동 입력으로 책 추가·수정·삭제</li>
+<li>연도별 책장 뷰: 쪽수 두께, 수동 색, 세로 제목</li>
+<li><strong>완료 기준</strong>: 직접 입력한 30권이 3개 연도 책장에 꽂혀 보임</li>
+</ul>
+<h3 id="m2-도서-검색과-표지-색">M2. 도서 검색과 표지 색</h3>
+<ul>
+<li>Cloudflare Workers 프록시 구축, ISBN·제목 검색</li>
+<li>표지 저장과 대표색 자동 추출(Web Worker)</li>
+<li>분야 매핑</li>
+<li><strong>완료 기준</strong>: 제목 검색으로 10초 안에 한 권 등록, 책등 색이 표지와 어울림</li>
+</ul>
+<h3 id="m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</h3>
+<ul>
+<li>인코딩 판별, 열 매핑, 보충 조회, 중복 처리</li>
+<li>JSON 백업·복원, CSV 내보내기</li>
+<li><strong>완료 기준</strong>: 200행 CSV를 가져와 5분 안에 정리 완료</li>
+</ul>
+<h3 id="m4-연도-비교와-회고">M4. 연도 비교와 회고</h3>
+<ul>
+<li>지표 카드, 월별(누적) 그래프, 분야 비중 막대</li>
+<li>그해의 책, 한 줄 회고, 회고 카드 PNG 내보내기·공유</li>
+<li><strong>완료 기준</strong>: 연말 회고 카드를 만들어 휴대폰 사진첩에 저장</li>
+</ul>
+<h3 id="m5-pwa와-다듬기">M5. PWA와 다듬기</h3>
+<ul>
+<li>서비스 워커, 설치 안내, 오프라인 동작</li>
+<li>정렬·강조 옵션, 책 뽑기 애니메이션, 나무 질감 테마</li>
+<li>P1 기능(바코드 스캔, Goodreads 프리셋, 읽는 중 표시)</li>
+<li><strong>완료 기준</strong>: 비행기 모드에서 책장·비교·회고 카드 모두 동작</li>
+</ul>
+<hr />
+<h2 id="12-위험-요소와-대응">12. 위험 요소와 대응</h2>
+<table>
+<thead>
+<tr>
+<th>위험</th>
+<th>영향</th>
+<th>대응</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>알라딘 API의 CORS 제한, TTB 키 노출</td>
+<td>브라우저에서 검색 불가</td>
+<td>Cloudflare Workers 프록시(5.2), 개발 초기에는 JSONP로 시험</td>
+</tr>
+<tr>
+<td>표지 이미지 CORS로 캔버스 색 추출 실패</td>
+<td>책등 색 자동 생성 불가</td>
+<td>프록시 <code>/cover</code> 경로로 이미지를 받아 Blob으로 저장 후 추출. 실패 시 분야별 기본색</td>
+</tr>
+<tr>
+<td>쪽수 정보 누락</td>
+<td>책등 두께 부정확</td>
+<td>분야 평균으로 추정하고 점선 표시, 사용자가 수정</td>
+</tr>
+<tr>
+<td>CSV 형식이 제각각</td>
+<td>가져오기 실패</td>
+<td>열 매핑 화면, 날짜 형식 여러 개 지원, 행별 오류 표시</td>
+</tr>
+<tr>
+<td>브라우저 데이터 삭제로 기록 손실</td>
+<td>치명적</td>
+<td>영구 저장 요청, 30일 백업 알림, 쉬운 JSON 백업</td>
+</tr>
+<tr>
+<td>iOS Safari의 저장소 정리 정책</td>
+<td>오래 안 쓰면 데이터 삭제 가능</td>
+<td>홈 화면 설치 권장(설치형 PWA는 정리 대상에서 제외됨), 백업 알림</td>
+</tr>
+<tr>
+<td>API 이용 한도·약관 변경</td>
+<td>검색 중단</td>
+<td>결과 캐시, 예비 API(P2), 수동 입력은 항상 가능</td>
+</tr>
+<tr>
+<td>책이 많은 해의 화면 성능</td>
+<td>스크롤 끊김</td>
+<td>화면 밖 연도 지연 렌더링, 책등 요소 단순화</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</h2>
+<ul>
+<li>책 한 권 등록에 걸리는 시간: 평균 10초 이내</li>
+<li>과거 기록 가져오기: 200권을 10분 안에 모두 책장에 꽂기</li>
+<li>자동 추출 책등 색을 그대로 쓰는 비율: 80% 이상(직접 바꾸는 비율 20% 이하)</li>
+<li>1년 동안 매달 1회 이상 앱 사용, 연말 회고 카드 1회 이상 내보내기</li>
+<li>데이터 손실 0건(백업 파일로 언제든 복원 가능)</li>
+</ul>
+<hr />
+<h2 id="14-결정할-사항과-확인할-사항">14. 결정할 사항과 확인할 사항</h2>
+<h3 id="14-1-사용자가-결정할-사항">14.1 사용자가 결정할 사항</h3>
+<ul>
+<li>앱 이름 확정 (이름 후보 표 참고)</li>
+<li>UI 프레임워크: Svelte 5와 순수 TypeScript 중 선택</li>
+<li>프록시 사용 여부: Cloudflare Workers 계정 생성 가능 여부</li>
+<li>"한 해의 기준" 기본값: 완독일 기준(제안) 유지 여부</li>
+<li>회고 카드에 넣을 기본 항목과 기본 테마</li>
+</ul>
+<h3 id="14-2-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</h3>
+<ul>
+<li>알라딘 TTB 키 발급, 하루 호출 한도, 이용 약관(출처 표기 방식) 최신 기준</li>
+<li>상품 조회 API에서 쪽수(<code>itemPage</code>)와 판형 크기 정보가 실제로 오는지</li>
+<li>알라딘 표지 이미지 서버의 CORS 헤더 여부(없으면 프록시 경유 확정)</li>
+<li>알라딘 JSONP 지원 방식과 파라미터 이름</li>
+<li>iOS Safari에서 Web Share API로 PNG 파일 공유가 되는지</li>
+</ul></article></main>
+<button id="top" aria-label="맨 위로">↑</button>
+<script>
+(function(){
+ var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+ // 그룹 접기/펼치기
+ $$('.grp-h:not(.static)').forEach(function(b){b.addEventListener('click',function(e){
+  if(e.target.closest('a')){return}
+  var g=b.parentNode;g.classList.toggle('open');b.setAttribute('aria-expanded',g.classList.contains('open'))})});
+ // 모바일 메뉴
+ function close(){document.body.classList.remove('open')}
+ $('#menu').onclick=function(){document.body.classList.toggle('open')};
+ $('#scrim').onclick=close;
+ $$('#nav a').forEach(function(a){a.addEventListener('click',close)});
+ // 검색
+ $('#q').addEventListener('input',function(){
+  var v=this.value.trim().toLowerCase();
+  $$('#nav .grp').forEach(function(g){
+   var any=false,gh=$('.grp-h',g),gm=!!v&&gh.textContent.toLowerCase().indexOf(v)>-1;if(gm)any=true;
+   $$('li',g).forEach(function(li){var ok=!v||gm||li.textContent.toLowerCase().indexOf(v)>-1;li.classList.toggle('hide',!ok);if(ok)any=true});
+   g.style.display=(!v||any)?'':'none';
+   if(v&&any)g.classList.add('open');
+  });
+ });
+ // 스크롤 위치 표시
+ var links=$$('#nav li a'),map={};
+ links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+ var heads=$$('#doc h2[id],#doc h3[id]');
+ $$('#nav .grp-h a').forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+ links=$$('#nav a');
+ function spy(){
+  var y=window.scrollY+80,cur=null;
+  heads.forEach(function(h){if(h.offsetTop<=y)cur=h});
+  links.forEach(function(a){a.classList.remove('active')});
+  if(cur&&map[cur.id]){var a=map[cur.id];a.classList.add('active');
+   var g=a.closest('.grp');if(g&&!g.classList.contains('open')&&!$('#q').value)g.classList.add('open');
+   var nav=$('#nav'),r=a.getBoundingClientRect(),nr=nav.getBoundingClientRect();
+   if(r.top<nr.top||r.bottom>nr.bottom)nav.scrollTop+=r.top-nr.top-nr.height/3}
+  $('#top').classList.toggle('show',window.scrollY>600);
+ }
+ var t;window.addEventListener('scroll',function(){cancelAnimationFrame(t);t=requestAnimationFrame(spy)});spy();
+ $('#top').onclick=function(){window.scrollTo({top:0})};
+ // 테마
+ var root=document.documentElement;
+ try{var s=localStorage.getItem('theme');if(s)root.dataset.theme=s}catch(e){}
+ $('#theme').onclick=function(){
+  var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  root.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}};
+})();
+</script>
+</body>
+</html>
