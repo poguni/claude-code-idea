@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>연도별 독서 연대기 &amp; 책장 시각화: 제품 기획서(PRD)</title>
+<title>나이테 책장(Ringshelf): 제품 기획서(PRD)</title>
 <style>
 :root{--bg:#fafaf8;--panel:#f1f0ec;--text:#1f2328;--muted:#656d76;--line:#dcdad3;--accent:#8a5a2b;--accent-bg:#f3ebe0;--code:#eceae4;--star:#b8741a}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#e0a96d;--accent-bg:#3a2f24;--code:#2a2c30;--star:#f0b43c}}
@@ -71,16 +71,16 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <div id="scrim"></div>
 <aside id="side">
  <div class="side-top">
-  <h2>나이테 책장 PRD v0.1 <button id="theme" title="테마 전환">🌓</button></h2>
+  <h2>나이테 책장 PRD v0.2 <button id="theme" title="테마 전환">🌓</button></h2>
   <input id="q" type="search" placeholder="목차 검색 (예: 책등, CSV)" aria-label="목차 검색">
   <div class="dl">
    <a href="prd-reading-chronicle.md" download="prd-reading-chronicle.md">⬇ MD</a>
    <a id="dlhtml" href="prd-reading-chronicle.html" download="prd-reading-chronicle.html">⬇ HTML</a>
   </div>
  </div>
- <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#앱-이름-후보">앱 이름 후보</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-복원-내보내기-p0">F9. 백업·복원·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-pwa-오프라인-p0">F11. PWA·오프라인 (P0)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-도서-검색-api-연동-설계">5. 도서 검색 API 연동 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-알라딘-open-api-기본-사항">5.1 알라딘 Open API 기본 사항</a></li><li><a href="#5-2-호출-방식-브라우저-직접-호출의-한계와-프록시">5.2 호출 방식: 브라우저 직접 호출의 한계와 프록시</a></li><li><a href="#5-3-분야-매핑">5.3 분야 매핑</a></li><li><a href="#5-4-예비-api-알라딘에서-찾지-못할-때">5.4 예비 API (알라딘에서 찾지 못할 때)</a></li><li><a href="#5-5-호출-안정성">5.5 호출 안정성</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-대표색-추출">6.3 표지 대표색 추출</a></li><li><a href="#6-4-글자-색과-가독성">6.4 글자 색과 가독성</a></li><li><a href="#6-5-그리기-방식">6.5 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-indexeddb-저장소-구성">7.1 IndexedDB 저장소 구성</a></li><li><a href="#7-2-데이터-구조">7.2 데이터 구조</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-화면-구성">9. 화면 구성</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m1-데이터와-기본-책장-mvp-api-없음">M1. 데이터와 기본 책장 (MVP, API 없음)</a></li><li><a href="#m2-도서-검색과-표지-색">M2. 도서 검색과 표지 색</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-pwa와-다듬기">M5. PWA와 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정할-사항과-확인할-사항">14. 결정할 사항과 확인할 사항</a><span class=chev>▾</span></button><ul><li><a href="#14-1-사용자가-결정할-사항">14.1 사용자가 결정할 사항</a></li><li><a href="#14-2-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</a></li></ul></div></nav>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#앱-이름">앱 이름</a><span class=chev>▾</span></button><ul><li><a href="#확정한-이름">확정한 이름</a></li><li><a href="#검토했던-다른-후보">검토했던 다른 후보</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-복원-내보내기-p0">F9. 백업·복원·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-pwa-오프라인-p0">F11. PWA·오프라인 (P0)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-도서-검색-api-연동-설계">5. 도서 검색 API 연동 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-알라딘-open-api-기본-사항">5.1 알라딘 Open API 기본 사항</a></li><li><a href="#5-2-호출-방식-cloudflare-workers-프록시-확정">5.2 호출 방식: Cloudflare Workers 프록시 (확정)</a></li><li><a href="#5-3-분야-매핑">5.3 분야 매핑</a></li><li><a href="#5-4-예비-api-알라딘에서-찾지-못할-때">5.4 예비 API (알라딘에서 찾지 못할 때)</a></li><li><a href="#5-5-호출-안정성">5.5 호출 안정성</a></li><li><a href="#5-6-프록시-구축-배포-절차">5.6 프록시 구축·배포 절차</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-대표색-추출">6.3 표지 대표색 추출</a></li><li><a href="#6-4-글자-색과-가독성">6.4 글자 색과 가독성</a></li><li><a href="#6-5-그리기-방식">6.5 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-indexeddb-저장소-구성">7.1 IndexedDB 저장소 구성</a></li><li><a href="#7-2-데이터-구조">7.2 데이터 구조</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-화면-구성">9. 화면 구성</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m1-데이터와-기본-책장-mvp-api-없음">M1. 데이터와 기본 책장 (MVP, API 없음)</a></li><li><a href="#m2-도서-검색과-표지-색">M2. 도서 검색과 표지 색</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-pwa와-다듬기">M5. PWA와 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#14-1-결정된-사항-v0-2">14.1 결정된 사항 (v0.2)</a></li><li><a href="#14-2-아직-결정할-사항">14.2 아직 결정할 사항</a></li><li><a href="#14-3-개발-시작-시-확인할-사항">14.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
 </aside>
-<main><article id="doc"><h1 id="연도별-독서-연대기-책장-시각화-제품-기획서-prd">연도별 독서 연대기 &amp; 책장 시각화: 제품 기획서(PRD)</h1>
+<main><article id="doc"><h1 id="나이테-책장-ringshelf-제품-기획서-prd">나이테 책장(Ringshelf): 제품 기획서(PRD)</h1>
 <table>
 <thead>
 <tr>
@@ -91,19 +91,31 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tbody>
 <tr>
 <td>문서 버전</td>
-<td>v0.1</td>
+<td>v0.2</td>
 </tr>
 <tr>
 <td>작성일</td>
 <td>2026-11-02</td>
 </tr>
 <tr>
-<td>가칭</td>
-<td><strong>나이테 책장(Ringshelf)</strong>: 해마다 한 겹씩 쌓이는 나의 독서 (이름 확정 시 교체)</td>
+<td>앱 이름</td>
+<td><strong>나이테 책장(Ringshelf)</strong> (확정)</td>
+</tr>
+<tr>
+<td>한 줄 소개</td>
+<td>해마다 한 겹씩 쌓이는 나의 독서</td>
+</tr>
+<tr>
+<td>주제</td>
+<td>연도별 독서 연대기 &amp; 책장 시각화</td>
 </tr>
 <tr>
 <td>형태</td>
 <td>PWA(설치형 웹 앱), 오프라인 동작, 개인 전용(로그인 없음)</td>
+</tr>
+<tr>
+<td>도서 검색</td>
+<td>알라딘 Open API(TTB 키 보유) + Cloudflare Workers 프록시(계정 보유)</td>
 </tr>
 <tr>
 <td>저장</td>
@@ -134,13 +146,26 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <td>2026-11-02</td>
 <td>최초 작성</td>
 </tr>
+<tr>
+<td>v0.2</td>
+<td>2026-11-02</td>
+<td>앱 이름을 <strong>나이테 책장(Ringshelf)</strong>으로 확정. 알라딘 TTB 키와 Cloudflare 계정 보유에 따라 Cloudflare Workers 프록시 방식으로 확정하고, JSONP 대안과 앱 안 TTB 키 입력 제거. 프록시 구축 절차(5.6) 추가, 결정 사항 정리</td>
+</tr>
 </tbody>
 </table>
-<h2 id="앱-이름-후보">앱 이름 후보</h2>
+<h2 id="앱-이름">앱 이름</h2>
+<h3 id="확정한-이름">확정한 이름</h3>
+<p><strong>나이테 책장 (Ringshelf)</strong>: 해마다 한 겹씩 쌓이는 나의 독서</p>
+<ul>
+<li>의미: 나무가 해마다 나이테를 한 겹씩 두르듯, 1년에 한 칸씩 책장이 늘어납니다. "연도별 독서 연대기"라는 핵심 개념을 그대로 담았습니다.</li>
+<li>표기 규칙: 한글 화면에서는 "나이테 책장", 영문·코드·주소에서는 "Ringshelf"(소문자 <code>ringshelf</code>)를 씁니다.</li>
+<li>아이콘 방향: 동심원 나이테 위에 색색의 책등이 방사형으로 꽂힌 모양, 원목 갈색(#8A5A2B) 기본</li>
+<li>코드 식별자: IndexedDB 이름 <code>ringshelf</code>, 백업 파일 <code>ringshelf-backup-YYYYMMDD.json</code>, 프록시 Worker 이름 <code>ringshelf-proxy</code></li>
+</ul>
+<h3 id="검토했던-다른-후보">검토했던 다른 후보</h3>
 <table>
 <thead>
 <tr>
-<th>#</th>
 <th>한글 이름</th>
 <th>영어 이름</th>
 <th>의미</th>
@@ -148,40 +173,27 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td><strong>나이테 책장</strong></td>
-<td><strong>Ringshelf</strong></td>
-<td>나무가 해마다 나이테를 한 겹씩 두르듯, 1년에 한 칸씩 책장이 늘어납니다. 연대기라는 핵심 개념을 가장 잘 드러냅니다. (추천)</td>
+<td>책등 연대기</td>
+<td>Spine Chronicle</td>
+<td>책등과 연대기를 그대로 합친 이름</td>
 </tr>
 <tr>
-<td>2</td>
-<td><strong>책등 연대기</strong></td>
-<td><strong>Spine Chronicle</strong></td>
-<td>책등(spine)과 연대기를 그대로 합친 이름입니다. 기능이 이름만으로 바로 전달됩니다.</td>
+<td>해마다 서가</td>
+<td>Yearshelf</td>
+<td>짧고 기억하기 쉬운 이름</td>
 </tr>
 <tr>
-<td>3</td>
-<td><strong>해마다 서가</strong></td>
-<td><strong>Yearshelf</strong></td>
-<td>"해마다"의 다정한 어감과 "서가"의 단정함을 합쳤습니다. 짧고 기억하기 쉽습니다.</td>
+<td>책빛</td>
+<td>Spinelight</td>
+<td>책등 색이 모여 그해의 빛깔을 만든다는 뜻</td>
 </tr>
 <tr>
-<td>4</td>
-<td><strong>책빛</strong></td>
-<td><strong>Spinelight</strong></td>
-<td>표지 대표색으로 칠해진 책등들이 모여 그해의 빛깔을 만든다는 뜻입니다. 회고 카드와 잘 어울립니다.</td>
-</tr>
-<tr>
-<td>5</td>
-<td><strong>책결</strong></td>
-<td><strong>Bookgrain</strong></td>
-<td>나뭇결처럼 해마다 다른 무늬로 쌓이는 독서의 결을 뜻합니다. 한 글자 같은 두 글자라 아이콘으로 만들기 좋습니다.</td>
+<td>책결</td>
+<td>Bookgrain</td>
+<td>나뭇결처럼 쌓이는 독서의 결</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>이 문서에서는 1번 <strong>나이테 책장(Ringshelf)</strong>을 가칭으로 씁니다. 이름이 정해지면 문서 전체에서 바꾸면 됩니다.</p>
-</blockquote>
 <hr />
 <h2 id="1-개요">1. 개요</h2>
 <h3 id="1-1-배경">1.1 배경</h3>
@@ -336,7 +348,8 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </ul>
 <h3 id="f10-설정-p0">F10. 설정 (P0)</h3>
 <ul>
-<li>알라딘 TTB 키 입력(직접 호출 방식일 때) 또는 프록시 주소 설정 (5장 참고)</li>
+<li>프록시 주소 확인·변경(기본값은 빌드 시 넣은 Worker 주소), "연결 확인" 버튼 (5장 참고)</li>
+<li>TTB 키는 앱에 입력하거나 저장하지 않습니다. 키는 Cloudflare Worker의 비밀 값(secret)에만 보관합니다.</li>
 <li>테마: 시스템 따름 / 밝게 / 어둡게</li>
 <li>한 해의 기준: 완독일 기준(기본) / 시작일 기준</li>
 <li>책장 나무 질감: 원목 / 화이트 / 다크 우드</li>
@@ -351,7 +364,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <h2 id="5-도서-검색-api-연동-설계">5. 도서 검색 API 연동 설계</h2>
 <h3 id="5-1-알라딘-open-api-기본-사항">5.1 알라딘 Open API 기본 사항</h3>
 <ul>
-<li>사용하려면 알라딘 블로그 계정으로 <strong>TTB 키</strong>를 발급받아야 합니다.</li>
+<li><strong>TTB 키</strong>: 발급 완료(보유). 키는 프록시 Worker의 비밀 값으로만 보관하고, 앱 코드·저장소·브라우저에는 두지 않습니다.</li>
 <li>사용하는 API</li>
 </ul>
 <table>
@@ -380,8 +393,8 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <li>판형 크기(가로·세로·두께)는 상품 조회의 부가 정보로 제공되는지 개발 시작 시 확인하고, 있으면 책등 높이·두께에 반영합니다.</li>
 <li>하루 호출 한도와 이용 약관(비상업적 이용, 출처 표기)은 개발 시작 시 최신 기준을 다시 확인합니다.</li>
 </ul>
-<h3 id="5-2-호출-방식-브라우저-직접-호출의-한계와-프록시">5.2 호출 방식: 브라우저 직접 호출의 한계와 프록시</h3>
-<p>알라딘 API는 브라우저에서 바로 부르면 <strong>CORS 제한</strong>에 걸릴 수 있고, TTB 키가 웹 페이지에 그대로 드러납니다. 표지 이미지도 CORS 헤더가 없으면 캔버스에서 색을 뽑을 수 없습니다. 그래서 다음 구조를 기본으로 합니다.</p>
+<h3 id="5-2-호출-방식-cloudflare-workers-프록시-확정">5.2 호출 방식: Cloudflare Workers 프록시 (확정)</h3>
+<p>알라딘 API는 브라우저에서 바로 부르면 <strong>CORS 제한</strong>에 걸릴 수 있고, TTB 키가 웹 페이지에 그대로 드러납니다. 표지 이미지도 CORS 헤더가 없으면 캔버스에서 색을 뽑을 수 없습니다. 그래서 모든 알라딘 호출을 Cloudflare Workers 프록시를 거쳐 보냅니다.</p>
 <pre><code>[PWA] ──HTTPS──▶ [서버리스 프록시: Cloudflare Workers] ──▶ [알라딘 Open API]
                     · TTB 키는 프록시 환경 변수에 보관       [알라딘 표지 이미지]
                     · 응답에 CORS 헤더 추가
@@ -390,7 +403,40 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </code></pre>
 <ul>
 <li>프록시는 무료 요금제 범위에서 충분합니다(개인 사용 기준).</li>
-<li>대안: 개발 초기에는 알라딘이 지원하는 JSONP 방식(콜백 함수 이름 지정)으로 프록시 없이 시험해 볼 수 있습니다. 단, 이 경우에도 표지 색 추출은 프록시가 필요합니다.</li>
+<li>프록시 경로 명세</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>경로</th>
+<th>알라딘 API</th>
+<th>앱에서 보내는 값</th>
+<th>돌려주는 값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET /search?q=&amp;type=</code></td>
+<td>ItemSearch</td>
+<td>검색어, 검색 종류(title·author·keyword)</td>
+<td>필요한 필드만 추린 책 목록(JSON)</td>
+</tr>
+<tr>
+<td><code>GET /lookup?isbn=</code></td>
+<td>ItemLookUp</td>
+<td>ISBN-13</td>
+<td>책 한 권(쪽수 포함, JSON)</td>
+</tr>
+<tr>
+<td><code>GET /cover?url=</code></td>
+<td>표지 이미지</td>
+<td>알라딘 표지 주소(알라딘 이미지 도메인만 허용)</td>
+<td>이미지 원본 + CORS 헤더</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Worker는 알라딘 응답을 앱 형식(7.2의 <code>books</code> 필드 이름)으로 바꿔 돌려주어, 앱 코드가 알라딘 응답 구조에 묶이지 않게 합니다.</li>
 </ul>
 <h3 id="5-3-분야-매핑">5.3 분야 매핑</h3>
 <p>알라딘 <code>categoryName</code>은 <code>국내도서&gt;소설/시/희곡&gt;한국소설&gt;2000년대 이후 한국소설</code>처럼 계층으로 옵니다.</p>
@@ -404,13 +450,29 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <ul>
 <li>카카오 책 검색 API: 쪽수 정보가 없으므로 제목·표지 보충용</li>
 <li>국립중앙도서관 ISBN 서지 정보 API: 독립 출판물·오래된 책 보충용</li>
-<li>v0.1에서는 알라딘만 구현하고, 예비 API는 P2로 둡니다.</li>
+<li>첫 버전에서는 알라딘만 구현하고, 예비 API는 P2로 둡니다.</li>
 </ul>
 <h3 id="5-5-호출-안정성">5.5 호출 안정성</h3>
 <ul>
 <li>요청 시간 제한 8초, 실패 시 1회 재시도</li>
 <li>CSV 보충 조회는 동시에 2건씩, 요청 사이 200ms 간격을 두어 한도를 넘지 않게 합니다.</li>
 <li>같은 ISBN 조회 결과는 IndexedDB에 30일간 캐시합니다.</li>
+</ul>
+<h3 id="5-6-프록시-구축-배포-절차">5.6 프록시 구축·배포 절차</h3>
+<p>Cloudflare 계정과 TTB 키가 이미 있으므로, 아래 순서로 M2 첫날 바로 진행합니다.</p>
+<ol>
+<li>저장소 안에 <code>proxy/</code> 폴더를 만들고 Worker 프로젝트를 생성합니다: <code>npm create cloudflare@latest proxy</code> (템플릿: Hello World Worker, TypeScript)</li>
+<li><code>wrangler.toml</code>에 이름 <code>ringshelf-proxy</code>, 환경 변수 <code>ALLOWED_ORIGINS</code>(배포 주소와 <code>http://localhost:5173</code>)를 적습니다.</li>
+<li>TTB 키를 비밀 값으로 등록합니다: <code>npx wrangler secret put ALADIN_TTB_KEY</code></li>
+<li>로컬 개발용 키는 <code>proxy/.dev.vars</code>에 두고, 이 파일은 <code>.gitignore</code>에 넣어 저장소에 올리지 않습니다.</li>
+<li>배포합니다: <code>npx wrangler deploy</code> → <code>https://ringshelf-proxy.&lt;계정 서브도메인&gt;.workers.dev</code> 주소를 받습니다.</li>
+<li>앱의 <code>.env</code>에 <code>VITE_PROXY_URL</code>로 이 주소를 넣고 빌드합니다.</li>
+</ol>
+<p><strong>운영 원칙</strong></p>
+<ul>
+<li>보안: 허용한 출처(Origin) 외의 요청은 403으로 거절, <code>/cover</code>는 알라딘 이미지 도메인만 허용해 아무 이미지나 중계하는 열린 프록시가 되지 않게 합니다.</li>
+<li>캐시: Workers Cache API로 검색 결과 24시간, 표지 이미지 30일 캐시</li>
+<li>무료 요금제(하루 10만 요청 내외)는 개인 사용에 충분합니다. 한도는 배포 전에 최신 기준을 확인합니다.</li>
 </ul>
 <hr />
 <h2 id="6-책장-시각화-규칙">6. 책장 시각화 규칙</h2>
@@ -618,7 +680,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </tr>
 <tr>
 <td>프록시</td>
-<td>Cloudflare Workers</td>
+<td>Cloudflare Workers + Wrangler (확정, 계정 보유)</td>
 <td>무료, TTB 키 숨김, CORS 해결</td>
 </tr>
 <tr>
@@ -732,7 +794,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </ul>
 <h3 id="m2-도서-검색과-표지-색">M2. 도서 검색과 표지 색</h3>
 <ul>
-<li>Cloudflare Workers 프록시 구축, ISBN·제목 검색</li>
+<li>Cloudflare Workers 프록시 구축·배포(5.6), TTB 키 비밀 값 등록, ISBN·제목 검색</li>
 <li>표지 저장과 대표색 자동 추출(Web Worker)</li>
 <li>분야 매핑</li>
 <li><strong>완료 기준</strong>: 제목 검색으로 10초 안에 한 권 등록, 책등 색이 표지와 어울림</li>
@@ -770,7 +832,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tr>
 <td>알라딘 API의 CORS 제한, TTB 키 노출</td>
 <td>브라우저에서 검색 불가</td>
-<td>Cloudflare Workers 프록시(5.2), 개발 초기에는 JSONP로 시험</td>
+<td>Cloudflare Workers 프록시(5.2, 5.6), 키는 Worker 비밀 값으로만 보관</td>
 </tr>
 <tr>
 <td>표지 이미지 CORS로 캔버스 색 추출 실패</td>
@@ -803,6 +865,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <td>결과 캐시, 예비 API(P2), 수동 입력은 항상 가능</td>
 </tr>
 <tr>
+<td>TTB 키가 실수로 저장소에 올라감</td>
+<td>키 도용·호출 한도 소진</td>
+<td><code>.dev.vars</code>·<code>.env</code> gitignore, 유출 시 알라딘에서 키 재발급 후 <code>wrangler secret put</code>으로 교체</td>
+</tr>
+<tr>
 <td>책이 많은 해의 화면 성능</td>
 <td>스크롤 끊김</td>
 <td>화면 밖 연도 지연 렌더링, 책등 요소 단순화</td>
@@ -819,21 +886,26 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <li>데이터 손실 0건(백업 파일로 언제든 복원 가능)</li>
 </ul>
 <hr />
-<h2 id="14-결정할-사항과-확인할-사항">14. 결정할 사항과 확인할 사항</h2>
-<h3 id="14-1-사용자가-결정할-사항">14.1 사용자가 결정할 사항</h3>
+<h2 id="14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</h2>
+<h3 id="14-1-결정된-사항-v0-2">14.1 결정된 사항 (v0.2)</h3>
 <ul>
-<li>앱 이름 확정 (이름 후보 표 참고)</li>
+<li>앱 이름: <strong>나이테 책장 (Ringshelf)</strong></li>
+<li>도서 검색: 알라딘 Open API (TTB 키 보유)</li>
+<li>호출 방식: Cloudflare Workers 프록시 (계정 보유), TTB 키는 Worker 비밀 값으로만 보관</li>
+</ul>
+<h3 id="14-2-아직-결정할-사항">14.2 아직 결정할 사항</h3>
+<ul>
 <li>UI 프레임워크: Svelte 5와 순수 TypeScript 중 선택</li>
-<li>프록시 사용 여부: Cloudflare Workers 계정 생성 가능 여부</li>
+<li>앱 배포 위치: GitHub Pages와 Cloudflare Pages 중 선택 (Cloudflare 계정이 있으므로 Cloudflare Pages를 쓰면 프록시와 한곳에서 관리할 수 있어 편리합니다)</li>
 <li>"한 해의 기준" 기본값: 완독일 기준(제안) 유지 여부</li>
 <li>회고 카드에 넣을 기본 항목과 기본 테마</li>
 </ul>
-<h3 id="14-2-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</h3>
+<h3 id="14-3-개발-시작-시-확인할-사항">14.3 개발 시작 시 확인할 사항</h3>
 <ul>
-<li>알라딘 TTB 키 발급, 하루 호출 한도, 이용 약관(출처 표기 방식) 최신 기준</li>
+<li>알라딘 API 하루 호출 한도, 이용 약관(출처 표기 방식) 최신 기준</li>
 <li>상품 조회 API에서 쪽수(<code>itemPage</code>)와 판형 크기 정보가 실제로 오는지</li>
-<li>알라딘 표지 이미지 서버의 CORS 헤더 여부(없으면 프록시 경유 확정)</li>
-<li>알라딘 JSONP 지원 방식과 파라미터 이름</li>
+<li>알라딘 표지 이미지 도메인 목록(<code>/cover</code> 허용 목록에 넣을 주소)</li>
+<li>Cloudflare Workers 무료 요금제 한도 최신 기준</li>
 <li>iOS Safari에서 Web Share API로 PNG 파일 공유가 되는지</li>
 </ul></article></main>
 <button id="top" aria-label="맨 위로">↑</button>
