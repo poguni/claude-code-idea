@@ -71,14 +71,14 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <div id="scrim"></div>
 <aside id="side">
  <div class="side-top">
-  <h2>나이테 책장 PRD v0.2 <button id="theme" title="테마 전환">🌓</button></h2>
+  <h2>나이테 책장 PRD v0.3 <button id="theme" title="테마 전환">🌓</button></h2>
   <input id="q" type="search" placeholder="목차 검색 (예: 책등, CSV)" aria-label="목차 검색">
   <div class="dl">
    <a href="prd-reading-chronicle.md" download="prd-reading-chronicle.md">⬇ MD</a>
    <a id="dlhtml" href="prd-reading-chronicle.html" download="prd-reading-chronicle.html">⬇ HTML</a>
   </div>
  </div>
- <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#앱-이름">앱 이름</a><span class=chev>▾</span></button><ul><li><a href="#확정한-이름">확정한 이름</a></li><li><a href="#검토했던-다른-후보">검토했던 다른 후보</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-복원-내보내기-p0">F9. 백업·복원·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-pwa-오프라인-p0">F11. PWA·오프라인 (P0)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-도서-검색-api-연동-설계">5. 도서 검색 API 연동 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-알라딘-open-api-기본-사항">5.1 알라딘 Open API 기본 사항</a></li><li><a href="#5-2-호출-방식-cloudflare-workers-프록시-확정">5.2 호출 방식: Cloudflare Workers 프록시 (확정)</a></li><li><a href="#5-3-분야-매핑">5.3 분야 매핑</a></li><li><a href="#5-4-예비-api-알라딘에서-찾지-못할-때">5.4 예비 API (알라딘에서 찾지 못할 때)</a></li><li><a href="#5-5-호출-안정성">5.5 호출 안정성</a></li><li><a href="#5-6-프록시-구축-배포-절차">5.6 프록시 구축·배포 절차</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-대표색-추출">6.3 표지 대표색 추출</a></li><li><a href="#6-4-글자-색과-가독성">6.4 글자 색과 가독성</a></li><li><a href="#6-5-그리기-방식">6.5 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-indexeddb-저장소-구성">7.1 IndexedDB 저장소 구성</a></li><li><a href="#7-2-데이터-구조">7.2 데이터 구조</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-화면-구성">9. 화면 구성</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m1-데이터와-기본-책장-mvp-api-없음">M1. 데이터와 기본 책장 (MVP, API 없음)</a></li><li><a href="#m2-도서-검색과-표지-색">M2. 도서 검색과 표지 색</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-pwa와-다듬기">M5. PWA와 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#14-1-결정된-사항-v0-2">14.1 결정된 사항 (v0.2)</a></li><li><a href="#14-2-아직-결정할-사항">14.2 아직 결정할 사항</a></li><li><a href="#14-3-개발-시작-시-확인할-사항">14.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#앱-이름">앱 이름</a><span class=chev>▾</span></button><ul><li><a href="#확정한-이름">확정한 이름</a></li><li><a href="#검토했던-다른-후보">검토했던 다른 후보</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-복원-내보내기-p0">F9. 백업·복원·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-pwa-오프라인-p0">F11. PWA·오프라인 (P0)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-도서-검색-api-연동-설계">5. 도서 검색 API 연동 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-알라딘-open-api-기본-사항">5.1 알라딘 Open API 기본 사항</a></li><li><a href="#5-2-호출-방식-cloudflare-workers-프록시-확정">5.2 호출 방식: Cloudflare Workers 프록시 (확정)</a></li><li><a href="#5-3-분야-매핑">5.3 분야 매핑</a></li><li><a href="#5-4-예비-api-알라딘에서-찾지-못할-때">5.4 예비 API (알라딘에서 찾지 못할 때)</a></li><li><a href="#5-5-호출-안정성">5.5 호출 안정성</a></li><li><a href="#5-6-프록시-구축-배포-절차">5.6 프록시 구축·배포 절차</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-팔레트-추출-3색">6.3 표지 팔레트 추출 (3색)</a></li><li><a href="#6-4-생성형-책등-패턴-기본-책등">6.4 생성형 책등 패턴 (기본 책등)</a></li><li><a href="#6-5-표지-질감-모드-설정에서-선택">6.5 표지 질감 모드 (설정에서 선택)</a></li><li><a href="#6-6-꺼내-보기-상호작용">6.6 꺼내 보기 상호작용</a></li><li><a href="#6-7-글자-색과-가독성">6.7 글자 색과 가독성</a></li><li><a href="#6-8-그리기-방식">6.8 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-indexeddb-저장소-구성">7.1 IndexedDB 저장소 구성</a></li><li><a href="#7-2-데이터-구조">7.2 데이터 구조</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-화면-구성">9. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#9-1-레이아웃-데스크톱-우선">9.1 레이아웃 (데스크톱 우선)</a></li><li><a href="#9-2-화면-목록">9.2 화면 목록</a></li><li><a href="#9-3-테마">9.3 테마</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m1-데이터와-기본-책장-mvp-api-없음">M1. 데이터와 기본 책장 (MVP, API 없음)</a></li><li><a href="#m2-도서-검색과-표지-색">M2. 도서 검색과 표지 색</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-pwa와-다듬기">M5. PWA와 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#14-1-결정된-사항-v0-3">14.1 결정된 사항 (v0.3)</a></li><li><a href="#14-2-아직-결정할-사항">14.2 아직 결정할 사항</a></li><li><a href="#14-3-개발-시작-시-확인할-사항">14.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
 </aside>
 <main><article id="doc"><h1 id="나이테-책장-ringshelf-제품-기획서-prd">나이테 책장(Ringshelf): 제품 기획서(PRD)</h1>
 <table>
@@ -91,11 +91,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tbody>
 <tr>
 <td>문서 버전</td>
-<td>v0.2</td>
+<td>v0.3</td>
 </tr>
 <tr>
 <td>작성일</td>
-<td>2026-11-02</td>
+<td>2026-11-02 (v0.3 수정: 2026-11-03)</td>
 </tr>
 <tr>
 <td>앱 이름</td>
@@ -112,6 +112,14 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tr>
 <td>형태</td>
 <td>PWA(설치형 웹 앱), 오프라인 동작, 개인 전용(로그인 없음)</td>
+</tr>
+<tr>
+<td>주 사용 환경</td>
+<td><strong>데스크톱 웹 브라우저</strong>(16:10, 1440×900 기준). 스마트폰은 확인용으로 반응형 지원</td>
+</tr>
+<tr>
+<td>디자인</td>
+<td>통일 레이아웃 1개 + 테마 2종(서재·종이). 상세는 <code>ringshelf/DESIGN.md</code></td>
 </tr>
 <tr>
 <td>도서 검색</td>
@@ -145,6 +153,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <td>v0.1</td>
 <td>2026-11-02</td>
 <td>최초 작성</td>
+</tr>
+<tr>
+<td>v0.3</td>
+<td>2026-11-03</td>
+<td>데스크톱 우선(16:10)·반응형으로 변경. 통일 레이아웃 1개에 테마 2종(서재·종이) 적용. 책등을 단색에서 <strong>생성형 책등(표지 팔레트 3색 + 분야별 패턴)</strong>으로 바꾸고, <strong>꺼내 보기(표지로 돌아서는 상호작용)</strong>와 <strong>표지 질감 모드(설정)</strong> 추가. 데이터 모델·화면 구성·마일스톤·위험 요소 갱신, DESIGN.md 분리</td>
 </tr>
 <tr>
 <td>v0.2</td>
@@ -200,7 +213,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <p>독서 기록 앱은 많지만, 대부분 목록과 숫자(권수, 별점) 중심입니다. 몇 년치 기록이 쌓여도 "그해에 나는 어떤 책을 읽었나"를 한눈에 느끼기 어렵습니다. 실제 책장 앞에 서면 책 두께와 색깔만으로도 기억이 되살아나는데, 디지털 기록에는 그런 감각이 없습니다.</p>
 <p>이 앱은 다음 세 가지를 결합합니다.</p>
 <ol>
-<li><strong>책장 시각화</strong>: 쪽수로 책등 두께를, 표지 대표색으로 책등 색을 자동으로 만들어 연도별 책장에 꽂아 보여 줍니다.</li>
+<li><strong>책장 시각화</strong>: 쪽수로 책등 두께를, 표지에서 뽑은 색과 분야별 무늬로 책등을 자동으로 만들어 연도별 책장에 꽂아 보여 줍니다.</li>
 <li><strong>연도 비교 분석</strong>: 권수, 쪽수, 분야 비중, 월별 추이를 여러 해에 걸쳐 겹쳐 봅니다.</li>
 <li><strong>회고 의식</strong>: "그해의 책"을 고르고 한 줄 회고를 남기며, 연말 회고 카드를 이미지로 내보내 공유합니다.</li>
 </ol>
@@ -292,20 +305,22 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </ul>
 <h3 id="f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</h3>
 <ul>
-<li>연도마다 책장 한 칸(선반)을 그리고, 그해 완독한 책을 <strong>완독일 순서</strong>로 왼쪽부터 꽂습니다.</li>
+<li>연도마다 책장 한 칸(선반)을 그리고, 그해 완독한 책을 <strong>완독일 순서</strong>로 왼쪽부터 꽂습니다. 최신 연도가 맨 위에 옵니다.</li>
 <li><strong>책등 자동 생성</strong> (상세 규칙은 6장)</li>
-<li>두께: 쪽수에 비례 (최소·최대 두께 제한)</li>
-<li>높이: 판형 정보가 있으면 반영, 없으면 분야별 기본 높이에 약간의 무작위 변화를 주어 실제 책장처럼 보이게 함</li>
-<li>색: 표지 이미지에서 대표색을 뽑아 칠함</li>
-<li>글자: 세로쓰기로 제목(필요하면 줄임), 아래쪽에 저자. 배경색에 맞춰 흰색·검은색 글자를 자동 선택</li>
+<li>두께: 쪽수에 비례 (최소·최대 두께 제한, 화면 폭에 따라 배율 조정)</li>
+<li>높이: 판형 정보가 있으면 반영, 없으면 책마다 고정된 작은 변화를 주어 실제 책장처럼 보이게 함</li>
+<li>무늬: 표지에서 뽑은 <strong>3색 팔레트</strong>와 분야별 <strong>책등 패턴</strong>(하드커버·페이퍼백·라벨형)으로 만든 <strong>생성형 책등</strong>이 기본</li>
+<li>글자: 세로쓰기로 제목(필요하면 줄임), 아래쪽에 저자. 바탕색에 맞춰 밝은 글자·어두운 글자를 자동 선택</li>
+<li><strong>꺼내 보기</strong> (6.6)</li>
+<li>마우스를 올리면 책이 살짝 들려 나옵니다.</li>
+<li>누르면 책이 앞으로 빠져나오며 옆으로 돌아 <strong>실제 표지(알라딘 표지 이미지)</strong>가 보이고, 오른쪽 상세 패널에 그 책의 기록이 열립니다.</li>
 <li>선반 폭을 넘으면 다음 단으로 넘깁니다(한 연도가 여러 단이 될 수 있음).</li>
-<li>선반 왼쪽에 연도, 오른쪽에 그해 요약(권수, 총 쪽수)을 표시합니다.</li>
-<li>책등을 누르면(또는 마우스를 올리면) 책이 살짝 뽑혀 나오며 <strong>책 카드</strong>(표지, 정보, 별점, 메모)가 열립니다.</li>
+<li>선반 위쪽에 연도와 그해 요약(권수, 총 쪽수, 그해의 책)을 표시합니다.</li>
 <li>보기 옵션</li>
 <li>정렬: 완독일순(기본) / 색상순(무지개 책장) / 분야순 / 별점순 / 쪽수순</li>
 <li>강조: 특정 분야나 별점 4.5 이상만 진하게, 나머지는 흐리게</li>
-<li>밀도: 연도 목록(여러 해를 위아래로 쌓아 보기) / 한 해 크게 보기</li>
-<li>그해의 책은 책등 위에 작은 리본(책갈피 끈) 표시를 답니다.</li>
+<li>밀도: 연도 목록(여러 해를 위아래로 쌓아 보기) / 한 해 크게 보기 / 지난해 접기(지난해를 책등 색 띠로 접어 보기)</li>
+<li>그해의 책은 책등에 작은 책갈피 끈을 답니다.</li>
 <li>읽는 중인 책은 선반 끝에 비스듬히 기대어 놓은 모습으로 표시합니다(P1).</li>
 </ul>
 <h3 id="f5-연도-비교-p0">F5. 연도 비교 (P0)</h3>
@@ -329,9 +344,9 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <ul>
 <li>카드 구성: 연도, 그해의 책장(축소 이미지), 권수·총 쪽수·최다 분야, 그해의 책 표지와 제목, 한 줄 회고, 앱 이름 워터마크</li>
 <li>크기 프리셋: 정사각형 1080×1080, 세로 1080×1350(인스타그램 피드), 스토리 1080×1920</li>
-<li>테마 3종: 밝은 종이, 어두운 서재, 그해 책등 색에서 뽑은 그러데이션</li>
+<li>테마 3종: 서재(어두움), 종이(밝음), 책등 색(그해 책등 팔레트로 만든 배경). 기본값은 현재 앱 테마를 따름</li>
 <li>내보내기: PNG 저장. 모바일에서는 Web Share API로 바로 공유</li>
-<li>표지 이미지가 외부 주소라 캔버스에 그릴 수 없는 경우를 막기 위해, 표지는 저장 시점에 IndexedDB에 Blob으로 보관해 둔 것을 씁니다(9장 위험 요소 참고).</li>
+<li>표지 이미지가 외부 주소라 캔버스에 그릴 수 없는 경우를 막기 위해, 표지는 저장 시점에 IndexedDB에 Blob으로 보관해 둔 것을 씁니다(12장 위험 요소 참고).</li>
 </ul>
 <h3 id="f8-검색-필터-p1">F8. 검색·필터 (P1)</h3>
 <ul>
@@ -350,10 +365,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <ul>
 <li>프록시 주소 확인·변경(기본값은 빌드 시 넣은 Worker 주소), "연결 확인" 버튼 (5장 참고)</li>
 <li>TTB 키는 앱에 입력하거나 저장하지 않습니다. 키는 Cloudflare Worker의 비밀 값(secret)에만 보관합니다.</li>
-<li>테마: 시스템 따름 / 밝게 / 어둡게</li>
+<li><strong>테마</strong>: 서재(어두움) / 종이(밝음) / 시스템 설정 따름(기본). 두 테마는 기능과 배치가 같고 색·글꼴·선반 재질·장식만 다릅니다(9.3).</li>
+<li><strong>책등 스타일</strong>: 생성형 책등(기본) / 표지 질감 모드 (6.5)</li>
+<li><strong>움직임 줄이기</strong>: 꺼내 보기 회전 애니메이션 끄기(운영체제의 '동작 줄이기' 설정을 기본으로 따름)</li>
 <li>한 해의 기준: 완독일 기준(기본) / 시작일 기준</li>
-<li>책장 나무 질감: 원목 / 화이트 / 다크 우드</li>
-<li>분야 이름 바꾸기·합치기</li>
+<li>분야 이름 바꾸기·합치기, 분야별 책등 패턴 바꾸기</li>
 </ul>
 <h3 id="f11-pwa-오프라인-p0">F11. PWA·오프라인 (P0)</h3>
 <ul>
@@ -389,6 +405,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </tbody>
 </table>
 <ul>
+<li>표지 크기: 공식 옵션 중 가장 큰 <code>Cover=Big</code>은 가로 약 200px입니다. 이미지 주소의 크기 표기를 바꿔 더 큰 이미지를 받는 방법이 알려져 있으나 공식 기능이 아니므로, <strong>기본은 <code>Cover=Big</code></strong>으로 하고 큰 이미지는 받을 수 있을 때만 쓰는 선택 사항으로 둡니다.</li>
 <li>받아 쓰는 값: <code>title</code>, <code>author</code>, <code>publisher</code>, <code>pubDate</code>, <code>isbn13</code>, <code>cover</code>, <code>categoryName</code>, <code>subInfo.itemPage</code>(쪽수, 상품 조회에서 제공)</li>
 <li>판형 크기(가로·세로·두께)는 상품 조회의 부가 정보로 제공되는지 개발 시작 시 확인하고, 있으면 책등 높이·두께에 반영합니다.</li>
 <li>하루 호출 한도와 이용 약관(비상업적 이용, 출처 표기)은 개발 시작 시 최신 기준을 다시 확인합니다.</li>
@@ -476,39 +493,115 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </ul>
 <hr />
 <h2 id="6-책장-시각화-규칙">6. 책장 시각화 규칙</h2>
+<p>화면에 그리는 방법(색, 글꼴, 치수, 애니메이션)은 <code>ringshelf/DESIGN.md</code>에 정리하고, 이 장은 <strong>데이터에서 책등을 만드는 규칙</strong>을 다룹니다.</p>
 <h3 id="6-1-책등-두께">6.1 책등 두께</h3>
-<pre><code>두께(px) = clamp(최소 8, 최대 56, 쪽수 × 0.06 × 확대 배율)
+<pre><code>두께(px) = clamp(최소 8, 최대 80, 쪽수 × 화면 배율)
+화면 배율 ≈ 0.06(폭 390px) ~ 0.15(폭 1440px), 화면 폭에 비례
 </code></pre>
 <ul>
-<li>쪽수 300쪽 → 약 18px, 600쪽 → 약 36px (확대 배율 1 기준)</li>
+<li>1440px 화면에서 300쪽 → 약 45px, 600쪽 → 약 80px(최대)</li>
 <li>쪽수를 모르면 분야 평균 쪽수, 그것도 없으면 280쪽으로 가정하고 책등에 점선 테두리를 둘러 "추정값"임을 표시합니다.</li>
 <li>판형 두께(mm) 정보가 있으면 쪽수 대신 그 값을 씁니다.</li>
-<li>화면 폭이 좁으면 확대 배율을 줄여 한 단에 들어가는 권수를 유지합니다.</li>
 </ul>
 <h3 id="6-2-책등-높이">6.2 책등 높이</h3>
 <ul>
 <li>기본 높이: 선반 높이의 80~95% 사이</li>
-<li>판형 세로 길이(mm)가 있으면 그 비율대로, 없으면 책 ID로 만든 고정 난수로 ±6% 변화를 줍니다. 고정 난수이므로 화면을 새로 고쳐도 높이가 바뀌지 않습니다.</li>
+<li>판형 세로 길이(mm)가 있으면 그 비율대로, 없으면 책 ID로 만든 고정 난수로 ±8% 변화를 줍니다. 고정 난수이므로 화면을 새로 고쳐도 높이가 바뀌지 않습니다.</li>
 </ul>
-<h3 id="6-3-표지-대표색-추출">6.3 표지 대표색 추출</h3>
+<h3 id="6-3-표지-팔레트-추출-3색">6.3 표지 팔레트 추출 (3색)</h3>
 <ol>
 <li>표지 이미지를 64×64로 줄여 캔버스에 그립니다.</li>
 <li>흰색·검은색에 가까운 픽셀(밝기 5% 미만, 95% 초과)과 채도가 아주 낮은 테두리 픽셀을 제외합니다.</li>
-<li>남은 픽셀을 <strong>k-평균(k=5)</strong>으로 묶고, "픽셀 수 × (0.5 + 채도)" 점수가 가장 높은 묶음의 평균색을 대표색으로 합니다. 화려하지만 작은 영역보다는 넓고 선명한 색이 뽑히도록 하기 위함입니다.</li>
+<li>남은 픽셀을 <strong>k-평균(k=5)</strong>으로 묶고 다음 세 색을 고릅니다.</li>
+<li><strong>바탕색(base)</strong>: "픽셀 수 × (0.5 + 채도)" 점수가 가장 높은 묶음</li>
+<li><strong>띠색(band)</strong>: 바탕색과 밝기 차이가 가장 큰 묶음(명암비 2:1 이상 우선)</li>
+<li><strong>강조색(accent)</strong>: 나머지 중 채도가 가장 높은 묶음. 없으면 띠색을 조금 밝게 또는 어둡게 바꿔 만듦</li>
 <li>결과가 거의 무채색이면 무채색 그대로 씁니다(흑백 표지 책은 흑백 책등이 자연스럽습니다).</li>
 <li>추출은 Web Worker에서 돌려 화면이 멈추지 않게 합니다.</li>
-<li>사용자는 책 편집 화면에서 추출된 후보 5색 중 하나를 고르거나 직접 색을 지정할 수 있습니다.</li>
+<li>사용자는 책 편집 화면에서 후보 5색을 보고 세 색을 각각 바꿀 수 있습니다.</li>
 </ol>
-<h3 id="6-4-글자-색과-가독성">6.4 글자 색과 가독성</h3>
+<h3 id="6-4-생성형-책등-패턴-기본-책등">6.4 생성형 책등 패턴 (기본 책등)</h3>
+<p>분야에 따라 세 가지 패턴 중 하나를 고르고, 6.3의 3색으로 칠합니다. 분야별 기본 패턴은 설정에서 바꿀 수 있고, 책마다 따로 지정할 수도 있습니다.</p>
+<table>
+<thead>
+<tr>
+<th>패턴</th>
+<th>생김새</th>
+<th>기본 분야</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>하드커버(hardcover)</strong></td>
+<td>바탕색 위 위·아래 끝 근처에 가는 띠 두 줄씩(강조색, 금박 느낌), 제목은 명조 계열, 아래쪽에 출판사 이니셜 사각 표시</td>
+<td>인문, 역사, 과학, 사회, 경제경영</td>
+</tr>
+<tr>
+<td><strong>페이퍼백(paperback)</strong></td>
+<td>위쪽 18% 정도를 띠색 블록으로 칠하고, 그 아래 바탕색에 제목, 맨 아래 강조색 가는 줄</td>
+<td>소설/시/희곡, 장르소설</td>
+</tr>
+<tr>
+<td><strong>라벨형(label)</strong></td>
+<td>바탕색 가운데에 밝은 띠색 라벨 상자를 두고 그 안에 제목(옛 도서관 책 라벨 느낌)</td>
+<td>에세이, 예술, 자기계발, 기타</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>대표색과 흰색·검은색의 명암비를 계산해 더 높은 쪽(WCAG 대비 4.5:1 이상 목표)을 글자색으로 씁니다.</li>
-<li>제목은 <code>writing-mode: vertical-rl</code>로 세로쓰기합니다. 영문·숫자는 옆으로 눕혀 표시합니다.</li>
-<li>책등이 좁아(14px 미만) 글자가 들어가지 않으면 제목을 숨기고 책 카드에서만 보여 줍니다.</li>
+<li>모든 패턴 공통: 아주 옅은 종이·천 질감(노이즈)과 좌우 가장자리의 밝기 차이로 둥근 책등 느낌을 줍니다.</li>
+<li>그해의 책: 책갈피 끈(테마의 장식색)을 아래로 늘어뜨립니다.</li>
+<li>같은 데이터로 항상 같은 책등이 나오도록 무작위 요소는 모두 책 ID로 만든 고정 난수를 씁니다.</li>
 </ul>
-<h3 id="6-5-그리기-방식">6.5 그리기 방식</h3>
+<h3 id="6-5-표지-질감-모드-설정에서-선택">6.5 표지 질감 모드 (설정에서 선택)</h3>
 <ul>
-<li>책등 하나하나를 HTML 요소(또는 SVG)로 그립니다. 한 연도 100권 기준으로 충분히 가볍고, 클릭·포커스·스크린 리더 지원이 쉽습니다.</li>
-<li>회고 카드 이미지는 같은 데이터를 Canvas에 다시 그려 PNG로 만듭니다(HTML 화면 캡처보다 결과가 안정적입니다).</li>
+<li>책등 바탕에 <strong>표지 이미지를 크게 늘리고 흐리게(blur) 처리한 그림</strong>을 깔고, 그 위에 바탕색을 35~50% 정도 덧칠해 제목이 잘 읽히게 합니다.</li>
+<li>책마다 표지의 그림·색 분포가 그대로 무늬가 되어 생성형 책등보다 더 다채롭습니다.</li>
+<li>책을 등록할 때 Canvas로 <strong>세로 64×256px 흐림 이미지(WebP)</strong>를 한 번 만들어 <code>spineTextures</code> 저장소에 캐시합니다. 화면을 그릴 때마다 흐림 처리를 다시 하지 않습니다.</li>
+<li>표지가 없는 책은 생성형 책등으로 자동 대체합니다.</li>
+</ul>
+<h3 id="6-6-꺼내-보기-상호작용">6.6 꺼내 보기 상호작용</h3>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>동작</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>마우스 올림·키보드 포커스</td>
+<td>책이 위로 8px 들림, 그림자 진해짐</td>
+</tr>
+<tr>
+<td>누름(선택)</td>
+<td>책이 위로 들리며 앞으로 나오고 Y축으로 약 60° 돌아 <strong>표지 면</strong>이 보임. 오른쪽 상세 패널이 이 책으로 바뀜</td>
+</tr>
+<tr>
+<td>다른 책 누름·Esc</td>
+<td>이전 책은 제자리로 돌아감</td>
+</tr>
+<tr>
+<td>움직임 줄이기 켜짐</td>
+<td>회전 없이 들림 + 테두리 강조만</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>표지 면에는 저장해 둔 알라딘 표지 이미지를 씁니다. 표지가 없으면 팔레트로 만든 간이 표지(제목·저자 조판)를 보여 줍니다.</li>
+<li>책은 CSS 3D(<code>transform-style: preserve-3d</code>)로 <strong>책등 면 + 표지 면</strong> 두 면을 가진 상자로 만듭니다.</li>
+</ul>
+<h3 id="6-7-글자-색과-가독성">6.7 글자 색과 가독성</h3>
+<ul>
+<li>글자가 놓이는 바탕(패턴에 따라 바탕색 또는 라벨색)과 밝은·어두운 글자색의 명암비를 계산해 더 높은 쪽(WCAG 대비 4.5:1 이상 목표)을 씁니다.</li>
+<li>제목은 <code>writing-mode: vertical-rl</code>로 세로쓰기합니다. 영문·숫자는 옆으로 눕혀 표시합니다.</li>
+<li>책등이 좁아(14px 미만) 글자가 들어가지 않으면 제목을 숨기고 상세 패널에서만 보여 줍니다.</li>
+</ul>
+<h3 id="6-8-그리기-방식">6.8 그리기 방식</h3>
+<ul>
+<li>생성형 책등은 HTML 요소와 CSS로 그립니다. 테마가 바뀌어도 바로 반영되고, 클릭·포커스·스크린 리더 지원이 쉽습니다.</li>
+<li>표지 질감 모드의 흐림 그림만 미리 만든 이미지(6.5)를 씁니다.</li>
+<li>회고 카드 이미지는 같은 데이터를 Canvas에 다시 그려 PNG로 만듭니다.</li>
 </ul>
 <hr />
 <h2 id="7-데이터-모델">7. 데이터 모델</h2>
@@ -546,7 +639,13 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <td><code>covers</code></td>
 <td><code>bookId</code></td>
 <td></td>
-<td>표지 이미지 Blob</td>
+<td>표지 이미지 Blob (가로 최대 300px)</td>
+</tr>
+<tr>
+<td><code>spineTextures</code></td>
+<td><code>bookId</code></td>
+<td></td>
+<td>표지 질감 모드용 흐림 이미지(64×256 WebP)</td>
 </tr>
 <tr>
 <td><code>apiCache</code></td>
@@ -576,9 +675,12 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
   categoryRaw: &quot;국내도서&gt;소설/시/희곡&gt;한국소설&gt;2000년대 이후 한국소설&quot;,
   category: &quot;소설/시/희곡&quot;,
   size: { w: 140, h: 205, d: 15 },   // mm, 없으면 null
-  spineColor: &quot;#7A3B2E&quot;,
-  spineColorCandidates: [&quot;#7A3B2E&quot;, &quot;#D9C3A5&quot;, &quot;#2B2B2B&quot;, &quot;#B5523B&quot;, &quot;#E8E2D6&quot;],
-  spineColorManual: false,
+  spine: {
+    palette: { base: &quot;#7A3B2E&quot;, band: &quot;#E8E2D6&quot;, accent: &quot;#C9A45C&quot; },
+    candidates: [&quot;#7A3B2E&quot;, &quot;#D9C3A5&quot;, &quot;#2B2B2B&quot;, &quot;#B5523B&quot;, &quot;#E8E2D6&quot;],
+    pattern: &quot;paperback&quot;,      // hardcover | paperback | label (null이면 분야 기본값)
+    manual: false              // 사용자가 직접 바꿨는지
+  },
   source: &quot;aladin&quot;,            // aladin | csv | manual
   createdAt: &quot;2026-11-02T10:00:00+09:00&quot;,
   updatedAt: &quot;2026-11-02T10:00:00+09:00&quot;
@@ -676,7 +778,17 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tr>
 <td>이미지 내보내기</td>
 <td>Canvas API</td>
-<td>회고 카드 직접 그리기</td>
+<td>회고 카드 직접 그리기, 표지 질감 이미지 생성</td>
+</tr>
+<tr>
+<td>테마</td>
+<td>CSS 사용자 정의 속성(디자인 토큰) + <code>data-theme</code></td>
+<td>테마 2종을 같은 컴포넌트로 지원, 테마 추가가 쉬움</td>
+</tr>
+<tr>
+<td>책등 3D</td>
+<td>CSS 3D 변환</td>
+<td>꺼내 보기 상호작용, 라이브러리 불필요</td>
 </tr>
 <tr>
 <td>프록시</td>
@@ -697,6 +809,41 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </table>
 <hr />
 <h2 id="9-화면-구성">9. 화면 구성</h2>
+<h3 id="9-1-레이아웃-데스크톱-우선">9.1 레이아웃 (데스크톱 우선)</h3>
+<p>기준 화면은 <strong>1440×900(16:10)</strong>입니다. 가운데에 좁은 기둥을 세우지 않고 화면 폭 전체를 세 영역으로 나눠 씁니다.</p>
+<pre><code>┌──────────┬───────────────────────────────────────┬──────────────┐
+│ 사이드바  │ 상단: 제목·올해 요약·검색·정렬            │ 상세 패널     │
+│ 232px    │                                        │ 360~400px    │
+│ 로고      │ 2026 책장 ─────────────────────────────  │ 선택한 책     │
+│ 책 꽂기   │ 2025 책장 ─────────────────────────────  │ (표지·기록)   │
+│ 메뉴      │ 2024 책장 ─────────────────────────────  │ 올해 한눈에   │
+│ 연도 띠   │            (남는 폭을 모두 사용)          │ 올해의 나이테 │
+│ 백업 상태 │                                        │              │
+└──────────┴───────────────────────────────────────┴──────────────┘
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>화면 폭</th>
+<th>배치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1200px 이상</td>
+<td>사이드바 + 책장 + 상세 패널 3단</td>
+</tr>
+<tr>
+<td>900~1199px</td>
+<td>사이드바 + 책장 2단, 상세 패널은 오른쪽에서 밀려 나오는 서랍</td>
+</tr>
+<tr>
+<td>900px 미만(스마트폰)</td>
+<td>상단 바(로고·검색·메뉴 버튼) + 책장 1단. 메뉴는 버튼으로 펼침. 상세 패널은 책장 아래로 내려가고, 책을 누르면 그 위치로 스크롤</td>
+</tr>
+</tbody>
+</table>
+<h3 id="9-2-화면-목록">9.2 화면 목록</h3>
 <table>
 <thead>
 <tr>
@@ -707,19 +854,19 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tbody>
 <tr>
 <td>책장 홈</td>
-<td>연도별 선반 목록(최신 연도가 위), 각 선반의 권수·쪽수, 하단 <code>+</code> 버튼, 상단 보기 옵션(정렬·강조)</td>
+<td>연도별 선반(최신 연도가 위), 각 선반의 권수·쪽수·그해의 책, 상단 올해 요약·검색·정렬, 오른쪽 상세 패널</td>
 </tr>
 <tr>
 <td>연도 책장 상세</td>
-<td>한 해 크게 보기, 그해의 책 리본, 한 줄 회고 입력란, "회고 카드 만들기" 버튼</td>
+<td>한 해 크게 보기, 그해의 책, 한 줄 회고 입력란, "회고 카드 만들기" 버튼</td>
 </tr>
 <tr>
-<td>책 카드(시트)</td>
-<td>표지, 제목·저자·출판사, 쪽수, 분야, 독서 기록 목록(재독 포함), 별점, 메모, 책등 색 고르기</td>
+<td>상세 패널</td>
+<td>표지, 제목·저자, 쪽수·완독일·분야, 독서 기록 목록(재독 포함), 별점, 메모, 책등 팔레트·패턴 바꾸기</td>
 </tr>
 <tr>
-<td>책 추가</td>
-<td>검색창(ISBN·제목), 결과 목록, 바코드 버튼(P1), 수동 입력 전환</td>
+<td>책 꽂기(대화 상자)</td>
+<td>검색창(ISBN·제목), 결과 목록, 책등 미리 보기, 날짜·별점·메모, 바코드 버튼(P1), 수동 입력 전환</td>
 </tr>
 <tr>
 <td>연도 비교</td>
@@ -735,13 +882,51 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </tr>
 <tr>
 <td>설정·백업</td>
-<td>API 설정, 테마, 한 해의 기준, 분야 관리, JSON 백업·복원, CSV 내보내기, 저장 공간 사용량</td>
+<td>테마, 책등 스타일, 움직임 줄이기, 한 해의 기준, 분야 관리, API 연결 확인, JSON 백업·복원, CSV 내보내기, 저장 공간 사용량</td>
+</tr>
+</tbody>
+</table>
+<h3 id="9-3-테마">9.3 테마</h3>
+<p>두 테마는 <strong>기능, 정보, 배치가 완전히 같고</strong> 겉모습만 다릅니다. 한쪽 테마에만 있는 기능은 만들지 않습니다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>서재 (Study, 어두움)</th>
+<th>종이 (Paper, 밝음)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>바탕</td>
+<td>짙은 호두나무 갈색</td>
+<td>아이보리 종이색</td>
+</tr>
+<tr>
+<td>강조색</td>
+<td>황동</td>
+<td>남색 잉크</td>
+</tr>
+<tr>
+<td>제목 글꼴</td>
+<td>나눔명조</td>
+<td>함렛</td>
+</tr>
+<tr>
+<td>선반</td>
+<td>호두나무 선반 + 어두운 뒤판</td>
+<td>자작나무 벽 선반(뒤판 없음)</td>
+</tr>
+<tr>
+<td>책갈피 끈</td>
+<td>황동색</td>
+<td>남색</td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li>모바일 우선으로 설계하고, 넓은 화면에서는 책장 홈과 책 카드를 나란히 보여 줍니다.</li>
-<li>하단 탭: 책장 / 비교 / 추가 / 설정</li>
+<li>색·글꼴·재질은 모두 디자인 토큰(CSS 변수)으로 분리하고, <code>data-theme="study"</code> / <code>data-theme="paper"</code>로 바꿉니다.</li>
+<li>기본값은 "시스템 설정 따름"으로, 운영체제가 다크 모드면 서재, 라이트 모드면 종이를 씁니다.</li>
 </ul>
 <hr />
 <h2 id="10-비기능-요구사항">10. 비기능 요구사항</h2>
@@ -767,7 +952,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </tr>
 <tr>
 <td>접근성</td>
-<td>책등은 키보드로 이동 가능(좌우 화살표), 스크린 리더용 라벨("소년이 온다, 한강, 216쪽, 2026년 3월 완독"), 그래프는 표 대체 제공</td>
+<td>책등은 키보드로 이동 가능(좌우 화살표, Enter로 꺼내 보기), 스크린 리더용 라벨("소년이 온다, 한강, 216쪽, 2026년 3월 완독"), 그래프는 표 대체 제공, <code>prefers-reduced-motion</code>이면 회전 애니메이션 끔</td>
+</tr>
+<tr>
+<td>화면</td>
+<td>1440×900 기준 설계, 1280~2560px에서 빈 여백 없이 확장, 390px 스마트폰에서 확인용으로 동작</td>
 </tr>
 <tr>
 <td>개인정보</td>
@@ -775,7 +964,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </tr>
 <tr>
 <td>호환성</td>
-<td>최신 Chrome, Edge, Safari(iOS 16.4 이상), Samsung Internet</td>
+<td>데스크톱 최신 Chrome, Edge, Safari, Firefox(주 환경). 모바일 Safari(iOS 16.4 이상), Chrome, Samsung Internet</td>
 </tr>
 <tr>
 <td>국제화</td>
@@ -789,15 +978,17 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <ul>
 <li>Vite + Svelte + Dexie 프로젝트 구성, 데이터 모델과 저장</li>
 <li>수동 입력으로 책 추가·수정·삭제</li>
-<li>연도별 책장 뷰: 쪽수 두께, 수동 색, 세로 제목</li>
+<li>데스크톱 3단 레이아웃(사이드바·책장·상세 패널)과 디자인 토큰 구조, 서재 테마 먼저 적용</li>
+<li>연도별 책장 뷰: 쪽수 두께, 수동 3색 팔레트, 생성형 책등 패턴 3종, 세로 제목</li>
 <li><strong>완료 기준</strong>: 직접 입력한 30권이 3개 연도 책장에 꽂혀 보임</li>
 </ul>
 <h3 id="m2-도서-검색과-표지-색">M2. 도서 검색과 표지 색</h3>
 <ul>
 <li>Cloudflare Workers 프록시 구축·배포(5.6), TTB 키 비밀 값 등록, ISBN·제목 검색</li>
-<li>표지 저장과 대표색 자동 추출(Web Worker)</li>
+<li>표지 저장과 3색 팔레트 자동 추출(Web Worker)</li>
+<li>꺼내 보기 상호작용(실제 표지로 돌아서기)</li>
 <li>분야 매핑</li>
-<li><strong>완료 기준</strong>: 제목 검색으로 10초 안에 한 권 등록, 책등 색이 표지와 어울림</li>
+<li><strong>완료 기준</strong>: 제목 검색으로 10초 안에 한 권 등록, 생성형 책등이 표지와 어울리고, 누르면 실제 표지가 보임</li>
 </ul>
 <h3 id="m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</h3>
 <ul>
@@ -814,7 +1005,9 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <h3 id="m5-pwa와-다듬기">M5. PWA와 다듬기</h3>
 <ul>
 <li>서비스 워커, 설치 안내, 오프라인 동작</li>
-<li>정렬·강조 옵션, 책 뽑기 애니메이션, 나무 질감 테마</li>
+<li>종이 테마 추가와 테마 전환(시스템 설정 따름), 표지 질감 모드, 움직임 줄이기</li>
+<li>900px 미만 반응형(상단 바, 접히는 메뉴), 900~1199px 상세 서랍</li>
+<li>정렬·강조 옵션, 지난해 접기(책등 색 띠)</li>
 <li>P1 기능(바코드 스캔, Goodreads 프리셋, 읽는 중 표시)</li>
 <li><strong>완료 기준</strong>: 비행기 모드에서 책장·비교·회고 카드 모두 동작</li>
 </ul>
@@ -870,6 +1063,21 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <td><code>.dev.vars</code>·<code>.env</code> gitignore, 유출 시 알라딘에서 키 재발급 후 <code>wrangler secret put</code>으로 교체</td>
 </tr>
 <tr>
+<td>알라딘 표지 해상도가 낮음(가로 약 200px)</td>
+<td>꺼내 보기 표지가 흐릿함</td>
+<td>표지 면 크기를 이미지 해상도에 맞춰 제한, 큰 이미지는 받을 수 있을 때만 사용</td>
+</tr>
+<tr>
+<td>표지 질감 모드에서 제목이 안 읽힘</td>
+<td>가독성 저하</td>
+<td>바탕색 덧칠(35~50%)과 명암비 계산, 필요하면 제목 뒤에 라벨 상자 자동 추가</td>
+</tr>
+<tr>
+<td>두 테마 유지 비용</td>
+<td>화면마다 두 번 점검</td>
+<td>배치는 하나로 통일하고 토큰만 분리, 화면 점검 체크리스트에 두 테마 모두 포함</td>
+</tr>
+<tr>
 <td>책이 많은 해의 화면 성능</td>
 <td>스크롤 끊김</td>
 <td>화면 밖 연도 지연 렌더링, 책등 요소 단순화</td>
@@ -881,24 +1089,28 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <ul>
 <li>책 한 권 등록에 걸리는 시간: 평균 10초 이내</li>
 <li>과거 기록 가져오기: 200권을 10분 안에 모두 책장에 꽂기</li>
-<li>자동 추출 책등 색을 그대로 쓰는 비율: 80% 이상(직접 바꾸는 비율 20% 이하)</li>
+<li>자동 생성 책등(팔레트·패턴)을 그대로 쓰는 비율: 80% 이상(직접 바꾸는 비율 20% 이하)</li>
 <li>1년 동안 매달 1회 이상 앱 사용, 연말 회고 카드 1회 이상 내보내기</li>
 <li>데이터 손실 0건(백업 파일로 언제든 복원 가능)</li>
 </ul>
 <hr />
 <h2 id="14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</h2>
-<h3 id="14-1-결정된-사항-v0-2">14.1 결정된 사항 (v0.2)</h3>
+<h3 id="14-1-결정된-사항-v0-3">14.1 결정된 사항 (v0.3)</h3>
 <ul>
 <li>앱 이름: <strong>나이테 책장 (Ringshelf)</strong></li>
 <li>도서 검색: 알라딘 Open API (TTB 키 보유)</li>
 <li>호출 방식: Cloudflare Workers 프록시 (계정 보유), TTB 키는 Worker 비밀 값으로만 보관</li>
+<li>주 사용 환경: 데스크톱 웹 브라우저(16:10), 스마트폰은 반응형 확인용</li>
+<li>디자인: 통일 레이아웃 1개(사이드바·책장·상세 패널) + 테마 2종(서재·종이)</li>
+<li>책등: 생성형 책등이 기본, 꺼내 보기로 실제 표지 표시, 표지 질감 모드는 설정에서 선택</li>
 </ul>
 <h3 id="14-2-아직-결정할-사항">14.2 아직 결정할 사항</h3>
 <ul>
 <li>UI 프레임워크: Svelte 5와 순수 TypeScript 중 선택</li>
 <li>앱 배포 위치: GitHub Pages와 Cloudflare Pages 중 선택 (Cloudflare 계정이 있으므로 Cloudflare Pages를 쓰면 프록시와 한곳에서 관리할 수 있어 편리합니다)</li>
 <li>"한 해의 기준" 기본값: 완독일 기준(제안) 유지 여부</li>
-<li>회고 카드에 넣을 기본 항목과 기본 테마</li>
+<li>회고 카드에 넣을 기본 항목</li>
+<li>분야별 기본 책등 패턴(6.4 표의 제안) 유지 여부</li>
 </ul>
 <h3 id="14-3-개발-시작-시-확인할-사항">14.3 개발 시작 시 확인할 사항</h3>
 <ul>
@@ -907,6 +1119,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <li>알라딘 표지 이미지 도메인 목록(<code>/cover</code> 허용 목록에 넣을 주소)</li>
 <li>Cloudflare Workers 무료 요금제 한도 최신 기준</li>
 <li>iOS Safari에서 Web Share API로 PNG 파일 공유가 되는지</li>
+<li><code>Cover=Big</code> 표지의 실제 해상도와, 더 큰 표지 주소를 써도 되는지(약관)</li>
 </ul></article></main>
 <button id="top" aria-label="맨 위로">↑</button>
 <script>
