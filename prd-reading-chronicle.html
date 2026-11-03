@@ -71,14 +71,14 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <div id="scrim"></div>
 <aside id="side">
  <div class="side-top">
-  <h2>북크로니클 PRD v0.7 <button id="theme" title="테마 전환">🌓</button></h2>
+  <h2>북크로니클 PRD v0.8 <button id="theme" title="테마 전환">🌓</button></h2>
   <input id="q" type="search" placeholder="목차 검색 (예: Supabase, 책등)" aria-label="목차 검색">
   <div class="dl">
    <a href="prd-reading-chronicle.md" download="prd-reading-chronicle.md">⬇ MD</a>
    <a id="dlhtml" href="prd-reading-chronicle.html" download="prd-reading-chronicle.html">⬇ HTML</a>
   </div>
  </div>
- <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#앱-이름">앱 이름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f0-로그인-p0-v0-4-신규">F0. 로그인 (P0) ※ v0.4 신규</a></li><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-내보내기-p0">F9. 백업·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-스마트폰-확인-p1">F11. 스마트폰 확인 (P1)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시스템-구성과-supabase-설계">5. 시스템 구성과 Supabase 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-전체-구성">5.1 전체 구성</a></li><li><a href="#5-2-기존-독서-앱과-supabase-프로젝트-공유-원칙">5.2 기존 독서 앱과 Supabase 프로젝트 공유 원칙</a></li><li><a href="#5-3-인증-auth">5.3 인증(Auth)</a></li><li><a href="#5-4-db-보안-rls-행-수준-보안">5.4 DB 보안: RLS(행 수준 보안)</a></li><li><a href="#5-5-storage-표지와-표지-질감-이미지">5.5 Storage: 표지와 표지 질감 이미지</a></li><li><a href="#5-6-edge-function-알라딘-프록시-bookchronicle-aladin">5.6 Edge Function: 알라딘 프록시 bookchronicle-aladin</a></li><li><a href="#5-7-알라딘-open-api-사용-사항">5.7 알라딘 Open API 사용 사항</a></li><li><a href="#5-8-분야-매핑">5.8 분야 매핑</a></li><li><a href="#5-9-호출-안정성">5.9 호출 안정성</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-팔레트-추출-3색">6.3 표지 팔레트 추출 (3색)</a></li><li><a href="#6-4-생성형-책등-패턴-기본-책등">6.4 생성형 책등 패턴 (기본 책등)</a></li><li><a href="#6-5-표지-질감-모드-설정에서-선택">6.5 표지 질감 모드 (설정에서 선택)</a></li><li><a href="#6-6-꺼내-보기-상호작용">6.6 꺼내 보기 상호작용</a></li><li><a href="#6-7-글자-색과-가독성">6.7 글자 색과 가독성</a></li><li><a href="#6-8-그리기-방식">6.8 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-테이블-구성-bookchronicle-스키마">7.1 테이블 구성 (bookchronicle 스키마)</a></li><li><a href="#7-2-컬럼">7.2 컬럼</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-프로젝트-폴더-구조">9. 프로젝트 폴더 구조</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-화면-구성">10. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#10-1-레이아웃-데스크톱-우선">10.1 레이아웃 (데스크톱 우선)</a></li><li><a href="#10-2-화면-목록">10.2 화면 목록</a></li><li><a href="#10-3-테마">10.3 테마</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비">M0. 준비</a></li><li><a href="#m1-로그인과-기본-책장-mvp">M1. 로그인과 기본 책장 (MVP)</a></li><li><a href="#m2-도서-검색과-표지">M2. 도서 검색과 표지</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-다듬기">M5. 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표-개인-사용-기준">14. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-7">15.1 결정된 사항 (v0.7)</a></li><li><a href="#15-2-아직-결정할-사항">15.2 아직 결정할 사항</a></li><li><a href="#15-3-개발-시작-시-확인할-사항">15.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#앱-이름">앱 이름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f0-로그인-p0-v0-4-신규">F0. 로그인 (P0) ※ v0.4 신규</a></li><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-내보내기-p0">F9. 백업·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-스마트폰-확인-p1">F11. 스마트폰 확인 (P1)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시스템-구성과-supabase-설계">5. 시스템 구성과 Supabase 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-전체-구성">5.1 전체 구성</a></li><li><a href="#5-2-기존-독서-앱과-supabase-프로젝트-공유-원칙">5.2 기존 독서 앱과 Supabase 프로젝트 공유 원칙</a></li><li><a href="#5-3-인증-auth">5.3 인증(Auth)</a></li><li><a href="#5-4-db-보안-rls-행-수준-보안">5.4 DB 보안: RLS(행 수준 보안)</a></li><li><a href="#5-5-storage-표지와-표지-질감-이미지">5.5 Storage: 표지와 표지 질감 이미지</a></li><li><a href="#5-6-edge-function-알라딘-프록시-bookchronicle-aladin">5.6 Edge Function: 알라딘 프록시 bookchronicle-aladin</a></li><li><a href="#5-7-알라딘-open-api-사용-사항">5.7 알라딘 Open API 사용 사항</a></li><li><a href="#5-8-분야-매핑">5.8 분야 매핑</a></li><li><a href="#5-9-호출-안정성">5.9 호출 안정성</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-팔레트-추출-3색">6.3 표지 팔레트 추출 (3색)</a></li><li><a href="#6-4-생성형-책등-패턴-기본-책등">6.4 생성형 책등 패턴 (기본 책등)</a></li><li><a href="#6-5-표지-질감-모드-설정에서-선택">6.5 표지 질감 모드 (설정에서 선택)</a></li><li><a href="#6-6-꺼내-보기-상호작용">6.6 꺼내 보기 상호작용</a></li><li><a href="#6-7-글자-색과-가독성">6.7 글자 색과 가독성</a></li><li><a href="#6-8-그리기-방식">6.8 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-테이블-구성-bookchronicle-스키마">7.1 테이블 구성 (bookchronicle 스키마)</a></li><li><a href="#7-2-컬럼">7.2 컬럼</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-프로젝트-폴더-구조">9. 프로젝트 폴더 구조</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-화면-구성">10. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#10-1-레이아웃-데스크톱-우선">10.1 레이아웃 (데스크톱 우선)</a></li><li><a href="#10-2-화면-목록">10.2 화면 목록</a></li><li><a href="#10-3-테마">10.3 테마</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비">M0. 준비</a></li><li><a href="#m1-로그인과-기본-책장-mvp">M1. 로그인과 기본 책장 (MVP)</a></li><li><a href="#m2-도서-검색과-표지">M2. 도서 검색과 표지</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-다듬기">M5. 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표-개인-사용-기준">14. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-8">15.1 결정된 사항 (v0.8)</a></li><li><a href="#15-2-아직-결정할-사항">15.2 아직 결정할 사항</a></li><li><a href="#15-3-개발-시작-시-확인할-사항">15.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
 </aside>
 <main><article id="doc"><h1 id="북크로니클-book-chronicle-제품-기획서-prd">북크로니클(Book Chronicle): 제품 기획서(PRD)</h1>
 <table>
@@ -91,11 +91,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tbody>
 <tr>
 <td>문서 버전</td>
-<td>v0.7</td>
+<td>v0.8</td>
 </tr>
 <tr>
 <td>작성일</td>
-<td>2026-11-02 (v0.7 수정: 2026-11-03)</td>
+<td>2026-11-02 (v0.8 수정: 2026-11-03)</td>
 </tr>
 <tr>
 <td>앱 이름</td>
@@ -191,6 +191,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <td>v0.7</td>
 <td>2026-11-03</td>
 <td>앱 이름을 <strong>북크로니클(Book Chronicle)</strong>로 변경. 코드 식별자를 <code>bookchronicle</code>로 통일(저장소, Supabase 스키마, 버킷, Edge Function, 백업 파일). 나이테는 디자인 모티프로 유지</td>
+</tr>
+<tr>
+<td>v0.8</td>
+<td>2026-11-03</td>
+<td>Claude Code 작업 안내서 <code>CLAUDE.md</code>와 단계별 구현 계획 <code>docs/IMPLEMENTATION_PLAN.md</code>를 폴더 구조(9장)에 추가, 화면 문구 모음 <code>src/lib/i18n/ko.ts</code> 추가, 12장에 구현 계획 참조 추가</td>
 </tr>
 </tbody>
 </table>
@@ -892,6 +897,7 @@ updated_at timestamptz not null default now()
 ├── docs/                         # 기획·문서
 │   ├── PRD.md                    # 이 문서 (원본)
 │   ├── PRD.html                  # 이 문서의 HTML 버전
+│   ├── IMPLEMENTATION_PLAN.md    # 단계별(Phase) 구현 계획과 체크리스트
 │   └── decisions/                # 결정 기록, 기존 앱 분석 메모 등 (필요할 때 추가)
 ├── design/                       # 디자인
 │   ├── DESIGN.md                 # 디자인 가이드
@@ -915,6 +921,7 @@ updated_at timestamptz not null default now()
 │   │   ├── supabase.ts           # Supabase 클라이언트
 │   │   ├── auth.ts               # 로그인 상태
 │   │   ├── theme.ts              # 테마·책등 스타일 적용(data-theme, data-spine)
+│   │   ├── i18n/ko.ts            # 화면 문구 모음
 │   │   ├── data/                 # books · readings · years · settings 읽기/쓰기
 │   │   ├── aladin.ts             # Edge Function 호출
 │   │   ├── spine/                # palette.ts · patterns.ts · texture.ts
@@ -941,6 +948,7 @@ updated_at timestamptz not null default now()
 │       └── deploy.yml            # main에 올리면 빌드 후 GitHub Pages 배포
 ├── .env.example                  # VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (실제 .env는 올리지 않음)
 ├── .gitignore
+├── CLAUDE.md                     # Claude Code 작업 안내서(먼저 읽을 문서·명령·규칙)
 ├── index.html
 ├── package.json · vite.config.ts · svelte.config.js · tsconfig.json
 └── README.md                     # 실행·배포 방법
@@ -959,6 +967,14 @@ updated_at timestamptz not null default now()
 <tr>
 <td><code>prd-reading-chronicle.md</code> / <code>.html</code></td>
 <td><code>docs/PRD.md</code> / <code>docs/PRD.html</code></td>
+</tr>
+<tr>
+<td><code>bookchronicle/CLAUDE.md</code></td>
+<td><code>CLAUDE.md</code> (저장소 루트)</td>
+</tr>
+<tr>
+<td><code>bookchronicle/IMPLEMENTATION_PLAN.md</code></td>
+<td><code>docs/IMPLEMENTATION_PLAN.md</code></td>
 </tr>
 <tr>
 <td><code>bookchronicle/DESIGN.md</code></td>
@@ -1152,6 +1168,7 @@ updated_at timestamptz not null default now()
 </table>
 <hr />
 <h2 id="12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</h2>
+<p>마일스톤을 더 잘게 나눈 Phase 0~9의 작업 목록과 완료 기준은 <code>docs/IMPLEMENTATION_PLAN.md</code>에 있습니다.</p>
 <h3 id="m0-준비">M0. 준비</h3>
 <ul>
 <li>기존 독서 앱 분석: 알라딘 호출 방식, 로그인 방식, 회원 가입 사용 여부, 사용 중인 스키마·버킷·함수 이름 확인</li>
@@ -1283,7 +1300,7 @@ updated_at timestamptz not null default now()
 </ul>
 <hr />
 <h2 id="15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</h2>
-<h3 id="15-1-결정된-사항-v0-7">15.1 결정된 사항 (v0.7)</h3>
+<h3 id="15-1-결정된-사항-v0-8">15.1 결정된 사항 (v0.8)</h3>
 <ul>
 <li>앱 이름: <strong>북크로니클 (Book Chronicle)</strong></li>
 <li>주 사용 환경: 데스크톱 웹 브라우저(16:10), 스마트폰은 반응형 확인용</li>

@@ -2,8 +2,8 @@
 
 | 항목 | 내용 |
 |---|---|
-| 문서 버전 | v0.7 |
-| 작성일 | 2026-11-02 (v0.7 수정: 2026-11-03) |
+| 문서 버전 | v0.8 |
+| 작성일 | 2026-11-02 (v0.8 수정: 2026-11-03) |
 | 앱 이름 | **북크로니클(Book Chronicle)** |
 | 한 줄 소개 | 해마다 한 겹씩 쌓이는 나의 독서 |
 | 주제 | 연도별 독서 연대기 & 책장 시각화 |
@@ -28,6 +28,7 @@
 | v0.5 | 2026-11-03 | UI 프레임워크 **Svelte 5 확정**. DESIGN.md v1.1·시안과 맞춤(로그인 화면, 사이드바 계정 영역, 저장·연결 상태). 폴더 구조에 `Sidebar.svelte`, `theme.ts` 추가, 전체 문구 점검 |
 | v0.6 | 2026-11-03 | GitHub 저장소 **공개**로 확정. 책장에 꽂히는 연도 기준을 **완독일로 확정**하고 설정의 '한 해의 기준' 선택 항목과 `settings.year_basis` 컬럼 제거 |
 | v0.7 | 2026-11-03 | 앱 이름을 **북크로니클(Book Chronicle)**로 변경. 코드 식별자를 `bookchronicle`로 통일(저장소, Supabase 스키마, 버킷, Edge Function, 백업 파일). 나이테는 디자인 모티프로 유지 |
+| v0.8 | 2026-11-03 | Claude Code 작업 안내서 `CLAUDE.md`와 단계별 구현 계획 `docs/IMPLEMENTATION_PLAN.md`를 폴더 구조(9장)에 추가, 화면 문구 모음 `src/lib/i18n/ko.ts` 추가, 12장에 구현 계획 참조 추가 |
 
 ## 앱 이름
 
@@ -518,6 +519,7 @@ bookchronicle/
 ├── docs/                         # 기획·문서
 │   ├── PRD.md                    # 이 문서 (원본)
 │   ├── PRD.html                  # 이 문서의 HTML 버전
+│   ├── IMPLEMENTATION_PLAN.md    # 단계별(Phase) 구현 계획과 체크리스트
 │   └── decisions/                # 결정 기록, 기존 앱 분석 메모 등 (필요할 때 추가)
 ├── design/                       # 디자인
 │   ├── DESIGN.md                 # 디자인 가이드
@@ -541,6 +543,7 @@ bookchronicle/
 │   │   ├── supabase.ts           # Supabase 클라이언트
 │   │   ├── auth.ts               # 로그인 상태
 │   │   ├── theme.ts              # 테마·책등 스타일 적용(data-theme, data-spine)
+│   │   ├── i18n/ko.ts            # 화면 문구 모음
 │   │   ├── data/                 # books · readings · years · settings 읽기/쓰기
 │   │   ├── aladin.ts             # Edge Function 호출
 │   │   ├── spine/                # palette.ts · patterns.ts · texture.ts
@@ -567,6 +570,7 @@ bookchronicle/
 │       └── deploy.yml            # main에 올리면 빌드 후 GitHub Pages 배포
 ├── .env.example                  # VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (실제 .env는 올리지 않음)
 ├── .gitignore
+├── CLAUDE.md                     # Claude Code 작업 안내서(먼저 읽을 문서·명령·규칙)
 ├── index.html
 ├── package.json · vite.config.ts · svelte.config.js · tsconfig.json
 └── README.md                     # 실행·배포 방법
@@ -577,6 +581,8 @@ bookchronicle/
 | 현재 파일 | 새 위치 |
 |---|---|
 | `prd-reading-chronicle.md` / `.html` | `docs/PRD.md` / `docs/PRD.html` |
+| `bookchronicle/CLAUDE.md` | `CLAUDE.md` (저장소 루트) |
+| `bookchronicle/IMPLEMENTATION_PLAN.md` | `docs/IMPLEMENTATION_PLAN.md` |
 | `bookchronicle/DESIGN.md` | `design/DESIGN.md` |
 | `bookchronicle/design-mockup-study.html` | `design/mockup-study.html` |
 | `bookchronicle/design-mockup-paper.html` | `design/mockup-paper.html` |
@@ -655,6 +661,8 @@ bookchronicle/
 
 ## 12. 개발 단계 (마일스톤)
 
+마일스톤을 더 잘게 나눈 Phase 0~9의 작업 목록과 완료 기준은 `docs/IMPLEMENTATION_PLAN.md`에 있습니다.
+
 ### M0. 준비
 - 기존 독서 앱 분석: 알라딘 호출 방식, 로그인 방식, 회원 가입 사용 여부, 사용 중인 스키마·버킷·함수 이름 확인
 - 새 GitHub 저장소 `bookchronicle` 생성(9장 폴더 구조), 문서·디자인 파일 옮기기
@@ -725,7 +733,7 @@ bookchronicle/
 
 ## 15. 결정된 사항과 남은 확인 사항
 
-### 15.1 결정된 사항 (v0.7)
+### 15.1 결정된 사항 (v0.8)
 - 앱 이름: **북크로니클 (Book Chronicle)**
 - 주 사용 환경: 데스크톱 웹 브라우저(16:10), 스마트폰은 반응형 확인용
 - 디자인: 통일 레이아웃 1개(사이드바·책장·상세 패널) + 테마 2종(서재·종이)
