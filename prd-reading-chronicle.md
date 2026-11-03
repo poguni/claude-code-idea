@@ -1,10 +1,10 @@
-# 나이테 책장(Ringshelf): 제품 기획서(PRD)
+# 북크로니클(Book Chronicle): 제품 기획서(PRD)
 
 | 항목 | 내용 |
 |---|---|
-| 문서 버전 | v0.6 |
-| 작성일 | 2026-11-02 (v0.6 수정: 2026-11-03) |
-| 앱 이름 | **나이테 책장(Ringshelf)** |
+| 문서 버전 | v0.7 |
+| 작성일 | 2026-11-02 (v0.7 수정: 2026-11-03) |
+| 앱 이름 | **북크로니클(Book Chronicle)** |
 | 한 줄 소개 | 해마다 한 겹씩 쌓이는 나의 독서 |
 | 주제 | 연도별 독서 연대기 & 책장 시각화 |
 | 형태 | 웹 앱(SPA), **로그인 필요, 개인 전용(사용자 1명)**, 오프라인 미지원 |
@@ -27,15 +27,18 @@
 | v0.4 | 2026-11-03 | **구성 전면 변경**: Cloudflare를 빼고 GitHub(코드·배포) + Supabase(로그인·DB·스토리지·Edge Function)로 전환. 기존 독서 앱과 같은 Supabase 프로젝트를 `ringshelf` 스키마로 분리해 공유. 로그인(F0)과 RLS 추가, 오프라인 지원 제외(IndexedDB 저장 제거), 데스크톱·스마트폰 자동 공유. 프로젝트 폴더 구조(`docs/`, `design/` 등) 추가 |
 | v0.5 | 2026-11-03 | UI 프레임워크 **Svelte 5 확정**. DESIGN.md v1.1·시안과 맞춤(로그인 화면, 사이드바 계정 영역, 저장·연결 상태). 폴더 구조에 `Sidebar.svelte`, `theme.ts` 추가, 전체 문구 점검 |
 | v0.6 | 2026-11-03 | GitHub 저장소 **공개**로 확정. 책장에 꽂히는 연도 기준을 **완독일로 확정**하고 설정의 '한 해의 기준' 선택 항목과 `settings.year_basis` 컬럼 제거 |
+| v0.7 | 2026-11-03 | 앱 이름을 **북크로니클(Book Chronicle)**로 변경. 코드 식별자를 `bookchronicle`로 통일(저장소, Supabase 스키마, 버킷, Edge Function, 백업 파일). 나이테는 디자인 모티프로 유지 |
 
 ## 앱 이름
 
-**나이테 책장 (Ringshelf)**: 해마다 한 겹씩 쌓이는 나의 독서
+**북크로니클 (Book Chronicle)**: 해마다 한 겹씩 쌓이는 나의 독서
 
-- 의미: 나무가 해마다 나이테를 한 겹씩 두르듯, 1년에 한 칸씩 책장이 늘어납니다.
-- 표기 규칙: 한글 화면에서는 "나이테 책장", 영문·코드·주소에서는 "Ringshelf"(소문자 `ringshelf`).
-- 코드 식별자: GitHub 저장소 `ringshelf`, Supabase 스키마 `ringshelf`, 스토리지 버킷 `ringshelf-covers`, Edge Function `ringshelf-aladin`, 백업 파일 `ringshelf-backup-YYYYMMDD.json`
-- 검토했던 다른 후보: 책등 연대기(Spine Chronicle), 해마다 서가(Yearshelf), 책빛(Spinelight), 책결(Bookgrain)
+- 의미: 처음 기획 제목인 **'독서 연대기'**를 그대로 담은 이름입니다. 해마다 한 칸씩 늘어나는 책장이 곧 나의 독서 연대기가 됩니다.
+- 표기 규칙: 한글 화면에서는 "북크로니클", 영문에서는 "Book Chronicle"(띄어 씀), 코드·주소에서는 소문자 `bookchronicle`(띄어쓰기·하이픈 없음).
+- 코드 식별자: GitHub 저장소 `bookchronicle`, Supabase 스키마 `bookchronicle`, 스토리지 버킷 `bookchronicle-covers`, Edge Function `bookchronicle-aladin`, 백업 파일 `bookchronicle-backup-YYYYMMDD.json`
+- 디자인 모티프: 이전 이름(나이테 책장)에서 쓰던 **나이테(동심원)**는 연도를 겹겹이 보여 주는 시각화로 계속 씁니다('연도별 나이테', '올해의 나이테').
+- 이름 변경 기록: 나이테 책장(Ringshelf, v0.2~v0.6) → **북크로니클(Book Chronicle, v0.7~)**
+- 검토했던 다른 후보: 북로니클(Bookronicle), 크로노셸프(Chronoshelf), 책력(Almanook), 리드라인(Readline), 한해책(Yearbook), 책등 연대기(Spine Chronicle), 해마다 서가(Yearshelf)
 
 ---
 
@@ -223,14 +226,14 @@
 
 ### 5.1 전체 구성
 ```
-[GitHub 저장소 ringshelf] ──GitHub Actions──▶ [GitHub Pages: 앱 화면(정적 파일)]
+[GitHub 저장소 bookchronicle] ──GitHub Actions──▶ [GitHub Pages: 앱 화면(정적 파일)]
                                                   │  supabase-js (공개 anon 키 + 로그인 토큰)
                                                   ▼
                           ┌──────────── Supabase 프로젝트 (기존 독서 앱과 공유) ───────────┐
                           │ Auth          : 사용자 계정(기존 앱과 공통)                    │
-                          │ DB            : public 스키마 = 기존 앱 / ringshelf 스키마 = 이 앱 │
-                          │ Storage       : 기존 앱 버킷 / ringshelf-covers 버킷            │
-                          │ Edge Function : ringshelf-aladin ──▶ 알라딘 Open API          │
+                          │ DB            : public 스키마 = 기존 앱 / bookchronicle 스키마 = 이 앱 │
+                          │ Storage       : 기존 앱 버킷 / bookchronicle-covers 버킷            │
+                          │ Edge Function : bookchronicle-aladin ──▶ 알라딘 Open API          │
                           │ Secrets       : ALADIN_TTB_KEY                                │
                           └───────────────────────────────────────────────────────────────┘
 ```
@@ -240,58 +243,58 @@
 ### 5.2 기존 독서 앱과 Supabase 프로젝트 공유 원칙
 무료 요금제의 활성 프로젝트 수 제한(2개) 때문에 기존 독서 앱의 Supabase 프로젝트를 함께 씁니다. 두 앱은 데이터를 주고받지 않습니다.
 
-| 영역 | 기존 앱 | 나이테 책장 | 원칙 |
+| 영역 | 기존 앱 | 북크로니클 | 원칙 |
 |---|---|---|---|
-| DB | `public` 스키마(기존 그대로) | **`ringshelf` 스키마** | 기존 테이블은 읽지도 고치지도 않음. 마이그레이션은 항상 `ringshelf.` 스키마를 명시 |
-| Storage | 기존 버킷 | **`ringshelf-covers` 버킷** | 버킷을 분리하고 정책도 따로 |
-| Edge Function | 기존 함수(있다면) | **`ringshelf-aladin`** | 이름 앞에 `ringshelf-`를 붙여 구분. 기존 앱이 이미 알라딘 함수를 쓰면 재사용 여부 검토 |
+| DB | `public` 스키마(기존 그대로) | **`bookchronicle` 스키마** | 기존 테이블은 읽지도 고치지도 않음. 마이그레이션은 항상 `bookchronicle.` 스키마를 명시 |
+| Storage | 기존 버킷 | **`bookchronicle-covers` 버킷** | 버킷을 분리하고 정책도 따로 |
+| Edge Function | 기존 함수(있다면) | **`bookchronicle-aladin`** | 이름 앞에 `bookchronicle-`를 붙여 구분. 기존 앱이 이미 알라딘 함수를 쓰면 재사용 여부 검토 |
 | Auth | 공통 | 공통 | 같은 계정 사용. 설정 변경은 기존 앱 영향 확인 후 |
 | 비밀 값 | 공통 저장소 | `ALADIN_TTB_KEY` | 기존 앱도 같은 키를 쓰면 하루 호출 한도를 나눠 씀 |
 
-- `ringshelf` 스키마는 Supabase 대시보드의 API 설정에서 **노출 스키마(Exposed schemas)**에 추가해야 앱에서 접근할 수 있습니다.
+- `bookchronicle` 스키마는 Supabase 대시보드의 API 설정에서 **노출 스키마(Exposed schemas)**에 추가해야 앱에서 접근할 수 있습니다.
 - 무료 요금제의 DB·스토리지·함수 호출 한도를 두 앱이 함께 씁니다. 이 앱의 예상 사용량(책 1,000권 기준 DB 수 MB, 표지 약 30MB)은 한도에 비해 작습니다. 최신 한도는 개발 시작 시 확인합니다.
 
 ### 5.3 인증(Auth)
 - 방식: 기존 앱과 같은 로그인 방식(기본안 이메일 + 비밀번호). 소셜 로그인이면 같은 제공자를 씁니다.
-- **추가 리디렉션 주소(Redirect URLs)**에 GitHub Pages 주소(`https://<아이디>.github.io/ringshelf/`)와 개발 주소(`http://localhost:5173`)를 추가합니다. **기본 사이트 주소(Site URL)는 기존 앱 주소를 그대로 둡니다**(바꾸면 기존 앱의 인증 메일 링크가 영향을 받음).
+- **추가 리디렉션 주소(Redirect URLs)**에 GitHub Pages 주소(`https://<아이디>.github.io/bookchronicle/`)와 개발 주소(`http://localhost:5173`)를 추가합니다. **기본 사이트 주소(Site URL)는 기존 앱 주소를 그대로 둡니다**(바꾸면 기존 앱의 인증 메일 링크가 영향을 받음).
 - 새 회원 가입 막기: 사용자가 나 하나이므로 권장합니다. 다만 Auth 설정은 두 앱 공통이므로, 기존 앱이 가입 기능을 쓰는지 확인 후 적용합니다.
 - 이메일 문구 템플릿은 두 앱 공통이므로 이 앱 때문에 바꾸지 않습니다.
 
 ### 5.4 DB 보안: RLS(행 수준 보안)
 앱의 공개 키(anon key)는 브라우저 코드에 들어가 누구나 볼 수 있으므로, **보안은 로그인 + RLS로 지킵니다.**
 
-- `ringshelf` 스키마의 모든 테이블에 RLS를 켜고, **본인 행만** 읽고 쓰게 합니다.
+- `bookchronicle` 스키마의 모든 테이블에 RLS를 켜고, **본인 행만** 읽고 쓰게 합니다.
 - 권한은 로그인한 사용자(`authenticated`)에게만 주고, 로그인하지 않은 사용자(`anon`)에게는 주지 않습니다.
 
 ```sql
-create schema if not exists ringshelf;
-grant usage on schema ringshelf to authenticated;
+create schema if not exists bookchronicle;
+grant usage on schema bookchronicle to authenticated;
 
 -- 예: books 테이블 (다른 테이블도 같은 방식)
-alter table ringshelf.books enable row level security;
-grant select, insert, update, delete on ringshelf.books to authenticated;
+alter table bookchronicle.books enable row level security;
+grant select, insert, update, delete on bookchronicle.books to authenticated;
 
-create policy "본인 책만 조회" on ringshelf.books
+create policy "본인 책만 조회" on bookchronicle.books
   for select to authenticated using (user_id = (select auth.uid()));
-create policy "본인 책만 추가" on ringshelf.books
+create policy "본인 책만 추가" on bookchronicle.books
   for insert to authenticated with check (user_id = (select auth.uid()));
-create policy "본인 책만 수정" on ringshelf.books
+create policy "본인 책만 수정" on bookchronicle.books
   for update to authenticated using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
-create policy "본인 책만 삭제" on ringshelf.books
+create policy "본인 책만 삭제" on bookchronicle.books
   for delete to authenticated using (user_id = (select auth.uid()));
 ```
 
-- 알라딘 검색 캐시 테이블(`ringshelf.aladin_cache`)은 RLS만 켜고 정책을 두지 않아, Edge Function(서비스 키)만 접근하게 합니다.
+- 알라딘 검색 캐시 테이블(`bookchronicle.aladin_cache`)은 RLS만 켜고 정책을 두지 않아, Edge Function(서비스 키)만 접근하게 합니다.
 
 ### 5.5 Storage: 표지와 표지 질감 이미지
-- 버킷 `ringshelf-covers`는 **비공개(private)**로 만들고, 경로 첫 단계를 사용자 ID로 둡니다.
+- 버킷 `bookchronicle-covers`는 **비공개(private)**로 만들고, 경로 첫 단계를 사용자 ID로 둡니다.
   - 표지: `{user_id}/covers/{book_id}.jpg` (가로 최대 300px로 줄여 저장, 약 30KB)
   - 표지 질감: `{user_id}/textures/{book_id}.webp` (64×256px, 수 KB)
 - 정책: 경로의 첫 폴더가 `auth.uid()`와 같을 때만 읽기·쓰기·삭제를 허용합니다.
 - 앱은 로그인 상태에서 이미지를 **Blob으로 내려받아** 화면에 표시하고, 같은 Blob으로 색 추출·회고 카드를 그립니다. 그래서 캔버스 CORS 문제가 생기지 않습니다.
 - 한 번 내려받은 표지는 브라우저 메모리에 두어 같은 화면 안에서 다시 내려받지 않습니다.
 
-### 5.6 Edge Function: 알라딘 프록시 `ringshelf-aladin`
+### 5.6 Edge Function: 알라딘 프록시 `bookchronicle-aladin`
 TTB 키를 브라우저에 노출하지 않고, 알라딘 API의 CORS 제한을 피하기 위해 알라딘 호출은 모두 이 함수를 거칩니다.
 
 | 요청 | 하는 일 | 돌려주는 값 |
@@ -303,8 +306,8 @@ TTB 키를 브라우저에 노출하지 않고, 알라딘 API의 CORS 제한을 
 - **로그인한 사용자만 호출 가능**(함수의 JWT 검증 사용). 다른 사람이 함수 주소를 알아도 TTB 키 한도를 쓸 수 없습니다.
 - 응답에 GitHub Pages 주소와 개발 주소만 허용하는 CORS 헤더를 붙입니다.
 - `coverUrl`은 알라딘 이미지 도메인만 허용합니다(아무 이미지나 중계하지 않도록).
-- 검색 결과는 `ringshelf.aladin_cache`에 24시간 캐시합니다.
-- 배포: Supabase CLI로 `supabase functions deploy ringshelf-aladin`, 키 등록은 `supabase secrets set ALADIN_TTB_KEY=...` (키는 저장소에 올리지 않음).
+- 검색 결과는 `bookchronicle.aladin_cache`에 24시간 캐시합니다.
+- 배포: Supabase CLI로 `supabase functions deploy bookchronicle-aladin`, 키 등록은 `supabase secrets set ALADIN_TTB_KEY=...` (키는 저장소에 올리지 않음).
 - **기존 앱의 알라딘 호출 방식은 아직 확인 전**입니다. 기존 앱이 이미 Edge Function으로 알라딘을 부르고 있다면 코드 재사용 또는 함수 공유를 검토하고, 브라우저에서 TTB 키로 직접 부르고 있다면 기존 앱도 이 함수로 옮기는 것을 권장합니다.
 
 ### 5.7 알라딘 Open API 사용 사항
@@ -400,7 +403,7 @@ TTB 키를 브라우저에 노출하지 않고, 알라딘 API의 CORS 제한을 
 
 ## 7. 데이터 모델
 
-### 7.1 테이블 구성 (`ringshelf` 스키마)
+### 7.1 테이블 구성 (`bookchronicle` 스키마)
 모든 테이블에 `user_id uuid not null default auth.uid() references auth.users on delete cascade`와 5.4의 RLS 정책을 둡니다.
 
 | 테이블 | 기본 키 | 주요 인덱스·제약 | 내용 |
@@ -438,7 +441,7 @@ updated_at timestamptz not null default now()
 -- readings
 id uuid primary key default gen_random_uuid(),
 user_id uuid not null default auth.uid(),
-book_id uuid not null references ringshelf.books(id) on delete cascade,
+book_id uuid not null references bookchronicle.books(id) on delete cascade,
 status text not null check (status in ('reading','finished','dropped')),
 started_at date,
 finished_at date,
@@ -470,7 +473,7 @@ updated_at timestamptz not null default now()
 ### 7.3 백업 파일 형식
 ```js
 {
-  app: "ringshelf",
+  app: "bookchronicle",
   schemaVersion: 1,
   exportedAt: "2026-12-31T23:00:00+09:00",
   books: [...], readings: [...], years: [...], settings: {...},
@@ -508,10 +511,10 @@ updated_at timestamptz not null default now()
 
 ## 9. 프로젝트 폴더 구조
 
-새 GitHub 저장소 `ringshelf`는 아래 구조로 만듭니다. **문서는 `docs/`, 디자인 파일은 `design/`**에 둡니다.
+새 GitHub 저장소 `bookchronicle`는 아래 구조로 만듭니다. **문서는 `docs/`, 디자인 파일은 `design/`**에 둡니다.
 
 ```
-ringshelf/
+bookchronicle/
 ├── docs/                         # 기획·문서
 │   ├── PRD.md                    # 이 문서 (원본)
 │   ├── PRD.html                  # 이 문서의 HTML 버전
@@ -554,9 +557,9 @@ ringshelf/
 │   └── icons/
 ├── supabase/
 │   ├── config.toml
-│   ├── migrations/               # 0001_ringshelf_schema.sql, 0002_rls.sql, 0003_storage.sql ...
+│   ├── migrations/               # 0001_bookchronicle_schema.sql, 0002_rls.sql, 0003_storage.sql ...
 │   └── functions/
-│       └── ringshelf-aladin/
+│       └── bookchronicle-aladin/
 │           └── index.ts          # 알라딘 프록시
 ├── tests/                        # Vitest 단위 테스트, Playwright E2E
 ├── .github/
@@ -574,9 +577,9 @@ ringshelf/
 | 현재 파일 | 새 위치 |
 |---|---|
 | `prd-reading-chronicle.md` / `.html` | `docs/PRD.md` / `docs/PRD.html` |
-| `ringshelf/DESIGN.md` | `design/DESIGN.md` |
-| `ringshelf/design-mockup-study.html` | `design/mockup-study.html` |
-| `ringshelf/design-mockup-paper.html` | `design/mockup-paper.html` |
+| `bookchronicle/DESIGN.md` | `design/DESIGN.md` |
+| `bookchronicle/design-mockup-study.html` | `design/mockup-study.html` |
+| `bookchronicle/design-mockup-paper.html` | `design/mockup-paper.html` |
 
 - **비밀 값 규칙**: 저장소에는 Supabase 공개 키(anon key)와 주소만 들어갈 수 있습니다(공개되어도 되는 값). **서비스 키(service_role)와 TTB 키는 절대 저장소에 넣지 않고** Supabase 비밀 값과 GitHub Actions Secrets에만 둡니다.
 
@@ -654,9 +657,9 @@ ringshelf/
 
 ### M0. 준비
 - 기존 독서 앱 분석: 알라딘 호출 방식, 로그인 방식, 회원 가입 사용 여부, 사용 중인 스키마·버킷·함수 이름 확인
-- 새 GitHub 저장소 `ringshelf` 생성(9장 폴더 구조), 문서·디자인 파일 옮기기
-- Supabase: `ringshelf` 스키마·테이블·RLS·버킷 마이그레이션, 노출 스키마 추가, 리디렉션 주소 추가
-- **완료 기준**: 로그인한 계정으로 `ringshelf.books`에 행을 넣고 읽을 수 있고, 로그아웃 상태에서는 읽을 수 없음
+- 새 GitHub 저장소 `bookchronicle` 생성(9장 폴더 구조), 문서·디자인 파일 옮기기
+- Supabase: `bookchronicle` 스키마·테이블·RLS·버킷 마이그레이션, 노출 스키마 추가, 리디렉션 주소 추가
+- **완료 기준**: 로그인한 계정으로 `bookchronicle.books`에 행을 넣고 읽을 수 있고, 로그아웃 상태에서는 읽을 수 없음
 
 ### M1. 로그인과 기본 책장 (MVP)
 - Vite + Svelte 5 + supabase-js 프로젝트 구성, 로그인 화면, GitHub Pages 자동 배포
@@ -665,7 +668,7 @@ ringshelf/
 - **완료 기준**: 배포된 주소에서 로그인해 직접 입력한 30권이 3개 연도 책장에 꽂혀 보이고, 스마트폰에서 같은 책장이 보임
 
 ### M2. 도서 검색과 표지
-- Edge Function `ringshelf-aladin` 배포, TTB 키 비밀 값 등록, ISBN·제목 검색
+- Edge Function `bookchronicle-aladin` 배포, TTB 키 비밀 값 등록, ISBN·제목 검색
 - 표지 Storage 저장(`importCover`), 3색 팔레트 자동 추출(Web Worker), 분야 매핑
 - 꺼내 보기 상호작용(실제 표지로 돌아서기)
 - **완료 기준**: 제목 검색으로 10초 안에 한 권 등록, 생성형 책등이 표지와 어울리고, 누르면 실제 표지가 보임
@@ -694,7 +697,7 @@ ringshelf/
 | 위험 | 영향 | 대응 |
 |---|---|---|
 | RLS 설정 실수 | 기록 노출·삭제 | 모든 테이블·버킷 RLS 필수, 마이그레이션에 정책 포함, 로그아웃 상태 접근 차단 테스트를 M0 완료 기준에 포함 |
-| 기존 앱과 프로젝트 공유로 인한 간섭 | 기존 앱 장애 | `ringshelf` 스키마·버킷·함수 이름 분리, 기존 테이블 수정 금지, Auth 설정(사이트 주소·가입 허용)은 기존 앱 영향 확인 후 변경 |
+| 기존 앱과 프로젝트 공유로 인한 간섭 | 기존 앱 장애 | `bookchronicle` 스키마·버킷·함수 이름 분리, 기존 테이블 수정 금지, Auth 설정(사이트 주소·가입 허용)은 기존 앱 영향 확인 후 변경 |
 | 무료 요금제 한도를 두 앱이 공유 | 용량·호출 초과 | 표지를 300px로 줄여 저장, 검색 캐시, 사용량을 대시보드에서 월 1회 확인 |
 | 무료 프로젝트 비활성 일시 정지 | 앱 접속 불가 | 두 앱이 함께 쓰므로 활동이 잦음. 정지되면 대시보드에서 재개. 정지 기준은 개발 시작 시 확인 |
 | 알라딘 하루 호출 한도 공유(같은 TTB 키) | 검색 중단 | 결과 캐시, CSV 보충 조회 속도 제한, 필요하면 이 앱 전용 TTB 키 발급 |
@@ -722,14 +725,14 @@ ringshelf/
 
 ## 15. 결정된 사항과 남은 확인 사항
 
-### 15.1 결정된 사항 (v0.6)
-- 앱 이름: **나이테 책장 (Ringshelf)**
+### 15.1 결정된 사항 (v0.7)
+- 앱 이름: **북크로니클 (Book Chronicle)**
 - 주 사용 환경: 데스크톱 웹 브라우저(16:10), 스마트폰은 반응형 확인용
 - 디자인: 통일 레이아웃 1개(사이드바·책장·상세 패널) + 테마 2종(서재·종이)
 - 책등: 생성형 책등이 기본, 꺼내 보기로 실제 표지 표시, 표지 질감 모드는 설정에서 선택
 - 코드·배포: **공개 GitHub 저장소 + GitHub Pages**. Cloudflare는 쓰지 않음
 - 한 해의 기준: **완독일**(책은 완독일의 연도 책장에 꽂힘, 완독일이 없으면 "연도 미상" 칸)
-- 백엔드: **Supabase(로그인·DB·스토리지·Edge Function)**, 기존 독서 앱과 같은 프로젝트를 `ringshelf` 스키마로 분리해 사용
+- 백엔드: **Supabase(로그인·DB·스토리지·Edge Function)**, 기존 독서 앱과 같은 프로젝트를 `bookchronicle` 스키마로 분리해 사용
 - 로그인: 필요(사용자 1명, 기존 앱과 같은 계정), RLS로 본인 데이터만 접근
 - 오프라인 지원: 하지 않음
 - 폴더 구조: 문서는 `docs/`, 디자인은 `design/` (9장)

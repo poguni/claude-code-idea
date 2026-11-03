@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>나이테 책장(Ringshelf): 제품 기획서(PRD)</title>
+<title>북크로니클(Book Chronicle): 제품 기획서(PRD)</title>
 <style>
 :root{--bg:#fafaf8;--panel:#f1f0ec;--text:#1f2328;--muted:#656d76;--line:#dcdad3;--accent:#8a5a2b;--accent-bg:#f3ebe0;--code:#eceae4;--star:#b8741a}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#e0a96d;--accent-bg:#3a2f24;--code:#2a2c30;--star:#f0b43c}}
@@ -71,16 +71,16 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <div id="scrim"></div>
 <aside id="side">
  <div class="side-top">
-  <h2>나이테 책장 PRD v0.6 <button id="theme" title="테마 전환">🌓</button></h2>
+  <h2>북크로니클 PRD v0.7 <button id="theme" title="테마 전환">🌓</button></h2>
   <input id="q" type="search" placeholder="목차 검색 (예: Supabase, 책등)" aria-label="목차 검색">
   <div class="dl">
    <a href="prd-reading-chronicle.md" download="prd-reading-chronicle.md">⬇ MD</a>
    <a id="dlhtml" href="prd-reading-chronicle.html" download="prd-reading-chronicle.html">⬇ HTML</a>
   </div>
  </div>
- <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#앱-이름">앱 이름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f0-로그인-p0-v0-4-신규">F0. 로그인 (P0) ※ v0.4 신규</a></li><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-내보내기-p0">F9. 백업·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-스마트폰-확인-p1">F11. 스마트폰 확인 (P1)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시스템-구성과-supabase-설계">5. 시스템 구성과 Supabase 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-전체-구성">5.1 전체 구성</a></li><li><a href="#5-2-기존-독서-앱과-supabase-프로젝트-공유-원칙">5.2 기존 독서 앱과 Supabase 프로젝트 공유 원칙</a></li><li><a href="#5-3-인증-auth">5.3 인증(Auth)</a></li><li><a href="#5-4-db-보안-rls-행-수준-보안">5.4 DB 보안: RLS(행 수준 보안)</a></li><li><a href="#5-5-storage-표지와-표지-질감-이미지">5.5 Storage: 표지와 표지 질감 이미지</a></li><li><a href="#5-6-edge-function-알라딘-프록시-ringshelf-aladin">5.6 Edge Function: 알라딘 프록시 ringshelf-aladin</a></li><li><a href="#5-7-알라딘-open-api-사용-사항">5.7 알라딘 Open API 사용 사항</a></li><li><a href="#5-8-분야-매핑">5.8 분야 매핑</a></li><li><a href="#5-9-호출-안정성">5.9 호출 안정성</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-팔레트-추출-3색">6.3 표지 팔레트 추출 (3색)</a></li><li><a href="#6-4-생성형-책등-패턴-기본-책등">6.4 생성형 책등 패턴 (기본 책등)</a></li><li><a href="#6-5-표지-질감-모드-설정에서-선택">6.5 표지 질감 모드 (설정에서 선택)</a></li><li><a href="#6-6-꺼내-보기-상호작용">6.6 꺼내 보기 상호작용</a></li><li><a href="#6-7-글자-색과-가독성">6.7 글자 색과 가독성</a></li><li><a href="#6-8-그리기-방식">6.8 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-테이블-구성-ringshelf-스키마">7.1 테이블 구성 (ringshelf 스키마)</a></li><li><a href="#7-2-컬럼">7.2 컬럼</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-프로젝트-폴더-구조">9. 프로젝트 폴더 구조</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-화면-구성">10. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#10-1-레이아웃-데스크톱-우선">10.1 레이아웃 (데스크톱 우선)</a></li><li><a href="#10-2-화면-목록">10.2 화면 목록</a></li><li><a href="#10-3-테마">10.3 테마</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비">M0. 준비</a></li><li><a href="#m1-로그인과-기본-책장-mvp">M1. 로그인과 기본 책장 (MVP)</a></li><li><a href="#m2-도서-검색과-표지">M2. 도서 검색과 표지</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-다듬기">M5. 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표-개인-사용-기준">14. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-6">15.1 결정된 사항 (v0.6)</a></li><li><a href="#15-2-아직-결정할-사항">15.2 아직 결정할 사항</a></li><li><a href="#15-3-개발-시작-시-확인할-사항">15.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#앱-이름">앱 이름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f0-로그인-p0-v0-4-신규">F0. 로그인 (P0) ※ v0.4 신규</a></li><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-내보내기-p0">F9. 백업·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-스마트폰-확인-p1">F11. 스마트폰 확인 (P1)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시스템-구성과-supabase-설계">5. 시스템 구성과 Supabase 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-전체-구성">5.1 전체 구성</a></li><li><a href="#5-2-기존-독서-앱과-supabase-프로젝트-공유-원칙">5.2 기존 독서 앱과 Supabase 프로젝트 공유 원칙</a></li><li><a href="#5-3-인증-auth">5.3 인증(Auth)</a></li><li><a href="#5-4-db-보안-rls-행-수준-보안">5.4 DB 보안: RLS(행 수준 보안)</a></li><li><a href="#5-5-storage-표지와-표지-질감-이미지">5.5 Storage: 표지와 표지 질감 이미지</a></li><li><a href="#5-6-edge-function-알라딘-프록시-bookchronicle-aladin">5.6 Edge Function: 알라딘 프록시 bookchronicle-aladin</a></li><li><a href="#5-7-알라딘-open-api-사용-사항">5.7 알라딘 Open API 사용 사항</a></li><li><a href="#5-8-분야-매핑">5.8 분야 매핑</a></li><li><a href="#5-9-호출-안정성">5.9 호출 안정성</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-팔레트-추출-3색">6.3 표지 팔레트 추출 (3색)</a></li><li><a href="#6-4-생성형-책등-패턴-기본-책등">6.4 생성형 책등 패턴 (기본 책등)</a></li><li><a href="#6-5-표지-질감-모드-설정에서-선택">6.5 표지 질감 모드 (설정에서 선택)</a></li><li><a href="#6-6-꺼내-보기-상호작용">6.6 꺼내 보기 상호작용</a></li><li><a href="#6-7-글자-색과-가독성">6.7 글자 색과 가독성</a></li><li><a href="#6-8-그리기-방식">6.8 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-테이블-구성-bookchronicle-스키마">7.1 테이블 구성 (bookchronicle 스키마)</a></li><li><a href="#7-2-컬럼">7.2 컬럼</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-프로젝트-폴더-구조">9. 프로젝트 폴더 구조</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-화면-구성">10. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#10-1-레이아웃-데스크톱-우선">10.1 레이아웃 (데스크톱 우선)</a></li><li><a href="#10-2-화면-목록">10.2 화면 목록</a></li><li><a href="#10-3-테마">10.3 테마</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비">M0. 준비</a></li><li><a href="#m1-로그인과-기본-책장-mvp">M1. 로그인과 기본 책장 (MVP)</a></li><li><a href="#m2-도서-검색과-표지">M2. 도서 검색과 표지</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-다듬기">M5. 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표-개인-사용-기준">14. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-7">15.1 결정된 사항 (v0.7)</a></li><li><a href="#15-2-아직-결정할-사항">15.2 아직 결정할 사항</a></li><li><a href="#15-3-개발-시작-시-확인할-사항">15.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
 </aside>
-<main><article id="doc"><h1 id="나이테-책장-ringshelf-제품-기획서-prd">나이테 책장(Ringshelf): 제품 기획서(PRD)</h1>
+<main><article id="doc"><h1 id="북크로니클-book-chronicle-제품-기획서-prd">북크로니클(Book Chronicle): 제품 기획서(PRD)</h1>
 <table>
 <thead>
 <tr>
@@ -91,15 +91,15 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tbody>
 <tr>
 <td>문서 버전</td>
-<td>v0.6</td>
+<td>v0.7</td>
 </tr>
 <tr>
 <td>작성일</td>
-<td>2026-11-02 (v0.6 수정: 2026-11-03)</td>
+<td>2026-11-02 (v0.7 수정: 2026-11-03)</td>
 </tr>
 <tr>
 <td>앱 이름</td>
-<td><strong>나이테 책장(Ringshelf)</strong></td>
+<td><strong>북크로니클(Book Chronicle)</strong></td>
 </tr>
 <tr>
 <td>한 줄 소개</td>
@@ -187,15 +187,22 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <td>2026-11-03</td>
 <td>GitHub 저장소 <strong>공개</strong>로 확정. 책장에 꽂히는 연도 기준을 <strong>완독일로 확정</strong>하고 설정의 '한 해의 기준' 선택 항목과 <code>settings.year_basis</code> 컬럼 제거</td>
 </tr>
+<tr>
+<td>v0.7</td>
+<td>2026-11-03</td>
+<td>앱 이름을 <strong>북크로니클(Book Chronicle)</strong>로 변경. 코드 식별자를 <code>bookchronicle</code>로 통일(저장소, Supabase 스키마, 버킷, Edge Function, 백업 파일). 나이테는 디자인 모티프로 유지</td>
+</tr>
 </tbody>
 </table>
 <h2 id="앱-이름">앱 이름</h2>
-<p><strong>나이테 책장 (Ringshelf)</strong>: 해마다 한 겹씩 쌓이는 나의 독서</p>
+<p><strong>북크로니클 (Book Chronicle)</strong>: 해마다 한 겹씩 쌓이는 나의 독서</p>
 <ul>
-<li>의미: 나무가 해마다 나이테를 한 겹씩 두르듯, 1년에 한 칸씩 책장이 늘어납니다.</li>
-<li>표기 규칙: 한글 화면에서는 "나이테 책장", 영문·코드·주소에서는 "Ringshelf"(소문자 <code>ringshelf</code>).</li>
-<li>코드 식별자: GitHub 저장소 <code>ringshelf</code>, Supabase 스키마 <code>ringshelf</code>, 스토리지 버킷 <code>ringshelf-covers</code>, Edge Function <code>ringshelf-aladin</code>, 백업 파일 <code>ringshelf-backup-YYYYMMDD.json</code></li>
-<li>검토했던 다른 후보: 책등 연대기(Spine Chronicle), 해마다 서가(Yearshelf), 책빛(Spinelight), 책결(Bookgrain)</li>
+<li>의미: 처음 기획 제목인 <strong>'독서 연대기'</strong>를 그대로 담은 이름입니다. 해마다 한 칸씩 늘어나는 책장이 곧 나의 독서 연대기가 됩니다.</li>
+<li>표기 규칙: 한글 화면에서는 "북크로니클", 영문에서는 "Book Chronicle"(띄어 씀), 코드·주소에서는 소문자 <code>bookchronicle</code>(띄어쓰기·하이픈 없음).</li>
+<li>코드 식별자: GitHub 저장소 <code>bookchronicle</code>, Supabase 스키마 <code>bookchronicle</code>, 스토리지 버킷 <code>bookchronicle-covers</code>, Edge Function <code>bookchronicle-aladin</code>, 백업 파일 <code>bookchronicle-backup-YYYYMMDD.json</code></li>
+<li>디자인 모티프: 이전 이름(나이테 책장)에서 쓰던 <strong>나이테(동심원)</strong>는 연도를 겹겹이 보여 주는 시각화로 계속 씁니다('연도별 나이테', '올해의 나이테').</li>
+<li>이름 변경 기록: 나이테 책장(Ringshelf, v0.2~v0.6) → <strong>북크로니클(Book Chronicle, v0.7~)</strong></li>
+<li>검토했던 다른 후보: 북로니클(Bookronicle), 크로노셸프(Chronoshelf), 책력(Almanook), 리드라인(Readline), 한해책(Yearbook), 책등 연대기(Spine Chronicle), 해마다 서가(Yearshelf)</li>
 </ul>
 <hr />
 <h2 id="1-개요">1. 개요</h2>
@@ -378,14 +385,14 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <hr />
 <h2 id="5-시스템-구성과-supabase-설계">5. 시스템 구성과 Supabase 설계</h2>
 <h3 id="5-1-전체-구성">5.1 전체 구성</h3>
-<pre><code>[GitHub 저장소 ringshelf] ──GitHub Actions──▶ [GitHub Pages: 앱 화면(정적 파일)]
+<pre><code>[GitHub 저장소 bookchronicle] ──GitHub Actions──▶ [GitHub Pages: 앱 화면(정적 파일)]
                                                   │  supabase-js (공개 anon 키 + 로그인 토큰)
                                                   ▼
                           ┌──────────── Supabase 프로젝트 (기존 독서 앱과 공유) ───────────┐
                           │ Auth          : 사용자 계정(기존 앱과 공통)                    │
-                          │ DB            : public 스키마 = 기존 앱 / ringshelf 스키마 = 이 앱 │
-                          │ Storage       : 기존 앱 버킷 / ringshelf-covers 버킷            │
-                          │ Edge Function : ringshelf-aladin ──▶ 알라딘 Open API          │
+                          │ DB            : public 스키마 = 기존 앱 / bookchronicle 스키마 = 이 앱 │
+                          │ Storage       : 기존 앱 버킷 / bookchronicle-covers 버킷            │
+                          │ Edge Function : bookchronicle-aladin ──▶ 알라딘 Open API          │
                           │ Secrets       : ALADIN_TTB_KEY                                │
                           └───────────────────────────────────────────────────────────────┘
 </code></pre>
@@ -400,7 +407,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tr>
 <th>영역</th>
 <th>기존 앱</th>
-<th>나이테 책장</th>
+<th>북크로니클</th>
 <th>원칙</th>
 </tr>
 </thead>
@@ -408,20 +415,20 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tr>
 <td>DB</td>
 <td><code>public</code> 스키마(기존 그대로)</td>
-<td><strong><code>ringshelf</code> 스키마</strong></td>
-<td>기존 테이블은 읽지도 고치지도 않음. 마이그레이션은 항상 <code>ringshelf.</code> 스키마를 명시</td>
+<td><strong><code>bookchronicle</code> 스키마</strong></td>
+<td>기존 테이블은 읽지도 고치지도 않음. 마이그레이션은 항상 <code>bookchronicle.</code> 스키마를 명시</td>
 </tr>
 <tr>
 <td>Storage</td>
 <td>기존 버킷</td>
-<td><strong><code>ringshelf-covers</code> 버킷</strong></td>
+<td><strong><code>bookchronicle-covers</code> 버킷</strong></td>
 <td>버킷을 분리하고 정책도 따로</td>
 </tr>
 <tr>
 <td>Edge Function</td>
 <td>기존 함수(있다면)</td>
-<td><strong><code>ringshelf-aladin</code></strong></td>
-<td>이름 앞에 <code>ringshelf-</code>를 붙여 구분. 기존 앱이 이미 알라딘 함수를 쓰면 재사용 여부 검토</td>
+<td><strong><code>bookchronicle-aladin</code></strong></td>
+<td>이름 앞에 <code>bookchronicle-</code>를 붙여 구분. 기존 앱이 이미 알라딘 함수를 쓰면 재사용 여부 검토</td>
 </tr>
 <tr>
 <td>Auth</td>
@@ -438,51 +445,51 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </tbody>
 </table>
 <ul>
-<li><code>ringshelf</code> 스키마는 Supabase 대시보드의 API 설정에서 <strong>노출 스키마(Exposed schemas)</strong>에 추가해야 앱에서 접근할 수 있습니다.</li>
+<li><code>bookchronicle</code> 스키마는 Supabase 대시보드의 API 설정에서 <strong>노출 스키마(Exposed schemas)</strong>에 추가해야 앱에서 접근할 수 있습니다.</li>
 <li>무료 요금제의 DB·스토리지·함수 호출 한도를 두 앱이 함께 씁니다. 이 앱의 예상 사용량(책 1,000권 기준 DB 수 MB, 표지 약 30MB)은 한도에 비해 작습니다. 최신 한도는 개발 시작 시 확인합니다.</li>
 </ul>
 <h3 id="5-3-인증-auth">5.3 인증(Auth)</h3>
 <ul>
 <li>방식: 기존 앱과 같은 로그인 방식(기본안 이메일 + 비밀번호). 소셜 로그인이면 같은 제공자를 씁니다.</li>
-<li><strong>추가 리디렉션 주소(Redirect URLs)</strong>에 GitHub Pages 주소(<code>https://&lt;아이디&gt;.github.io/ringshelf/</code>)와 개발 주소(<code>http://localhost:5173</code>)를 추가합니다. <strong>기본 사이트 주소(Site URL)는 기존 앱 주소를 그대로 둡니다</strong>(바꾸면 기존 앱의 인증 메일 링크가 영향을 받음).</li>
+<li><strong>추가 리디렉션 주소(Redirect URLs)</strong>에 GitHub Pages 주소(<code>https://&lt;아이디&gt;.github.io/bookchronicle/</code>)와 개발 주소(<code>http://localhost:5173</code>)를 추가합니다. <strong>기본 사이트 주소(Site URL)는 기존 앱 주소를 그대로 둡니다</strong>(바꾸면 기존 앱의 인증 메일 링크가 영향을 받음).</li>
 <li>새 회원 가입 막기: 사용자가 나 하나이므로 권장합니다. 다만 Auth 설정은 두 앱 공통이므로, 기존 앱이 가입 기능을 쓰는지 확인 후 적용합니다.</li>
 <li>이메일 문구 템플릿은 두 앱 공통이므로 이 앱 때문에 바꾸지 않습니다.</li>
 </ul>
 <h3 id="5-4-db-보안-rls-행-수준-보안">5.4 DB 보안: RLS(행 수준 보안)</h3>
 <p>앱의 공개 키(anon key)는 브라우저 코드에 들어가 누구나 볼 수 있으므로, <strong>보안은 로그인 + RLS로 지킵니다.</strong></p>
 <ul>
-<li><code>ringshelf</code> 스키마의 모든 테이블에 RLS를 켜고, <strong>본인 행만</strong> 읽고 쓰게 합니다.</li>
+<li><code>bookchronicle</code> 스키마의 모든 테이블에 RLS를 켜고, <strong>본인 행만</strong> 읽고 쓰게 합니다.</li>
 <li>권한은 로그인한 사용자(<code>authenticated</code>)에게만 주고, 로그인하지 않은 사용자(<code>anon</code>)에게는 주지 않습니다.</li>
 </ul>
-<pre><code class="language-sql">create schema if not exists ringshelf;
-grant usage on schema ringshelf to authenticated;
+<pre><code class="language-sql">create schema if not exists bookchronicle;
+grant usage on schema bookchronicle to authenticated;
 
 -- 예: books 테이블 (다른 테이블도 같은 방식)
-alter table ringshelf.books enable row level security;
-grant select, insert, update, delete on ringshelf.books to authenticated;
+alter table bookchronicle.books enable row level security;
+grant select, insert, update, delete on bookchronicle.books to authenticated;
 
-create policy &quot;본인 책만 조회&quot; on ringshelf.books
+create policy &quot;본인 책만 조회&quot; on bookchronicle.books
   for select to authenticated using (user_id = (select auth.uid()));
-create policy &quot;본인 책만 추가&quot; on ringshelf.books
+create policy &quot;본인 책만 추가&quot; on bookchronicle.books
   for insert to authenticated with check (user_id = (select auth.uid()));
-create policy &quot;본인 책만 수정&quot; on ringshelf.books
+create policy &quot;본인 책만 수정&quot; on bookchronicle.books
   for update to authenticated using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
-create policy &quot;본인 책만 삭제&quot; on ringshelf.books
+create policy &quot;본인 책만 삭제&quot; on bookchronicle.books
   for delete to authenticated using (user_id = (select auth.uid()));
 </code></pre>
 <ul>
-<li>알라딘 검색 캐시 테이블(<code>ringshelf.aladin_cache</code>)은 RLS만 켜고 정책을 두지 않아, Edge Function(서비스 키)만 접근하게 합니다.</li>
+<li>알라딘 검색 캐시 테이블(<code>bookchronicle.aladin_cache</code>)은 RLS만 켜고 정책을 두지 않아, Edge Function(서비스 키)만 접근하게 합니다.</li>
 </ul>
 <h3 id="5-5-storage-표지와-표지-질감-이미지">5.5 Storage: 표지와 표지 질감 이미지</h3>
 <ul>
-<li>버킷 <code>ringshelf-covers</code>는 <strong>비공개(private)</strong>로 만들고, 경로 첫 단계를 사용자 ID로 둡니다.</li>
+<li>버킷 <code>bookchronicle-covers</code>는 <strong>비공개(private)</strong>로 만들고, 경로 첫 단계를 사용자 ID로 둡니다.</li>
 <li>표지: <code>{user_id}/covers/{book_id}.jpg</code> (가로 최대 300px로 줄여 저장, 약 30KB)</li>
 <li>표지 질감: <code>{user_id}/textures/{book_id}.webp</code> (64×256px, 수 KB)</li>
 <li>정책: 경로의 첫 폴더가 <code>auth.uid()</code>와 같을 때만 읽기·쓰기·삭제를 허용합니다.</li>
 <li>앱은 로그인 상태에서 이미지를 <strong>Blob으로 내려받아</strong> 화면에 표시하고, 같은 Blob으로 색 추출·회고 카드를 그립니다. 그래서 캔버스 CORS 문제가 생기지 않습니다.</li>
 <li>한 번 내려받은 표지는 브라우저 메모리에 두어 같은 화면 안에서 다시 내려받지 않습니다.</li>
 </ul>
-<h3 id="5-6-edge-function-알라딘-프록시-ringshelf-aladin">5.6 Edge Function: 알라딘 프록시 <code>ringshelf-aladin</code></h3>
+<h3 id="5-6-edge-function-알라딘-프록시-bookchronicle-aladin">5.6 Edge Function: 알라딘 프록시 <code>bookchronicle-aladin</code></h3>
 <p>TTB 키를 브라우저에 노출하지 않고, 알라딘 API의 CORS 제한을 피하기 위해 알라딘 호출은 모두 이 함수를 거칩니다.</p>
 <table>
 <thead>
@@ -514,8 +521,8 @@ create policy &quot;본인 책만 삭제&quot; on ringshelf.books
 <li><strong>로그인한 사용자만 호출 가능</strong>(함수의 JWT 검증 사용). 다른 사람이 함수 주소를 알아도 TTB 키 한도를 쓸 수 없습니다.</li>
 <li>응답에 GitHub Pages 주소와 개발 주소만 허용하는 CORS 헤더를 붙입니다.</li>
 <li><code>coverUrl</code>은 알라딘 이미지 도메인만 허용합니다(아무 이미지나 중계하지 않도록).</li>
-<li>검색 결과는 <code>ringshelf.aladin_cache</code>에 24시간 캐시합니다.</li>
-<li>배포: Supabase CLI로 <code>supabase functions deploy ringshelf-aladin</code>, 키 등록은 <code>supabase secrets set ALADIN_TTB_KEY=...</code> (키는 저장소에 올리지 않음).</li>
+<li>검색 결과는 <code>bookchronicle.aladin_cache</code>에 24시간 캐시합니다.</li>
+<li>배포: Supabase CLI로 <code>supabase functions deploy bookchronicle-aladin</code>, 키 등록은 <code>supabase secrets set ALADIN_TTB_KEY=...</code> (키는 저장소에 올리지 않음).</li>
 <li><strong>기존 앱의 알라딘 호출 방식은 아직 확인 전</strong>입니다. 기존 앱이 이미 Edge Function으로 알라딘을 부르고 있다면 코드 재사용 또는 함수 공유를 검토하고, 브라우저에서 TTB 키로 직접 부르고 있다면 기존 앱도 이 함수로 옮기는 것을 권장합니다.</li>
 </ul>
 <h3 id="5-7-알라딘-open-api-사용-사항">5.7 알라딘 Open API 사용 사항</h3>
@@ -670,7 +677,7 @@ create policy &quot;본인 책만 삭제&quot; on ringshelf.books
 </ul>
 <hr />
 <h2 id="7-데이터-모델">7. 데이터 모델</h2>
-<h3 id="7-1-테이블-구성-ringshelf-스키마">7.1 테이블 구성 (<code>ringshelf</code> 스키마)</h3>
+<h3 id="7-1-테이블-구성-bookchronicle-스키마">7.1 테이블 구성 (<code>bookchronicle</code> 스키마)</h3>
 <p>모든 테이블에 <code>user_id uuid not null default auth.uid() references auth.users on delete cascade</code>와 5.4의 RLS 정책을 둡니다.</p>
 <table>
 <thead>
@@ -739,7 +746,7 @@ updated_at timestamptz not null default now()
 -- readings
 id uuid primary key default gen_random_uuid(),
 user_id uuid not null default auth.uid(),
-book_id uuid not null references ringshelf.books(id) on delete cascade,
+book_id uuid not null references bookchronicle.books(id) on delete cascade,
 status text not null check (status in ('reading','finished','dropped')),
 started_at date,
 finished_at date,
@@ -769,7 +776,7 @@ updated_at timestamptz not null default now()
 </code></pre>
 <h3 id="7-3-백업-파일-형식">7.3 백업 파일 형식</h3>
 <pre><code class="language-js">{
-  app: &quot;ringshelf&quot;,
+  app: &quot;bookchronicle&quot;,
   schemaVersion: 1,
   exportedAt: &quot;2026-12-31T23:00:00+09:00&quot;,
   books: [...], readings: [...], years: [...], settings: {...},
@@ -880,8 +887,8 @@ updated_at timestamptz not null default now()
 </table>
 <hr />
 <h2 id="9-프로젝트-폴더-구조">9. 프로젝트 폴더 구조</h2>
-<p>새 GitHub 저장소 <code>ringshelf</code>는 아래 구조로 만듭니다. <strong>문서는 <code>docs/</code>, 디자인 파일은 <code>design/</code></strong>에 둡니다.</p>
-<pre><code>ringshelf/
+<p>새 GitHub 저장소 <code>bookchronicle</code>는 아래 구조로 만듭니다. <strong>문서는 <code>docs/</code>, 디자인 파일은 <code>design/</code></strong>에 둡니다.</p>
+<pre><code>bookchronicle/
 ├── docs/                         # 기획·문서
 │   ├── PRD.md                    # 이 문서 (원본)
 │   ├── PRD.html                  # 이 문서의 HTML 버전
@@ -924,9 +931,9 @@ updated_at timestamptz not null default now()
 │   └── icons/
 ├── supabase/
 │   ├── config.toml
-│   ├── migrations/               # 0001_ringshelf_schema.sql, 0002_rls.sql, 0003_storage.sql ...
+│   ├── migrations/               # 0001_bookchronicle_schema.sql, 0002_rls.sql, 0003_storage.sql ...
 │   └── functions/
-│       └── ringshelf-aladin/
+│       └── bookchronicle-aladin/
 │           └── index.ts          # 알라딘 프록시
 ├── tests/                        # Vitest 단위 테스트, Playwright E2E
 ├── .github/
@@ -954,15 +961,15 @@ updated_at timestamptz not null default now()
 <td><code>docs/PRD.md</code> / <code>docs/PRD.html</code></td>
 </tr>
 <tr>
-<td><code>ringshelf/DESIGN.md</code></td>
+<td><code>bookchronicle/DESIGN.md</code></td>
 <td><code>design/DESIGN.md</code></td>
 </tr>
 <tr>
-<td><code>ringshelf/design-mockup-study.html</code></td>
+<td><code>bookchronicle/design-mockup-study.html</code></td>
 <td><code>design/mockup-study.html</code></td>
 </tr>
 <tr>
-<td><code>ringshelf/design-mockup-paper.html</code></td>
+<td><code>bookchronicle/design-mockup-paper.html</code></td>
 <td><code>design/mockup-paper.html</code></td>
 </tr>
 </tbody>
@@ -1148,9 +1155,9 @@ updated_at timestamptz not null default now()
 <h3 id="m0-준비">M0. 준비</h3>
 <ul>
 <li>기존 독서 앱 분석: 알라딘 호출 방식, 로그인 방식, 회원 가입 사용 여부, 사용 중인 스키마·버킷·함수 이름 확인</li>
-<li>새 GitHub 저장소 <code>ringshelf</code> 생성(9장 폴더 구조), 문서·디자인 파일 옮기기</li>
-<li>Supabase: <code>ringshelf</code> 스키마·테이블·RLS·버킷 마이그레이션, 노출 스키마 추가, 리디렉션 주소 추가</li>
-<li><strong>완료 기준</strong>: 로그인한 계정으로 <code>ringshelf.books</code>에 행을 넣고 읽을 수 있고, 로그아웃 상태에서는 읽을 수 없음</li>
+<li>새 GitHub 저장소 <code>bookchronicle</code> 생성(9장 폴더 구조), 문서·디자인 파일 옮기기</li>
+<li>Supabase: <code>bookchronicle</code> 스키마·테이블·RLS·버킷 마이그레이션, 노출 스키마 추가, 리디렉션 주소 추가</li>
+<li><strong>완료 기준</strong>: 로그인한 계정으로 <code>bookchronicle.books</code>에 행을 넣고 읽을 수 있고, 로그아웃 상태에서는 읽을 수 없음</li>
 </ul>
 <h3 id="m1-로그인과-기본-책장-mvp">M1. 로그인과 기본 책장 (MVP)</h3>
 <ul>
@@ -1161,7 +1168,7 @@ updated_at timestamptz not null default now()
 </ul>
 <h3 id="m2-도서-검색과-표지">M2. 도서 검색과 표지</h3>
 <ul>
-<li>Edge Function <code>ringshelf-aladin</code> 배포, TTB 키 비밀 값 등록, ISBN·제목 검색</li>
+<li>Edge Function <code>bookchronicle-aladin</code> 배포, TTB 키 비밀 값 등록, ISBN·제목 검색</li>
 <li>표지 Storage 저장(<code>importCover</code>), 3색 팔레트 자동 추출(Web Worker), 분야 매핑</li>
 <li>꺼내 보기 상호작용(실제 표지로 돌아서기)</li>
 <li><strong>완료 기준</strong>: 제목 검색으로 10초 안에 한 권 등록, 생성형 책등이 표지와 어울리고, 누르면 실제 표지가 보임</li>
@@ -1205,7 +1212,7 @@ updated_at timestamptz not null default now()
 <tr>
 <td>기존 앱과 프로젝트 공유로 인한 간섭</td>
 <td>기존 앱 장애</td>
-<td><code>ringshelf</code> 스키마·버킷·함수 이름 분리, 기존 테이블 수정 금지, Auth 설정(사이트 주소·가입 허용)은 기존 앱 영향 확인 후 변경</td>
+<td><code>bookchronicle</code> 스키마·버킷·함수 이름 분리, 기존 테이블 수정 금지, Auth 설정(사이트 주소·가입 허용)은 기존 앱 영향 확인 후 변경</td>
 </tr>
 <tr>
 <td>무료 요금제 한도를 두 앱이 공유</td>
@@ -1276,15 +1283,15 @@ updated_at timestamptz not null default now()
 </ul>
 <hr />
 <h2 id="15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</h2>
-<h3 id="15-1-결정된-사항-v0-6">15.1 결정된 사항 (v0.6)</h3>
+<h3 id="15-1-결정된-사항-v0-7">15.1 결정된 사항 (v0.7)</h3>
 <ul>
-<li>앱 이름: <strong>나이테 책장 (Ringshelf)</strong></li>
+<li>앱 이름: <strong>북크로니클 (Book Chronicle)</strong></li>
 <li>주 사용 환경: 데스크톱 웹 브라우저(16:10), 스마트폰은 반응형 확인용</li>
 <li>디자인: 통일 레이아웃 1개(사이드바·책장·상세 패널) + 테마 2종(서재·종이)</li>
 <li>책등: 생성형 책등이 기본, 꺼내 보기로 실제 표지 표시, 표지 질감 모드는 설정에서 선택</li>
 <li>코드·배포: <strong>공개 GitHub 저장소 + GitHub Pages</strong>. Cloudflare는 쓰지 않음</li>
 <li>한 해의 기준: <strong>완독일</strong>(책은 완독일의 연도 책장에 꽂힘, 완독일이 없으면 "연도 미상" 칸)</li>
-<li>백엔드: <strong>Supabase(로그인·DB·스토리지·Edge Function)</strong>, 기존 독서 앱과 같은 프로젝트를 <code>ringshelf</code> 스키마로 분리해 사용</li>
+<li>백엔드: <strong>Supabase(로그인·DB·스토리지·Edge Function)</strong>, 기존 독서 앱과 같은 프로젝트를 <code>bookchronicle</code> 스키마로 분리해 사용</li>
 <li>로그인: 필요(사용자 1명, 기존 앱과 같은 계정), RLS로 본인 데이터만 접근</li>
 <li>오프라인 지원: 하지 않음</li>
 <li>폴더 구조: 문서는 <code>docs/</code>, 디자인은 <code>design/</code> (9장)</li>
