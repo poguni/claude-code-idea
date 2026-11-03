@@ -71,14 +71,14 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <div id="scrim"></div>
 <aside id="side">
  <div class="side-top">
-  <h2>나이테 책장 PRD v0.5 <button id="theme" title="테마 전환">🌓</button></h2>
+  <h2>나이테 책장 PRD v0.6 <button id="theme" title="테마 전환">🌓</button></h2>
   <input id="q" type="search" placeholder="목차 검색 (예: Supabase, 책등)" aria-label="목차 검색">
   <div class="dl">
    <a href="prd-reading-chronicle.md" download="prd-reading-chronicle.md">⬇ MD</a>
    <a id="dlhtml" href="prd-reading-chronicle.html" download="prd-reading-chronicle.html">⬇ HTML</a>
   </div>
  </div>
- <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#앱-이름">앱 이름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f0-로그인-p0-v0-4-신규">F0. 로그인 (P0) ※ v0.4 신규</a></li><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-내보내기-p0">F9. 백업·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-스마트폰-확인-p1">F11. 스마트폰 확인 (P1)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시스템-구성과-supabase-설계">5. 시스템 구성과 Supabase 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-전체-구성">5.1 전체 구성</a></li><li><a href="#5-2-기존-독서-앱과-supabase-프로젝트-공유-원칙">5.2 기존 독서 앱과 Supabase 프로젝트 공유 원칙</a></li><li><a href="#5-3-인증-auth">5.3 인증(Auth)</a></li><li><a href="#5-4-db-보안-rls-행-수준-보안">5.4 DB 보안: RLS(행 수준 보안)</a></li><li><a href="#5-5-storage-표지와-표지-질감-이미지">5.5 Storage: 표지와 표지 질감 이미지</a></li><li><a href="#5-6-edge-function-알라딘-프록시-ringshelf-aladin">5.6 Edge Function: 알라딘 프록시 ringshelf-aladin</a></li><li><a href="#5-7-알라딘-open-api-사용-사항">5.7 알라딘 Open API 사용 사항</a></li><li><a href="#5-8-분야-매핑">5.8 분야 매핑</a></li><li><a href="#5-9-호출-안정성">5.9 호출 안정성</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-팔레트-추출-3색">6.3 표지 팔레트 추출 (3색)</a></li><li><a href="#6-4-생성형-책등-패턴-기본-책등">6.4 생성형 책등 패턴 (기본 책등)</a></li><li><a href="#6-5-표지-질감-모드-설정에서-선택">6.5 표지 질감 모드 (설정에서 선택)</a></li><li><a href="#6-6-꺼내-보기-상호작용">6.6 꺼내 보기 상호작용</a></li><li><a href="#6-7-글자-색과-가독성">6.7 글자 색과 가독성</a></li><li><a href="#6-8-그리기-방식">6.8 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-테이블-구성-ringshelf-스키마">7.1 테이블 구성 (ringshelf 스키마)</a></li><li><a href="#7-2-컬럼">7.2 컬럼</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-프로젝트-폴더-구조">9. 프로젝트 폴더 구조</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-화면-구성">10. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#10-1-레이아웃-데스크톱-우선">10.1 레이아웃 (데스크톱 우선)</a></li><li><a href="#10-2-화면-목록">10.2 화면 목록</a></li><li><a href="#10-3-테마">10.3 테마</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비">M0. 준비</a></li><li><a href="#m1-로그인과-기본-책장-mvp">M1. 로그인과 기본 책장 (MVP)</a></li><li><a href="#m2-도서-검색과-표지">M2. 도서 검색과 표지</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-다듬기">M5. 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표-개인-사용-기준">14. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-5">15.1 결정된 사항 (v0.5)</a></li><li><a href="#15-2-아직-결정할-사항">15.2 아직 결정할 사항</a></li><li><a href="#15-3-개발-시작-시-확인할-사항">15.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#앱-이름">앱 이름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f0-로그인-p0-v0-4-신규">F0. 로그인 (P0) ※ v0.4 신규</a></li><li><a href="#f1-책-추가-수정-삭제-p0">F1. 책 추가·수정·삭제 (P0)</a></li><li><a href="#f2-도서-정보-자동-입력-p0">F2. 도서 정보 자동 입력 (P0)</a></li><li><a href="#f3-csv-가져오기-p0">F3. CSV 가져오기 (P0)</a></li><li><a href="#f4-연도별-책장-뷰-p0-핵심-기능">F4. 연도별 책장 뷰 (P0) ※ 핵심 기능</a></li><li><a href="#f5-연도-비교-p0">F5. 연도 비교 (P0)</a></li><li><a href="#f6-그해의-책-과-한-줄-회고-p0">F6. "그해의 책"과 한 줄 회고 (P0)</a></li><li><a href="#f7-연말-회고-카드-이미지-내보내기-p0">F7. 연말 회고 카드 이미지 내보내기 (P0)</a></li><li><a href="#f8-검색-필터-p1">F8. 검색·필터 (P1)</a></li><li><a href="#f9-백업-내보내기-p0">F9. 백업·내보내기 (P0)</a></li><li><a href="#f10-설정-p0">F10. 설정 (P0)</a></li><li><a href="#f11-스마트폰-확인-p1">F11. 스마트폰 확인 (P1)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시스템-구성과-supabase-설계">5. 시스템 구성과 Supabase 설계</a><span class=chev>▾</span></button><ul><li><a href="#5-1-전체-구성">5.1 전체 구성</a></li><li><a href="#5-2-기존-독서-앱과-supabase-프로젝트-공유-원칙">5.2 기존 독서 앱과 Supabase 프로젝트 공유 원칙</a></li><li><a href="#5-3-인증-auth">5.3 인증(Auth)</a></li><li><a href="#5-4-db-보안-rls-행-수준-보안">5.4 DB 보안: RLS(행 수준 보안)</a></li><li><a href="#5-5-storage-표지와-표지-질감-이미지">5.5 Storage: 표지와 표지 질감 이미지</a></li><li><a href="#5-6-edge-function-알라딘-프록시-ringshelf-aladin">5.6 Edge Function: 알라딘 프록시 ringshelf-aladin</a></li><li><a href="#5-7-알라딘-open-api-사용-사항">5.7 알라딘 Open API 사용 사항</a></li><li><a href="#5-8-분야-매핑">5.8 분야 매핑</a></li><li><a href="#5-9-호출-안정성">5.9 호출 안정성</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-책장-시각화-규칙">6. 책장 시각화 규칙</a><span class=chev>▾</span></button><ul><li><a href="#6-1-책등-두께">6.1 책등 두께</a></li><li><a href="#6-2-책등-높이">6.2 책등 높이</a></li><li><a href="#6-3-표지-팔레트-추출-3색">6.3 표지 팔레트 추출 (3색)</a></li><li><a href="#6-4-생성형-책등-패턴-기본-책등">6.4 생성형 책등 패턴 (기본 책등)</a></li><li><a href="#6-5-표지-질감-모드-설정에서-선택">6.5 표지 질감 모드 (설정에서 선택)</a></li><li><a href="#6-6-꺼내-보기-상호작용">6.6 꺼내 보기 상호작용</a></li><li><a href="#6-7-글자-색과-가독성">6.7 글자 색과 가독성</a></li><li><a href="#6-8-그리기-방식">6.8 그리기 방식</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델">7. 데이터 모델</a><span class=chev>▾</span></button><ul><li><a href="#7-1-테이블-구성-ringshelf-스키마">7.1 테이블 구성 (ringshelf 스키마)</a></li><li><a href="#7-2-컬럼">7.2 컬럼</a></li><li><a href="#7-3-백업-파일-형식">7.3 백업 파일 형식</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#8-기술-스택">8. 기술 스택</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#9-프로젝트-폴더-구조">9. 프로젝트 폴더 구조</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-화면-구성">10. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#10-1-레이아웃-데스크톱-우선">10.1 레이아웃 (데스크톱 우선)</a></li><li><a href="#10-2-화면-목록">10.2 화면 목록</a></li><li><a href="#10-3-테마">10.3 테마</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#11-비기능-요구사항">11. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-개발-단계-마일스톤">12. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비">M0. 준비</a></li><li><a href="#m1-로그인과-기본-책장-mvp">M1. 로그인과 기본 책장 (MVP)</a></li><li><a href="#m2-도서-검색과-표지">M2. 도서 검색과 표지</a></li><li><a href="#m3-csv-가져오기와-백업">M3. CSV 가져오기와 백업</a></li><li><a href="#m4-연도-비교와-회고">M4. 연도 비교와 회고</a></li><li><a href="#m5-다듬기">M5. 다듬기</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-위험-요소와-대응">13. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#14-성공-지표-개인-사용-기준">14. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#15-1-결정된-사항-v0-6">15.1 결정된 사항 (v0.6)</a></li><li><a href="#15-2-아직-결정할-사항">15.2 아직 결정할 사항</a></li><li><a href="#15-3-개발-시작-시-확인할-사항">15.3 개발 시작 시 확인할 사항</a></li></ul></div></nav>
 </aside>
 <main><article id="doc"><h1 id="나이테-책장-ringshelf-제품-기획서-prd">나이테 책장(Ringshelf): 제품 기획서(PRD)</h1>
 <table>
@@ -91,11 +91,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <tbody>
 <tr>
 <td>문서 버전</td>
-<td>v0.5</td>
+<td>v0.6</td>
 </tr>
 <tr>
 <td>작성일</td>
-<td>2026-11-02 (v0.5 수정: 2026-11-03)</td>
+<td>2026-11-02 (v0.6 수정: 2026-11-03)</td>
 </tr>
 <tr>
 <td>앱 이름</td>
@@ -127,7 +127,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 </tr>
 <tr>
 <td>코드·배포</td>
-<td>GitHub 저장소, <strong>GitHub Pages</strong> 자동 배포</td>
+<td><strong>공개</strong> GitHub 저장소, <strong>GitHub Pages</strong> 자동 배포</td>
 </tr>
 <tr>
 <td>프런트엔드</td>
@@ -181,6 +181,11 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <td>v0.5</td>
 <td>2026-11-03</td>
 <td>UI 프레임워크 <strong>Svelte 5 확정</strong>. DESIGN.md v1.1·시안과 맞춤(로그인 화면, 사이드바 계정 영역, 저장·연결 상태). 폴더 구조에 <code>Sidebar.svelte</code>, <code>theme.ts</code> 추가, 전체 문구 점검</td>
+</tr>
+<tr>
+<td>v0.6</td>
+<td>2026-11-03</td>
+<td>GitHub 저장소 <strong>공개</strong>로 확정. 책장에 꽂히는 연도 기준을 <strong>완독일로 확정</strong>하고 설정의 '한 해의 기준' 선택 항목과 <code>settings.year_basis</code> 컬럼 제거</td>
 </tr>
 </tbody>
 </table>
@@ -275,7 +280,7 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <li>입력 항목: 제목, 저자, 출판사, 출간일, ISBN-13, 쪽수, 분야, 표지 이미지, 책등 팔레트·패턴</li>
 <li>독서 기록 항목: 상태(읽는 중·완독·중단), 시작일, 완독일, 별점(0.5 단위, 5점 만점), 한 줄 메모</li>
 <li>같은 책을 다시 읽으면 <strong>독서 기록을 하나 더 추가</strong>합니다. 책 정보는 한 번만 저장하고, 기록은 여러 개를 가질 수 있습니다.</li>
-<li>책장에 꽂히는 연도는 <strong>완독일의 연도</strong>를 기준으로 합니다. 완독일이 없으면 "연도 미상" 칸에 둡니다.</li>
+<li>책장에 꽂히는 연도는 <strong>완독일의 연도</strong>를 기준으로 합니다(확정, 설정으로 바꾸지 않음). 완독일이 없으면 "연도 미상" 칸에 둡니다.</li>
 <li>수동 입력도 지원합니다(검색 결과가 없는 독립 출판물, 외서 등).</li>
 <li>책을 삭제하면 그 책의 독서 기록과 스토리지의 표지·질감 이미지도 함께 지웁니다.</li>
 </ul>
@@ -360,7 +365,6 @@ pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;f
 <li><strong>테마</strong>: 서재(어두움) / 종이(밝음) / 시스템 설정 따름(기본). 두 테마는 기능과 배치가 같고 색·글꼴·선반 재질·장식만 다릅니다(10.3).</li>
 <li><strong>책등 스타일</strong>: 생성형 책등(기본) / 표지 질감 모드 (6.5)</li>
 <li><strong>움직임 줄이기</strong>: 꺼내 보기 회전 애니메이션 끄기(운영체제의 '동작 줄이기' 설정을 기본으로 따름)</li>
-<li>한 해의 기준: 완독일 기준(기본) / 시작일 기준</li>
 <li>분야 이름 바꾸기·합치기, 분야별 책등 패턴 바꾸기</li>
 <li>도서 검색 연결 확인 버튼, 로그인 계정 표시, 로그아웃</li>
 <li>설정은 Supabase에 저장되어 데스크톱과 스마트폰에 똑같이 적용됩니다(움직임 줄이기만 기기별 저장).</li>
@@ -700,7 +704,7 @@ create policy &quot;본인 책만 삭제&quot; on ringshelf.books
 <td><code>settings</code></td>
 <td><code>user_id</code></td>
 <td></td>
-<td>사용자 설정(테마, 책등 스타일, 한 해의 기준, 분야·패턴 매핑)</td>
+<td>사용자 설정(테마, 책등 스타일, 분야·패턴 매핑)</td>
 </tr>
 <tr>
 <td><code>aladin_cache</code></td>
@@ -740,7 +744,7 @@ status text not null check (status in ('reading','finished','dropped')),
 started_at date,
 finished_at date,
 date_approx boolean not null default false,  -- 일 미상 등
-year int,                                    -- '한 해의 기준'에 따라 계산해 저장
+year int,                                    -- 완독일(finished_at)의 연도. 완독일이 없으면 null(연도 미상)
 rating numeric(2,1) check (rating between 0 and 5),
 note text,
 created_at timestamptz not null default now(),
@@ -758,7 +762,6 @@ primary key (user_id, year)
 user_id uuid primary key default auth.uid(),
 theme text not null default 'system',          -- system | study | paper
 spine_style text not null default 'generated', -- generated | texture
-year_basis text not null default 'finished',   -- finished | started
 category_map jsonb not null default '{}',
 pattern_map jsonb not null default '{}',
 last_backup_at timestamptz,
@@ -1046,7 +1049,7 @@ updated_at timestamptz not null default now()
 </tr>
 <tr>
 <td>설정·백업</td>
-<td>테마, 책등 스타일, 움직임 줄이기, 한 해의 기준, 분야 관리, 검색 연결 확인, JSON 백업·복원, CSV 내보내기, 계정·로그아웃</td>
+<td>테마, 책등 스타일, 움직임 줄이기, 분야 관리, 검색 연결 확인, JSON 백업·복원, CSV 내보내기, 계정·로그아웃</td>
 </tr>
 </tbody>
 </table>
@@ -1230,9 +1233,9 @@ updated_at timestamptz not null default now()
 <td><code>.env</code> gitignore, 키는 Supabase 비밀 값·GitHub Secrets에만, 유출 시 즉시 재발급</td>
 </tr>
 <tr>
-<td>GitHub Pages는 무료 계정에서 공개 저장소만 지원</td>
-<td>코드 공개</td>
-<td>공개되어도 되는 값만 저장소에 둠(비밀 값 규칙). 비공개가 필요하면 유료 요금제 또는 다른 호스팅 검토</td>
+<td>공개 저장소로 코드가 공개됨</td>
+<td>비밀 값 유출 위험</td>
+<td>공개되어도 되는 값(Supabase 주소·anon 키)만 저장소에 둠(9장 비밀 값 규칙). 커밋 전 <code>.env</code> 포함 여부 확인, GitHub 비밀 값 검사(secret scanning) 켜기</td>
 </tr>
 <tr>
 <td>Edge Function 첫 호출 지연</td>
@@ -1273,13 +1276,14 @@ updated_at timestamptz not null default now()
 </ul>
 <hr />
 <h2 id="15-결정된-사항과-남은-확인-사항">15. 결정된 사항과 남은 확인 사항</h2>
-<h3 id="15-1-결정된-사항-v0-5">15.1 결정된 사항 (v0.5)</h3>
+<h3 id="15-1-결정된-사항-v0-6">15.1 결정된 사항 (v0.6)</h3>
 <ul>
 <li>앱 이름: <strong>나이테 책장 (Ringshelf)</strong></li>
 <li>주 사용 환경: 데스크톱 웹 브라우저(16:10), 스마트폰은 반응형 확인용</li>
 <li>디자인: 통일 레이아웃 1개(사이드바·책장·상세 패널) + 테마 2종(서재·종이)</li>
 <li>책등: 생성형 책등이 기본, 꺼내 보기로 실제 표지 표시, 표지 질감 모드는 설정에서 선택</li>
-<li>코드·배포: <strong>GitHub 저장소 + GitHub Pages</strong>. Cloudflare는 쓰지 않음</li>
+<li>코드·배포: <strong>공개 GitHub 저장소 + GitHub Pages</strong>. Cloudflare는 쓰지 않음</li>
+<li>한 해의 기준: <strong>완독일</strong>(책은 완독일의 연도 책장에 꽂힘, 완독일이 없으면 "연도 미상" 칸)</li>
 <li>백엔드: <strong>Supabase(로그인·DB·스토리지·Edge Function)</strong>, 기존 독서 앱과 같은 프로젝트를 <code>ringshelf</code> 스키마로 분리해 사용</li>
 <li>로그인: 필요(사용자 1명, 기존 앱과 같은 계정), RLS로 본인 데이터만 접근</li>
 <li>오프라인 지원: 하지 않음</li>
@@ -1290,8 +1294,6 @@ updated_at timestamptz not null default now()
 <ul>
 <li>로그인 방식: 기존 앱 분석 후 같은 방식으로 확정</li>
 <li>회원 가입 차단 적용 여부(기존 앱 영향 확인 후)</li>
-<li>GitHub 저장소 공개 여부(GitHub Pages 무료 사용 시 공개 저장소 필요)</li>
-<li>"한 해의 기준" 기본값: 완독일 기준(제안) 유지 여부</li>
 <li>회고 카드에 넣을 기본 항목, 분야별 기본 책등 패턴(6.4 제안) 유지 여부</li>
 </ul>
 <h3 id="15-3-개발-시작-시-확인할-사항">15.3 개발 시작 시 확인할 사항</h3>
