@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>편입 캘린더 2027 PRD</title>
+<title>편입 캘린더 PRD</title>
 <style>
 :root{--bg:#fafaf8;--panel:#f1f0ec;--text:#1f2328;--muted:#656d76;--line:#dcdad3;--accent:#2f6fed;--accent-bg:#e6eefe;--code:#eceae4;--star:#d98a00}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#7aa2ff;--accent-bg:#26324d;--code:#2a2c30;--star:#f0b43c}}
@@ -72,7 +72,7 @@ pre code{background:none;padding:0;font-size:inherit}
 <div id="scrim"></div>
 <aside id="side">
  <div class="side-top">
-  <h2>편입 캘린더 2027 PRD v0.2 <button id="theme" title="테마 전환">🌓</button></h2>
+  <h2>편입 캘린더(TExam Calendar) PRD v0.3 <button id="theme" title="테마 전환">🌓</button></h2>
   <input id="q" type="search" placeholder="목차 검색 (예: 인쇄, ics)" aria-label="목차 검색">
   <div class="dl">
    <a href="PRD.md" download="PRD.md">⬇ MD</a>
@@ -82,18 +82,21 @@ pre code{background:none;padding:0;font-size:inherit}
  <nav id="nav"><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#변경-이력">변경 이력</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#11-배경">1.1 배경</a></li><li><a href="#12-목표">1.2 목표</a></li><li><a href="#13-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것
 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#21-사용자">2.1 사용자</a></li><li><a href="#22-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#3-프로젝트-폴더-구조와-개발-방식">3. 프로젝트 폴더 구조와 개발
 방식</a><span class=chev>▾</span></button><ul><li><a href="#31-문서-간-역할">3.1 문서 간 역할</a></li><li><a href="#32-claudemd에-넣을-규칙제안">3.2 CLAUDE.md에 넣을
-규칙(제안)</a></li><li><a href="#33-design-폴더에-만들-것다음-단계">3.3 design 폴더에 만들
-것(다음 단계)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-입력-항목-정의">4. 입력 항목 정의</a><span class=chev>▾</span></button><ul><li><a href="#41-a-기본-정보">4.1 A. 기본 정보</a></li><li><a href="#42-b-전형-방법">4.2 B. 전형 방법</a></li><li><a href="#43-c-일정">4.3 C. 일정</a></li><li><a href="#44-d-수험-정보">4.4 D. 수험 정보</a></li><li><a href="#45-e-준비-서류">4.5 E. 준비 서류</a></li><li><a href="#46-f-시험-장소와-교통">4.6 F. 시험 장소와 교통</a></li><li><a href="#47-일정-하나의-저장-항목">4.7 일정 하나의 저장 항목</a></li><li><a href="#48-g-시험-당일-준비물--h-결과와-메모">4.8 G. 시험 당일 준비물 ·
+규칙(제안)</a></li><li><a href="#33-design-폴더">3.3 design 폴더</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-입력-항목-정의">4. 입력 항목 정의</a><span class=chev>▾</span></button><ul><li><a href="#41-a-기본-정보">4.1 A. 기본 정보</a></li><li><a href="#42-b-전형-방법">4.2 B. 전형 방법</a></li><li><a href="#43-c-일정">4.3 C. 일정</a></li><li><a href="#44-d-수험-정보">4.4 D. 수험 정보</a></li><li><a href="#45-e-준비-서류">4.5 E. 준비 서류</a></li><li><a href="#46-f-시험-장소와-교통">4.6 F. 시험 장소와 교통</a></li><li><a href="#47-일정-하나의-저장-항목">4.7 일정 하나의 저장 항목</a></li><li><a href="#48-g-시험-당일-준비물--h-결과와-메모">4.8 G. 시험 당일 준비물 ·
 H. 결과와 메모</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-기능-요구사항">5. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-로그인과-가족-공유-p0">F1. 로그인과 가족 공유 (P0)</a></li><li><a href="#f2-대학-등록과-관리-p0">F2. 대학 등록과 관리 (P0)</a></li><li><a href="#f3-날짜를-눌러-일정-입력-p0">F3. 날짜를 눌러 일정 입력 (P0)</a></li><li><a href="#f4-달력-보기-p0">F4. 달력 보기 (P0)</a></li><li><a href="#f5-날짜일정-상세-보기-p0">F5. 날짜·일정 상세 보기 (P0)</a></li><li><a href="#f6-d-day-표시-p0">F6. D-day 표시 (P0)</a></li><li><a href="#f7-일정-겹침-경고-p0">F7. 일정 겹침 경고 (P0)</a></li><li><a href="#f8-아이폰-캘린더로-내보내기ics-p0">F8. 아이폰 캘린더로
 내보내기(.ics) (P0)</a></li><li><a href="#f9-a4-인쇄-p0">F9. A4 인쇄 (P0)</a></li><li><a href="#f10-서류준비물-체크리스트-p1">F10. 서류·준비물 체크리스트
-(P1)</a></li><li><a href="#f11-설정-p1">F11. 설정 (P1)</a></li><li><a href="#f12-백업-p2">F12. 백업 (P2)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-화면-구성과-반응형-기준">6. 화면 구성과 반응형 기준</a><span class=chev>▾</span></button><ul><li><a href="#61-화면-목록">6.1 화면 목록</a></li><li><a href="#62-아이폰-15-pro-최적화">6.2 아이폰 15 Pro 최적화</a></li><li><a href="#63-데스크톱">6.3 데스크톱</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델-supabase-link-plan-공유">7. 데이터 모델 (Supabase:
+(P1)</a></li><li><a href="#f11-설정-p1">F11. 설정 (P1)</a></li><li><a href="#f12-백업-p2">F12. 백업 (P2)</a></li><li><a href="#f13-테마-선택-p0">F13. 테마 선택 (P0)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-화면-구성과-반응형-기준">6. 화면 구성과 반응형 기준</a><span class=chev>▾</span></button><ul><li><a href="#61-화면-목록">6.1 화면 목록</a></li><li><a href="#62-아이폰-15-pro-최적화">6.2 아이폰 15 Pro 최적화</a></li><li><a href="#63-데스크톱">6.3 데스크톱</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델-supabase-link-plan-공유">7. 데이터 모델 (Supabase:
 Link Plan 공유)</a><span class=chev>▾</span></button><ul><li><a href="#71-공유-원칙">7.1 공유 원칙</a></li><li><a href="#72-테이블">7.2 테이블</a></li><li><a href="#73-마이그레이션-초안sql">7.3 마이그레이션 초안(SQL)</a></li><li><a href="#74-계산-규칙앱에서-처리-단위-테스트-대상">7.4 계산 규칙(앱에서
-처리, 단위 테스트 대상)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-기술-스택">8. 기술 스택</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-디자인-방향-designdesignmd-작성-출발점">9. 디자인 방향
-(design/DESIGN.md 작성 출발점)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#13-성공-지표-가족-사용-기준">13. 성공 지표 (가족 사용 기준)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인
-사항</a><span class=chev>▾</span></button><ul><li><a href="#141-결정된-사항-v02">14.1 결정된 사항 (v0.2)</a></li><li><a href="#142-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</a></li></ul></div></nav>
+처리, 단위 테스트 대상)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-기술-스택">8. 기술 스택</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-디자인-요약-자세한-내용은-designdesignmd">9. 디자인 요약
+(자세한 내용은 design/DESIGN.md)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#13-성공-지표-가족-사용-기준">13. 성공 지표 (가족 사용 기준)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인
+사항</a><span class=chev>▾</span></button><ul><li><a href="#141-결정된-사항-v03">14.1 결정된 사항 (v0.3)</a></li><li><a href="#142-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</a></li></ul></div></nav>
 </aside>
-<main><article id="doc"><h1 id="2027학년도-대학-편입-시험-달력-제품-기획서prd">2027학년도 대학
-편입 시험 달력: 제품 기획서(PRD)</h1>
+<main><article id="doc"><h1 id="편입-캘린더texam-calendar-제품-기획서prd">편입 캘린더(TExam
+Calendar): 제품 기획서(PRD)</h1>
+<blockquote>
+<p>2027학년도 대학 편입 시험 일정을 4개월 달력으로 관리하는 가족용 웹
+앱</p>
+</blockquote>
 <table>
 <thead>
 <tr class="header">
@@ -104,15 +107,15 @@ Link Plan 공유)</a><span class=chev>▾</span></button><ul><li><a href="#71-�
 <tbody>
 <tr class="odd">
 <td>문서 버전</td>
-<td>v0.2</td>
+<td>v0.3</td>
 </tr>
 <tr class="even">
 <td>작성일</td>
 <td>2026-11-15</td>
 </tr>
 <tr class="odd">
-<td>가칭</td>
-<td><strong>편입 캘린더 2027</strong></td>
+<td>앱 이름</td>
+<td><strong>편입 캘린더(TExam Calendar)</strong></td>
 </tr>
 <tr class="even">
 <td>형태</td>
@@ -129,6 +132,11 @@ Link Plan 공유)</a><span class=chev>▾</span></button><ul><li><a href="#71-�
 <td>편입 준비생(자녀) 1명 + 부모. 같은 데이터를 함께 봄</td>
 </tr>
 <tr class="odd">
+<td>테마</td>
+<td>원고지(기본)·플래너 2종, 설정에서 선택
+(<code>design/DESIGN.md</code>)</td>
+</tr>
+<tr class="even">
 <td>백엔드</td>
 <td>Supabase 기존 프로젝트 <strong>Link Plan</strong>을 공유. 로그인
 계정을 함께 쓰고, 테이블은 접두사 <code>tcal_</code>로 분리</td>
@@ -160,6 +168,14 @@ D-day·겹침 경고·.ics 내보내기 포함</td>
 발표·등록·충원 포함). 인쇄를 세로 4장(한 달 한 장)·가로 2장(두 달 한
 장)으로 바꾸고 인쇄할 달 선택 추가. 설날 연휴 공휴일 표시 추가. "달력 밖
 일정" 목록 삭제</td>
+</tr>
+<tr class="odd">
+<td>v0.3</td>
+<td>2026-11-15</td>
+<td>앱 이름을 "편입 캘린더(TExam Calendar)"로 확정. 디자인 시안
+A(원고지)·C(플래너)를 테마로 구현하고 설정에서 선택(F13 추가). 플래너
+글꼴은 제목·큰 숫자 고운돋움, 작은 글씨 프리텐다드. 다크 모드 제외.
+9장을 DESIGN.md 요약으로 교체</td>
 </tr>
 </tbody>
 </table>
@@ -353,11 +369,11 @@ D-day·겹침 경고·.ics 내보내기 포함</td>
 <li>인쇄 화면은 Playwright <code>page.pdf({ format: 'A4' })</code>로
 PDF를 만들어 확인한다.</li>
 </ul>
-<h3 id="33-design-폴더에-만들-것다음-단계">3.3 design 폴더에 만들
-것(다음 단계)</h3>
-<p>PRD 확정 후 <code>design/DESIGN.md</code>와
-<code>design/design-mockup.html</code>을 먼저 만들고 구현을 시작합니다.
-9장의 디자인 방향을 출발점으로 삼습니다.</p>
+<h3 id="33-design-폴더">3.3 design 폴더</h3>
+<p><code>design/DESIGN.md</code>(v0.2)와
+<code>design/design-mockup.html</code>이 준비되어 있습니다. 두
+테마(원고지·플래너)의 토큰, 글꼴, 컴포넌트, 인쇄 규칙은 DESIGN.md를
+따릅니다(요약은 9장).</p>
 <hr />
 <h2 id="4-입력-항목-정의">4. 입력 항목 정의</h2>
 <p>대학을 먼저 등록하고(4.1~4.6, 4.8), 그 대학에 일정을 여러 개
@@ -976,8 +992,8 @@ D-day가 맞게 나옵니다(단위 테스트).</p>
 <li>파일 형식(RFC 5545):
 <ul>
 <li><code>BEGIN:VCALENDAR</code>, <code>VERSION:2.0</code>,
-<code>PRODID</code>, <code>CALSCALE:GREGORIAN</code>,
-<code>METHOD:PUBLISH</code>,
+<code>PRODID:-//TExam Calendar//KO</code>,
+<code>CALSCALE:GREGORIAN</code>, <code>METHOD:PUBLISH</code>,
 <code>X-WR-CALNAME:편입 시험 2027</code></li>
 <li>시간대는 <code>VTIMEZONE</code>(Asia/Seoul, UTC+09:00, 일광 절약
 시간 없음)과 <code>DTSTART;TZID=Asia/Seoul:...</code>로 씁니다.</li>
@@ -1059,7 +1075,10 @@ mm 단위로 잡습니다.</li>
 구분</li>
 </ul></li>
 <li>제목(예: "2027 편입 시험 일정 · 2026년 12월", 가로형은 "· 2027년
-1~2월")과 인쇄 날짜를 넣어, 언제 인쇄한 것인지 알 수 있게 합니다.</li>
+1~2월")과 인쇄 날짜를 넣어, 언제 인쇄한 것인지 알 수 있게 합니다.
+바닥글에 "편입 캘린더(TExam Calendar)"를 넣습니다.</li>
+<li>인쇄물에도 선택한 테마의 글꼴과 머리글 강조색을 씁니다. 바탕은 두
+테마 모두 흰색입니다.</li>
 <li>칸이 넘칠 때는 글자를 줄이지 않고 "+2"로 줄인 뒤 범례 표에서
 확인하게 합니다. 칸·표가 페이지 경계에서 잘리지 않게
 합니다(<code>break-inside: avoid</code>).</li>
@@ -1086,12 +1105,31 @@ mm 단위로 잡습니다.</li>
 위해 "체크 초기화"를 할 수 있습니다.</li>
 </ol>
 <h3 id="f11-설정-p1">F11. 설정 (P1)</h3>
-<p>가족 이름·초대 코드, 구성원 목록, 겹침 기준 간격(기본 120분), 기본
-시험 시간(기본 120분), 기본 여유 시간(기본 30분), .ics 알림 시각,
-로그아웃.</p>
+<p>테마(F13), 가족 이름·초대 코드, 구성원 목록, 겹침 기준 간격(기본
+120분), 기본 시험 시간(기본 120분), 기본 여유 시간(기본 30분), .ics 알림
+시각, 로그아웃.</p>
 <h3 id="f12-백업-p2">F12. 백업 (P2)</h3>
 <p>가족 데이터 전체를 JSON 파일로 내려받기(혹시 모를 Supabase 문제
 대비).</p>
+<h3 id="f13-테마-선택-p0">F13. 테마 선택 (P0)</h3>
+<ol type="1">
+<li>테마 2종: <strong>원고지</strong>(기본, 크림 바탕·파랑 강조·IBM Plex
+Sans KR)와 <strong>플래너</strong>(연보라 바탕·코랄 강조·둥근 모양,
+제목·큰 숫자 고운돋움 + 작은 글씨 프리텐다드).</li>
+<li>두 테마는 화면 구조와 기능이 같고 색·글꼴·모서리 같은 디자인 토큰만
+다릅니다(<code>design/DESIGN.md</code> 1장).</li>
+<li>더보기 › 설정 › 테마에서 미리보기 카드를 눌러 고르면 바로
+적용합니다.</li>
+<li>선택은 기기마다 저장합니다(localStorage). 자녀와 부모가 서로 다른
+테마를 써도 됩니다. 가족 공유 데이터에는 넣지 않습니다.</li>
+<li>첫 화면을 그리기 전에 저장된 테마를 적용해 깜빡임이 없게 하고, PWA
+상태 표시줄 색도 테마에 맞춥니다.</li>
+<li>테마 목록은 설정 파일 하나로 관리해, 나중에 다크 테마 등을 더하기
+쉽게 합니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 아이폰에서 테마를 바꾸면
+달력·시트·폼·인쇄 화면이 모두 새 테마로 바뀌고, 앱을 다시 열어도
+유지됩니다. 두 테마에서 기능 차이가 없습니다.</p>
 <hr />
 <h2 id="6-화면-구성과-반응형-기준">6. 화면 구성과 반응형 기준</h2>
 <h3 id="61-화면-목록">6.1 화면 목록</h3>
@@ -1161,8 +1199,8 @@ mm 단위로 잡습니다.</li>
 </tr>
 <tr class="even">
 <td>설정</td>
-<td>F11 항목</td>
-<td>F11</td>
+<td>테마 선택, F11 항목</td>
+<td>F11, F13</td>
 </tr>
 </tbody>
 </table>
@@ -1213,12 +1251,14 @@ iOS의 입력 시 자동 확대를 막음</td>
 </tr>
 <tr class="even">
 <td>홈 화면 추가</td>
-<td>PWA 매니페스트, <code>apple-touch-icon</code>, 상태 표시줄 색 지정.
-홈 화면에서 앱처럼 전체 화면 실행</td>
+<td>PWA 매니페스트(<code>name</code>: "편입 캘린더(TExam Calendar)",
+<code>short_name</code>: "편입 캘린더"), <code>apple-touch-icon</code>,
+상태 표시줄 색은 테마 바탕색. 홈 화면에서 앱처럼 전체 화면 실행</td>
 </tr>
 <tr class="odd">
-<td>다크 모드</td>
-<td>기기 설정을 따름</td>
+<td>테마</td>
+<td>밝은 테마 2종(원고지·플래너). 다크 모드는 지원하지 않음(기기 설정과
+관계없이 선택한 테마 표시)</td>
 </tr>
 </tbody>
 </table>
@@ -1535,48 +1575,56 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#c
 </tr>
 <tr class="even">
 <td>스타일</td>
-<td>Tailwind CSS + CSS 변수(색 토큰)</td>
-<td>반응형·다크 모드·인쇄(<code>print:</code> 접두사) 처리가 쉬움</td>
+<td>Tailwind CSS + CSS 변수(디자인 토큰)</td>
+<td>반응형·테마 전환·인쇄(<code>print:</code> 접두사) 처리가 쉬움.
+테마는 <code>data-theme</code> 속성으로 토큰만 교체</td>
 </tr>
 <tr class="odd">
+<td>글꼴</td>
+<td>IBM Plex Sans KR·IBM Plex Mono(원고지), Pretendard·Gowun
+Dodum(플래너)</td>
+<td>자체 호스팅(<code>pretendard</code>, <code>@fontsource</code>
+패키지), 선택한 테마의 글꼴만 불러옴</td>
+</tr>
+<tr class="even">
 <td>데이터</td>
 <td><code>@supabase/supabase-js</code> v2</td>
 <td>Auth·DB·Realtime 한 번에</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>서버 상태</td>
 <td>TanStack Query</td>
 <td>캐시, 다시 불러오기, 저장 후 화면 갱신</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>날짜</td>
 <td>date-fns + <code>@date-fns/tz</code> (Asia/Seoul)</td>
 <td>가볍고 함수 단위로 테스트하기 쉬움</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>달력</td>
 <td>직접 구현(CSS Grid 7열)</td>
 <td>네 달만 필요하고 인쇄 모양까지 맞춰야 하므로 라이브러리보다 직접
 구현이 단순</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>.ics</td>
 <td>직접 구현(<code>lib/ics.ts</code>)</td>
 <td>형식이 단순하고 시간대·알림·줄 접기를 정확히 통제. 단위 테스트로
 검증</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>PWA</td>
 <td>vite-plugin-pwa</td>
 <td>홈 화면 추가, 오프라인에서 마지막 데이터 보기(P1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>테스트</td>
 <td>Vitest(계산 함수), Playwright(iPhone 15 Pro·데스크톱 화면, A4
 PDF)</td>
 <td>3.2의 확인 방식</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>배포</td>
 <td>Vercel(권장) 또는 GitHub Pages</td>
 <td>둘 다 무료·HTTPS. Vercel은 환경 변수와 SPA 경로 처리가 간단</td>
@@ -1591,58 +1639,57 @@ PDF)</td>
 <code>.env.example</code>만 커밋합니다.</li>
 </ul>
 <hr />
-<h2 id="9-디자인-방향-designdesignmd-작성-출발점">9. 디자인 방향
-(design/DESIGN.md 작성 출발점)</h2>
+<h2 id="9-디자인-요약-자세한-내용은-designdesignmd">9. 디자인 요약
+(자세한 내용은 design/DESIGN.md)</h2>
 <table>
 <thead>
 <tr class="header">
 <th>항목</th>
-<th>방향</th>
+<th>원고지(기본)</th>
+<th>플래너</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>분위기</td>
-<td>차분하고 읽기 쉬운 "시험 일정표". 장식보다 정보 밀도와 가독성</td>
+<td>콘셉트</td>
+<td>크림색 종이 위 먹색 글씨와 파란 펜. 단정한 시험 일정표</td>
+<td>연보라 다이어리에 붙인 둥근 스티커</td>
 </tr>
 <tr class="even">
-<td>대학 색</td>
-<td>서로 잘 구분되는 12색 팔레트(밝은·어두운 화면, 흑백 인쇄 모두 고려).
-색만으로 구분하지 않고 항상 약칭을 함께 표시</td>
+<td>바탕 / 강조</td>
+<td>#F7F5F0 / 파랑 #2B59C3</td>
+<td>#F3F0FA / 코랄 #C93F4A</td>
 </tr>
 <tr class="odd">
-<td>일정 종류 기호</td>
-<td>● 필기시험, ◆ 면접, ▲ 마감(원서·서류·등록), ○ 발표, · 기타</td>
+<td>제목·큰 숫자</td>
+<td>IBM Plex Sans KR 700 / IBM Plex Mono</td>
+<td>고운돋움(Gowun Dodum)</td>
 </tr>
 <tr class="even">
-<td>강조</td>
-<td>시험·면접은 채운 칩, 나머지는 테두리 칩. 충돌은 빨강, 주의는
-주황</td>
+<td>본문·작은 글씨</td>
+<td>IBM Plex Sans KR</td>
+<td>프리텐다드(Pretendard)</td>
 </tr>
 <tr class="odd">
-<td>글꼴</td>
-<td>시스템 글꼴(Apple SD Gothic Neo / Pretendard 대체). 숫자는 고정폭
-숫자(<code>font-variant-numeric: tabular-nums</code>)</td>
-</tr>
-<tr class="even">
-<td>상세 시트</td>
-<td>카드 위쪽에 큰 글자로 "입실 09:30 · 출발 08:10", 그 아래 수험
-번호·장소</td>
-</tr>
-<tr class="odd">
-<td>인쇄</td>
-<td>흰 바탕, 얇은 회색 칸 선, 날짜 숫자는 칸 왼쪽 위. 세로형은 칸 높이
-약 33mm(5주인 11·12·2월)·28mm(6주인 1월) 목표. 가로형은 6주 기준으로 두
-달의 칸 높이를 맞춤</td>
-</tr>
-<tr class="even">
-<td>시안 범위</td>
-<td>모바일 달력(11월~2월, 특히 6주인 1월), 데스크톱 2×2 전체 보기, 날짜
-상세 시트, 일정 입력, 대학 입력, 지원 현황, 겹침 경고, 인쇄
-세로·가로</td>
+<td>모서리</td>
+<td>4~16px</td>
+<td>10~26px, 칩은 알약형</td>
 </tr>
 </tbody>
 </table>
+<p><strong>두 테마 공통</strong></p>
+<ul>
+<li>대학 12색 팔레트(흰 글자 대비 4.5:1 이상). 색만으로 구분하지 않고
+항상 약칭을 함께 표시</li>
+<li>일정 기호: ● 필기시험, ◆ 면접, ▲ 마감(원서·서류·등록), ○ 발표, ·
+기타. 시험·면접은 채운 칩, 나머지는 테두리 칩</li>
+<li>충돌은 빨강, 주의는 주황 + ⚠ 아이콘과 문구</li>
+<li>상세 시트 카드 위쪽에 큰 숫자로 "입실 · 시작~종료 · 권장 출발"</li>
+<li>인쇄: 흰 바탕, 얇은 회색 칸 선. 세로형 칸 높이 약
+33mm(5주)·28mm(6주), 가로형은 6주 기준</li>
+<li>일정 추가는 앱바 오른쪽 버튼(떠 있는 버튼은 달력 칸을 가려서 쓰지
+않음)</li>
+</ul>
 <hr />
 <h2 id="10-비기능-요구사항">10. 비기능 요구사항</h2>
 <table>
@@ -1713,9 +1760,9 @@ PDF)</td>
 <tbody>
 <tr class="odd">
 <td>M0. 준비</td>
-<td>Link Plan의 로그인 방식·기존 테이블 이름 확인, <code>design/</code>
-시안 작성, 저장소·배포 설정</td>
-<td>DESIGN.md, design-mockup.html</td>
+<td>Link Plan의 로그인 방식·기존 테이블 이름 확인, 저장소·배포 설정
+(디자인 가이드·시안은 준비 완료)</td>
+<td>저장소, 배포 주소</td>
 </tr>
 <tr class="even">
 <td>M1. 데이터와 로그인</td>
@@ -1755,6 +1802,10 @@ PDF)</td>
 </tr>
 </tbody>
 </table>
+<ul>
+<li>테마(F13)는 M3에서 토큰 구조와 함께 만들고, 이후 모든 화면을 두
+테마에서 확인합니다.</li>
+</ul>
 <hr />
 <h2 id="12-위험-요소와-대응">12. 위험 요소와 대응</h2>
 <table>
@@ -1821,7 +1872,7 @@ PDF)</td>
 <hr />
 <h2 id="14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인
 사항</h2>
-<h3 id="141-결정된-사항-v02">14.1 결정된 사항 (v0.2)</h3>
+<h3 id="141-결정된-사항-v03">14.1 결정된 사항 (v0.3)</h3>
 <table>
 <thead>
 <tr class="header">
@@ -1831,37 +1882,49 @@ PDF)</td>
 </thead>
 <tbody>
 <tr class="odd">
+<td>앱 이름</td>
+<td>편입 캘린더(TExam Calendar)</td>
+</tr>
+<tr class="even">
+<td>테마</td>
+<td>원고지(기본)·플래너 2종, 설정에서 선택. 다크 모드 제외</td>
+</tr>
+<tr class="odd">
+<td>플래너 글꼴</td>
+<td>제목·큰 숫자 고운돋움, 작은 글씨 프리텐다드</td>
+</tr>
+<tr class="even">
 <td>입력 단위</td>
 <td>대학을 먼저 등록하고, 대학마다 일정을 여러 개 추가</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>데이터 저장</td>
 <td>Supabase Link Plan 프로젝트 공유, 접두사 <code>tcal_</code>, 로그인
 계정 공유</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>공유 범위</td>
 <td>자녀와 부모(같은 가족), 같은 권한</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>달력 기간</td>
 <td>2026년 11월 ~ 2027년 2월(4개월). 입력 범위도 같음</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>인쇄</td>
 <td>세로형(한 달 한 장, 4장)과 가로형(두 달 한 장, 2장) 모두 구현,
 인쇄할 달 선택 가능. 실제 인쇄 후 기본값 결정</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>부가 기능</td>
 <td>D-day, 일정 겹침 경고, .ics 내보내기 모두 P0</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>제외 항목</td>
 <td>캠퍼스, 전형 유형, 지원 학년, 영어·면접·서류 평가 외 시험 종류, 공인
 영어 성적 반영, 주차, 숙박, 점심</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>서류 항목 정리</td>
 <td>일반편입만 하므로 학사편입용 졸업·학위 증명서, 특별전형 증빙, 공인
 영어 성적표를 서류 목록에서 뺌</td>
@@ -1883,6 +1946,8 @@ PDF)</td>
 <li>.ics 알림 기본 시각(전날 20:00, 2시간 전)이 괜찮은지</li>
 <li>시험 종류에서 "기타"를 완전히 뺄지(현재는 영어·면접·서류 평가 3개만
 둠)</li>
+<li>다크 모드가 필요해지면 v0.1 시안 B(새벽 4시)를 세 번째 테마로
+더할지</li>
 </ol>
 </article></main>
 <button id="top" aria-label="맨 위로">↑</button>
