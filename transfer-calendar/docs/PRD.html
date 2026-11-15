@@ -1,0 +1,1854 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>편입 캘린더 2027 PRD</title>
+<style>
+:root{--bg:#fafaf8;--panel:#f1f0ec;--text:#1f2328;--muted:#656d76;--line:#dcdad3;--accent:#2f6fed;--accent-bg:#e6eefe;--code:#eceae4;--star:#d98a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#7aa2ff;--accent-bg:#26324d;--code:#2a2c30;--star:#f0b43c}}
+:root[data-theme=dark]{--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#7aa2ff;--accent-bg:#26324d;--code:#2a2c30;--star:#f0b43c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;word-break:keep-all}
+#side{position:fixed;inset:0 auto 0 0;width:300px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:20;transition:transform .2s}
+.side-top{padding:16px 16px 10px;border-bottom:1px solid var(--line)}
+.side-top h2{font-size:15px;margin:0 0 10px;line-height:1.4}
+#q{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;font-size:14px}
+.dl{display:flex;gap:6px;margin-top:10px}
+.dl a{flex:1;text-align:center;font-size:13px;padding:6px 4px;border:1px solid var(--line);border-radius:8px;color:var(--text);text-decoration:none;background:var(--bg)}
+.dl a:hover{border-color:var(--accent);color:var(--accent)}
+#nav{overflow-y:auto;padding:8px 8px 40px;flex:1}
+.grp{margin:2px 0}
+.grp-h{display:flex;width:100%;align-items:center;justify-content:space-between;background:none;border:0;color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:8px;border-radius:6px;cursor:pointer;text-align:left}
+.grp-h.static{cursor:default;color:var(--muted);font-size:12px;letter-spacing:.04em}
+.grp-h a{color:inherit;text-decoration:none;flex:1}
+.grp-h:hover:not(.static){background:var(--accent-bg)}
+.chev{transition:transform .15s;color:var(--muted)}
+.grp:not(.open) .chev{transform:rotate(-90deg)}
+.grp:not(.open) ul{display:none}
+.grp ul{list-style:none;margin:0 0 6px;padding:0}
+.grp li a{display:block;padding:5px 10px 5px 18px;font-size:13px;line-height:1.45;color:var(--muted);text-decoration:none;border-left:2px solid transparent;border-radius:0 6px 6px 0}
+.grp li a:hover{color:var(--text);background:var(--accent-bg)}
+.grp li a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);font-weight:600}
+li.hide{display:none}
+main{margin-left:300px;padding:40px 32px 120px}
+article{max-width:820px;margin:0 auto}
+h1{font-size:28px;line-height:1.35;margin:1.6em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--line)}
+article>h1:first-child{margin-top:0}
+h2{font-size:21px;margin:2em 0 .6em}
+h3{font-size:18px;margin:2em 0 .5em;padding:10px 14px;background:var(--accent-bg);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;line-height:1.5}
+blockquote{margin:1em 0;padding:.4em 1em;border-left:4px solid var(--line);color:var(--muted);background:var(--panel);border-radius:0 8px 8px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel)}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-size:.9em}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+ul,ol{padding-left:1.4em}
+li{margin:.2em 0}
+.stars{color:var(--star);letter-spacing:1px;font-weight:700}
+#menu,#top{position:fixed;z-index:30;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;cursor:pointer;font-size:16px}
+#menu{display:none;top:12px;left:12px;width:42px;height:42px}
+#top{right:16px;bottom:16px;width:42px;height:42px;opacity:0;pointer-events:none;transition:opacity .2s}
+#top.show{opacity:1;pointer-events:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;cursor:pointer;padding:6px 8px;font-size:13px;margin-left:6px}
+#scrim{display:none}
+@media (max-width:900px){
+ #side{transform:translateX(-100%);width:min(320px,86vw)}
+ body.open #side{transform:none}
+ body.open #scrim{display:block;position:fixed;inset:0;background:#0006;z-index:15}
+ #menu{display:block}
+ body.open #menu{display:none}
+ main{margin-left:0;padding:70px 16px 100px}
+ h1{font-size:23px}
+}
+@media print{#side,#menu,#top{display:none}main{margin:0}}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.55}
+pre code{background:none;padding:0;font-size:inherit}
+</style>
+</head>
+<body>
+<button id="menu" aria-label="목차 열기">☰</button>
+<div id="scrim"></div>
+<aside id="side">
+ <div class="side-top">
+  <h2>편입 캘린더 2027 PRD v0.1 <button id="theme" title="테마 전환">🌓</button></h2>
+  <input id="q" type="search" placeholder="목차 검색 (예: 인쇄, ics)" aria-label="목차 검색">
+  <div class="dl">
+   <a href="PRD.md" download="PRD.md">⬇ MD</a>
+   <a href="PRD.html" download="PRD.html">⬇ HTML</a>
+  </div>
+ </div>
+ <nav id="nav"><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#변경-이력">변경 이력</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#11-배경">1.1 배경</a></li><li><a href="#12-목표">1.2 목표</a></li><li><a href="#13-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것
+(Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#21-사용자">2.1 사용자</a></li><li><a href="#22-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#3-프로젝트-폴더-구조와-개발-방식">3. 프로젝트 폴더 구조와 개발
+방식</a><span class=chev>▾</span></button><ul><li><a href="#31-문서-간-역할">3.1 문서 간 역할</a></li><li><a href="#32-claudemd에-넣을-규칙제안">3.2 CLAUDE.md에 넣을
+규칙(제안)</a></li><li><a href="#33-design-폴더에-만들-것다음-단계">3.3 design 폴더에 만들
+것(다음 단계)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-입력-항목-정의">4. 입력 항목 정의</a><span class=chev>▾</span></button><ul><li><a href="#41-a-기본-정보">4.1 A. 기본 정보</a></li><li><a href="#42-b-전형-방법">4.2 B. 전형 방법</a></li><li><a href="#43-c-일정">4.3 C. 일정</a></li><li><a href="#44-d-수험-정보">4.4 D. 수험 정보</a></li><li><a href="#45-e-준비-서류">4.5 E. 준비 서류</a></li><li><a href="#46-f-시험-장소와-교통">4.6 F. 시험 장소와 교통</a></li><li><a href="#47-일정-하나의-저장-항목">4.7 일정 하나의 저장 항목</a></li><li><a href="#48-g-시험-당일-준비물--h-결과와-메모">4.8 G. 시험 당일 준비물 ·
+H. 결과와 메모</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-기능-요구사항">5. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-로그인과-가족-공유-p0">F1. 로그인과 가족 공유 (P0)</a></li><li><a href="#f2-대학-등록과-관리-p0">F2. 대학 등록과 관리 (P0)</a></li><li><a href="#f3-날짜를-눌러-일정-입력-p0">F3. 날짜를 눌러 일정 입력 (P0)</a></li><li><a href="#f4-달력-보기-p0">F4. 달력 보기 (P0)</a></li><li><a href="#f5-날짜일정-상세-보기-p0">F5. 날짜·일정 상세 보기 (P0)</a></li><li><a href="#f6-d-day-표시-p0">F6. D-day 표시 (P0)</a></li><li><a href="#f7-일정-겹침-경고-p0">F7. 일정 겹침 경고 (P0)</a></li><li><a href="#f8-아이폰-캘린더로-내보내기ics-p0">F8. 아이폰 캘린더로
+내보내기(.ics) (P0)</a></li><li><a href="#f9-a4-인쇄-p0">F9. A4 인쇄 (P0)</a></li><li><a href="#f10-서류준비물-체크리스트-p1">F10. 서류·준비물 체크리스트
+(P1)</a></li><li><a href="#f11-설정-p1">F11. 설정 (P1)</a></li><li><a href="#f12-백업-p2">F12. 백업 (P2)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-화면-구성과-반응형-기준">6. 화면 구성과 반응형 기준</a><span class=chev>▾</span></button><ul><li><a href="#61-화면-목록">6.1 화면 목록</a></li><li><a href="#62-아이폰-15-pro-최적화">6.2 아이폰 15 Pro 최적화</a></li><li><a href="#63-데스크톱">6.3 데스크톱</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-데이터-모델-supabase-link-plan-공유">7. 데이터 모델 (Supabase:
+Link Plan 공유)</a><span class=chev>▾</span></button><ul><li><a href="#71-공유-원칙">7.1 공유 원칙</a></li><li><a href="#72-테이블">7.2 테이블</a></li><li><a href="#73-마이그레이션-초안sql">7.3 마이그레이션 초안(SQL)</a></li><li><a href="#74-계산-규칙앱에서-처리-단위-테스트-대상">7.4 계산 규칙(앱에서
+처리, 단위 테스트 대상)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-기술-스택">8. 기술 스택</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-디자인-방향-designdesignmd-작성-출발점">9. 디자인 방향
+(design/DESIGN.md 작성 출발점)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#13-성공-지표-가족-사용-기준">13. 성공 지표 (가족 사용 기준)</a><span class=chev>▾</span></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인
+사항</a><span class=chev>▾</span></button><ul><li><a href="#141-결정된-사항-v01">14.1 결정된 사항 (v0.1)</a></li><li><a href="#142-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</a></li></ul></div></nav>
+</aside>
+<main><article id="doc"><h1 id="2027학년도-대학-편입-시험-달력-제품-기획서prd">2027학년도 대학
+편입 시험 달력: 제품 기획서(PRD)</h1>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>문서 버전</td>
+<td>v0.1</td>
+</tr>
+<tr class="even">
+<td>작성일</td>
+<td>2026-11-15</td>
+</tr>
+<tr class="odd">
+<td>가칭</td>
+<td><strong>편입 캘린더 2027</strong></td>
+</tr>
+<tr class="even">
+<td>형태</td>
+<td>반응형 웹 앱(PWA). 스마트폰 조회 중심(아이폰 15 Pro 최적화),
+데스크톱 입력 지원</td>
+</tr>
+<tr class="odd">
+<td>대상 기간</td>
+<td>2026년 12월 ~ 2027년 1월 (입력은 2026-11-01 ~ 2027-02-28까지
+허용)</td>
+</tr>
+<tr class="even">
+<td>사용자</td>
+<td>편입 준비생(자녀) 1명 + 부모. 같은 데이터를 함께 봄</td>
+</tr>
+<tr class="odd">
+<td>백엔드</td>
+<td>Supabase 기존 프로젝트 <strong>Link Plan</strong>을 공유. 로그인
+계정을 함께 쓰고, 테이블은 접두사 <code>tcal_</code>로 분리</td>
+</tr>
+</tbody>
+</table>
+<h2 id="변경-이력">변경 이력</h2>
+<table>
+<thead>
+<tr class="header">
+<th>버전</th>
+<th>날짜</th>
+<th>주요 변경</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>v0.1</td>
+<td>2026-11-15</td>
+<td>최초 작성. 자료 조사 결과를 바탕으로 입력 항목 확정(캠퍼스·전형
+유형·지원 학년, 영어·면접·서류 평가 외 시험 종류, 공인 영어 성적,
+주차·숙박·점심 항목 제외). Supabase(Link Plan) 공유, 인쇄 2종,
+D-day·겹침 경고·.ics 내보내기 포함</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-개요">1. 개요</h2>
+<h3 id="11-배경">1.1 배경</h3>
+<p>편입 시험은 보통 12월부터 이듬해 1월까지 치릅니다. 수험생 한 명이
+10곳 넘게 지원하는 경우가 흔합니다. 대학마다 원서 접수, 필기시험, 1단계
+발표, 서류 제출, 면접 일정이 따로 있고, 같은 날 오전·오후로 두 대학
+시험이 겹치기도 합니다. 일정과 수험 번호, 시험 장소, 교통 정보가 대학
+홈페이지와 원서 접수 사이트(진학어플라이·유웨이)에 흩어져 있어 한눈에
+관리하기 어렵습니다.</p>
+<p>자료 조사로 확인한 일반적인 흐름은 다음과 같습니다(대학마다 다르므로
+모집요강으로 확인).</p>
+<table>
+<thead>
+<tr class="header">
+<th>시기</th>
+<th>일정</th>
+<th>참고 예시</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>11월 말 ~ 12월 초</td>
+<td>대학별 모집요강 발표</td>
+<td>연세대 2026학년도 요강 2025-11-28 게시</td>
+</tr>
+<tr class="even">
+<td>12월 초 ~ 중순</td>
+<td>원서 접수(진학어플라이·유웨이 대행)</td>
+<td>건국대 2026학년도 12/2~12/4, 한양대 2025학년도 12/10~12/12</td>
+</tr>
+<tr class="odd">
+<td>12월 하순 ~ 1월</td>
+<td>필기시험(영어 등)</td>
+<td>건국대 2026학년도 12/24</td>
+</tr>
+<tr class="even">
+<td>1월</td>
+<td>1단계 합격 발표, 서류 제출, 면접</td>
+<td>건국대 1단계 발표 1/6</td>
+</tr>
+<tr class="odd">
+<td>2월</td>
+<td>최종 합격 발표, 등록, 1~3차 충원</td>
+<td>한림대 2027학년도 연계편입 발표 2/4 예정</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-목표">1.2 목표</h3>
+<ul>
+<li>지원한 모든 대학의 일정과 정보를 <strong>12월·1월 달력 한
+곳</strong>에서 확인합니다.</li>
+<li>스마트폰에서 날짜를 누르면 그날의 시험 정보(시각, 수험 번호, 장소,
+교통, 준비물)를 <strong>한 화면에서</strong> 봅니다.</li>
+<li>다음 시험까지 남은 날(D-day)과 <strong>겹치는 일정</strong>을
+자동으로 알려 줍니다.</li>
+<li>아이폰 캘린더로 일정을 내보내 알림을 받습니다(.ics).</li>
+<li>A4로 인쇄해 벽에 붙입니다(세로 2장, 가로 1장 두 가지).</li>
+<li>자녀와 부모가 각자의 기기에서 <strong>같은 데이터</strong>를
+봅니다.</li>
+</ul>
+<h3 id="13-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것
+(Non-goals)</h3>
+<ul>
+<li>대학 모집요강 자동 수집(크롤링), 원서 접수 사이트 연동</li>
+<li>가족 외 사용자 공유, 회원가입 기능(계정은 Link Plan 기존 계정
+사용)</li>
+<li>푸시 알림 서버(알림은 아이폰 캘린더 내보내기로 대신함)</li>
+<li>편입 영어 학습 기능, 합격 예측</li>
+<li>일반편입 외 전형(학사편입·특별편입 등) 전용 항목, 2학년 편입 관련
+항목</li>
+</ul>
+<hr />
+<h2 id="2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</h2>
+<h3 id="21-사용자">2.1 사용자</h3>
+<table>
+<thead>
+<tr class="header">
+<th>사용자</th>
+<th>역할</th>
+<th>주 사용 기기</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>자녀(편입 준비생)</td>
+<td>대학·일정 입력, 서류·준비물 체크, 시험 당일 확인</td>
+<td>아이폰 15 Pro, 데스크톱</td>
+</tr>
+<tr class="even">
+<td>부모</td>
+<td>일정 확인, 함께 입력·수정, 인쇄</td>
+<td>스마트폰, 데스크톱</td>
+</tr>
+</tbody>
+</table>
+<p>두 사람 모두 같은 권한(조회·입력·수정·삭제)을 가집니다.</p>
+<h3 id="22-대표-시나리오">2.2 대표 시나리오</h3>
+<ol type="1">
+<li><strong>모집요강 발표 후 입력(데스크톱)</strong>: 자녀가 건국대
+모집요강을 보고 대학을 등록합니다(학과, 시험 종류, 반영 비율, 전형료).
+이어서 원서 접수 기간, 필기시험, 1단계 발표, 면접 일정을
+추가합니다.</li>
+<li><strong>날짜에서 바로 입력(스마트폰)</strong>: 달력에서 12월 24일을
+누르고 "이 날짜에 일정 추가"를 눌러 대학과 일정 종류를 고르면, 날짜가
+미리 채워진 입력 폼이 열립니다.</li>
+<li><strong>겹침 확인</strong>: 1월 10일에 두 대학 시험을 입력하자 "같은
+날 오전 시험과 오후 시험 간격이 90분입니다(기준 120분)"라는 주의 표시가
+뜹니다.</li>
+<li><strong>수험표 출력 후 정보 보완</strong>: 원서 접수 후 수험 번호,
+고사장, 입실 시각을 입력합니다. 교통 경로와 소요 시간을 넣으면 권장 출발
+시각이 자동으로 계산됩니다.</li>
+<li><strong>시험 전날 확인(스마트폰)</strong>: 첫 화면 위쪽에 "D-1
+건국대 영어 12/24(목) 입실 09:30"이 보입니다. 누르면 수험 번호, 장소
+지도 링크, 대중교통, 준비물 체크리스트가 나옵니다.</li>
+<li><strong>부모 확인</strong>: 부모가 자신의 스마트폰에서 같은 달력을
+보고, 데스크톱에서 A4로 인쇄해 냉장고와 책상 앞에 붙입니다.</li>
+<li><strong>캘린더 알림</strong>: 전체 일정을 .ics로 내보내 아이폰
+캘린더에 추가하고, 전날 저녁과 2시간 전에 알림을 받습니다.</li>
+</ol>
+<hr />
+<h2 id="3-프로젝트-폴더-구조와-개발-방식">3. 프로젝트 폴더 구조와 개발
+방식</h2>
+<p>Claude Code로 구현할 때는 <code>docs/</code>에 기획 문서를,
+<code>design/</code>에 디자인 가이드와 시안을 두고 시작합니다.</p>
+<pre class="text"><code>transfer-calendar/
+├── CLAUDE.md                 # Claude Code 작업 규칙(아래 3.2 참고)
+├── docs/
+│   ├── PRD.md                # 이 문서(기능 명세의 기준)
+│   └── PRD.html              # 같은 내용의 HTML 보기용
+├── design/
+│   ├── DESIGN.md             # 디자인 가이드(색, 글꼴, 간격, 컴포넌트, 인쇄 규칙)
+│   ├── design-mockup.html    # 화면 시안(모바일 달력, 상세 시트, 입력 폼, 인쇄 2종)
+│   └── print-samples/        # 인쇄 시안 PDF(세로 2장, 가로 1장)
+├── supabase/
+│   └── migrations/
+│       └── 20261115000000_tcal_init.sql   # 7장의 테이블·RLS 정의
+├── src/                      # 앱 소스(8장 기술 스택)
+├── tests/                    # 단위 테스트(D-day, 겹침, .ics, 출발 시각), E2E(아이폰 15 Pro 화면)
+├── .env.example              # VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (값은 커밋하지 않음)
+└── package.json</code></pre>
+<h3 id="31-문서-간-역할">3.1 문서 간 역할</h3>
+<table>
+<thead>
+<tr class="header">
+<th>문서</th>
+<th>정하는 것</th>
+<th>충돌할 때</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>docs/PRD.md</code></td>
+<td>무엇을 만드는가(기능, 데이터, 규칙)</td>
+<td>기능·데이터는 PRD가 우선</td>
+</tr>
+<tr class="even">
+<td><code>design/DESIGN.md</code></td>
+<td>어떻게 보이는가(색, 글꼴, 배치, 인쇄 모양)</td>
+<td>시각 표현은 DESIGN이 우선</td>
+</tr>
+<tr class="odd">
+<td><code>design/design-mockup.html</code></td>
+<td>화면 시안</td>
+<td>DESIGN.md와 다르면 DESIGN.md가 우선</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-claudemd에-넣을-규칙제안">3.2 CLAUDE.md에 넣을
+규칙(제안)</h3>
+<ul>
+<li>기능 명세는 <code>docs/PRD.md</code>, 시각 디자인은
+<code>design/DESIGN.md</code>를 따른다.</li>
+<li>Supabase에는 <strong><code>tcal_</code> 접두사가 붙은
+객체만</strong> 만들고 고친다. Link Plan의 기존
+테이블·함수·트리거·정책·Auth 설정(Site URL 등)은 읽기만 하고 바꾸지
+않는다.</li>
+<li>스키마 변경은 반드시 <code>supabase/migrations/</code>의 SQL 파일로
+남긴다.</li>
+<li>날짜·시간 계산은 모두 <code>Asia/Seoul</code> 기준으로 하고, 관련
+함수에는 단위 테스트를 둔다.</li>
+<li>화면 확인은 Playwright의 <code>iPhone 15 Pro</code> 기기
+설정(393×852)과 데스크톱(1280×800)에서 한다.</li>
+<li>인쇄 화면은 Playwright <code>page.pdf({ format: 'A4' })</code>로
+PDF를 만들어 확인한다.</li>
+</ul>
+<h3 id="33-design-폴더에-만들-것다음-단계">3.3 design 폴더에 만들
+것(다음 단계)</h3>
+<p>PRD 확정 후 <code>design/DESIGN.md</code>와
+<code>design/design-mockup.html</code>을 먼저 만들고 구현을 시작합니다.
+9장의 디자인 방향을 출발점으로 삼습니다.</p>
+<hr />
+<h2 id="4-입력-항목-정의">4. 입력 항목 정의</h2>
+<p>대학을 먼저 등록하고(4.1~4.6, 4.8), 그 대학에 일정을 여러 개
+추가합니다(4.7). 필수 항목은 <strong>대학 이름, 약칭, 학과</strong> 세
+가지뿐이고, 나머지는 정보가 나오는 대로 채웁니다.</p>
+<h3 id="41-a-기본-정보">4.1 A. 기본 정보</h3>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>입력 형식</th>
+<th>필수</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>지원 대학</td>
+<td>텍스트</td>
+<td>✔</td>
+<td>예: 건국대학교</td>
+</tr>
+<tr class="even">
+<td>약칭</td>
+<td>텍스트(2~4자)</td>
+<td>✔</td>
+<td>달력 칸에 표시. 예: 건국, 성대</td>
+</tr>
+<tr class="odd">
+<td>지원 학과(모집 단위)</td>
+<td>텍스트</td>
+<td>✔</td>
+<td>예: 경영학과</td>
+</tr>
+<tr class="even">
+<td>모집 인원</td>
+<td>숫자</td>
+<td></td>
+<td>모집요강 발표 후</td>
+</tr>
+<tr class="odd">
+<td>경쟁률</td>
+<td>숫자(소수 둘째 자리)</td>
+<td></td>
+<td>예: 25.28 → "25.28 : 1"로 표시</td>
+</tr>
+<tr class="even">
+<td>지원 우선순위</td>
+<td>선택</td>
+<td></td>
+<td>1지망 / 상향 / 적정 / 안정. 일정이 겹칠 때 판단 기준</td>
+</tr>
+<tr class="odd">
+<td>표시 색상</td>
+<td>색 선택(12색 팔레트)</td>
+<td></td>
+<td>등록 순서대로 자동 배정, 변경 가능</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>제외: 캠퍼스, 전형 유형(일반편입만 지원), 지원 학년(3학년만 지원)</p>
+</blockquote>
+<h3 id="42-b-전형-방법">4.2 B. 전형 방법</h3>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>입력 형식</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>시험 종류</td>
+<td>체크박스(복수 선택)</td>
+<td><strong>영어 / 면접 / 서류 평가</strong></td>
+</tr>
+<tr class="even">
+<td>반영 비율</td>
+<td>텍스트</td>
+<td>예: "1단계 영어 100% → 2단계 1단계 성적 60% + 면접 40%"</td>
+</tr>
+<tr class="odd">
+<td>단계 구분</td>
+<td>선택</td>
+<td>1단계만 / 1·2단계</td>
+</tr>
+<tr class="even">
+<td>문항 수·시험 시간</td>
+<td>텍스트</td>
+<td>예: 영어 40문항 60분</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>제외: 수학, 전공, 논술, 적성, 실기, 기타 시험 종류, 공인 영어 성적
+반영 여부</p>
+</blockquote>
+<h3 id="43-c-일정">4.3 C. 일정</h3>
+<p>일정은 대학마다 여러 개를 등록합니다. 저장 형식은 4.7을 따릅니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>일정 종류</th>
+<th>코드</th>
+<th>날짜 형식</th>
+<th>시간</th>
+<th>달력 표시</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>원서 접수</td>
+<td><code>apply</code></td>
+<td>기간(시작~마감)</td>
+<td>마감 시각</td>
+<td>시작일 "접수", 마감일 "마감"</td>
+</tr>
+<tr class="even">
+<td>필기시험(영어)</td>
+<td><code>exam</code></td>
+<td>하루</td>
+<td>입실·시작·종료</td>
+<td>강조(채움)</td>
+</tr>
+<tr class="odd">
+<td>고사장 발표</td>
+<td><code>venue_notice</code></td>
+<td>하루</td>
+<td>시각</td>
+<td>보조</td>
+</tr>
+<tr class="even">
+<td>1단계 합격 발표</td>
+<td><code>first_result</code></td>
+<td>하루</td>
+<td>시각</td>
+<td>보조</td>
+</tr>
+<tr class="odd">
+<td>서류 제출 마감</td>
+<td><code>doc_deadline</code></td>
+<td>하루 또는 기간</td>
+<td>마감 시각</td>
+<td>마감일 "서류"</td>
+</tr>
+<tr class="even">
+<td>면접</td>
+<td><code>interview</code></td>
+<td>하루</td>
+<td>입실·시작·종료</td>
+<td>강조(채움)</td>
+</tr>
+<tr class="odd">
+<td>최종 합격 발표</td>
+<td><code>final_result</code></td>
+<td>하루</td>
+<td>시각</td>
+<td>보조</td>
+</tr>
+<tr class="even">
+<td>등록금 납부</td>
+<td><code>payment</code></td>
+<td>기간</td>
+<td>마감 시각</td>
+<td>마감일 "등록"</td>
+</tr>
+<tr class="odd">
+<td>충원(추가합격) 발표</td>
+<td><code>extra_result</code></td>
+<td>하루</td>
+<td>시각, 차수</td>
+<td>보조</td>
+</tr>
+<tr class="even">
+<td>기타</td>
+<td><code>other</code></td>
+<td>하루 또는 기간</td>
+<td>선택</td>
+<td>보조</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>필기시험과 면접은 <strong>입실 시각</strong>과 <strong>시작
+시각</strong>을 따로 받습니다. 종료 시각이 없으면 기본 시험 시간(설정,
+기본 120분)으로 계산합니다.</li>
+<li>고사장이 대학 기본 장소와 다르면(예: 면접 장소가 다른 건물) 일정마다
+장소를 따로 입력할 수 있습니다.</li>
+</ul>
+<h3 id="44-d-수험-정보">4.4 D. 수험 정보</h3>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>입력 형식</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>원서 접수처</td>
+<td>체크박스(하나만 선택)</td>
+<td>진학어플라이 / 유웨이 / 대학 자체</td>
+</tr>
+<tr class="even">
+<td>수험 번호</td>
+<td>텍스트</td>
+<td>상세 화면에서 누르면 복사</td>
+</tr>
+<tr class="odd">
+<td>접수 번호</td>
+<td>텍스트</td>
+<td>수험 번호와 다를 때</td>
+</tr>
+<tr class="even">
+<td>전형료</td>
+<td>숫자(원)</td>
+<td>지원 현황에서 합계 표시</td>
+</tr>
+<tr class="odd">
+<td>전형료 결제 완료</td>
+<td>체크</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>수험표 출력 완료</td>
+<td>체크</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>입학처 전화</td>
+<td>전화번호</td>
+<td>누르면 전화 걸기</td>
+</tr>
+<tr class="even">
+<td>입학처 홈페이지</td>
+<td>URL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>모집요강 링크</td>
+<td>URL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="45-e-준비-서류">4.5 E. 준비 서류</h3>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>입력 형식</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>준비 서류</td>
+<td>체크박스(복수 선택)</td>
+<td><strong>학업 계획서 / 자기소개서 / 대학 성적 증명서 / 수료·졸업 예정
+증명서 / 기타(직접 입력)</strong></td>
+</tr>
+<tr class="even">
+<td>서류별 진행 상태</td>
+<td>3단계 선택</td>
+<td>준비 중 → 발급·작성 완료 → 제출 완료</td>
+</tr>
+<tr class="odd">
+<td>제출 방법</td>
+<td>선택</td>
+<td>온라인 업로드 / 우편 / 방문</td>
+</tr>
+<tr class="even">
+<td>우편 마감 기준</td>
+<td>선택</td>
+<td>소인 기준 / 도착 기준 (우편일 때만)</td>
+</tr>
+<tr class="odd">
+<td>원본 대조 필요</td>
+<td>체크</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>서류 메모</td>
+<td>텍스트</td>
+<td>예: "성적 증명서 영문 1부"</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>서류 제출 마감일은 C의 <code>doc_deadline</code> 일정으로 등록하고,
+서류 목록과 연결해 보여 줍니다.</li>
+<li>학사편입·특별편입·공인 영어 관련 서류는 이번 범위에서
+뺍니다(일반편입만 지원, 공인 영어 반영 항목 제외에 따름).</li>
+</ul>
+<h3 id="46-f-시험-장소와-교통">4.6 F. 시험 장소와 교통</h3>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>입력 형식</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>시험 장소</td>
+<td>텍스트</td>
+<td>건물, 호실까지. 예: "공학관 A동 301호"</td>
+</tr>
+<tr class="even">
+<td>지도 링크</td>
+<td>URL</td>
+<td>네이버 지도·카카오맵 공유 링크. 비우면 장소 이름으로 지도 검색
+링크를 만듦</td>
+</tr>
+<tr class="odd">
+<td>대중교통</td>
+<td>여러 줄 텍스트</td>
+<td>노선, 환승, 출구 번호. 예: "2호선 건대입구역 2번 출구 → 도보
+10분"</td>
+</tr>
+<tr class="even">
+<td>예상 소요 시간</td>
+<td>숫자(분)</td>
+<td>집에서 시험장까지</td>
+</tr>
+<tr class="odd">
+<td>여유 시간</td>
+<td>숫자(분)</td>
+<td>기본 30분</td>
+</tr>
+<tr class="even">
+<td>권장 출발 시각</td>
+<td>자동 계산</td>
+<td><strong>입실 시각 − 예상 소요 시간 − 여유 시간</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>제외: 주차 가능 여부, 숙박 정보, 점심</p>
+</blockquote>
+<h3 id="47-일정-하나의-저장-항목">4.7 일정 하나의 저장 항목</h3>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>형식</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>대학</td>
+<td>등록된 대학 선택</td>
+<td>필수</td>
+</tr>
+<tr class="even">
+<td>일정 종류</td>
+<td>4.3의 코드</td>
+<td>필수</td>
+</tr>
+<tr class="odd">
+<td>시작 날짜</td>
+<td>날짜</td>
+<td>필수. 날짜를 눌러 추가하면 미리 채움</td>
+</tr>
+<tr class="even">
+<td>종료 날짜</td>
+<td>날짜</td>
+<td>기간 일정일 때</td>
+</tr>
+<tr class="odd">
+<td>입실 시각 / 시작 시각 / 종료 시각</td>
+<td>시각</td>
+<td>시험·면접</td>
+</tr>
+<tr class="even">
+<td>장소(일정별)</td>
+<td>텍스트, 지도 링크</td>
+<td>비우면 대학 기본 장소</td>
+</tr>
+<tr class="odd">
+<td>차수</td>
+<td>숫자</td>
+<td>충원 발표</td>
+</tr>
+<tr class="even">
+<td>메모</td>
+<td>텍스트</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="48-g-시험-당일-준비물--h-결과와-메모">4.8 G. 시험 당일 준비물 ·
+H. 결과와 메모</h3>
+<p><strong>G. 준비물 체크리스트(대학별)</strong>: 대학을 등록하면 아래
+기본 항목이 자동으로 들어가고, 더하거나 지울 수 있습니다.</p>
+<ul>
+<li>수험표(2~3장 출력), 실물 신분증(주민등록증·여권·운전면허증. 모바일
+신분증 인정 여부는 대학 공지 확인), 컴퓨터용 사인펜, 수정테이프(허용
+여부 확인), 아날로그 손목시계, 교통카드, 소액 현금</li>
+<li>반입 금지 물품 메모(텍스트)</li>
+</ul>
+<p><strong>H. 결과와 메모</strong> | 항목 | 입력 형식 | |---|---| | 시험
+후기·가채점 | 여러 줄 텍스트 | | 결과 | 대기 / 1단계 합격 / 최종 합격 /
+예비(번호 입력) / 불합격 | | 자유 메모 | 여러 줄 텍스트 |</p>
+<hr />
+<h2 id="5-기능-요구사항">5. 기능 요구사항</h2>
+<p>우선순위: <strong>P0</strong> 첫 사용 버전에 반드시 포함,
+<strong>P1</strong> 시험 시작 전까지 포함, <strong>P2</strong> 여유가
+되면.</p>
+<h3 id="f1-로그인과-가족-공유-p0">F1. 로그인과 가족 공유 (P0)</h3>
+<ol type="1">
+<li>Link Plan과 같은 Supabase Auth 계정으로 로그인합니다. 이 앱에는
+<strong>회원가입 화면을 두지 않습니다</strong>(가입은 Link Plan에서,
+또는 Supabase 대시보드에서 계정 생성).</li>
+<li>처음 로그인한 사람이 "가족"을 만들면 8자리 초대 코드가 생깁니다.
+다른 사람은 초대 코드를 입력해 같은 가족에 들어옵니다. 역할은
+자녀/부모로 표시만 하고 권한은 같습니다.</li>
+<li>모든 데이터는 가족 단위로 저장되고, 같은 가족 구성원만 읽고 쓸 수
+있습니다(RLS, 7.3).</li>
+<li>로그인 상태를 유지해 시험 당일 다시 로그인하지 않아도 되게
+합니다.</li>
+<li>다른 구성원이 수정한 내용은 화면을 다시 열거나 당겨서 새로고침하면
+반영됩니다. (P1) Supabase Realtime으로 즉시 반영합니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 자녀 계정으로 입력한 일정이 부모 계정에서
+보이고, 가족이 아닌 계정으로는 조회되지 않습니다.</p>
+<h3 id="f2-대학-등록과-관리-p0">F2. 대학 등록과 관리 (P0)</h3>
+<ol type="1">
+<li>4.1~4.6, 4.8 항목으로 대학을 등록·수정·삭제합니다. 삭제하면 그
+대학의 일정·서류·준비물도 함께 지웁니다(확인 창 표시).</li>
+<li>입력 폼은 A~H 섹션으로 나누고, 처음에는 A(기본 정보)만 펼칩니다.
+모바일은 한 열, 데스크톱은 두 열로 배치합니다.</li>
+<li>저장 전 필수 항목(대학, 약칭, 학과)을 확인합니다. 약칭이 다른 대학과
+같으면 경고합니다.</li>
+<li>대학 목록(지원 현황) 화면: 우선순위·색·결과로 정렬하고, 전형료
+합계와 결제 완료 여부, 수험표 출력 여부를 한눈에 봅니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 대학 12곳을 등록하고 목록에서 전형료
+합계가 맞게 나옵니다.</p>
+<h3 id="f3-날짜를-눌러-일정-입력-p0">F3. 날짜를 눌러 일정 입력 (P0)</h3>
+<ol type="1">
+<li>달력에서 날짜를 누르면 그날의 상세 시트가 열리고, 맨 아래에
+<strong>"이 날짜에 일정 추가"</strong> 버튼이 있습니다.</li>
+<li>버튼을 누르면 ① 대학 선택(등록된 대학 목록 + "새 대학 등록") ② 일정
+종류 선택 ③ 시간·장소 입력 순서로 진행하며, 날짜는 미리 채워집니다.</li>
+<li>대학 상세 화면에서도 "일정 추가"로 같은 폼을 엽니다.</li>
+<li>기간 일정(원서 접수 등)은 시작·종료 날짜를 함께 고릅니다.</li>
+<li>저장할 때 F7의 겹침 검사를 하고, 겹치면 경고를 보여 주지만 저장은 할
+수 있습니다.</li>
+<li>날짜·시각은 기기 기본 선택기(<code>input type="date"</code>,
+<code>type="time"</code>)를 씁니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 아이폰에서 날짜를 누르고 3번 이내의 화면
+이동으로 시험 일정을 저장합니다.</p>
+<h3 id="f4-달력-보기-p0">F4. 달력 보기 (P0)</h3>
+<ol type="1">
+<li>2026년 12월과 2027년 1월 두 달을 보여 줍니다. 모바일은 한 달씩 보고
+위쪽 탭(12월/1월)이나 좌우 밀기로 바꿉니다. 데스크톱은 두 달을 나란히
+보여 줄 수 있습니다.</li>
+<li>주 시작은 일요일입니다. <strong>12월은 5주</strong>(1일 화요일 ~
+31일 목요일), <strong>1월은 6주</strong>(1일 금요일 ~ 31일
+일요일)입니다. 행 수가 달라도 칸 크기가 흔들리지 않게 합니다.</li>
+<li>공휴일 12/25(성탄절), 1/1(신정)은 빨간 글씨로 표시합니다. 일요일도
+빨간 글씨, 토요일은 파란 글씨입니다.</li>
+<li>날짜 칸에는 일정을 <strong>대학 색 + 약칭</strong>으로 표시합니다.
+시험·면접은 채운 칩, 그 밖의 일정은 테두리 칩으로 구분합니다. 칸 하나에
+칩은 최대 3개까지 보이고 나머지는 "+2"처럼 표시합니다.</li>
+<li>겹침이 있는 날짜에는 경고 표시(⚠)를 붙입니다(F7).</li>
+<li>오늘 날짜에 테두리를 표시합니다. 처음 열면 오늘이 속한 달을 보여
+주고, 기간 전(11월)이면 12월을 보여 줍니다.</li>
+<li>보기 필터: 전체 / 시험·면접만 / 마감만. 대학별 표시 끄기·켜기.</li>
+<li><strong>달력 밖 일정</strong>(11월, 2월): 1월 달력 아래에 "2월 이후
+일정" 목록으로 보여 줍니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 393×852 화면에서 한 달 전체가 스크롤 없이
+보이고, 일정 3개가 있는 칸의 약칭이 잘리지 않습니다.</p>
+<h3 id="f5-날짜일정-상세-보기-p0">F5. 날짜·일정 상세 보기 (P0)</h3>
+<ol type="1">
+<li>날짜를 누르면 아래에서 올라오는 상세 시트(바텀 시트)에 그날의 일정을
+시간순 카드로 보여 줍니다. 데스크톱은 오른쪽 패널에 보여 줍니다.</li>
+<li>시험·면접 카드에 들어갈 정보:
+<ul>
+<li>대학 색 띠, 대학·학과, 일정 종류, <strong>D-day</strong></li>
+<li>입실 시각·시작 시각·종료 시각</li>
+<li>수험 번호(누르면 복사), 원서 접수처</li>
+<li>시험 장소(누르면 지도 앱), 대중교통, <strong>권장 출발
+시각</strong></li>
+<li>준비물 체크리스트(바로 체크 가능), 반입 금지 메모</li>
+<li>입학처 전화(누르면 전화), 모집요강 링크</li>
+</ul></li>
+<li>그 밖의 일정 카드: 대학, 일정 종류, 시각·마감, 관련 서류 진행 상태,
+메모.</li>
+<li>카드에서 "대학 상세", "수정", "삭제", "캘린더에 추가(.ics)"를 할 수
+있습니다.</li>
+<li>대학 상세 화면은 A~H 정보를 섹션별로 보여 주고, 그 대학의 일정을
+시간순으로 나열합니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 시험 당일 상세 시트 하나만 보고 출발
+시각, 장소, 수험 번호, 준비물을 모두 확인할 수 있습니다.</p>
+<h3 id="f6-d-day-표시-p0">F6. D-day 표시 (P0)</h3>
+<ol type="1">
+<li>첫 화면 위쪽에 <strong>다음 시험(필기·면접) 카드</strong>를 보여
+줍니다. 예: "D-3 · 건국 영어 · 12/24(목) 입실 09:30".</li>
+<li>카드를 누르면 다가오는 시험·면접 목록(D-day 순)을 펼칩니다.</li>
+<li>상세 카드와 대학 상세 화면에도 D-day를 표시합니다. 원서 접수·서류
+마감은 "마감 D-2"처럼 따로 표시합니다.</li>
+<li>계산 규칙: 서울 시간(Asia/Seoul) 기준 <strong>날짜 차이</strong>로
+계산합니다. 당일은 "D-DAY", 지난 일정은 "완료"로 표시하고 목록에서
+뺍니다.</li>
+<li>같은 날 시험이 둘이면 이른 시각의 시험을 먼저 보여 줍니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 자정 직전·직후, 시험 당일, 지난 일정에서
+D-day가 맞게 나옵니다(단위 테스트).</p>
+<h3 id="f7-일정-겹침-경고-p0">F7. 일정 겹침 경고 (P0)</h3>
+<p>검사 대상은 시각이 있는 <strong>필기시험과 면접</strong>입니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>등급</th>
+<th>조건</th>
+<th>표시</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>충돌(빨강)</td>
+<td>두 일정의 시간(입실~종료)이 겹침</td>
+<td>달력 칸 ⚠ 빨강, 저장 시 경고 창</td>
+</tr>
+<tr class="even">
+<td>주의(주황)</td>
+<td>같은 날, 앞 일정 종료와 뒤 일정 입실 사이 간격이 기준(기본
+120분)보다 짧음</td>
+<td>달력 칸 ⚠ 주황, 저장 시 경고</td>
+</tr>
+<tr class="odd">
+<td>참고(회색)</td>
+<td>같은 날 두 일정이 있지만 간격이 충분함</td>
+<td>상세 시트에 "같은 날 일정 2개" 안내</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>종료 시각이 없으면 시작 시각 + 기본 시험 시간(120분)으로 계산합니다.
+입실 시각이 없으면 시작 시각을 씁니다.</li>
+<li>시각이 없는 같은 날 시험 두 개는 "주의"로 봅니다.</li>
+<li>경고 문구에는 두 대학과 간격을 씁니다. 예: "건국 영어 종료 12:00 →
+성대 영어 입실 13:30, 간격 90분(기준 120분)".</li>
+<li>겹침 목록 화면(또는 첫 화면 알림 영역)에 모든 충돌·주의를 모아서
+보여 주고, 각 항목에 두 대학의 우선순위를 함께 보여 줘 어느 쪽을 볼지
+판단하게 돕습니다.</li>
+<li>기준 간격과 기본 시험 시간은 설정에서 바꿉니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 겹침 판정 함수에 대해 경계값(간격 정확히
+120분, 종료 = 입실, 시각 없음) 단위 테스트가 통과합니다.</p>
+<h3 id="f8-아이폰-캘린더로-내보내기ics-p0">F8. 아이폰 캘린더로
+내보내기(.ics) (P0)</h3>
+<ol type="1">
+<li>내보내기 범위: <strong>전체 일정 / 대학 하나 / 일정 하나 /
+시험·면접만</strong>.</li>
+<li>파일 형식(RFC 5545):
+<ul>
+<li><code>BEGIN:VCALENDAR</code>, <code>VERSION:2.0</code>,
+<code>PRODID</code>, <code>CALSCALE:GREGORIAN</code>,
+<code>METHOD:PUBLISH</code>,
+<code>X-WR-CALNAME:편입 시험 2027</code></li>
+<li>시간대는 <code>VTIMEZONE</code>(Asia/Seoul, UTC+09:00, 일광 절약
+시간 없음)과 <code>DTSTART;TZID=Asia/Seoul:...</code>로 씁니다.</li>
+<li>시각이 없는 일정은 종일 일정(<code>DTSTART;VALUE=DATE</code>,
+종료일은 다음 날)으로, 기간 일정은 시작~종료 종일 일정으로
+만듭니다.</li>
+<li><code>UID</code>는 일정 ID 기반으로
+고정(<code>{event_id}@tcal</code>)해 다시 내보내도 같은 값을
+씁니다.</li>
+<li><code>SUMMARY</code>: "[건국] 영어 필기" / <code>LOCATION</code>:
+시험 장소 / <code>DESCRIPTION</code>: 학과, 수험 번호, 입실 시각, 권장
+출발 시각, 대중교통, 준비물 / <code>URL</code>: 모집요강 링크</li>
+<li>알림(<code>VALARM</code>): 시험·면접은 <strong>전날 20:00, 2시간
+전</strong>, 마감 일정은 <strong>전날 09:00</strong>(설정에서 변경)</li>
+<li>줄바꿈 CRLF, 75바이트 줄 접기, 쉼표·세미콜론·줄바꿈 이스케이프를
+지킵니다.</li>
+</ul></li>
+<li>다운로드는 <code>text/calendar</code> 형식으로 하고, 파일 이름은
+<code>편입시험_2027_전체.ics</code>처럼 붙입니다. 아이폰 Safari에서 열면
+"캘린더에 추가" 화면이 나옵니다.</li>
+<li>홈 화면에 추가한 PWA 모드에서 다운로드가 막히면 공유
+시트(<code>navigator.share</code>에 파일 전달)로 대신하고, 그래도 안
+되면 "Safari에서 열기"를 안내합니다.</li>
+<li>같은 파일을 다시 가져오면 아이폰 캘린더에 중복으로 들어갈 수
+있으므로, 내보내기 화면에 "변경된 일정만 내보내기(마지막 내보내기 이후
+수정분)"를 두고 안내 문구를 넣습니다.</li>
+<li>(P2) Supabase Edge Function으로 구독용 주소(webcal)를 만들어, 앱에서
+바꾸면 아이폰 캘린더에도 자동 반영되게 합니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 내보낸 파일을 아이폰 15 Pro 실기기
+Safari에서 열어 일정과 알림이 서울 시간으로 맞게 들어갑니다.</p>
+<h3 id="f9-a4-인쇄-p0">F9. A4 인쇄 (P0)</h3>
+<p>두 가지 형식을 모두 만들고, 인쇄 미리보기 화면에서 고릅니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>형식</th>
+<th>구성</th>
+<th>칸에 들어가는 내용</th>
+<th>아래쪽 범례</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>세로 2장</strong></td>
+<td>1장 12월, 2장 1월</td>
+<td>약칭, 일정 종류 기호, 시각, (선택) 수험 번호</td>
+<td>대학별 표: 약칭·대학·학과·수험 번호·시험 일시·장소</td>
+</tr>
+<tr class="even">
+<td><strong>가로 1장</strong></td>
+<td>12월·1월 나란히</td>
+<td>약칭, 일정 종류 기호, 시각</td>
+<td>약칭·대학·수험 번호 한 줄 요약</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>인쇄 전용 화면(<code>/print/portrait</code>,
+<code>/print/landscape</code>)을 따로 두고 각각
+<code>@page { size: A4 portrait; margin: 10mm }</code>,
+<code>@page { size: A4 landscape; margin: 8mm }</code>를 씁니다. 크기는
+mm 단위로 잡습니다.</li>
+<li>인쇄 옵션:
+<ul>
+<li>포함할 일정: 시험·면접만 / 전체</li>
+<li>수험 번호 표시 켜기·끄기(벽에 붙일 때 가리고 싶으면 끔)</li>
+<li>흑백 모드: 색 대신 약칭과 기호(● 필기, ◆ 면접, ▲ 마감, ○ 발표)로
+구분</li>
+</ul></li>
+<li>제목(예: "2027 편입 시험 일정 · 2026년 12월")과 인쇄 날짜를 넣어,
+언제 인쇄한 것인지 알 수 있게 합니다.</li>
+<li>칸이 넘칠 때는 글자를 줄이지 않고 "+2"로 줄인 뒤 범례 표에서
+확인하게 합니다. 칸·표가 페이지 경계에서 잘리지 않게
+합니다(<code>break-inside: avoid</code>).</li>
+<li>대학 색이 인쇄되도록 <code>print-color-adjust: exact</code>를 쓰고,
+화면용 메뉴·버튼은 숨깁니다.</li>
+<li>Safari는 <code>@page size</code>를 무시할 수 있으므로 인쇄 화면에
+"인쇄 창에서 방향을 세로/가로로 선택하세요"를 안내합니다. 데스크톱 크롬
+인쇄를 기준으로 확인합니다.</li>
+<li>"PDF로 저장"으로 파일을 만들어 휴대폰에서 인쇄소·편의점 출력도 할 수
+있게 안내합니다.</li>
+</ol>
+<p><strong>완료 기준</strong>: 일정 25개(대학 12곳) 기준으로 세로 2장,
+가로 1장 각각 A4에 넘치지 않고 출력됩니다. 두 형식을 실제로 인쇄해
+비교한 뒤 기본값을 정합니다.</p>
+<h3 id="f10-서류준비물-체크리스트-p1">F10. 서류·준비물 체크리스트
+(P1)</h3>
+<ol type="1">
+<li>대학별 준비 서류의 진행 상태를 바꾸고, 서류 제출 마감 D-day와 함께
+보여 줍니다.</li>
+<li>전체 서류 화면: 모든 대학의 미제출 서류를 마감일 순으로 모아 보여
+줍니다.</li>
+<li>준비물 체크리스트는 시험 전날 확인용으로, 시험이 끝나면 다음 시험을
+위해 "체크 초기화"를 할 수 있습니다.</li>
+</ol>
+<h3 id="f11-설정-p1">F11. 설정 (P1)</h3>
+<p>가족 이름·초대 코드, 구성원 목록, 겹침 기준 간격(기본 120분), 기본
+시험 시간(기본 120분), 기본 여유 시간(기본 30분), .ics 알림 시각,
+로그아웃.</p>
+<h3 id="f12-백업-p2">F12. 백업 (P2)</h3>
+<p>가족 데이터 전체를 JSON 파일로 내려받기(혹시 모를 Supabase 문제
+대비).</p>
+<hr />
+<h2 id="6-화면-구성과-반응형-기준">6. 화면 구성과 반응형 기준</h2>
+<h3 id="61-화면-목록">6.1 화면 목록</h3>
+<table>
+<thead>
+<tr class="header">
+<th>화면</th>
+<th>주요 요소</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>로그인</td>
+<td>이메일·비밀번호(Link Plan과 같은 로그인 방식)</td>
+<td>F1</td>
+</tr>
+<tr class="even">
+<td>가족 만들기·참여</td>
+<td>가족 만들기, 초대 코드 입력</td>
+<td>F1</td>
+</tr>
+<tr class="odd">
+<td><strong>달력(첫 화면)</strong></td>
+<td>D-day 카드, 겹침 알림, 12월/1월 탭, 달력, 필터, 2월 이후 일정</td>
+<td>F4, F6, F7</td>
+</tr>
+<tr class="even">
+<td><strong>날짜 상세 시트</strong></td>
+<td>그날 일정 카드, "이 날짜에 일정 추가"</td>
+<td>F5, F3</td>
+</tr>
+<tr class="odd">
+<td>일정 입력 폼</td>
+<td>대학 선택 → 종류 → 시간·장소</td>
+<td>F3</td>
+</tr>
+<tr class="even">
+<td>대학 목록(지원 현황)</td>
+<td>대학 카드, 우선순위·결과, 전형료 합계</td>
+<td>F2</td>
+</tr>
+<tr class="odd">
+<td>대학 상세</td>
+<td>A~H 섹션, 일정 목록, 서류, 준비물</td>
+<td>F2, F5, F10</td>
+</tr>
+<tr class="even">
+<td>대학 입력 폼</td>
+<td>A~H 섹션(접기·펼치기)</td>
+<td>F2</td>
+</tr>
+<tr class="odd">
+<td>겹침 목록</td>
+<td>충돌·주의 목록</td>
+<td>F7</td>
+</tr>
+<tr class="even">
+<td>내보내기</td>
+<td>.ics 범위 선택, 다운로드·공유</td>
+<td>F8</td>
+</tr>
+<tr class="odd">
+<td>인쇄 미리보기</td>
+<td>세로 2장/가로 1장 탭, 인쇄 옵션</td>
+<td>F9</td>
+</tr>
+<tr class="even">
+<td>설정</td>
+<td>F11 항목</td>
+<td>F11</td>
+</tr>
+</tbody>
+</table>
+<p>모바일은 아래쪽 탭 막대(달력 / 대학 / 서류 / 더보기)를 두고,
+데스크톱은 왼쪽 메뉴 + 본문 + 오른쪽 상세 패널 구성입니다.</p>
+<h3 id="62-아이폰-15-pro-최적화">6.2 아이폰 15 Pro 최적화</h3>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>기준</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>화면</td>
+<td>6.1인치, 2556×1179 픽셀, <strong>CSS 기준 393×852</strong>, 기기
+화소 배율 3</td>
+</tr>
+<tr class="even">
+<td>안전 영역</td>
+<td>위쪽 다이내믹 아일랜드·상태 표시줄 약 59pt, 아래쪽 홈 인디케이터 약
+34pt. <code>viewport-fit=cover</code>와
+<code>env(safe-area-inset-*)</code>로 여백 확보</td>
+</tr>
+<tr class="odd">
+<td>높이</td>
+<td>Safari 주소창 높이가 바뀌므로 <code>100dvh</code> 사용</td>
+</tr>
+<tr class="even">
+<td>달력 칸</td>
+<td>좌우 여백 12pt 기준 칸 너비 약 52pt. 약칭 2~4자 칩을 세로로 최대
+3개</td>
+</tr>
+<tr class="odd">
+<td>터치 영역</td>
+<td>버튼·칩 최소 44×44pt</td>
+</tr>
+<tr class="even">
+<td>글자</td>
+<td>본문 16px 이상. <strong>입력창 글자를 16px 이상</strong>으로 해서
+iOS의 입력 시 자동 확대를 막음</td>
+</tr>
+<tr class="odd">
+<td>입력</td>
+<td>기기 기본 날짜·시간 선택기, 전화번호는 <code>inputmode="tel"</code>,
+숫자는 <code>inputmode="numeric"</code></td>
+</tr>
+<tr class="even">
+<td>홈 화면 추가</td>
+<td>PWA 매니페스트, <code>apple-touch-icon</code>, 상태 표시줄 색 지정.
+홈 화면에서 앱처럼 전체 화면 실행</td>
+</tr>
+<tr class="odd">
+<td>다크 모드</td>
+<td>기기 설정을 따름</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-데스크톱">6.3 데스크톱</h3>
+<ul>
+<li>1024px 이상: 달력 두 달을 나란히 보거나 한 달 + 오른쪽 상세
+패널.</li>
+<li>입력 폼은 두 열 배치. Tab 키로 다음 항목 이동, Enter로 저장.</li>
+</ul>
+<hr />
+<h2 id="7-데이터-모델-supabase-link-plan-공유">7. 데이터 모델 (Supabase:
+Link Plan 공유)</h2>
+<h3 id="71-공유-원칙">7.1 공유 원칙</h3>
+<ol type="1">
+<li><strong>Auth만 공유</strong>합니다. 로그인은 Link Plan의
+<code>auth.users</code> 계정을 그대로 씁니다.</li>
+<li>이 앱이 만드는 모든 DB 객체(테이블, 함수, 정책, 인덱스, 트리거)는
+<strong><code>tcal_</code> 접두사</strong>를 붙여 <code>public</code>
+스키마에 만듭니다.</li>
+<li>Link Plan의 기존 테이블·함수·트리거·Auth 설정을 <strong>바꾸지
+않습니다</strong>. <code>auth.users</code>에 트리거를 달지
+않습니다.</li>
+<li>Auth 설정의 <strong>Site URL은 그대로 두고</strong>, Redirect URLs에
+이 앱의 배포 주소만 추가합니다.</li>
+<li>Link Plan에 <code>auth.users</code> 가입 시 실행되는 트리거(예:
+프로필 생성)가 있을 수 있으므로, 이 앱에서는 회원가입을 하지
+않습니다.</li>
+<li>클라이언트에는 anon(공개) 키만 넣습니다. service_role 키는 앱 코드와
+저장소 어디에도 넣지 않습니다.</li>
+</ol>
+<h3 id="72-테이블">7.2 테이블</h3>
+<table>
+<thead>
+<tr class="header">
+<th>테이블</th>
+<th>내용</th>
+<th>주요 컬럼</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>tcal_families</code></td>
+<td>가족(공유 단위)</td>
+<td>id, name, invite_code, settings(jsonb), created_by</td>
+</tr>
+<tr class="even">
+<td><code>tcal_family_members</code></td>
+<td>가족 구성원</td>
+<td>family_id, user_id, role(student/parent), display_name</td>
+</tr>
+<tr class="odd">
+<td><code>tcal_universities</code></td>
+<td>지원 대학(4.1~4.6, H)</td>
+<td>아래 SQL 참고</td>
+</tr>
+<tr class="even">
+<td><code>tcal_events</code></td>
+<td>일정(4.3, 4.7)</td>
+<td>university_id, event_type, start_date, end_date, check_in_time,
+start_time, end_time</td>
+</tr>
+<tr class="odd">
+<td><code>tcal_documents</code></td>
+<td>준비 서류(4.5)</td>
+<td>university_id, doc_type, status, submit_method</td>
+</tr>
+<tr class="even">
+<td><code>tcal_checklist_items</code></td>
+<td>준비물(4.8 G)</td>
+<td>university_id, label, checked, sort_order</td>
+</tr>
+</tbody>
+</table>
+<p>날짜와 시각은 모두 서울 시간 기준이므로 <code>date</code>와
+<code>time</code> 컬럼으로 따로 저장합니다(시간대 변환 오류 방지).</p>
+<h3 id="73-마이그레이션-초안sql">7.3 마이그레이션 초안(SQL)</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- supabase/migrations/20261115000000_tcal_init.sql</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- 이 파일은 tcal_ 객체만 만든다. Link Plan 기존 객체는 건드리지 않는다.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_families (</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span>          uuid <span class="kw">primary</span> <span class="kw">key</span> <span class="kw">default</span> gen_random_uuid(),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  name        text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="st">&#39;우리 가족&#39;</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  invite_code text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">unique</span> <span class="kw">default</span> <span class="fu">upper</span>(<span class="fu">substr</span>(md5(gen_random_uuid():<span class="ch">:text</span>), <span class="dv">1</span>, <span class="dv">8</span>)),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  settings    jsonb <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>              <span class="st">&#39;{&quot;overlap_gap_min&quot;:120,&quot;default_exam_min&quot;:120,&quot;default_buffer_min&quot;:30}&#39;</span>:<span class="ch">:jsonb</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  created_by  uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> auth.<span class="fu">uid</span>() <span class="kw">references</span> auth.users(<span class="kw">id</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  created_at  timestamptz <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> now()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_family_members (</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  family_id    uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> <span class="kw">public</span>.tcal_families(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  user_id      uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> auth.users(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">role</span>         text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">check</span> (<span class="kw">role</span> <span class="kw">in</span> (<span class="st">&#39;student&#39;</span>,<span class="st">&#39;parent&#39;</span>)),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  display_name text,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  joined_at    timestamptz <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> now(),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">primary</span> <span class="kw">key</span> (family_id, user_id)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_universities (</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span>               uuid <span class="kw">primary</span> <span class="kw">key</span> <span class="kw">default</span> gen_random_uuid(),</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  family_id        uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> <span class="kw">public</span>.tcal_families(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- A. 기본 정보</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  name             text <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  short_name       text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">check</span> (char_length(short_name) <span class="kw">between</span> <span class="dv">1</span> <span class="kw">and</span> <span class="dv">4</span>),</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  department       text <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">quota</span>            <span class="dt">int</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  competition_rate <span class="dt">numeric</span>(<span class="dv">6</span>,<span class="dv">2</span>),</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  priority         text <span class="kw">check</span> (priority <span class="kw">in</span> (<span class="st">&#39;first&#39;</span>,<span class="st">&#39;reach&#39;</span>,<span class="st">&#39;target&#39;</span>,<span class="st">&#39;safe&#39;</span>)),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  color            text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="st">&#39;#2F6FED&#39;</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- B. 전형 방법</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  exam_types       text[] <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dt">array</span>[<span class="st">&#39;english&#39;</span>]</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                   <span class="kw">check</span> (exam_types <span class="op">&lt;</span>@ <span class="dt">array</span>[<span class="st">&#39;english&#39;</span>,<span class="st">&#39;interview&#39;</span>,<span class="st">&#39;document&#39;</span>]),</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  score_ratio      text,</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  stage_type       text <span class="kw">check</span> (stage_type <span class="kw">in</span> (<span class="st">&#39;one&#39;</span>,<span class="st">&#39;two&#39;</span>)),</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  exam_format      text,</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- D. 수험 정보</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  apply_agency     text <span class="kw">check</span> (apply_agency <span class="kw">in</span> (<span class="st">&#39;jinhak&#39;</span>,<span class="st">&#39;uway&#39;</span>,<span class="st">&#39;school&#39;</span>)),</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  exam_number      text,</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  receipt_number   text,</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  application_fee  <span class="dt">int</span>,</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  fee_paid         <span class="dt">boolean</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="kw">false</span>,</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  ticket_printed   <span class="dt">boolean</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="kw">false</span>,</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  admission_phone  text,</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  homepage_url     text,</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  guide_url        text,</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- F. 장소와 교통</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  venue            text,</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  map_url          text,</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  transit          text,</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  travel_min       <span class="dt">int</span>,</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  buffer_min       <span class="dt">int</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">30</span>,</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- G. 준비물 메모, H. 결과</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  prohibited_items text,</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  result_status    text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="st">&#39;pending&#39;</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>                   <span class="kw">check</span> (result_status <span class="kw">in</span> (<span class="st">&#39;pending&#39;</span>,<span class="st">&#39;first_pass&#39;</span>,<span class="st">&#39;final_pass&#39;</span>,<span class="st">&#39;waitlist&#39;</span>,<span class="st">&#39;fail&#39;</span>)),</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  waitlist_no      <span class="dt">int</span>,</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  review_memo      text,</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  memo             text,</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  created_by       uuid <span class="kw">default</span> auth.<span class="fu">uid</span>() <span class="kw">references</span> auth.users(<span class="kw">id</span>),</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>  updated_by       uuid <span class="kw">references</span> auth.users(<span class="kw">id</span>),</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>  created_at       timestamptz <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> now(),</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  updated_at       timestamptz <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> now()</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_events (</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span>            uuid <span class="kw">primary</span> <span class="kw">key</span> <span class="kw">default</span> gen_random_uuid(),</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>  family_id     uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> <span class="kw">public</span>.tcal_families(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>  university_id uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> <span class="kw">public</span>.tcal_universities(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>  event_type    text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">check</span> (event_type <span class="kw">in</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>                (<span class="st">&#39;apply&#39;</span>,<span class="st">&#39;exam&#39;</span>,<span class="st">&#39;venue_notice&#39;</span>,<span class="st">&#39;first_result&#39;</span>,<span class="st">&#39;doc_deadline&#39;</span>,</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&#39;interview&#39;</span>,<span class="st">&#39;final_result&#39;</span>,<span class="st">&#39;payment&#39;</span>,<span class="st">&#39;extra_result&#39;</span>,<span class="st">&#39;other&#39;</span>)),</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>  title         text,</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>  start_date    <span class="dt">date</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">check</span> (start_date <span class="kw">between</span> <span class="st">&#39;2026-11-01&#39;</span> <span class="kw">and</span> <span class="st">&#39;2027-02-28&#39;</span>),</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>  end_date      <span class="dt">date</span> <span class="kw">check</span> (end_date <span class="kw">is</span> <span class="kw">null</span> <span class="kw">or</span> end_date <span class="op">&gt;=</span> start_date),</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  check_in_time <span class="dt">time</span>,</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  start_time    <span class="dt">time</span>,</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>  end_time      <span class="dt">time</span>,</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  venue         text,</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  map_url       text,</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  round_no      <span class="dt">int</span>,</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  memo          text,</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>  created_by    uuid <span class="kw">default</span> auth.<span class="fu">uid</span>() <span class="kw">references</span> auth.users(<span class="kw">id</span>),</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>  updated_by    uuid <span class="kw">references</span> auth.users(<span class="kw">id</span>),</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>  created_at    timestamptz <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> now(),</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>  updated_at    timestamptz <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> now()</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">index</span> tcal_events_family_date_idx <span class="kw">on</span> <span class="kw">public</span>.tcal_events (family_id, start_date);</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_documents (</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span>                uuid <span class="kw">primary</span> <span class="kw">key</span> <span class="kw">default</span> gen_random_uuid(),</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>  family_id         uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> <span class="kw">public</span>.tcal_families(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  university_id     uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> <span class="kw">public</span>.tcal_universities(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>  doc_type          text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">check</span> (doc_type <span class="kw">in</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>                    (<span class="st">&#39;study_plan&#39;</span>,<span class="st">&#39;self_intro&#39;</span>,<span class="st">&#39;transcript&#39;</span>,<span class="st">&#39;completion_cert&#39;</span>,<span class="st">&#39;other&#39;</span>)),</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  custom_name       text,</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>  status            text <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="st">&#39;todo&#39;</span> <span class="kw">check</span> (status <span class="kw">in</span> (<span class="st">&#39;todo&#39;</span>,<span class="st">&#39;ready&#39;</span>,<span class="st">&#39;submitted&#39;</span>)),</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>  submit_method     text <span class="kw">check</span> (submit_method <span class="kw">in</span> (<span class="st">&#39;upload&#39;</span>,<span class="st">&#39;mail&#39;</span>,<span class="st">&#39;visit&#39;</span>)),</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>  mail_basis        text <span class="kw">check</span> (mail_basis <span class="kw">in</span> (<span class="st">&#39;postmark&#39;</span>,<span class="st">&#39;arrival&#39;</span>)),</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>  original_required <span class="dt">boolean</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="kw">false</span>,</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>  memo              text,</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>  updated_at        timestamptz <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> now()</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_checklist_items (</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span>            uuid <span class="kw">primary</span> <span class="kw">key</span> <span class="kw">default</span> gen_random_uuid(),</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>  family_id     uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> <span class="kw">public</span>.tcal_families(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>  university_id uuid <span class="kw">not</span> <span class="kw">null</span> <span class="kw">references</span> <span class="kw">public</span>.tcal_universities(<span class="kw">id</span>) <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">cascade</span>,</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>  <span class="kw">label</span>         text <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>  checked       <span class="dt">boolean</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="kw">false</span>,</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>  sort_order    <span class="dt">int</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">0</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="co">-- 가족 구성원 여부 확인(정책에서 사용)</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">function</span> <span class="kw">public</span>.tcal_is_member(fid uuid)</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>returns <span class="dt">boolean</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>language sql stable security <span class="kw">definer</span> <span class="kw">set</span> search_path <span class="op">=</span> <span class="kw">public</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="kw">as</span> $$</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">select</span> <span class="kw">exists</span> (<span class="kw">select</span> <span class="dv">1</span> <span class="kw">from</span> <span class="kw">public</span>.tcal_family_members</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>                 <span class="kw">where</span> family_id <span class="op">=</span> fid <span class="kw">and</span> user_id <span class="op">=</span> auth.<span class="fu">uid</span>());</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>$$;</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="co">-- 초대 코드로 가족 참여</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">function</span> <span class="kw">public</span>.tcal_join_family(code text, member_role text, name text)</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>returns uuid</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>language plpgsql security <span class="kw">definer</span> <span class="kw">set</span> search_path <span class="op">=</span> <span class="kw">public</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="kw">as</span> $$</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="kw">declare</span> fid uuid;</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>  <span class="kw">select</span> <span class="kw">id</span> <span class="kw">into</span> fid <span class="kw">from</span> <span class="kw">public</span>.tcal_families <span class="kw">where</span> invite_code <span class="op">=</span> <span class="fu">upper</span>(code);</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> fid <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> raise <span class="kw">exception</span> <span class="st">&#39;invalid invite code&#39;</span>; <span class="cf">end</span> <span class="cf">if</span>;</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>  <span class="kw">insert</span> <span class="kw">into</span> <span class="kw">public</span>.tcal_family_members (family_id, user_id, <span class="kw">role</span>, display_name)</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>  <span class="kw">values</span> (fid, auth.<span class="fu">uid</span>(), member_role, name)</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="kw">on</span> conflict (family_id, user_id) do <span class="kw">nothing</span>;</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> fid;</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span> $$;</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="co">-- RLS</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_families        <span class="kw">enable</span> <span class="kw">row</span> <span class="kw">level</span> security;</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_family_members  <span class="kw">enable</span> <span class="kw">row</span> <span class="kw">level</span> security;</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_universities    <span class="kw">enable</span> <span class="kw">row</span> <span class="kw">level</span> security;</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_events          <span class="kw">enable</span> <span class="kw">row</span> <span class="kw">level</span> security;</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_documents       <span class="kw">enable</span> <span class="kw">row</span> <span class="kw">level</span> security;</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> <span class="kw">public</span>.tcal_checklist_items <span class="kw">enable</span> <span class="kw">row</span> <span class="kw">level</span> security;</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_families_select <span class="kw">on</span> <span class="kw">public</span>.tcal_families</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">select</span> <span class="kw">using</span> (<span class="kw">public</span>.tcal_is_member(<span class="kw">id</span>) <span class="kw">or</span> created_by <span class="op">=</span> auth.<span class="fu">uid</span>());</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_families_insert <span class="kw">on</span> <span class="kw">public</span>.tcal_families</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">insert</span> <span class="kw">with</span> <span class="kw">check</span> (created_by <span class="op">=</span> auth.<span class="fu">uid</span>());</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_families_update <span class="kw">on</span> <span class="kw">public</span>.tcal_families</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">update</span> <span class="kw">using</span> (<span class="kw">public</span>.tcal_is_member(<span class="kw">id</span>));</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_members_select <span class="kw">on</span> <span class="kw">public</span>.tcal_family_members</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">select</span> <span class="kw">using</span> (<span class="kw">public</span>.tcal_is_member(family_id));</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_members_insert_creator <span class="kw">on</span> <span class="kw">public</span>.tcal_family_members</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">insert</span> <span class="kw">with</span> <span class="kw">check</span> (user_id <span class="op">=</span> auth.<span class="fu">uid</span>() <span class="kw">and</span> <span class="kw">exists</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">select</span> <span class="dv">1</span> <span class="kw">from</span> <span class="kw">public</span>.tcal_families f <span class="kw">where</span> f.<span class="kw">id</span> <span class="op">=</span> family_id <span class="kw">and</span> f.created_by <span class="op">=</span> auth.<span class="fu">uid</span>()));</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a><span class="co">-- 데이터 테이블 4개: 같은 가족만 모든 작업 허용</span></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_universities_all <span class="kw">on</span> <span class="kw">public</span>.tcal_universities</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">all</span> <span class="kw">using</span> (<span class="kw">public</span>.tcal_is_member(family_id)) <span class="kw">with</span> <span class="kw">check</span> (<span class="kw">public</span>.tcal_is_member(family_id));</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_events_all <span class="kw">on</span> <span class="kw">public</span>.tcal_events</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">all</span> <span class="kw">using</span> (<span class="kw">public</span>.tcal_is_member(family_id)) <span class="kw">with</span> <span class="kw">check</span> (<span class="kw">public</span>.tcal_is_member(family_id));</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_documents_all <span class="kw">on</span> <span class="kw">public</span>.tcal_documents</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">all</span> <span class="kw">using</span> (<span class="kw">public</span>.tcal_is_member(family_id)) <span class="kw">with</span> <span class="kw">check</span> (<span class="kw">public</span>.tcal_is_member(family_id));</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> policy tcal_checklist_all <span class="kw">on</span> <span class="kw">public</span>.tcal_checklist_items</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="kw">all</span> <span class="kw">using</span> (<span class="kw">public</span>.tcal_is_member(family_id)) <span class="kw">with</span> <span class="kw">check</span> (<span class="kw">public</span>.tcal_is_member(family_id));</span></code></pre></div>
+<ul>
+<li><code>updated_at</code> 자동 갱신 트리거도
+<code>tcal_set_updated_at</code> 이름으로 만들어 4개 데이터 테이블에만
+답니다.</li>
+<li>일정·서류·준비물의 <code>family_id</code>가 연결된 대학의
+<code>family_id</code>와 같은지 확인하는 검사(트리거 또는 앱 로직)를
+둡니다.</li>
+<li>대학을 등록하면 앱에서 기본 준비물 7개를
+<code>tcal_checklist_items</code>에 함께 넣습니다.</li>
+</ul>
+<h3 id="74-계산-규칙앱에서-처리-단위-테스트-대상">7.4 계산 규칙(앱에서
+처리, 단위 테스트 대상)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>값</th>
+<th>규칙</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D-day</td>
+<td>서울 날짜 기준 <code>시험일 − 오늘</code>. 0이면 D-DAY, 음수면
+완료</td>
+</tr>
+<tr class="even">
+<td>실제 종료 시각</td>
+<td><code>end_time</code> 없으면
+<code>start_time + 기본 시험 시간</code></td>
+</tr>
+<tr class="odd">
+<td>실제 시작 시각(겹침용)</td>
+<td><code>check_in_time</code> 없으면 <code>start_time</code></td>
+</tr>
+<tr class="even">
+<td>권장 출발 시각</td>
+<td><code>(check_in_time 또는 start_time) − travel_min − buffer_min</code></td>
+</tr>
+<tr class="odd">
+<td>겹침 등급</td>
+<td>F7 표</td>
+</tr>
+<tr class="even">
+<td>일정 장소</td>
+<td>일정의 <code>venue</code>가 없으면 대학의 <code>venue</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-기술-스택">8. 기술 스택</h2>
+<table>
+<thead>
+<tr class="header">
+<th>영역</th>
+<th>선택</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>프레임워크</td>
+<td>React + TypeScript + Vite</td>
+<td>화면이 여러 개이고 상태(가족, 대학, 일정)가 얽혀 있어 컴포넌트
+구조가 편함. 정적 파일로 배포 가능</td>
+</tr>
+<tr class="even">
+<td>스타일</td>
+<td>Tailwind CSS + CSS 변수(색 토큰)</td>
+<td>반응형·다크 모드·인쇄(<code>print:</code> 접두사) 처리가 쉬움</td>
+</tr>
+<tr class="odd">
+<td>데이터</td>
+<td><code>@supabase/supabase-js</code> v2</td>
+<td>Auth·DB·Realtime 한 번에</td>
+</tr>
+<tr class="even">
+<td>서버 상태</td>
+<td>TanStack Query</td>
+<td>캐시, 다시 불러오기, 저장 후 화면 갱신</td>
+</tr>
+<tr class="odd">
+<td>날짜</td>
+<td>date-fns + <code>@date-fns/tz</code> (Asia/Seoul)</td>
+<td>가볍고 함수 단위로 테스트하기 쉬움</td>
+</tr>
+<tr class="even">
+<td>달력</td>
+<td>직접 구현(CSS Grid 7열)</td>
+<td>두 달만 필요하고 인쇄 모양까지 맞춰야 하므로 라이브러리보다 직접
+구현이 단순</td>
+</tr>
+<tr class="odd">
+<td>.ics</td>
+<td>직접 구현(<code>lib/ics.ts</code>)</td>
+<td>형식이 단순하고 시간대·알림·줄 접기를 정확히 통제. 단위 테스트로
+검증</td>
+</tr>
+<tr class="even">
+<td>PWA</td>
+<td>vite-plugin-pwa</td>
+<td>홈 화면 추가, 오프라인에서 마지막 데이터 보기(P1)</td>
+</tr>
+<tr class="odd">
+<td>테스트</td>
+<td>Vitest(계산 함수), Playwright(iPhone 15 Pro·데스크톱 화면, A4
+PDF)</td>
+<td>3.2의 확인 방식</td>
+</tr>
+<tr class="even">
+<td>배포</td>
+<td>Vercel(권장) 또는 GitHub Pages</td>
+<td>둘 다 무료·HTTPS. Vercel은 환경 변수와 SPA 경로 처리가 간단</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>라이브러리 버전은 <code>package.json</code>에 고정하고
+<code>package-lock.json</code>을 커밋합니다.</li>
+<li>환경 변수: <code>VITE_SUPABASE_URL</code>,
+<code>VITE_SUPABASE_ANON_KEY</code>(<code>.env.local</code>, 커밋 금지).
+<code>.env.example</code>만 커밋합니다.</li>
+</ul>
+<hr />
+<h2 id="9-디자인-방향-designdesignmd-작성-출발점">9. 디자인 방향
+(design/DESIGN.md 작성 출발점)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>방향</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>분위기</td>
+<td>차분하고 읽기 쉬운 "시험 일정표". 장식보다 정보 밀도와 가독성</td>
+</tr>
+<tr class="even">
+<td>대학 색</td>
+<td>서로 잘 구분되는 12색 팔레트(밝은·어두운 화면, 흑백 인쇄 모두 고려).
+색만으로 구분하지 않고 항상 약칭을 함께 표시</td>
+</tr>
+<tr class="odd">
+<td>일정 종류 기호</td>
+<td>● 필기시험, ◆ 면접, ▲ 마감(원서·서류·등록), ○ 발표, · 기타</td>
+</tr>
+<tr class="even">
+<td>강조</td>
+<td>시험·면접은 채운 칩, 나머지는 테두리 칩. 충돌은 빨강, 주의는
+주황</td>
+</tr>
+<tr class="odd">
+<td>글꼴</td>
+<td>시스템 글꼴(Apple SD Gothic Neo / Pretendard 대체). 숫자는 고정폭
+숫자(<code>font-variant-numeric: tabular-nums</code>)</td>
+</tr>
+<tr class="even">
+<td>상세 시트</td>
+<td>카드 위쪽에 큰 글자로 "입실 09:30 · 출발 08:10", 그 아래 수험
+번호·장소</td>
+</tr>
+<tr class="odd">
+<td>인쇄</td>
+<td>흰 바탕, 얇은 회색 칸 선, 날짜 숫자는 칸 왼쪽 위. 세로형은 칸 높이
+약 33mm(12월 5주)·28mm(1월 6주) 목표</td>
+</tr>
+<tr class="even">
+<td>시안 범위</td>
+<td>모바일 달력(12월·1월), 날짜 상세 시트, 일정 입력, 대학 입력, 지원
+현황, 겹침 경고, 인쇄 세로·가로</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-비기능-요구사항">10. 비기능 요구사항</h2>
+<table>
+<thead>
+<tr class="header">
+<th>구분</th>
+<th>요구사항</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>보안</td>
+<td>모든 <code>tcal_</code> 테이블에 RLS 적용. anon 키만 클라이언트에
+사용. 다른 가족 데이터 조회 불가를 테스트로 확인</td>
+</tr>
+<tr class="even">
+<td>기존 앱 보호</td>
+<td>Link Plan의 테이블·함수·트리거·Auth 설정 변경 금지. 마이그레이션
+파일에는 <code>tcal_</code> 객체만 포함(리뷰 시 확인)</td>
+</tr>
+<tr class="odd">
+<td>개인정보</td>
+<td>수험 번호는 가족만 조회. 인쇄 시 수험 번호 숨기기 옵션 제공. 앱
+주소에 개인정보를 넣지 않음</td>
+</tr>
+<tr class="even">
+<td>성능</td>
+<td>첫 화면 2초 이내(LTE 기준), 달력 전환 즉시. 데이터는 가족 단위로 한
+번에 불러옴(대학 20곳, 일정 100개 이하 가정)</td>
+</tr>
+<tr class="odd">
+<td>오프라인</td>
+<td>(P1) 마지막으로 불러온 데이터를 기기에 보관해 지하철 등 전파가 약한
+곳에서도 시험 정보 조회</td>
+</tr>
+<tr class="even">
+<td>시간대</td>
+<td>모든 날짜 계산은 Asia/Seoul. 기기 시간대가 달라도 같은 결과</td>
+</tr>
+<tr class="odd">
+<td>호환성</td>
+<td>iOS Safari 17 이상(아이폰 15 Pro 기본), 최신 크롬·엣지. 인쇄는
+데스크톱 크롬 기준</td>
+</tr>
+<tr class="even">
+<td>접근성</td>
+<td>색 외에 약칭·기호·문구로 상태 구분. 글자 대비 4.5:1 이상. 터치 영역
+44pt 이상</td>
+</tr>
+<tr class="odd">
+<td>언어</td>
+<td>한국어 UI, 날짜 형식 "12/24(목)"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</h2>
+<p>원서 접수(12월 초) 전에 입력을 시작할 수 있도록 <strong>M1~M3를 11월
+말까지</strong> 끝내는 것을 목표로 합니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>내용</th>
+<th>결과물</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0. 준비</td>
+<td>Link Plan의 로그인 방식·기존 테이블 이름 확인, <code>design/</code>
+시안 작성, 저장소·배포 설정</td>
+<td>DESIGN.md, design-mockup.html</td>
+</tr>
+<tr class="even">
+<td>M1. 데이터와 로그인</td>
+<td>마이그레이션 적용, 로그인, 가족 만들기·초대 코드 참여</td>
+<td>F1</td>
+</tr>
+<tr class="odd">
+<td>M2. 대학·일정 입력</td>
+<td>대학 폼(A~H), 일정 폼, 날짜 눌러 추가, 지원 현황</td>
+<td>F2, F3</td>
+</tr>
+<tr class="even">
+<td>M3. 달력과 상세</td>
+<td>12월·1월 달력, 상세 시트, 대학 상세, 아이폰 15 Pro 화면 맞춤</td>
+<td>F4, F5 → <strong>첫 사용 버전</strong></td>
+</tr>
+<tr class="odd">
+<td>M4. D-day·겹침</td>
+<td>D-day 카드·목록, 겹침 판정·표시·목록, 단위 테스트</td>
+<td>F6, F7</td>
+</tr>
+<tr class="even">
+<td>M5. .ics 내보내기</td>
+<td>범위 선택, 알림, 아이폰 실기기 확인</td>
+<td>F8</td>
+</tr>
+<tr class="odd">
+<td>M6. A4 인쇄</td>
+<td>세로 2장·가로 1장, 인쇄 옵션, PDF 확인 후 실제 인쇄 비교</td>
+<td>F9</td>
+</tr>
+<tr class="even">
+<td>M7. 마무리</td>
+<td>서류·준비물, 설정, PWA·오프라인, Realtime</td>
+<td>F10, F11, P1 항목</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-위험-요소와-대응">12. 위험 요소와 대응</h2>
+<table>
+<thead>
+<tr class="header">
+<th>위험</th>
+<th>대응</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Link Plan 데이터·설정을 실수로 바꿈</td>
+<td><code>tcal_</code> 접두사 규칙, 마이그레이션 리뷰,
+<code>auth.users</code> 트리거 금지, Site URL 변경 금지</td>
+</tr>
+<tr class="even">
+<td>이름 충돌</td>
+<td>적용 전 <code>tcal_</code>로 시작하는 기존 객체가 없는지 확인</td>
+</tr>
+<tr class="odd">
+<td>Supabase 무료 플랜의 비활성 일시 중지(약 1주일 사용이 없으면
+프로젝트가 멈춤)</td>
+<td>Link Plan이 계속 쓰이는지 확인. 시험 기간에는 매일 쓰므로 위험은
+낮지만, 멈추면 대시보드에서 재개하는 방법을 메모</td>
+</tr>
+<tr class="even">
+<td>시험 당일 네트워크 불안</td>
+<td>P1 오프라인 보관, 인쇄본 함께 사용, .ics로 아이폰 캘린더에도
+저장</td>
+</tr>
+<tr class="odd">
+<td>iOS PWA에서 .ics 다운로드 실패</td>
+<td>공유 시트 대안, Safari에서 열기 안내, 실기기 테스트</td>
+</tr>
+<tr class="even">
+<td>.ics 재가져오기 시 중복</td>
+<td>변경분만 내보내기, 안내 문구, (P2) 구독 주소</td>
+</tr>
+<tr class="odd">
+<td>Safari 인쇄 방향 무시</td>
+<td>데스크톱 크롬 기준, 인쇄 창에서 방향 선택 안내, PDF 저장</td>
+</tr>
+<tr class="even">
+<td>대학 공지 변경(시험일·고사장 변경)</td>
+<td>대학 상세에 모집요강·공지 링크, "마지막 확인일" 메모 권장</td>
+</tr>
+<tr class="odd">
+<td>입력 실수(오전·오후 혼동)</td>
+<td>24시간 표기, 저장 후 "12/24(목) 09:30 입실" 확인 문구 표시</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-성공-지표-가족-사용-기준">13. 성공 지표 (가족 사용 기준)</h2>
+<ul>
+<li>지원한 모든 대학(10곳 이상)의 시험·면접 일정이 앱에 빠짐없이 들어가
+있음</li>
+<li>시험 당일 상세 시트 하나로 출발 시각·장소·수험 번호·준비물을
+확인함</li>
+<li>겹치는 시험을 원서 접수 전에 발견해 지원 여부를 판단함</li>
+<li>인쇄본과 아이폰 캘린더, 앱의 일정이 서로 일치함</li>
+<li>부모가 따로 묻지 않고도 일정을 확인함</li>
+</ul>
+<hr />
+<h2 id="14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인
+사항</h2>
+<h3 id="141-결정된-사항-v01">14.1 결정된 사항 (v0.1)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>결정</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>입력 단위</td>
+<td>대학을 먼저 등록하고, 대학마다 일정을 여러 개 추가</td>
+</tr>
+<tr class="even">
+<td>데이터 저장</td>
+<td>Supabase Link Plan 프로젝트 공유, 접두사 <code>tcal_</code>, 로그인
+계정 공유</td>
+</tr>
+<tr class="odd">
+<td>공유 범위</td>
+<td>자녀와 부모(같은 가족), 같은 권한</td>
+</tr>
+<tr class="even">
+<td>인쇄</td>
+<td>세로 2장과 가로 1장 모두 구현, 실제 인쇄 후 기본값 결정</td>
+</tr>
+<tr class="odd">
+<td>부가 기능</td>
+<td>D-day, 일정 겹침 경고, .ics 내보내기 모두 P0</td>
+</tr>
+<tr class="even">
+<td>제외 항목</td>
+<td>캠퍼스, 전형 유형, 지원 학년, 영어·면접·서류 평가 외 시험 종류, 공인
+영어 성적 반영, 주차, 숙박, 점심</td>
+</tr>
+<tr class="odd">
+<td>서류 항목 정리</td>
+<td>일반편입만 하므로 학사편입용 졸업·학위 증명서, 특별전형 증빙, 공인
+영어 성적표를 서류 목록에서 뺌</td>
+</tr>
+</tbody>
+</table>
+<h3 id="142-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</h3>
+<ol type="1">
+<li>Link Plan의 로그인 방식(이메일·비밀번호, 매직 링크, 구글 등)과
+자녀·부모 계정이 이미 있는지</li>
+<li>Link Plan에 <code>auth.users</code> 가입 트리거나
+<code>tcal_</code>로 시작하는 객체가 있는지</li>
+<li>Supabase 요금제(무료/유료)와 Link Plan 사용 빈도(일시 중지
+위험)</li>
+<li>배포 위치(Vercel 또는 GitHub Pages)와 앱 주소. Auth Redirect URLs에
+추가할 주소</li>
+<li>접두사 <code>tcal_</code>를 그대로 쓸지(다른 이름을 원하면
+마이그레이션 작성 전에 변경)</li>
+<li>.ics 알림 기본 시각(전날 20:00, 2시간 전)이 괜찮은지</li>
+<li>시험 종류에서 "기타"를 완전히 뺄지(현재는 영어·면접·서류 평가 3개만
+둠)</li>
+</ol>
+</article></main>
+<button id="top" aria-label="맨 위로">↑</button>
+<script>
+(function(){
+ var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+ // 그룹 접기/펼치기
+ $$('.grp-h:not(.static)').forEach(function(b){b.addEventListener('click',function(e){
+  if(e.target.closest('a')){return}
+  var g=b.parentNode;g.classList.toggle('open');b.setAttribute('aria-expanded',g.classList.contains('open'))})});
+ // 모바일 메뉴
+ function close(){document.body.classList.remove('open')}
+ $('#menu').onclick=function(){document.body.classList.toggle('open')};
+ $('#scrim').onclick=close;
+ $$('#nav a').forEach(function(a){a.addEventListener('click',close)});
+ // 검색
+ $('#q').addEventListener('input',function(){
+  var v=this.value.trim().toLowerCase();
+  $$('#nav .grp').forEach(function(g){
+   var any=false,gh=$('.grp-h',g),gm=!!v&&gh.textContent.toLowerCase().indexOf(v)>-1;if(gm)any=true;
+   $$('li',g).forEach(function(li){var ok=!v||gm||li.textContent.toLowerCase().indexOf(v)>-1;li.classList.toggle('hide',!ok);if(ok)any=true});
+   g.style.display=(!v||any)?'':'none';
+   if(v&&any)g.classList.add('open');
+  });
+ });
+ // 스크롤 위치 표시
+ var links=$$('#nav li a'),map={};
+ links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+ var heads=$$('#doc h2[id],#doc h3[id]');
+ $$('#nav .grp-h a').forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+ links=$$('#nav a');
+ function spy(){
+  var y=window.scrollY+80,cur=null;
+  heads.forEach(function(h){if(h.offsetTop<=y)cur=h});
+  links.forEach(function(a){a.classList.remove('active')});
+  if(cur&&map[cur.id]){var a=map[cur.id];a.classList.add('active');
+   var g=a.closest('.grp');if(g&&!g.classList.contains('open')&&!$('#q').value)g.classList.add('open');
+   var nav=$('#nav'),r=a.getBoundingClientRect(),nr=nav.getBoundingClientRect();
+   if(r.top<nr.top||r.bottom>nr.bottom)nav.scrollTop+=r.top-nr.top-nr.height/3}
+  $('#top').classList.toggle('show',window.scrollY>600);
+ }
+ var t;window.addEventListener('scroll',function(){cancelAnimationFrame(t);t=requestAnimationFrame(spy)});spy();
+ $('#top').onclick=function(){window.scrollTo({top:0})};
+ // 테마
+ var root=document.documentElement;
+ try{var s=localStorage.getItem('theme');if(s)root.dataset.theme=s}catch(e){}
+ $('#theme').onclick=function(){
+  var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  root.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}};
+})();
+</script>
+</body>
+</html>
