@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>지금 열린 도서관(Library Now): 제품 기획서(PRD)</title>
+<style>
+:root{--bg:#fafaf8;--panel:#f1f0ec;--text:#1f2328;--muted:#656d76;--line:#dcdad3;--accent:#2f6fed;--accent-bg:#e6eefe;--code:#eceae4;--star:#d98a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#7aa2ff;--accent-bg:#26324d;--code:#2a2c30;--star:#f0b43c}}
+:root[data-theme=dark]{--bg:#17181a;--panel:#1f2124;--text:#e6e6e3;--muted:#9aa0a6;--line:#33363a;--accent:#7aa2ff;--accent-bg:#26324d;--code:#2a2c30;--star:#f0b43c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;word-break:keep-all}
+#side{position:fixed;inset:0 auto 0 0;width:300px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:20;transition:transform .2s}
+.side-top{padding:16px 16px 10px;border-bottom:1px solid var(--line)}
+.side-top h2{font-size:15px;margin:0 0 10px;line-height:1.4}
+#q{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;font-size:14px}
+.dl{display:flex;gap:6px;margin-top:10px}
+.dl a{flex:1;text-align:center;font-size:13px;padding:6px 4px;border:1px solid var(--line);border-radius:8px;color:var(--text);text-decoration:none;background:var(--bg)}
+.dl a:hover{border-color:var(--accent);color:var(--accent)}
+#nav{overflow-y:auto;padding:8px 8px 40px;flex:1}
+.grp{margin:2px 0}
+.grp-h{display:flex;width:100%;align-items:center;justify-content:space-between;background:none;border:0;color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:8px;border-radius:6px;cursor:pointer;text-align:left}
+.grp-h.static{cursor:default;color:var(--muted);font-size:12px;letter-spacing:.04em}
+.grp-h a{color:inherit;text-decoration:none;flex:1}
+.grp-h:hover:not(.static){background:var(--accent-bg)}
+.chev{transition:transform .15s;color:var(--muted)}
+.grp:not(.open) .chev{transform:rotate(-90deg)}
+.grp:not(.open) ul{display:none}
+.grp ul{list-style:none;margin:0 0 6px;padding:0}
+.grp li a{display:block;padding:5px 10px 5px 18px;font-size:13px;line-height:1.45;color:var(--muted);text-decoration:none;border-left:2px solid transparent;border-radius:0 6px 6px 0}
+.grp li a:hover{color:var(--text);background:var(--accent-bg)}
+.grp li a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);font-weight:600}
+li.hide{display:none}
+main{margin-left:300px;padding:40px 32px 120px}
+article{max-width:820px;margin:0 auto}
+h1{font-size:28px;line-height:1.35;margin:1.6em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--line)}
+article>h1:first-child{margin-top:0}
+h2{font-size:21px;margin:2em 0 .6em}
+h3{font-size:18px;margin:2em 0 .5em;padding:10px 14px;background:var(--accent-bg);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;line-height:1.5}
+blockquote{margin:1em 0;padding:.4em 1em;border-left:4px solid var(--line);color:var(--muted);background:var(--panel);border-radius:0 8px 8px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel)}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-size:.9em}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+ul,ol{padding-left:1.4em}
+li{margin:.2em 0}
+.stars{color:var(--star);letter-spacing:1px;font-weight:700}
+#menu,#top{position:fixed;z-index:30;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;cursor:pointer;font-size:16px}
+#menu{display:none;top:12px;left:12px;width:42px;height:42px}
+#top{right:16px;bottom:16px;width:42px;height:42px;opacity:0;pointer-events:none;transition:opacity .2s}
+#top.show{opacity:1;pointer-events:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;cursor:pointer;padding:6px 8px;font-size:13px;margin-left:6px}
+#scrim{display:none}
+@media (max-width:900px){
+ #side{transform:translateX(-100%);width:min(320px,86vw)}
+ body.open #side{transform:none}
+ body.open #scrim{display:block;position:fixed;inset:0;background:#0006;z-index:15}
+ #menu{display:block}
+ body.open #menu{display:none}
+ main{margin-left:0;padding:70px 16px 100px}
+ h1{font-size:23px}
+}
+@media print{#side,#menu,#top{display:none}main{margin:0}}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.55}pre code{background:none;padding:0;font-size:inherit}article{min-width:0}:not(pre)>code{overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<button id="menu" aria-label="목차 열기">☰</button>
+<div id="scrim"></div>
+<aside id="side">
+ <div class="side-top">
+  <h2>지금 열린 도서관 PRD v0.1 <button id="theme" title="테마 전환">🌓</button></h2>
+  <input id="q" type="search" placeholder="목차 검색 (예: 휴관, 출발지)" aria-label="목차 검색">
+  <div class="dl">
+   <a href="prd-library-now.md" download="prd-library-now.md">⬇ MD</a>
+   <a id="dlhtml" href="prd-library-now.html" download="prd-library-now.html">⬇ HTML</a>
+  </div>
+ </div>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-도서관-지도-p0">F1. 도서관 지도 (P0)</a></li><li><a href="#f2-지역-선택-p0">F2. 지역 선택 (P0)</a></li><li><a href="#f3-이용-모드-책-빌리기-공부하기-p0">F3. 이용 모드: 책 빌리기 / 공부하기 (P0)</a></li><li><a href="#f4-운영-상태-배지-p0">F4. 운영 상태 배지 (P0)</a></li><li><a href="#f5-지금-가면-몇-시간-이용-가능-p0-창의-포인트">F5. &quot;지금 가면 몇 시간 이용 가능&quot; (P0, 창의 포인트)</a></li><li><a href="#f6-출발지-관리-현재-위치-집-직장-p0">F6. 출발지 관리: 현재 위치, 집, 직장 (P0)</a></li><li><a href="#f7-거리와-이동-시간-추정-p0">F7. 거리와 이동 시간 추정 (P0)</a></li><li><a href="#f8-길찾기-연결-p0">F8. 길찾기 연결 (P0)</a></li><li><a href="#f9-목록과-필터-p0">F9. 목록과 필터 (P0)</a></li><li><a href="#f10-도서관-상세-p0">F10. 도서관 상세 (P0)</a></li><li><a href="#f11-휴관일-달력-p0">F11. 휴관일 달력 (P0)</a></li><li><a href="#f12-즐겨찾기-p0">F12. 즐겨찾기 (P0)</a></li><li><a href="#f13-기준-시각-바꾸기-p1">F13. 기준 시각 바꾸기 (P1)</a></li><li><a href="#f14-내-메모와-임시-휴관-직접-추가-p1">F14. 내 메모와 임시 휴관 직접 추가 (P1)</a></li><li><a href="#f15-홈-화면-설치-pwa-p1">F15. 홈 화면 설치(PWA) (P1)</a></li><li><a href="#f16-확장-기능-p2">F16. 확장 기능 (P2)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시간-계산-로직">5. 시간 계산 로직</a><span class=chev>▾</span></button><ul><li><a href="#5-1-기준-시간대">5.1 기준 시간대</a></li><li><a href="#5-2-하루-운영-판정-순서">5.2 하루 운영 판정 순서</a></li><li><a href="#5-3-휴관-규칙의-표현">5.3 휴관 규칙의 표현</a></li><li><a href="#5-4-공휴일-데이터">5.4 공휴일 데이터</a></li><li><a href="#5-5-남은-이용-시간-계산">5.5 남은 이용 시간 계산</a></li><li><a href="#5-6-테스트">5.6 테스트</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-데이터-설계">6. 데이터 설계</a><span class=chev>▾</span></button><ul><li><a href="#6-1-데이터-출처">6.1 데이터 출처</a></li><li><a href="#6-2-데이터-만드는-과정-빌드-파이프라인">6.2 데이터 만드는 과정 (빌드 파이프라인)</a></li><li><a href="#6-3-도서관-데이터-구조-libraries-json의-한-항목">6.3 도서관 데이터 구조 (libraries.json의 한 항목)</a></li><li><a href="#6-4-브라우저-저장-데이터-localstorage">6.4 브라우저 저장 데이터 (localStorage)</a></li><li><a href="#6-5-데이터-라이선스와-출처-표기">6.5 데이터 라이선스와 출처 표기</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-지도와-길찾기-설계">7. 지도와 길찾기 설계</a><span class=chev>▾</span></button><ul><li><a href="#7-1-지도-구성">7.1 지도 구성</a></li><li><a href="#7-2-길찾기">7.2 길찾기</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-화면-구성">8. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#8-1-공통-원칙">8.1 공통 원칙</a></li><li><a href="#8-2-데스크탑-1200px-이상-기준-1440-900">8.2 데스크탑 (1200px 이상, 기준 1440×900)</a></li><li><a href="#8-3-태블릿-768-1199px">8.3 태블릿 (768~1199px)</a></li><li><a href="#8-4-스마트폰-767px-이하-기준-390-844">8.4 스마트폰 (767px 이하, 기준 390×844)</a></li><li><a href="#8-5-설정-화면">8.5 설정 화면</a></li><li><a href="#8-6-디자인-방향">8.6 디자인 방향</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-기술-스택과-저장소">9. 기술 스택과 저장소</a><span class=chev>▾</span></button><ul><li><a href="#9-1-기술-스택">9.1 기술 스택</a></li><li><a href="#9-2-저장소-db-로그인">9.2 저장소, DB, 로그인</a></li><li><a href="#9-3-폴더-구조-안">9.3 폴더 구조 (안)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비와-데이터-수집">M0. 준비와 데이터 수집</a></li><li><a href="#m1-지도와-상태-표시-mvp-핵심">M1. 지도와 상태 표시 (MVP 핵심)</a></li><li><a href="#m2-출발지-남은-이용-시간-길찾기">M2. 출발지, 남은 이용 시간, 길찾기</a></li><li><a href="#m3-상세-달력-반응형-마감">M3. 상세, 달력, 반응형 마감</a></li><li><a href="#m4-다듬기와-배포-p1">M4. 다듬기와 배포 (P1)</a></li><li><a href="#m5-확장-p2">M5. 확장 (P2)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#14-1-결정된-사항">14.1 결정된 사항</a></li><li><a href="#14-2-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#부록-a-카카오맵-javascript-키-발급-방법-p2-준비">부록 A. 카카오맵 JavaScript 키 발급 방법 (P2 준비)</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#부록-b-조사한-참고-서비스">부록 B. 조사한 참고 서비스</a></button><ul></ul></div></nav>
+</aside>
+<main><article id="doc"><h1 id="지금-열린-도서관-library-now-제품-기획서-prd">지금 열린 도서관(Library Now): 제품 기획서(PRD)</h1>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>문서 버전</td>
+<td>v0.1</td>
+</tr>
+<tr>
+<td>작성일</td>
+<td>2026-11-18</td>
+</tr>
+<tr>
+<td>앱 이름</td>
+<td><strong>지금 열린 도서관 (Library Now)</strong></td>
+</tr>
+<tr>
+<td>한 줄 소개</td>
+<td>지금 문 연 도서관과 "지금 가면 몇 시간 이용할 수 있는지"를 지도로 보여 주는 웹앱</td>
+</tr>
+<tr>
+<td>형태</td>
+<td>반응형 웹앱(데스크탑·스마트폰), GitHub Pages 배포, 개인 전용(로그인 없음)</td>
+</tr>
+<tr>
+<td>원 아이디어</td>
+<td>'Vibe 앱 개발 아이디어 수집'의 4-1 「우리 동네 도서관 지도」</td>
+</tr>
+</tbody>
+</table>
+<h2 id="변경-이력">변경 이력</h2>
+<table>
+<thead>
+<tr>
+<th>버전</th>
+<th>날짜</th>
+<th>주요 변경</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v0.1</td>
+<td>2026-11-18</td>
+<td>최초 작성. 자료 조사와 사용자 결정 사항(범위, 지도, 길찾기, 자료실·열람실, 출발지, 이름)을 반영</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-개요">1. 개요</h2>
+<h3 id="1-1-배경">1.1 배경</h3>
+<p>동네 도서관에 가려고 할 때 자주 생기는 문제는 다음과 같습니다.</p>
+<ol>
+<li><strong>헛걸음</strong>: 휴관일이 도서관마다 다릅니다. "매주 월요일", "매월 둘째·넷째 월요일", "법정공휴일"처럼 규칙이 제각각이고, 공휴일이 끼면 더 헷갈립니다.</li>
+<li><strong>자료실과 열람실의 시간 차이</strong>: 책을 빌리는 자료실은 18시에 닫아도 공부하는 열람실은 22시까지 여는 경우가 많습니다. 어떤 목적으로 가는지에 따라 답이 달라집니다.</li>
+<li><strong>정보가 흩어져 있음</strong>: 구립, 시립, 교육청 소속 도서관마다 홈페이지가 달라서 한눈에 비교하기 어렵습니다.</li>
+<li><strong>구 경계</strong>: 구로구·영등포구·양천구의 경계 근처에 살면 다른 구의 도서관이 더 가까울 수 있습니다.</li>
+</ol>
+<h3 id="1-2-목표">1.2 목표</h3>
+<ul>
+<li>앱을 열고 <strong>3초 안에</strong> "지금 갈 수 있는 도서관"을 알 수 있게 합니다.</li>
+<li>도서관마다 <strong>"지금 가면 ○시간 ○분 이용 가능"</strong>을 도착 시각 기준으로 계산해 보여 줍니다.</li>
+<li>자료실(책 빌리기)과 열람실(공부하기)을 구분해서 판단합니다.</li>
+<li>내 위치나 저장한 출발지(집, 직장)에서 찾아가는 방법을 바로 열 수 있게 합니다.</li>
+<li>비용 0원으로 운영합니다(유료 API, 서버, DB 없음).</li>
+<li>포트폴리오에 올릴 수 있는 완성도의 반응형 웹앱을 만듭니다.</li>
+</ul>
+<h3 id="1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</h3>
+<ul>
+<li>로그인, 회원가입, 서버 백엔드, DB, 기기 간 동기화</li>
+<li>작은도서관, 대학도서관, 전문도서관 (1차 범위는 공공도서관만)</li>
+<li>앱 안에서 대중교통 경로를 직접 계산하는 기능 (카카오맵·네이버 지도로 넘김)</li>
+<li>열람실 실시간 좌석 현황, 도서 예약·대출 처리</li>
+<li>앱스토어용 네이티브 앱</li>
+<li>지도 타일 오프라인 저장 (OSM 타일 정책상 금지)</li>
+</ul>
+<hr />
+<h2 id="2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</h2>
+<h3 id="2-1-주-사용자">2.1 주 사용자</h3>
+<ul>
+<li><strong>본인(개발자 겸 유일한 사용자)</strong>: 서울 구로구 인근에 살며, 책을 빌리러 가거나 공부하러 도서관을 이용합니다. 데스크탑과 스마트폰을 모두 씁니다.</li>
+<li><strong>포트폴리오 방문자(간접 사용자)</strong>: 포트폴리오 사이트에서 링크를 눌러 앱을 체험해 봅니다. 위치 권한 없이도 기본 화면이 의미 있게 보여야 합니다.</li>
+</ul>
+<h3 id="2-2-대표-시나리오">2.2 대표 시나리오</h3>
+<blockquote>
+<p><strong>시나리오 A. 퇴근 후 공부하러 갈 곳 찾기 (스마트폰)</strong>
+평일 저녁 7시, 회사에서 나오며 앱을 엽니다. 상단 모드를 <strong>공부하기</strong>로 바꾸고 출발지를 <strong>직장</strong>으로 고릅니다. 목록 맨 위에 "열람실 22시까지 · 지금 가면 2시간 25분 이용 가능 · 약 35분 거리" 카드가 보입니다. <strong>카카오맵으로 길찾기</strong>를 눌러 대중교통 경로를 확인하고 출발합니다.</p>
+<p><strong>시나리오 B. 월요일에 책 반납하러 가기 (데스크탑)</strong>
+월요일 오전, 집에서 노트북으로 앱을 엽니다. 모드는 <strong>책 빌리기</strong>입니다. 구로구 도서관 대부분이 "오늘 휴관"으로 회색 처리되어 있고, 양천구의 한 도서관이 "자료실 운영 중 · 18시까지"로 표시됩니다. 지도에서 그 도서관을 눌러 오른쪽 패널에서 주소와 운영시간 원문을 확인합니다.</p>
+<p><strong>시나리오 C. 다음 주 일정 계획하기 (데스크탑)</strong>
+오른쪽 패널의 <strong>달력</strong>에서 즐겨찾기한 도서관 3곳의 이번 달 휴관일을 한 번에 봅니다. 다음 주 수요일이 공휴일이라 두 곳이 쉬는 것을 확인하고, 그날은 문 여는 나머지 한 곳에 가기로 합니다.</p>
+</blockquote>
+<hr />
+<h2 id="3-전체-사용-흐름">3. 전체 사용 흐름</h2>
+<pre><code>앱 열기
+ ├─ (처음) 위치 권한 요청 → 거부해도 기본 지역(구로구) 중심으로 표시
+ ├─ 상단: 모드 [책 빌리기 | 공부하기] · 출발지 [현재 위치 | 집 | 직장] · 기준 시각 [지금 | 직접 선택]
+ ├─ 지도 + 목록: 상태 배지(열림 / 곧 닫힘 / 곧 열림 / 오늘 휴관 / 운영 종료)
+ │    └─ 필터: 구 선택, 지금 열린 곳만, 21시 이후 운영, 주말 운영, 즐겨찾기만
+ ├─ 도서관 선택 → 상세 패널
+ │    ├─ 자료실·열람실 운영시간, 휴관 규칙, 이번 달 달력
+ │    ├─ &quot;지금 가면 ○시간 ○분 이용 가능&quot; (이동 시간 추정 포함)
+ │    └─ 길찾기 버튼: 카카오맵 / 네이버 지도, 주소 복사, 홈페이지
+ └─ 달력 탭: 즐겨찾기 도서관들의 월간 휴관일 겹쳐 보기
+</code></pre>
+<hr />
+<h2 id="4-기능-요구사항">4. 기능 요구사항</h2>
+<p>우선순위: <strong>P0</strong> = MVP 필수, <strong>P1</strong> = MVP 직후, <strong>P2</strong> = 확장</p>
+<h3 id="f1-도서관-지도-p0">F1. 도서관 지도 (P0)</h3>
+<ul>
+<li>Leaflet과 OpenStreetMap 타일로 지도를 표시합니다.</li>
+<li>도서관마다 마커를 표시하며, 마커의 색과 아이콘으로 상태를 구분합니다(색만으로 구분하지 않도록 아이콘 모양도 다르게 합니다).</li>
+<li>마커를 누르면 간단한 팝업(이름, 상태, 남은 시간)이 뜨고, 상세 패널이 열립니다.</li>
+<li>목록에서 도서관에 마우스를 올리거나 선택하면 지도의 해당 마커가 강조됩니다.</li>
+<li>내 위치와 저장한 출발지를 별도 마커로 표시합니다.</li>
+<li>"내 위치로 이동", "전체 보기" 버튼을 둡니다.</li>
+<li>지도 화면 오른쪽 아래에 OSM 출처(© OpenStreetMap contributors)를 표시합니다.</li>
+</ul>
+<h3 id="f2-지역-선택-p0">F2. 지역 선택 (P0)</h3>
+<ul>
+<li>1차 지원 지역은 <strong>구로구, 영등포구, 양천구</strong>입니다.</li>
+<li>구 선택은 여러 개를 동시에 고를 수 있는 칩 형태로 합니다. 기본값은 세 구 모두 선택입니다.</li>
+<li>"내 주변" 보기: 출발지에서 반경(1km, 3km, 5km) 안의 도서관을 구와 관계없이 보여 줍니다.</li>
+<li>지역 목록은 데이터에서 읽어 오므로, 서울 전체로 확대할 때 코드 수정 없이 데이터만 추가하면 됩니다.</li>
+</ul>
+<h3 id="f3-이용-모드-책-빌리기-공부하기-p0">F3. 이용 모드: 책 빌리기 / 공부하기 (P0)</h3>
+<ul>
+<li>상단에 모드 스위치를 둡니다.<ul>
+<li><strong>책 빌리기</strong>: 자료실 운영시간을 기준으로 판단합니다.</li>
+<li><strong>공부하기</strong>: 열람실 운영시간을 기준으로 판단합니다.</li>
+</ul>
+</li>
+<li>상태 배지, "지금 열린 곳만" 필터, 남은 이용 시간 계산이 모두 선택한 모드를 따릅니다.</li>
+<li>열람실이 없는 도서관은 공부하기 모드에서 "열람실 없음"으로 표시하고, "지금 열린 곳만" 필터에서는 제외합니다.</li>
+<li>마지막으로 선택한 모드를 브라우저에 저장합니다.</li>
+</ul>
+<h3 id="f4-운영-상태-배지-p0">F4. 운영 상태 배지 (P0)</h3>
+<p>선택한 모드와 기준 시각(기본: 지금)에 따라 아래 상태 중 하나를 표시합니다.</p>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>조건</th>
+<th>표시 예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>열림</td>
+<td>운영 중이고 마감까지 60분 넘게 남음</td>
+<td>🟢 운영 중 · 22:00까지</td>
+</tr>
+<tr>
+<td>곧 닫힘</td>
+<td>운영 중이고 마감까지 60분 이하</td>
+<td>🟠 곧 닫힘 · 40분 남음</td>
+</tr>
+<tr>
+<td>곧 열림</td>
+<td>오늘 운영일이고 아직 개관 전</td>
+<td>🔵 09:00 개관</td>
+</tr>
+<tr>
+<td>운영 종료</td>
+<td>오늘 운영일이었지만 마감 시각이 지남</td>
+<td>⚪ 오늘 운영 종료 · 내일 09:00</td>
+</tr>
+<tr>
+<td>오늘 휴관</td>
+<td>정기 휴관일, 공휴일 휴관, 임시 휴관</td>
+<td>⚫ 오늘 휴관 (매주 월요일)</td>
+</tr>
+<tr>
+<td>정보 없음</td>
+<td>해당 실의 운영시간 데이터가 없음</td>
+<td>❔ 운영시간 확인 필요</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>휴관 사유(정기 휴관, 공휴일, 임시 휴관)를 함께 보여 줍니다.</li>
+<li>"운영 종료"와 "오늘 휴관"일 때는 <strong>다음 개관 시각</strong>을 계산해 보여 줍니다.</li>
+</ul>
+<h3 id="f5-지금-가면-몇-시간-이용-가능-p0-창의-포인트">F5. "지금 가면 몇 시간 이용 가능" (P0, 창의 포인트)</h3>
+<ul>
+<li>도서관마다 <strong>도착 예정 시각 기준 이용 가능 시간</strong>을 계산합니다.<ul>
+<li>이용 가능 시간 = 마감 시각 − max(도착 예정 시각, 개관 시각)</li>
+<li>도착 예정 시각 = 기준 시각 + 예상 이동 시간 (F7)</li>
+</ul>
+</li>
+<li>도착하면 이미 마감인 경우 "도착 시 마감"으로 표시하고 목록 뒤쪽으로 보냅니다.</li>
+<li>이용 가능 시간이 30분 미만이면 경고 색으로 표시합니다.</li>
+<li>출발지가 없으면(위치 거부, 출발지 미설정) 이동 시간을 빼지 않고 "지금부터 마감까지 ○시간"으로 표시합니다.</li>
+</ul>
+<h3 id="f6-출발지-관리-현재-위치-집-직장-p0">F6. 출발지 관리: 현재 위치, 집, 직장 (P0)</h3>
+<ul>
+<li>출발지는 <strong>현재 위치 / 집 / 직장</strong> 중에서 고릅니다.</li>
+<li>집과 직장은 설정 화면에서 <strong>지도를 눌러 위치를 찍거나</strong>, 도서관 마커처럼 핀을 끌어서 지정합니다. 이름(예: "집", "회사")도 바꿀 수 있습니다.</li>
+<li>저장 위치는 브라우저(localStorage)입니다. 서버로 보내지 않습니다.</li>
+<li>현재 위치는 브라우저 위치 기능(Geolocation API)을 씁니다. 거부하거나 실패하면 집 → 직장 → 기본 지역 중심 순서로 대신 씁니다.</li>
+<li>데스크탑은 현재 위치가 부정확한 경우가 많으므로, 정확도가 낮으면(오차 500m 초과) "집/직장 출발지 사용을 권장"하는 안내를 보여 줍니다.</li>
+<li>(P1) 주소 검색으로 출발지를 지정하는 기능은 무료 지오코딩 방법을 확인한 뒤 추가합니다.</li>
+</ul>
+<h3 id="f7-거리와-이동-시간-추정-p0">F7. 거리와 이동 시간 추정 (P0)</h3>
+<ul>
+<li>출발지와 도서관 사이의 <strong>직선거리</strong>를 계산합니다(하버사인 공식).</li>
+<li>실제 길은 직선보다 길므로 <strong>우회 계수 1.3</strong>을 곱한 값을 예상 이동 거리로 씁니다.</li>
+<li>예상 이동 시간은 다음 규칙으로 추정합니다(정확한 경로 안내는 F8의 외부 지도 앱이 담당).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>예상 이동 거리</th>
+<th>수단 가정</th>
+<th>계산</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.5km 이하</td>
+<td>도보</td>
+<td>거리 ÷ 4.2km/h</td>
+</tr>
+<tr>
+<td>1.5km 초과</td>
+<td>대중교통</td>
+<td>10분(정류장 도보·대기) + 거리 ÷ 18km/h</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>화면에는 "약 25분 (추정)"처럼 추정값임을 밝힙니다.</li>
+<li>계산 상수(우회 계수, 속도, 기준 거리)는 설정 파일 한 곳에 모아 두고 나중에 조정할 수 있게 합니다.</li>
+<li>목록 정렬: <strong>거리순(기본) / 남은 이용 시간순 / 이름순</strong>.</li>
+</ul>
+<h3 id="f8-길찾기-연결-p0">F8. 길찾기 연결 (P0)</h3>
+<ul>
+<li>상세 패널에 길찾기 버튼을 둡니다. 출발지 좌표가 있으면 출발지를 함께 넘깁니다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>버튼</th>
+<th>연결 방식</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>카카오맵으로 길찾기</td>
+<td>웹 링크 <code>https://map.kakao.com/link/to/{이름},{위도},{경도}</code> (출발지 포함 시 <code>link/from/{출발지명},{위도},{경도}/to/...</code>)</td>
+<td>데스크탑과 스마트폰 모두 동작. 스마트폰에 앱이 있으면 앱으로 열림</td>
+</tr>
+<tr>
+<td>네이버 지도로 길찾기</td>
+<td>앱 스킴 <code>nmap://route/public?slat=&amp;slng=&amp;sname=&amp;dlat=&amp;dlng=&amp;dname=&amp;appname={앱 주소}</code></td>
+<td>스마트폰에서만 표시. 앱이 없으면 네이버 지도 웹으로 대신 연결</td>
+</tr>
+<tr>
+<td>주소 복사</td>
+<td>클립보드 복사</td>
+<td>다른 지도 앱을 쓸 때</td>
+</tr>
+<tr>
+<td>홈페이지</td>
+<td>도서관 홈페이지 새 탭</td>
+<td>임시 휴관 공지 확인용</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>링크 형식은 개발 단계에서 실제 기기(PC, Android, iPhone)로 동작을 확인한 뒤 확정합니다. 특히 대중교통 탭이 바로 열리는지 확인합니다.</li>
+</ul>
+<h3 id="f9-목록과-필터-p0">F9. 목록과 필터 (P0)</h3>
+<ul>
+<li>도서관 카드: 이름, 구, 상태 배지, 남은 이용 시간, 예상 이동 시간, 오늘 운영시간(자료실·열람실), 즐겨찾기 버튼.</li>
+<li>필터:<ul>
+<li>지금 열린 곳만 (P0)</li>
+<li>21시 이후까지 운영 (P0, 공부하기 모드에서 유용)</li>
+<li>주말 운영 (P1)</li>
+<li>즐겨찾기만 (P0)</li>
+</ul>
+</li>
+<li>이름 검색 (P0).</li>
+<li>결과가 없으면 "조건에 맞는 도서관이 없습니다. 다음 개관이 가장 빠른 곳: ○○도서관 (내일 09:00)"처럼 대안을 제안합니다.</li>
+</ul>
+<h3 id="f10-도서관-상세-p0">F10. 도서관 상세 (P0)</h3>
+<ul>
+<li>기본 정보: 이름, 구, 주소, 전화번호(누르면 전화 걸기), 홈페이지, 소속(구립/시립/교육청).</li>
+<li>운영시간 표: 자료실과 열람실을 나란히, 평일·토요일·일요일·공휴일별로 표시합니다. 하절기·동절기 구분이 있으면 함께 표시합니다.</li>
+<li>휴관 규칙: 사람이 읽을 수 있는 문장으로 표시합니다(예: "매주 월요일, 법정공휴일(일요일 제외)").</li>
+<li>자료실 안의 세부 실(어린이자료실, 디지털자료실 등) 시간이 다르면 <strong>메모</strong>로 보여 줍니다.</li>
+<li>이번 달 미니 달력: 휴관일을 표시합니다.</li>
+<li>데이터 출처, <strong>데이터 기준일</strong>, <strong>마지막 확인일</strong>을 표시합니다.</li>
+<li>"방문 전 홈페이지 공지에서 임시 휴관 여부를 확인하세요" 안내를 둡니다.</li>
+</ul>
+<h3 id="f11-휴관일-달력-p0">F11. 휴관일 달력 (P0)</h3>
+<ul>
+<li>월간 달력에서 날짜마다 휴관하는 도서관을 표시합니다.</li>
+<li>기본은 <strong>즐겨찾기 도서관</strong>만 겹쳐 보여 줍니다(도서관마다 고유 색 점). 즐겨찾기가 없으면 선택한 구 전체의 "문 연 도서관 수"를 날짜마다 보여 줍니다.</li>
+<li>날짜를 누르면 그날 문 여는 도서관과 운영시간 목록을 보여 줍니다.</li>
+<li>공휴일과 임시공휴일은 날짜에 이름과 함께 표시합니다.</li>
+</ul>
+<h3 id="f12-즐겨찾기-p0">F12. 즐겨찾기 (P0)</h3>
+<ul>
+<li>도서관 카드와 상세에서 별 버튼으로 추가·삭제합니다.</li>
+<li>브라우저(localStorage)에 저장합니다.</li>
+</ul>
+<h3 id="f13-기준-시각-바꾸기-p1">F13. 기준 시각 바꾸기 (P1)</h3>
+<ul>
+<li>기본은 "지금"입니다. 날짜와 시각을 직접 고르면 그 시점 기준으로 상태와 남은 시간을 다시 계산합니다.</li>
+<li>예: "토요일 오후 3시에 출발하면 어디가 열려 있지?"</li>
+</ul>
+<h3 id="f14-내-메모와-임시-휴관-직접-추가-p1">F14. 내 메모와 임시 휴관 직접 추가 (P1)</h3>
+<ul>
+<li>도서관마다 개인 메모를 남깁니다(예: "3층 창가 자리 좋음").</li>
+<li>공사·행사로 인한 임시 휴관 기간을 직접 입력하면 상태 계산에 반영합니다.</li>
+<li>브라우저에 저장하며, JSON 파일로 내보내기·가져오기를 지원합니다(기기를 바꿀 때 사용).</li>
+</ul>
+<h3 id="f15-홈-화면-설치-pwa-p1">F15. 홈 화면 설치(PWA) (P1)</h3>
+<ul>
+<li>웹 앱 매니페스트와 서비스 워커를 추가해 스마트폰 홈 화면에 설치할 수 있게 합니다.</li>
+<li>앱 화면과 도서관 JSON 데이터는 캐시해서 오프라인에서도 목록·운영시간·달력을 볼 수 있게 합니다. 지도 타일은 캐시하지 않습니다(OSM 정책).</li>
+</ul>
+<h3 id="f16-확장-기능-p2">F16. 확장 기능 (P2)</h3>
+<ul>
+<li>서울 25개 구 전체로 확대</li>
+<li>카카오맵 지도 적용(설정에서 지도 종류 선택)</li>
+<li>도서관 정보나루 API로 "이 책이 있고 지금 문 연 도서관" 찾기</li>
+<li>구 경계선 표시</li>
+<li>다크 모드</li>
+<li>링크 공유(URL에 선택한 도서관과 모드를 담기)</li>
+</ul>
+<hr />
+<h2 id="5-시간-계산-로직">5. 시간 계산 로직</h2>
+<h3 id="5-1-기준-시간대">5.1 기준 시간대</h3>
+<ul>
+<li>모든 계산은 <strong>한국 표준시(Asia/Seoul)</strong> 기준으로 합니다. 기기의 시간대가 달라도 결과가 같도록 <code>Intl.DateTimeFormat</code>으로 서울 시각을 구해 사용합니다.</li>
+</ul>
+<h3 id="5-2-하루-운영-판정-순서">5.2 하루 운영 판정 순서</h3>
+<p>특정 날짜, 특정 실(자료실 또는 열람실)에 대해 다음 순서로 판정합니다.</p>
+<ol>
+<li><strong>임시 휴관</strong>(데이터의 <code>closures</code> 또는 사용자가 입력한 임시 휴관)에 해당하면 → 휴관</li>
+<li><strong>정기 휴관 규칙</strong>(매주 ○요일, 매월 ○째 ○요일)에 해당하면 → 휴관</li>
+<li><strong>공휴일</strong>이면 → 공휴일 규칙에 따라 휴관 또는 공휴일 운영시간 적용</li>
+<li>요일에 맞는 운영시간(평일/토요일/일요일) 적용, 하절기·동절기 구분이 있으면 날짜에 맞는 계절 적용</li>
+<li>해당 요일의 운영시간이 없으면 → 휴관(그날 운영하지 않음)</li>
+</ol>
+<h3 id="5-3-휴관-규칙의-표현">5.3 휴관 규칙의 표현</h3>
+<p>휴관일 문장을 다음과 같은 규칙으로 바꿔 저장합니다.</p>
+<table>
+<thead>
+<tr>
+<th>원문 예</th>
+<th>규칙</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>매주 월요일</td>
+<td><code>weekly: [1]</code></td>
+</tr>
+<tr>
+<td>매월 둘째·넷째 월요일</td>
+<td><code>monthly: [{ nth: [2, 4], weekday: 1 }]</code></td>
+</tr>
+<tr>
+<td>매월 마지막 화요일</td>
+<td><code>monthly: [{ nth: [-1], weekday: 2 }]</code></td>
+</tr>
+<tr>
+<td>법정공휴일</td>
+<td><code>holiday: "closed"</code></td>
+</tr>
+<tr>
+<td>법정공휴일 (일요일 제외)</td>
+<td><code>holiday: "closed_except_sunday"</code></td>
+</tr>
+<tr>
+<td>설·추석 연휴만 휴관</td>
+<td><code>holiday: "seollal_chuseok_only"</code></td>
+</tr>
+<tr>
+<td>공휴일 정상 운영</td>
+<td><code>holiday: "open"</code> (공휴일 운영시간 사용)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>요일 번호는 0=일요일, 1=월요일, …, 6=토요일입니다.</li>
+<li>원문은 <code>closedRaw</code>에 그대로 보관해 화면에 함께 보여 주고, 변환 결과는 사람이 검수합니다.</li>
+<li>규칙으로 표현하기 어려운 경우(예: "공휴일이 월요일이면 다음 날 휴관")는 <code>notes</code>에 적고, 해당 날짜를 <code>closures</code>에 직접 넣습니다.</li>
+</ul>
+<h3 id="5-4-공휴일-데이터">5.4 공휴일 데이터</h3>
+<ul>
+<li>한국천문연구원 특일정보 API(공공데이터포털, 무료)에서 공휴일과 임시공휴일을 받아 <code>holidays-{연도}.json</code>으로 저장합니다.</li>
+<li>올해와 내년 두 해분을 미리 받아 둡니다. 임시공휴일이 새로 지정되면 데이터를 다시 받아 갱신합니다.</li>
+</ul>
+<h3 id="5-5-남은-이용-시간-계산">5.5 남은 이용 시간 계산</h3>
+<pre><code>도착 = 기준시각 + 예상이동시간
+오늘 운영 구간 = [개관, 마감]  (휴관이면 없음)
+if 도착 &gt; 마감:        &quot;도착 시 마감&quot; → 다음 개관 시각 안내
+elif 도착 &lt; 개관:      이용 가능 = 마감 − 개관 (&quot;09:00 개관 후 9시간&quot;)
+else:                  이용 가능 = 마감 − 도착
+</code></pre>
+<ul>
+<li>자정을 넘겨 운영하는 경우는 1차 범위에 없지만, 마감 시각이 개관보다 작으면 다음 날로 처리하도록 구조만 열어 둡니다.</li>
+</ul>
+<h3 id="5-6-테스트">5.6 테스트</h3>
+<ul>
+<li>시간 계산 함수는 순수 함수로 만들고 단위 테스트를 작성합니다.</li>
+<li>필수 테스트 사례: 매주 월요일 휴관, 둘째·넷째 월요일, 마지막 주, 공휴일과 정기 휴관이 겹치는 날, 일요일인 공휴일, 임시공휴일, 하절기·동절기 경계일, 마감 직전, 개관 전, 자정 직전.</li>
+</ul>
+<hr />
+<h2 id="6-데이터-설계">6. 데이터 설계</h2>
+<h3 id="6-1-데이터-출처">6.1 데이터 출처</h3>
+<table>
+<thead>
+<tr>
+<th>데이터</th>
+<th>용도</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>전국도서관표준데이터 (공공데이터포털)</td>
+<td><strong>주 데이터</strong>: 도서관명, 시군구, 유형, 주소, 위도·경도, 휴관일, 평일·토요일·공휴일 운영 시작/종료 시각, 홈페이지, 데이터 기준일</td>
+<td>매월 초 갱신. 서울 3개 구, 유형 "공공도서관"만 추려 씁니다</td>
+</tr>
+<tr>
+<td>서울 열린데이터광장 공공도서관 현황정보</td>
+<td>교차 검증: 운영시간·휴관일·좌표 비교</td>
+<td>값이 다르면 홈페이지로 최종 확인</td>
+</tr>
+<tr>
+<td>각 도서관 홈페이지 "이용 안내"</td>
+<td><strong>자료실·열람실 운영시간</strong>, 세부 실 메모, 하절기·동절기</td>
+<td>공공데이터에는 보통 운영시간이 한 줄뿐이라 직접 확인해 입력합니다</td>
+</tr>
+<tr>
+<td>한국천문연구원 특일정보 API</td>
+<td>공휴일·임시공휴일</td>
+<td>무료, 인증키 발급 필요</td>
+</tr>
+<tr>
+<td>OpenStreetMap 타일</td>
+<td>배경 지도</td>
+<td>키 없음, 출처 표기 필수</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-2-데이터-만드는-과정-빌드-파이프라인">6.2 데이터 만드는 과정 (빌드 파이프라인)</h3>
+<pre><code>data/raw/            공공데이터 원본 CSV (내려받은 그대로 보관)
+data/overrides/      도서관별 수기 입력(자료실·열람실 시간, 휴관 규칙 검수 결과, 메모)
+        ↓  scripts/build-data.ts
+  1) 원본에서 서울 · 대상 구 · 공공도서관만 추리기
+  2) 이름·주소 정규화, 고유 ID 부여
+  3) 휴관일 문장 → 규칙 변환(자동 1차 변환)
+  4) overrides 덮어쓰기(사람이 검수한 값이 항상 우선)
+  5) 검증: 필수 항목, 좌표가 서울 범위 안인지, 시각 형식, 개관 &lt; 마감
+        ↓
+public/data/libraries.json      앱이 읽는 도서관 데이터
+public/data/holidays-2026.json  공휴일
+public/data/holidays-2027.json
+public/data/meta.json           데이터 기준일, 출처, 생성 시각
+</code></pre>
+<ul>
+<li>앱은 실행 중에 외부 API를 부르지 않고 이 JSON 파일만 읽습니다(정적 방식).</li>
+<li>데이터 갱신은 월 1회 정도 수동으로 스크립트를 실행하고 변경 내용을 확인한 뒤 커밋합니다.</li>
+<li>검증에 실패하면 빌드를 멈추고 문제가 있는 도서관과 항목을 출력합니다.</li>
+</ul>
+<h3 id="6-3-도서관-데이터-구조-libraries-json의-한-항목">6.3 도서관 데이터 구조 (<code>libraries.json</code>의 한 항목)</h3>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;guro-001&quot;,
+  &quot;name&quot;: &quot;○○구립도서관&quot;,
+  &quot;district&quot;: &quot;구로구&quot;,
+  &quot;type&quot;: &quot;공공도서관&quot;,
+  &quot;operator&quot;: &quot;구립&quot;,
+  &quot;address&quot;: &quot;서울특별시 구로구 ...&quot;,
+  &quot;phone&quot;: &quot;02-000-0000&quot;,
+  &quot;homepage&quot;: &quot;https://...&quot;,
+  &quot;lat&quot;: 37.49,
+  &quot;lng&quot;: 126.88,
+  &quot;rooms&quot;: {
+    &quot;lending&quot;: {
+      &quot;label&quot;: &quot;자료실&quot;,
+      &quot;hours&quot;: {
+        &quot;weekday&quot;:  { &quot;open&quot;: &quot;09:00&quot;, &quot;close&quot;: &quot;18:00&quot; },
+        &quot;saturday&quot;: { &quot;open&quot;: &quot;09:00&quot;, &quot;close&quot;: &quot;17:00&quot; },
+        &quot;sunday&quot;:   { &quot;open&quot;: &quot;09:00&quot;, &quot;close&quot;: &quot;17:00&quot; },
+        &quot;holiday&quot;:  null
+      },
+      &quot;seasons&quot;: null,
+      &quot;memo&quot;: &quot;어린이자료실은 평일 17:00까지&quot;
+    },
+    &quot;reading&quot;: {
+      &quot;label&quot;: &quot;열람실&quot;,
+      &quot;hours&quot;: {
+        &quot;weekday&quot;:  { &quot;open&quot;: &quot;07:00&quot;, &quot;close&quot;: &quot;22:00&quot; },
+        &quot;saturday&quot;: { &quot;open&quot;: &quot;07:00&quot;, &quot;close&quot;: &quot;22:00&quot; },
+        &quot;sunday&quot;:   { &quot;open&quot;: &quot;07:00&quot;, &quot;close&quot;: &quot;22:00&quot; },
+        &quot;holiday&quot;:  null
+      },
+      &quot;seasons&quot;: null,
+      &quot;memo&quot;: null
+    }
+  },
+  &quot;closed&quot;: {
+    &quot;weekly&quot;: [1],
+    &quot;monthly&quot;: [],
+    &quot;holiday&quot;: &quot;closed&quot;,
+    &quot;appliesTo&quot;: [&quot;lending&quot;, &quot;reading&quot;]
+  },
+  &quot;closedRaw&quot;: &quot;매주 월요일, 법정공휴일&quot;,
+  &quot;closures&quot;: [
+    { &quot;from&quot;: &quot;2026-12-01&quot;, &quot;to&quot;: &quot;2026-12-14&quot;, &quot;reason&quot;: &quot;시설 보수&quot;, &quot;rooms&quot;: [&quot;lending&quot;, &quot;reading&quot;] }
+  ],
+  &quot;notes&quot;: [],
+  &quot;source&quot;: {
+    &quot;dataset&quot;: &quot;전국도서관표준데이터&quot;,
+    &quot;baseDate&quot;: &quot;2026-11-01&quot;,
+    &quot;verifiedAt&quot;: &quot;2026-11-20&quot;,
+    &quot;verifiedBy&quot;: &quot;homepage&quot;
+  }
+}
+</code></pre>
+<ul>
+<li><code>rooms.reading</code>이 <code>null</code>이면 열람실이 없는 도서관입니다.</li>
+<li>열람실만 다른 날 쉬는 경우가 있으므로, 휴관 규칙에 <code>appliesTo</code>(적용 실)를 둡니다. 실마다 규칙이 다르면 <code>closed</code>를 실별 배열로 나눠 저장합니다.</li>
+<li><code>seasons</code>는 하절기·동절기가 다른 도서관에서만 씁니다. 예: <code>[{ "from": "03-01", "to": "10-31", "hours": {...} }]</code>.</li>
+<li><code>holiday</code> 운영시간이 <code>null</code>이고 휴관 규칙이 "open"이면 일요일 시간을 씁니다.</li>
+</ul>
+<h3 id="6-4-브라우저-저장-데이터-localstorage">6.4 브라우저 저장 데이터 (localStorage)</h3>
+<table>
+<thead>
+<tr>
+<th>키</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ln.settings</code></td>
+<td>모드, 선택한 구, 정렬, 필터, 지도 종류</td>
+</tr>
+<tr>
+<td><code>ln.places</code></td>
+<td>출발지(집, 직장)의 이름과 좌표</td>
+</tr>
+<tr>
+<td><code>ln.favorites</code></td>
+<td>즐겨찾기 도서관 ID 목록</td>
+</tr>
+<tr>
+<td><code>ln.notes</code></td>
+<td>(P1) 도서관별 메모, 사용자가 입력한 임시 휴관</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>모든 읽기·쓰기는 예외 처리합니다(사생활 보호 모드 등에서 저장이 막혀도 앱은 정상 동작).</li>
+<li>저장 형식에 버전 번호를 넣어 나중에 구조가 바뀌어도 옮길 수 있게 합니다.</li>
+</ul>
+<h3 id="6-5-데이터-라이선스와-출처-표기">6.5 데이터 라이선스와 출처 표기</h3>
+<ul>
+<li>공공데이터와 OSM 데이터는 비상업적 개인 사용과 포트폴리오 공개 범위에서 사용합니다.</li>
+<li>앱의 "정보" 화면과 지도 하단에 출처를 표기합니다: 공공데이터포털(전국도서관표준데이터), 서울 열린데이터광장, 한국천문연구원, © OpenStreetMap contributors.</li>
+<li>데이터셋마다 이용 조건(공공누리 유형)을 데이터 수집 단계에서 확인해 <code>meta.json</code>과 README에 기록합니다.</li>
+</ul>
+<hr />
+<h2 id="7-지도와-길찾기-설계">7. 지도와 길찾기 설계</h2>
+<h3 id="7-1-지도-구성">7.1 지도 구성</h3>
+<ul>
+<li><strong>1차: Leaflet + OpenStreetMap 타일</strong> (<code>https://tile.openstreetmap.org/{z}/{x}/{y}.png</code>)<ul>
+<li>키가 필요 없습니다. 출처 표기가 필수입니다.</li>
+<li>개인 사용 수준의 적은 트래픽은 정책상 문제가 없습니다. 대량 사용, 타일 일괄 다운로드, 오프라인 저장은 금지입니다.</li>
+</ul>
+</li>
+<li><strong>지도 교체 구조</strong>: 지도 기능을 <code>MapProvider</code> 인터페이스(마커 그리기, 이동, 확대, 클릭 이벤트) 뒤에 숨겨서, 나중에 카카오맵 구현체를 추가할 때 화면 코드를 바꾸지 않아도 되게 합니다.<ul>
+<li>타일 주소도 설정 파일에서 바꿀 수 있게 해 OSM 정책이나 서비스 상황이 바뀌면 다른 타일 서비스로 쉽게 옮길 수 있게 합니다.</li>
+</ul>
+</li>
+<li><strong>2차(P2): 카카오맵 JavaScript API</strong><ul>
+<li>키는 빌드 환경 변수(<code>VITE_KAKAO_JS_KEY</code>)로 넣습니다. JavaScript 키는 원래 브라우저에 노출되는 키이며, 등록한 도메인에서만 동작하도록 제한합니다.</li>
+<li>설정 화면에서 지도 종류(OSM / 카카오맵)를 고를 수 있게 합니다. 키가 없으면 카카오맵 선택지를 숨깁니다.</li>
+<li>키 발급 방법은 부록 A에 정리합니다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-2-길찾기">7.2 길찾기</h3>
+<ul>
+<li>앱 안에서는 직선거리 기반 <strong>예상 이동 시간</strong>만 계산합니다(F7).</li>
+<li>실제 경로 안내는 <strong>카카오맵·네이버 지도</strong>로 넘깁니다(F8). 두 서비스 모두 실시간 버스·지하철 정보를 반영하므로 품질이 가장 좋고, 비용과 키가 필요 없습니다.</li>
+<li>앱 안 대중교통 경로 계산(ODsay 등)은 무료 한도가 매우 작아(공식 정책 기준 Basic 하루 30회) 범위에서 제외합니다.</li>
+</ul>
+<hr />
+<h2 id="8-화면-구성">8. 화면 구성</h2>
+<h3 id="8-1-공통-원칙">8.1 공통 원칙</h3>
+<ul>
+<li>반응형으로 데스크탑과 스마트폰을 모두 지원합니다.</li>
+<li><strong>데스크탑은 화면 전체 폭을 사용</strong>합니다. 내용을 가운데 좁은 기둥에 몰아 두고 좌우에 큰 여백을 남기는 배치는 쓰지 않습니다.</li>
+<li>기준 해상도는 <strong>1440×900 (16:10)</strong>입니다. 이 크기에서 스크롤 없이 상단 바, 목록, 지도, 상세 패널이 한 화면에 모두 보여야 합니다.</li>
+</ul>
+<h3 id="8-2-데스크탑-1200px-이상-기준-1440-900">8.2 데스크탑 (1200px 이상, 기준 1440×900)</h3>
+<pre><code>┌──────────────────────────────────────────────────────────────────────────────┐
+│ 지금 열린 도서관  [구로][영등포][양천] [책 빌리기|공부하기] 출발:[집▾] 기준:[지금▾] ⚙ │ 56px
+├──────────────┬────────────────────────────────────────────┬──────────────────┤
+│ 검색·필터     │                                            │ 상세 / 달력 탭     │
+│ 정렬 [거리▾]  │                                            │                  │
+│──────────────│                 지도 (가변 폭)               │ ○○도서관          │
+│ 🟢 ○○도서관   │                                            │ 🟢 열람실 22:00까지│
+│  2시간 25분   │        ● 마커  ● 마커                        │ 지금 가면 2h 25m   │
+│  약 20분 거리 │                    ◎ 출발지                 │ [카카오맵][주소복사]│
+│ 🟠 △△도서관   │           ● 마커                            │ 운영시간 표        │
+│ ⚫ □□도서관   │                                            │ 이번 달 달력        │
+│   …          │                                [내 위치][전체]│                  │
+├──────────────┴────────────────────────────────────────────┴──────────────────┤
+  왼쪽 360px                  가운데 나머지 전부(약 680px)              오른쪽 400px
+</code></pre>
+<ul>
+<li>왼쪽 패널(목록)은 360px, 오른쪽 패널(상세·달력)은 400px입니다. 가운데 지도가 나머지 폭을 모두 씁니다.</li>
+<li>오른쪽 패널은 접을 수 있습니다. 접으면 지도가 약 1,080px로 넓어집니다.</li>
+<li>화면이 1440px보다 넓으면 지도가 더 넓어지고, 양쪽 패널은 최대 폭(목록 420px, 상세 480px)까지만 늘어납니다.</li>
+<li>오른쪽 패널은 도서관을 고르지 않았을 때 "오늘 요약"(문 연 곳 수, 가장 늦게까지 여는 곳, 즐겨찾기 상태)을 보여 줍니다.</li>
+<li>키보드 단축키(P1): <code>/</code> 검색, <code>M</code> 모드 전환, <code>↑↓</code> 목록 이동.</li>
+</ul>
+<h3 id="8-3-태블릿-768-1199px">8.3 태블릿 (768~1199px)</h3>
+<ul>
+<li>왼쪽 목록(320px) + 지도로 2단 구성합니다.</li>
+<li>상세는 지도 위에 오른쪽에서 열리는 서랍(드로어)으로 표시합니다.</li>
+</ul>
+<h3 id="8-4-스마트폰-767px-이하-기준-390-844">8.4 스마트폰 (767px 이하, 기준 390×844)</h3>
+<ul>
+<li>지도를 화면 전체에 깔고, 목록은 아래에서 끌어 올리는 <strong>바텀 시트</strong>로 보여 줍니다(3단계: 살짝 보기 / 절반 / 전체).</li>
+<li>상단에는 모드 스위치와 출발지 선택만 남기고, 구 선택과 필터는 시트 안으로 옮깁니다.</li>
+<li>도서관을 누르면 시트가 상세 화면으로 바뀝니다. 길찾기 버튼은 화면 아래에 크게 고정합니다.</li>
+<li>아래 탭: <strong>지도 / 목록 / 달력 / 설정</strong>.</li>
+<li>터치 영역은 최소 44×44px로 합니다.</li>
+</ul>
+<h3 id="8-5-설정-화면">8.5 설정 화면</h3>
+<ul>
+<li>출발지 관리(집, 직장: 지도에서 위치 지정, 이름 변경, 삭제)</li>
+<li>기본 지역, 기본 모드</li>
+<li>지도 종류(OSM / 카카오맵, P2)</li>
+<li>데이터 정보(기준일, 출처, 라이선스)</li>
+<li>내 데이터 내보내기·가져오기(P1), 초기화</li>
+</ul>
+<h3 id="8-6-디자인-방향">8.6 디자인 방향</h3>
+<ul>
+<li>상태 색: 초록(열림), 주황(곧 닫힘), 파랑(곧 열림), 회색(운영 종료), 진회색(휴관). 색맹 사용자도 구분할 수 있도록 아이콘과 글자를 함께 씁니다.</li>
+<li>숫자 정보(남은 시간, 거리)는 크게, 보조 정보는 작게 해 목록을 빠르게 훑을 수 있게 합니다.</li>
+<li>글꼴: 시스템 한글 글꼴(Apple SD Gothic Neo, 맑은 고딕, Noto Sans KR).</li>
+<li>세부 시안은 PRD 확정 후 별도 디자인 문서(DESIGN.md, 목업 HTML)로 만듭니다.</li>
+</ul>
+<hr />
+<h2 id="9-기술-스택과-저장소">9. 기술 스택과 저장소</h2>
+<h3 id="9-1-기술-스택">9.1 기술 스택</h3>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>선택</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>빌드 도구</td>
+<td>Vite</td>
+<td>빠르고 GitHub Pages 배포가 간단함</td>
+</tr>
+<tr>
+<td>프레임워크</td>
+<td>React + TypeScript</td>
+<td>포트폴리오용으로 무난하고, 데이터 구조를 타입으로 관리하기 좋음</td>
+</tr>
+<tr>
+<td>지도</td>
+<td>Leaflet (+ react-leaflet)</td>
+<td>무료, 가볍고 자료가 많음</td>
+</tr>
+<tr>
+<td>스타일</td>
+<td>CSS Modules + CSS 변수</td>
+<td>의존성이 적고 반응형 구현이 쉬움</td>
+</tr>
+<tr>
+<td>상태 관리</td>
+<td>React 기본(Context, useReducer)</td>
+<td>앱 규모가 작아 별도 라이브러리 불필요</td>
+</tr>
+<tr>
+<td>날짜 계산</td>
+<td>표준 <code>Intl</code> + 직접 작성한 순수 함수</td>
+<td>서울 시간대 처리, 테스트하기 쉬움</td>
+</tr>
+<tr>
+<td>데이터 스크립트</td>
+<td>Node.js + TypeScript (tsx로 실행)</td>
+<td>CSV → JSON 변환과 검증</td>
+</tr>
+<tr>
+<td>테스트</td>
+<td>Vitest(시간 계산·데이터 검증), Playwright(1440×900·390×844 화면 확인)</td>
+<td></td>
+</tr>
+<tr>
+<td>PWA</td>
+<td>vite-plugin-pwa</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>배포</td>
+<td>GitHub Actions → GitHub Pages</td>
+<td>무료, main 브랜치에 반영되면 자동 배포</td>
+</tr>
+</tbody>
+</table>
+<h3 id="9-2-저장소-db-로그인">9.2 저장소, DB, 로그인</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>결정</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GitHub 저장소</td>
+<td><strong>새 Public 저장소 <code>library-now</code></strong></td>
+<td>GitHub Pages 무료 배포, 포트폴리오에서 코드 공개. 숨길 비밀값 없음</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>사용하지 않음</td>
+<td>도서관 데이터는 정적 JSON, 개인 설정은 localStorage</td>
+</tr>
+<tr>
+<td>로그인</td>
+<td>사용하지 않음</td>
+<td>개인 데이터가 서버로 가지 않음. 기기 간 동기화는 내보내기·가져오기로 대신함</td>
+</tr>
+<tr>
+<td>서버</td>
+<td>사용하지 않음</td>
+<td>운영 비용 0원</td>
+</tr>
+</tbody>
+</table>
+<h3 id="9-3-폴더-구조-안">9.3 폴더 구조 (안)</h3>
+<pre><code>library-now/
+├─ data/
+│  ├─ raw/                 공공데이터 원본 CSV
+│  └─ overrides/           도서관별 수기 입력 (자료실·열람실 시간 등)
+├─ scripts/
+│  ├─ build-data.ts        원본 + 수기 입력 → public/data/*.json
+│  └─ fetch-holidays.ts    공휴일 JSON 생성
+├─ public/data/            앱이 읽는 JSON
+├─ src/
+│  ├─ domain/              시간 계산, 휴관 판정, 거리 계산 (순수 함수 + 테스트)
+│  ├─ map/                 MapProvider 인터페이스, Leaflet 구현 (나중에 Kakao 구현)
+│  ├─ components/          목록, 카드, 상세, 달력, 바텀 시트 등
+│  ├─ state/               설정·즐겨찾기·출발지 저장
+│  └─ App.tsx
+├─ tests/e2e/              Playwright 화면 테스트
+└─ README.md               소개, 스크린샷, 데이터 출처, 실행 방법
+</code></pre>
+<hr />
+<h2 id="10-비기능-요구사항">10. 비기능 요구사항</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>요구사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>성능</td>
+<td>첫 화면 표시 2초 이내(일반 4G 기준). 도서관 JSON은 3개 구 기준 100KB 이하, 서울 전체 기준 500KB 이하</td>
+</tr>
+<tr>
+<td>반응형</td>
+<td>1440×900에서 스크롤 없이 주요 영역이 모두 보임. 390×844에서 가로 스크롤 없음</td>
+</tr>
+<tr>
+<td>접근성</td>
+<td>상태를 색만으로 구분하지 않음, 키보드로 목록·상세 이동 가능, 명도 대비 WCAG AA</td>
+</tr>
+<tr>
+<td>개인정보</td>
+<td>위치와 출발지는 브라우저에만 저장. 외부로 보내는 정보는 길찾기 링크를 누를 때 넘기는 좌표뿐</td>
+</tr>
+<tr>
+<td>정확성</td>
+<td>데이터 기준일과 마지막 확인일 표시. 휴관 판정 단위 테스트 통과</td>
+</tr>
+<tr>
+<td>안정성</td>
+<td>localStorage를 쓸 수 없어도 앱 정상 동작. 위치 권한 거부 시에도 기본 화면 표시</td>
+</tr>
+<tr>
+<td>확장성</td>
+<td>구 추가는 데이터만 추가해서 가능. 지도 종류 교체는 MapProvider 구현체 추가로 가능</td>
+</tr>
+<tr>
+<td>브라우저</td>
+<td>최신 Chrome, Edge, Safari(iOS 포함), Samsung Internet</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</h2>
+<h3 id="m0-준비와-데이터-수집">M0. 준비와 데이터 수집</h3>
+<ul>
+<li>GitHub 저장소 <code>library-now</code> 생성(Public), Vite + React + TS 초기 설정, GitHub Pages 배포 확인</li>
+<li>전국도서관표준데이터에서 구로구·영등포구·양천구 공공도서관 추리기</li>
+<li>도서관 홈페이지에서 자료실·열람실 운영시간, 휴관 규칙 확인 후 <code>overrides</code>에 입력·검수</li>
+<li>공휴일 JSON 생성</li>
+<li>완료 기준: <code>libraries.json</code> 검증 통과, 전 도서관 <code>verifiedAt</code> 기록</li>
+</ul>
+<h3 id="m1-지도와-상태-표시-mvp-핵심">M1. 지도와 상태 표시 (MVP 핵심)</h3>
+<ul>
+<li>Leaflet 지도에 3개 구 공공도서관 마커 표시</li>
+<li>시간 계산 엔진(휴관 판정, 상태, 다음 개관) + 단위 테스트</li>
+<li>책 빌리기 / 공부하기 모드, 상태 배지, 휴관 요일 표기</li>
+<li>목록·지도 연동, 데스크탑 3단 배치 기본형</li>
+<li>완료 기준: 원래 아이디어의 첫 MVP("도서관 목록을 지도에 표시하고 휴관 요일 표기")를 3개 구로 달성</li>
+</ul>
+<h3 id="m2-출발지-남은-이용-시간-길찾기">M2. 출발지, 남은 이용 시간, 길찾기</h3>
+<ul>
+<li>현재 위치, 집·직장 출발지 저장(지도에서 지정)</li>
+<li>거리·이동 시간 추정, "지금 가면 ○시간 ○분 이용 가능"</li>
+<li>정렬(거리, 남은 시간), 필터(지금 열린 곳, 21시 이후)</li>
+<li>카카오맵·네이버 지도 길찾기 연결, 실제 기기 확인</li>
+</ul>
+<h3 id="m3-상세-달력-반응형-마감">M3. 상세, 달력, 반응형 마감</h3>
+<ul>
+<li>상세 패널(운영시간 표, 휴관 규칙, 미니 달력, 출처·기준일)</li>
+<li>휴관일 달력(즐겨찾기 겹쳐 보기), 즐겨찾기</li>
+<li>태블릿 드로어, 스마트폰 바텀 시트</li>
+<li>Playwright로 1440×900, 390×844 화면 확인</li>
+</ul>
+<h3 id="m4-다듬기와-배포-p1">M4. 다듬기와 배포 (P1)</h3>
+<ul>
+<li>기준 시각 바꾸기, 내 메모·임시 휴관 입력, 내보내기·가져오기</li>
+<li>PWA(홈 화면 설치, 데이터 오프라인 보기)</li>
+<li>README(스크린샷, 기능 소개, 데이터 출처), 포트폴리오 등록용 소개 문구</li>
+</ul>
+<h3 id="m5-확장-p2">M5. 확장 (P2)</h3>
+<ul>
+<li>서울 25개 구로 확대(데이터 수집 → 검수 → 추가)</li>
+<li>카카오맵 지도 적용</li>
+<li>도서관 정보나루 연동 "이 책이 있는 문 연 도서관"(정적 방식으로는 어려우므로 별도 검토)</li>
+</ul>
+<hr />
+<h2 id="12-위험-요소와-대응">12. 위험 요소와 대응</h2>
+<table>
+<thead>
+<tr>
+<th>위험</th>
+<th>영향</th>
+<th>대응</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>공공데이터의 운영시간이 오래되었거나 틀림</td>
+<td>헛걸음</td>
+<td>홈페이지로 직접 검수, 마지막 확인일 표시, 월 1회 갱신</td>
+</tr>
+<tr>
+<td>자료실·열람실 시간이 공공데이터에 없음</td>
+<td>핵심 기능 불가</td>
+<td>홈페이지에서 수기 수집(<code>overrides</code>). 3개 구 약 30~40곳으로 예상되어 감당 가능</td>
+</tr>
+<tr>
+<td>휴관 규칙 문장 해석 오류</td>
+<td>상태 오판</td>
+<td>자동 변환 후 사람이 검수, 원문을 화면에 함께 표시, 단위 테스트</td>
+</tr>
+<tr>
+<td>임시 휴관·시험기간 연장 운영</td>
+<td>데이터에 없음</td>
+<td>홈페이지 공지 확인 안내, 사용자 직접 입력(F14)</td>
+</tr>
+<tr>
+<td>이동 시간 추정이 실제와 다름</td>
+<td>남은 시간 오차</td>
+<td>"추정" 표기, 정확한 시간은 외부 지도 앱에서 확인하도록 안내, 계수 조정 가능</td>
+</tr>
+<tr>
+<td>데스크탑 위치 정확도 낮음</td>
+<td>거리 오차</td>
+<td>집·직장 출발지 사용 안내</td>
+</tr>
+<tr>
+<td>길찾기 링크 형식 변경·기기별 차이</td>
+<td>버튼 동작 안 함</td>
+<td>실제 기기로 확인, 링크 생성 코드를 한 곳에 모아 쉽게 수정, 주소 복사 대안 제공</td>
+</tr>
+<tr>
+<td>OSM 타일 정책·가용성</td>
+<td>지도 안 보임</td>
+<td>개인 사용 수준 유지, 타일 주소 설정 분리, 카카오맵 전환 경로 확보</td>
+</tr>
+<tr>
+<td>공공데이터 사이트 접속 제한(개발 환경)</td>
+<td>데이터 수집 지연</td>
+<td>원본 CSV를 직접 내려받아 <code>data/raw/</code>에 넣거나, 개발 환경에서 해당 사이트 접속 허용</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</h2>
+<ul>
+<li>앱을 쓰기 시작한 뒤 <strong>휴관·마감으로 인한 헛걸음 0회</strong></li>
+<li>앱을 열고 갈 곳을 정하기까지 <strong>10초 이내</strong></li>
+<li>검수한 도서관의 상태 판정이 실제와 <strong>100% 일치</strong>(한 달 동안 방문할 때마다 확인)</li>
+<li>1440×900에서 스크롤 없이 목록·지도·상세가 한 화면에 보임</li>
+<li>Lighthouse 성능·접근성 점수 90점 이상</li>
+<li>포트폴리오에 배포 주소와 README를 등록</li>
+</ul>
+<hr />
+<h2 id="14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</h2>
+<h3 id="14-1-결정된-사항">14.1 결정된 사항</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>결정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>앱 이름</td>
+<td>지금 열린 도서관 (Library Now)</td>
+</tr>
+<tr>
+<td>형태</td>
+<td>반응형 웹앱. 데스크탑은 1440×900 기준 화면 전체 폭 사용, 스마트폰 지원</td>
+</tr>
+<tr>
+<td>범위</td>
+<td>1차 구로구·영등포구·양천구 → 이후 서울 전체</td>
+</tr>
+<tr>
+<td>도서관 종류</td>
+<td>공공도서관만</td>
+</tr>
+<tr>
+<td>지도</td>
+<td>Leaflet + OSM(키 없음). 이후 카카오맵 추가</td>
+</tr>
+<tr>
+<td>길찾기</td>
+<td>카카오맵·네이버 지도로 넘기는 링크 + 직선거리 기반 이동 시간 추정</td>
+</tr>
+<tr>
+<td>운영시간</td>
+<td>자료실 대표 시간 1개 + 열람실 1개. 세부 실 시간은 메모로 표시</td>
+</tr>
+<tr>
+<td>출발지</td>
+<td>현재 위치, 집, 직장 저장</td>
+</tr>
+<tr>
+<td>데이터 방식</td>
+<td>정적 JSON (빌드 시 생성)</td>
+</tr>
+<tr>
+<td>저장소·DB·로그인</td>
+<td>Public 저장소, DB 없음, 로그인 없음</td>
+</tr>
+<tr>
+<td>사용자</td>
+<td>본인 전용, 완성 후 포트폴리오에 등록</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-2-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</h3>
+<ol>
+<li>GitHub에 <code>library-now</code> 저장소를 만들어 주시면 개발 세션에 연결합니다.</li>
+<li>공공데이터 원본 확보 방법: (a) 전국도서관표준데이터 CSV를 직접 내려받아 전달, 또는 (b) 개발 환경에서 공공데이터 사이트(data.go.kr, data.seoul.go.kr)와 도서관 홈페이지 접속 허용.</li>
+<li>특일정보 API 인증키(공공데이터포털 활용 신청) 발급 여부. 키 없이 진행하려면 공휴일 목록을 직접 정리한 JSON으로 대신합니다.</li>
+<li>전국도서관표준데이터의 실제 항목 구성과 이용 조건(공공누리 유형)을 원본으로 확인합니다.</li>
+<li>카카오맵·네이버 지도 길찾기 링크의 대중교통 탭 동작을 실제 기기로 확인합니다.</li>
+<li>기본 지도 중심 위치(예: 구로구청 또는 집 근처)를 정합니다.</li>
+</ol>
+<hr />
+<h2 id="부록-a-카카오맵-javascript-키-발급-방법-p2-준비">부록 A. 카카오맵 JavaScript 키 발급 방법 (P2 준비)</h2>
+<ol>
+<li><a href="https://developers.kakao.com">Kakao Developers</a>에 카카오 계정으로 로그인하고 개발자로 등록합니다.</li>
+<li><strong>내 애플리케이션 → 애플리케이션 추가하기</strong>에서 앱 이름(예: Library Now)을 입력해 만듭니다.</li>
+<li><strong>앱 설정 → 앱 키</strong>에서 <strong>JavaScript 키</strong>를 확인합니다.</li>
+<li><strong>앱 설정 → 플랫폼 → Web 플랫폼 등록</strong>에서 사이트 도메인을 등록합니다.</li>
+<li>개발용: <code>http://localhost:5173</code></li>
+<li>배포용: <code>https://{GitHub 아이디}.github.io</code></li>
+<li><strong>제품 설정</strong>에서 <strong>카카오맵</strong> 사용 설정을 켭니다(콘솔 메뉴 이름은 바뀔 수 있으니 적용할 때 다시 확인합니다).</li>
+<li>발급받은 키를 GitHub 저장소의 Actions 변수(<code>VITE_KAKAO_JS_KEY</code>)로 등록하면, 배포 시 앱에 들어갑니다.</li>
+<li>JavaScript 키는 브라우저에 노출되는 것이 정상이며, 4단계에서 등록한 도메인에서만 동작합니다.</li>
+</ol>
+<h2 id="부록-b-조사한-참고-서비스">부록 B. 조사한 참고 서비스</h2>
+<table>
+<thead>
+<tr>
+<th>서비스</th>
+<th>참고한 기능</th>
+<th>이 앱에 반영한 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>서울도서관 앱</td>
+<td>지역·종류별 도서관 찾기, 이용시간·휴관일·위치</td>
+<td>기본 정보 구성. "지금 열린 곳" 판단과 남은 시간 계산으로 차별화</td>
+</tr>
+<tr>
+<td>리브로피아</td>
+<td>내 주변 도서관, 소장 도서 대출 여부, 행사 안내</td>
+<td>내 주변 반경 보기, (P2) 책 찾기</td>
+</tr>
+<tr>
+<td>카카오맵·네이버 지도</td>
+<td>영업 중 필터, 영업 종료 임박 표시</td>
+<td>상태 배지(곧 닫힘), 길찾기 연결</td>
+</tr>
+<tr>
+<td>책이음</td>
+<td>한 회원증으로 여러 도서관 이용</td>
+<td>(검토) 상세에 참여 여부 표시</td>
+</tr>
+<tr>
+<td>도서관 정보나루</td>
+<td>도서관·소장 도서 API</td>
+<td>(P2) 책 찾기 확장</td>
+</tr>
+</tbody>
+</table></article></main>
+<button id="top" aria-label="맨 위로">↑</button>
+<script>
+(function(){
+ var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+ // 그룹 접기/펼치기
+ $$('.grp-h:not(.static)').forEach(function(b){b.addEventListener('click',function(e){
+  if(e.target.closest('a')){return}
+  var g=b.parentNode;g.classList.toggle('open');b.setAttribute('aria-expanded',g.classList.contains('open'))})});
+ // 모바일 메뉴
+ function close(){document.body.classList.remove('open')}
+ $('#menu').onclick=function(){document.body.classList.toggle('open')};
+ $('#scrim').onclick=close;
+ $$('#nav a').forEach(function(a){a.addEventListener('click',close)});
+ // 검색
+ $('#q').addEventListener('input',function(){
+  var v=this.value.trim().toLowerCase();
+  $$('#nav .grp').forEach(function(g){
+   var any=false,gh=$('.grp-h',g),gm=!!v&&gh.textContent.toLowerCase().indexOf(v)>-1;if(gm)any=true;
+   $$('li',g).forEach(function(li){var ok=!v||gm||li.textContent.toLowerCase().indexOf(v)>-1;li.classList.toggle('hide',!ok);if(ok)any=true});
+   g.style.display=(!v||any)?'':'none';
+   if(v&&any)g.classList.add('open');
+  });
+ });
+ // 스크롤 위치 표시
+ var links=$$('#nav li a'),map={};
+ links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+ var heads=$$('#doc h2[id],#doc h3[id]');
+ $$('#nav .grp-h a').forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+ links=$$('#nav a');
+ function spy(){
+  var y=window.scrollY+80,cur=null;
+  heads.forEach(function(h){if(h.offsetTop<=y)cur=h});
+  links.forEach(function(a){a.classList.remove('active')});
+  if(cur&&map[cur.id]){var a=map[cur.id];a.classList.add('active');
+   var g=a.closest('.grp');if(g&&!g.classList.contains('open')&&!$('#q').value)g.classList.add('open');
+   var nav=$('#nav'),r=a.getBoundingClientRect(),nr=nav.getBoundingClientRect();
+   if(r.top<nr.top||r.bottom>nr.bottom)nav.scrollTop+=r.top-nr.top-nr.height/3}
+  $('#top').classList.toggle('show',window.scrollY>600);
+ }
+ var t;window.addEventListener('scroll',function(){cancelAnimationFrame(t);t=requestAnimationFrame(spy)});spy();
+ $('#top').onclick=function(){window.scrollTo({top:0})};
+ // 테마
+ var root=document.documentElement;
+ try{var s=localStorage.getItem('theme');if(s)root.dataset.theme=s}catch(e){}
+ $('#theme').onclick=function(){
+  var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  root.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}};
+})();
+</script>
+</body>
+</html>
