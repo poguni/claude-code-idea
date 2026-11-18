@@ -71,14 +71,14 @@ pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;f
 <div id="scrim"></div>
 <aside id="side">
  <div class="side-top">
-  <h2>지금 열린 도서관 PRD v0.1 <button id="theme" title="테마 전환">🌓</button></h2>
-  <input id="q" type="search" placeholder="목차 검색 (예: 휴관, 출발지)" aria-label="목차 검색">
+  <h2>지금 열린 도서관 PRD v0.2 <button id="theme" title="테마 전환">🌓</button></h2>
+  <input id="q" type="search" placeholder="목차 검색 (예: 테마, 휴관)" aria-label="목차 검색">
   <div class="dl">
-   <a href="prd-library-now.md" download="prd-library-now.md">⬇ MD</a>
-   <a id="dlhtml" href="prd-library-now.html" download="prd-library-now.html">⬇ HTML</a>
+   <a href="PRD.md" download="PRD.md">⬇ MD</a>
+   <a id="dlhtml" href="PRD.html" download="PRD.html">⬇ HTML</a>
   </div>
  </div>
- <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-도서관-지도-p0">F1. 도서관 지도 (P0)</a></li><li><a href="#f2-지역-선택-p0">F2. 지역 선택 (P0)</a></li><li><a href="#f3-이용-모드-책-빌리기-공부하기-p0">F3. 이용 모드: 책 빌리기 / 공부하기 (P0)</a></li><li><a href="#f4-운영-상태-배지-p0">F4. 운영 상태 배지 (P0)</a></li><li><a href="#f5-지금-가면-몇-시간-이용-가능-p0-창의-포인트">F5. &quot;지금 가면 몇 시간 이용 가능&quot; (P0, 창의 포인트)</a></li><li><a href="#f6-출발지-관리-현재-위치-집-직장-p0">F6. 출발지 관리: 현재 위치, 집, 직장 (P0)</a></li><li><a href="#f7-거리와-이동-시간-추정-p0">F7. 거리와 이동 시간 추정 (P0)</a></li><li><a href="#f8-길찾기-연결-p0">F8. 길찾기 연결 (P0)</a></li><li><a href="#f9-목록과-필터-p0">F9. 목록과 필터 (P0)</a></li><li><a href="#f10-도서관-상세-p0">F10. 도서관 상세 (P0)</a></li><li><a href="#f11-휴관일-달력-p0">F11. 휴관일 달력 (P0)</a></li><li><a href="#f12-즐겨찾기-p0">F12. 즐겨찾기 (P0)</a></li><li><a href="#f13-기준-시각-바꾸기-p1">F13. 기준 시각 바꾸기 (P1)</a></li><li><a href="#f14-내-메모와-임시-휴관-직접-추가-p1">F14. 내 메모와 임시 휴관 직접 추가 (P1)</a></li><li><a href="#f15-홈-화면-설치-pwa-p1">F15. 홈 화면 설치(PWA) (P1)</a></li><li><a href="#f16-확장-기능-p2">F16. 확장 기능 (P2)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시간-계산-로직">5. 시간 계산 로직</a><span class=chev>▾</span></button><ul><li><a href="#5-1-기준-시간대">5.1 기준 시간대</a></li><li><a href="#5-2-하루-운영-판정-순서">5.2 하루 운영 판정 순서</a></li><li><a href="#5-3-휴관-규칙의-표현">5.3 휴관 규칙의 표현</a></li><li><a href="#5-4-공휴일-데이터">5.4 공휴일 데이터</a></li><li><a href="#5-5-남은-이용-시간-계산">5.5 남은 이용 시간 계산</a></li><li><a href="#5-6-테스트">5.6 테스트</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-데이터-설계">6. 데이터 설계</a><span class=chev>▾</span></button><ul><li><a href="#6-1-데이터-출처">6.1 데이터 출처</a></li><li><a href="#6-2-데이터-만드는-과정-빌드-파이프라인">6.2 데이터 만드는 과정 (빌드 파이프라인)</a></li><li><a href="#6-3-도서관-데이터-구조-libraries-json의-한-항목">6.3 도서관 데이터 구조 (libraries.json의 한 항목)</a></li><li><a href="#6-4-브라우저-저장-데이터-localstorage">6.4 브라우저 저장 데이터 (localStorage)</a></li><li><a href="#6-5-데이터-라이선스와-출처-표기">6.5 데이터 라이선스와 출처 표기</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-지도와-길찾기-설계">7. 지도와 길찾기 설계</a><span class=chev>▾</span></button><ul><li><a href="#7-1-지도-구성">7.1 지도 구성</a></li><li><a href="#7-2-길찾기">7.2 길찾기</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-화면-구성">8. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#8-1-공통-원칙">8.1 공통 원칙</a></li><li><a href="#8-2-데스크탑-1200px-이상-기준-1440-900">8.2 데스크탑 (1200px 이상, 기준 1440×900)</a></li><li><a href="#8-3-태블릿-768-1199px">8.3 태블릿 (768~1199px)</a></li><li><a href="#8-4-스마트폰-767px-이하-기준-390-844">8.4 스마트폰 (767px 이하, 기준 390×844)</a></li><li><a href="#8-5-설정-화면">8.5 설정 화면</a></li><li><a href="#8-6-디자인-방향">8.6 디자인 방향</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-기술-스택과-저장소">9. 기술 스택과 저장소</a><span class=chev>▾</span></button><ul><li><a href="#9-1-기술-스택">9.1 기술 스택</a></li><li><a href="#9-2-저장소-db-로그인">9.2 저장소, DB, 로그인</a></li><li><a href="#9-3-폴더-구조-안">9.3 폴더 구조 (안)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비와-데이터-수집">M0. 준비와 데이터 수집</a></li><li><a href="#m1-지도와-상태-표시-mvp-핵심">M1. 지도와 상태 표시 (MVP 핵심)</a></li><li><a href="#m2-출발지-남은-이용-시간-길찾기">M2. 출발지, 남은 이용 시간, 길찾기</a></li><li><a href="#m3-상세-달력-반응형-마감">M3. 상세, 달력, 반응형 마감</a></li><li><a href="#m4-다듬기와-배포-p1">M4. 다듬기와 배포 (P1)</a></li><li><a href="#m5-확장-p2">M5. 확장 (P2)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#14-1-결정된-사항">14.1 결정된 사항</a></li><li><a href="#14-2-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#부록-a-카카오맵-javascript-키-발급-방법-p2-준비">부록 A. 카카오맵 JavaScript 키 발급 방법 (P2 준비)</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#부록-b-조사한-참고-서비스">부록 B. 조사한 참고 서비스</a></button><ul></ul></div></nav>
+ <nav id="nav"><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#변경-이력">변경 이력</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#1-개요">1. 개요</a><span class=chev>▾</span></button><ul><li><a href="#1-1-배경">1.1 배경</a></li><li><a href="#1-2-목표">1.2 목표</a></li><li><a href="#1-3-범위에서-제외하는-것-non-goals">1.3 범위에서 제외하는 것 (Non-goals)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#2-사용자와-사용-시나리오">2. 사용자와 사용 시나리오</a><span class=chev>▾</span></button><ul><li><a href="#2-1-주-사용자">2.1 주 사용자</a></li><li><a href="#2-2-대표-시나리오">2.2 대표 시나리오</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#3-전체-사용-흐름">3. 전체 사용 흐름</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#4-기능-요구사항">4. 기능 요구사항</a><span class=chev>▾</span></button><ul><li><a href="#f1-도서관-지도-p0">F1. 도서관 지도 (P0)</a></li><li><a href="#f2-지역-선택-p0">F2. 지역 선택 (P0)</a></li><li><a href="#f3-이용-모드-책-빌리기-공부하기-p0">F3. 이용 모드: 책 빌리기 / 공부하기 (P0)</a></li><li><a href="#f4-운영-상태-배지-p0">F4. 운영 상태 배지 (P0)</a></li><li><a href="#f5-지금-가면-몇-시간-이용-가능-p0-창의-포인트">F5. &quot;지금 가면 몇 시간 이용 가능&quot; (P0, 창의 포인트)</a></li><li><a href="#f6-출발지-관리-현재-위치-집-직장-p0">F6. 출발지 관리: 현재 위치, 집, 직장 (P0)</a></li><li><a href="#f7-거리와-이동-시간-추정-p0">F7. 거리와 이동 시간 추정 (P0)</a></li><li><a href="#f8-길찾기-연결-p0">F8. 길찾기 연결 (P0)</a></li><li><a href="#f9-목록과-필터-p0">F9. 목록과 필터 (P0)</a></li><li><a href="#f10-도서관-상세-p0">F10. 도서관 상세 (P0)</a></li><li><a href="#f11-휴관일-달력-p0">F11. 휴관일 달력 (P0)</a></li><li><a href="#f12-즐겨찾기-p0">F12. 즐겨찾기 (P0)</a></li><li><a href="#f13-기준-시각-바꾸기-p1">F13. 기준 시각 바꾸기 (P1)</a></li><li><a href="#f14-내-메모와-임시-휴관-직접-추가-p1">F14. 내 메모와 임시 휴관 직접 추가 (P1)</a></li><li><a href="#f15-홈-화면-설치-pwa-p1">F15. 홈 화면 설치(PWA) (P1)</a></li><li><a href="#f16-화면-테마-p0">F16. 화면 테마 (P0)</a></li><li><a href="#f17-확장-기능-p2">F17. 확장 기능 (P2)</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#5-시간-계산-로직">5. 시간 계산 로직</a><span class=chev>▾</span></button><ul><li><a href="#5-1-기준-시간대">5.1 기준 시간대</a></li><li><a href="#5-2-하루-운영-판정-순서">5.2 하루 운영 판정 순서</a></li><li><a href="#5-3-휴관-규칙의-표현">5.3 휴관 규칙의 표현</a></li><li><a href="#5-4-공휴일-데이터">5.4 공휴일 데이터</a></li><li><a href="#5-5-남은-이용-시간-계산">5.5 남은 이용 시간 계산</a></li><li><a href="#5-6-테스트">5.6 테스트</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#6-데이터-설계">6. 데이터 설계</a><span class=chev>▾</span></button><ul><li><a href="#6-1-데이터-출처">6.1 데이터 출처</a></li><li><a href="#6-2-데이터-만드는-과정-빌드-파이프라인">6.2 데이터 만드는 과정 (빌드 파이프라인)</a></li><li><a href="#6-3-도서관-데이터-구조-libraries-json의-한-항목">6.3 도서관 데이터 구조 (libraries.json의 한 항목)</a></li><li><a href="#6-4-브라우저-저장-데이터-localstorage">6.4 브라우저 저장 데이터 (localStorage)</a></li><li><a href="#6-5-데이터-라이선스와-출처-표기">6.5 데이터 라이선스와 출처 표기</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#7-지도와-길찾기-설계">7. 지도와 길찾기 설계</a><span class=chev>▾</span></button><ul><li><a href="#7-1-지도-구성">7.1 지도 구성</a></li><li><a href="#7-2-길찾기">7.2 길찾기</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#8-화면-구성">8. 화면 구성</a><span class=chev>▾</span></button><ul><li><a href="#8-1-공통-원칙">8.1 공통 원칙</a></li><li><a href="#8-2-데스크탑-1200px-이상-기준-1440-900">8.2 데스크탑 (1200px 이상, 기준 1440×900)</a></li><li><a href="#8-3-태블릿-768-1199px">8.3 태블릿 (768~1199px)</a></li><li><a href="#8-4-스마트폰-767px-이하-기준-390-844">8.4 스마트폰 (767px 이하, 기준 390×844)</a></li><li><a href="#8-5-설정-화면">8.5 설정 화면</a></li><li><a href="#8-6-디자인-방향">8.6 디자인 방향</a></li></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#9-기술-스택과-저장소">9. 기술 스택과 저장소</a><span class=chev>▾</span></button><ul><li><a href="#9-1-기술-스택">9.1 기술 스택</a></li><li><a href="#9-2-저장소-db-로그인">9.2 저장소, DB, 로그인</a></li><li><a href="#9-3-폴더-구조-안">9.3 폴더 구조 (안)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#10-비기능-요구사항">10. 비기능 요구사항</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</a><span class=chev>▾</span></button><ul><li><a href="#m0-준비와-데이터-수집">M0. 준비와 데이터 수집</a></li><li><a href="#m1-지도와-상태-표시-mvp-핵심">M1. 지도와 상태 표시 (MVP 핵심)</a></li><li><a href="#m2-출발지-남은-이용-시간-길찾기">M2. 출발지, 남은 이용 시간, 길찾기</a></li><li><a href="#m3-상세-달력-반응형-마감">M3. 상세, 달력, 반응형 마감</a></li><li><a href="#m4-다듬기와-배포-p1">M4. 다듬기와 배포 (P1)</a></li><li><a href="#m5-확장-p2">M5. 확장 (P2)</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#12-위험-요소와-대응">12. 위험 요소와 대응</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#13-성공-지표-개인-사용-기준">13. 성공 지표 (개인 사용 기준)</a></button><ul></ul></div><div class="grp open"><button class="grp-h" aria-expanded="true"><a href="#14-결정된-사항과-남은-확인-사항">14. 결정된 사항과 남은 확인 사항</a><span class=chev>▾</span></button><ul><li><a href="#14-1-결정된-사항">14.1 결정된 사항</a></li><li><a href="#14-2-개발-시작-시-확인할-사항">14.2 개발 시작 시 확인할 사항</a></li></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#부록-a-카카오맵-javascript-키-발급-방법-p2-준비">부록 A. 카카오맵 JavaScript 키 발급 방법 (P2 준비)</a></button><ul></ul></div><div class="grp"><button class="grp-h" aria-expanded="false"><a href="#부록-b-조사한-참고-서비스">부록 B. 조사한 참고 서비스</a></button><ul></ul></div></nav>
 </aside>
 <main><article id="doc"><h1 id="지금-열린-도서관-library-now-제품-기획서-prd">지금 열린 도서관(Library Now): 제품 기획서(PRD)</h1>
 <table>
@@ -91,11 +91,11 @@ pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;f
 <tbody>
 <tr>
 <td>문서 버전</td>
-<td>v0.1</td>
+<td>v0.2</td>
 </tr>
 <tr>
 <td>작성일</td>
-<td>2026-11-18</td>
+<td>2026-11-18 (v0.2 수정: 2026-11-18)</td>
 </tr>
 <tr>
 <td>앱 이름</td>
@@ -113,6 +113,10 @@ pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;f
 <td>원 아이디어</td>
 <td>'Vibe 앱 개발 아이디어 수집'의 4-1 「우리 동네 도서관 지도」</td>
 </tr>
+<tr>
+<td>관련 문서</td>
+<td><code>design/DESIGN.md</code>(디자인 가이드), <code>design/design-*.html</code>(시안 3종), <code>CLAUDE.md</code>(개발 규칙)</td>
+</tr>
 </tbody>
 </table>
 <h2 id="변경-이력">변경 이력</h2>
@@ -129,6 +133,11 @@ pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;f
 <td>v0.1</td>
 <td>2026-11-18</td>
 <td>최초 작성. 자료 조사와 사용자 결정 사항(범위, 지도, 길찾기, 자료실·열람실, 출발지, 이름)을 반영</td>
+</tr>
+<tr>
+<td>v0.2</td>
+<td>2026-11-18</td>
+<td>화면 테마 3종(서재·말랑·모노, 기본 서재)을 F16으로 추가. 확장 기능을 F17로 이동. 문서 구조(<code>docs/</code>, <code>design/</code>, <code>CLAUDE.md</code>)와 폴더 구조, 설정 화면, 디자인 방향, 마일스톤, 결정 사항 갱신</td>
 </tr>
 </tbody>
 </table>
@@ -408,7 +417,46 @@ pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;f
 <li>웹 앱 매니페스트와 서비스 워커를 추가해 스마트폰 홈 화면에 설치할 수 있게 합니다.</li>
 <li>앱 화면과 도서관 JSON 데이터는 캐시해서 오프라인에서도 목록·운영시간·달력을 볼 수 있게 합니다. 지도 타일은 캐시하지 않습니다(OSM 정책).</li>
 </ul>
-<h3 id="f16-확장-기능-p2">F16. 확장 기능 (P2)</h3>
+<h3 id="f16-화면-테마-p0">F16. 화면 테마 (P0)</h3>
+<ul>
+<li>세 가지 테마를 제공하고, 설정 화면에서 바꿀 수 있게 합니다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>테마</th>
+<th>분위기</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>서재 (Stacks)</strong></td>
+<td>도서관 느낌: 종이 바탕, 짙은 녹색, 놋쇠색, 명조 제목</td>
+<td><strong>기본 테마</strong></td>
+</tr>
+<tr>
+<td>말랑 (Soft)</td>
+<td>파스텔, 둥글고 귀여운 느낌</td>
+<td></td>
+</tr>
+<tr>
+<td>모노 (Mono)</td>
+<td>모던하고 세련된 느낌: 검정·회색, 코발트 블루</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>세 테마는 <strong>같은 화면 구조와 기능</strong>을 쓰고, 색·글꼴·모서리·장식만 다릅니다. 테마를 바꿔도 배치와 기능이 달라지지 않아야 합니다.</li>
+<li>구현은 최상위 요소의 <code>data-theme</code> 속성과 CSS 변수(디자인 토큰)로 합니다. 상세 규칙은 <code>design/DESIGN.md</code>를 따릅니다.</li>
+<li>선택한 테마는 브라우저에 저장하고, 다음 접속 때 그대로 적용합니다. 저장값이 없으면 서재 테마를 씁니다.</li>
+<li>첫 화면이 그려지기 전에 테마를 적용해 테마가 깜박이며 바뀌지 않게 합니다(<code>index.html</code>의 작은 인라인 스크립트로 <code>data-theme</code> 먼저 설정).</li>
+<li>테마별 글꼴은 사용 중인 테마의 것만 불러옵니다.</li>
+<li>지도 타일에는 테마 분위기에 맞는 CSS 필터를 적용합니다(마커·팝업에는 적용하지 않음).</li>
+<li>다크 모드는 이번 범위에 넣지 않습니다(F17).</li>
+</ul>
+<h3 id="f17-확장-기능-p2">F17. 확장 기능 (P2)</h3>
 <ul>
 <li>서울 25개 구 전체로 확대</li>
 <li>카카오맵 지도 적용(설정에서 지도 종류 선택)</li>
@@ -628,7 +676,7 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 <tbody>
 <tr>
 <td><code>ln.settings</code></td>
-<td>모드, 선택한 구, 정렬, 필터, 지도 종류</td>
+<td>화면 테마(기본 <code>library</code>), 모드, 선택한 구, 정렬, 필터, 지도 종류</td>
 </tr>
 <tr>
 <td><code>ln.places</code></td>
@@ -727,6 +775,7 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 <h3 id="8-5-설정-화면">8.5 설정 화면</h3>
 <ul>
 <li>출발지 관리(집, 직장: 지도에서 위치 지정, 이름 변경, 삭제)</li>
+<li>화면 테마(서재 / 말랑 / 모노, 각 테마의 작은 미리보기와 함께 선택)</li>
 <li>기본 지역, 기본 모드</li>
 <li>지도 종류(OSM / 카카오맵, P2)</li>
 <li>데이터 정보(기준일, 출처, 라이선스)</li>
@@ -734,10 +783,10 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 </ul>
 <h3 id="8-6-디자인-방향">8.6 디자인 방향</h3>
 <ul>
-<li>상태 색: 초록(열림), 주황(곧 닫힘), 파랑(곧 열림), 회색(운영 종료), 진회색(휴관). 색맹 사용자도 구분할 수 있도록 아이콘과 글자를 함께 씁니다.</li>
+<li>세부 디자인은 <strong><code>design/DESIGN.md</code></strong>(디자인 가이드)와 <strong><code>design/design-library.html</code>, <code>design-pastel.html</code>, <code>design-mono.html</code></strong>(시안)을 따릅니다. 이 문서와 디자인 문서가 다르면 디자인 문서를 우선합니다.</li>
+<li>상태는 색 + 기호 + 글자로 표시합니다: 운영 중 ●, 곧 닫힘 ◔, 곧 열림 ○, 운영 종료 ◐, 휴관 ✕.</li>
 <li>숫자 정보(남은 시간, 거리)는 크게, 보조 정보는 작게 해 목록을 빠르게 훑을 수 있게 합니다.</li>
-<li>글꼴: 시스템 한글 글꼴(Apple SD Gothic Neo, 맑은 고딕, Noto Sans KR).</li>
-<li>세부 시안은 PRD 확정 후 별도 디자인 문서(DESIGN.md, 목업 HTML)로 만듭니다.</li>
+<li>테마 3종(서재·말랑·모노)은 F16을 따릅니다. 기본은 서재입니다.</li>
 </ul>
 <hr />
 <h2 id="9-기술-스택과-저장소">9. 기술 스택과 저장소</h2>
@@ -768,8 +817,13 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 </tr>
 <tr>
 <td>스타일</td>
-<td>CSS Modules + CSS 변수</td>
-<td>의존성이 적고 반응형 구현이 쉬움</td>
+<td>CSS Modules + CSS 변수(디자인 토큰)</td>
+<td>의존성이 적고 반응형·테마 전환 구현이 쉬움</td>
+</tr>
+<tr>
+<td>아이콘</td>
+<td>Lucide (lucide-react)</td>
+<td>시안과 같은 선 아이콘 스타일, 무료</td>
 </tr>
 <tr>
 <td>상태 관리</td>
@@ -837,6 +891,15 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 </table>
 <h3 id="9-3-폴더-구조-안">9.3 폴더 구조 (안)</h3>
 <pre><code>library-now/
+├─ CLAUDE.md               Claude Code 작업 규칙 (개발 시작 전에 넣어 둠)
+├─ docs/
+│  ├─ PRD.md               이 문서 (PRD.html은 보기용)
+│  └─ PRD.html
+├─ design/
+│  ├─ DESIGN.md            디자인 가이드 (토큰, 컴포넌트 명세)
+│  ├─ design-library.html  시안 A. 서재 (기본 테마)
+│  ├─ design-pastel.html   시안 B. 말랑
+│  └─ design-mono.html     시안 C. 모노
 ├─ data/
 │  ├─ raw/                 공공데이터 원본 CSV
 │  └─ overrides/           도서관별 수기 입력 (자료실·열람실 시간 등)
@@ -848,7 +911,8 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 │  ├─ domain/              시간 계산, 휴관 판정, 거리 계산 (순수 함수 + 테스트)
 │  ├─ map/                 MapProvider 인터페이스, Leaflet 구현 (나중에 Kakao 구현)
 │  ├─ components/          목록, 카드, 상세, 달력, 바텀 시트 등
-│  ├─ state/               설정·즐겨찾기·출발지 저장
+│  ├─ state/               설정·즐겨찾기·출발지·테마 저장
+│  ├─ styles/              themes.css(테마 토큰·장식), global.css
 │  └─ App.tsx
 ├─ tests/e2e/              Playwright 화면 테스트
 └─ README.md               소개, 스크린샷, 데이터 출처, 실행 방법
@@ -901,7 +965,10 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 <h2 id="11-개발-단계-마일스톤">11. 개발 단계 (마일스톤)</h2>
 <h3 id="m0-준비와-데이터-수집">M0. 준비와 데이터 수집</h3>
 <ul>
-<li>GitHub 저장소 <code>library-now</code> 생성(Public), Vite + React + TS 초기 설정, GitHub Pages 배포 확인</li>
+<li>GitHub 저장소 <code>library-now</code> 생성(Public)</li>
+<li><code>CLAUDE.md</code>, <code>docs/</code>(PRD), <code>design/</code>(디자인 가이드·시안)을 저장소에 먼저 넣고 첫 커밋</li>
+<li>Vite + React + TS 초기 설정, GitHub Pages 배포 확인</li>
+<li>테마 토큰(<code>src/styles/themes.css</code>)을 시안에서 옮기고 서재 테마를 기본으로 적용</li>
 <li>전국도서관표준데이터에서 구로구·영등포구·양천구 공공도서관 추리기</li>
 <li>도서관 홈페이지에서 자료실·열람실 운영시간, 휴관 규칙 확인 후 <code>overrides</code>에 입력·검수</li>
 <li>공휴일 JSON 생성</li>
@@ -927,7 +994,8 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 <li>상세 패널(운영시간 표, 휴관 규칙, 미니 달력, 출처·기준일)</li>
 <li>휴관일 달력(즐겨찾기 겹쳐 보기), 즐겨찾기</li>
 <li>태블릿 드로어, 스마트폰 바텀 시트</li>
-<li>Playwright로 1440×900, 390×844 화면 확인</li>
+<li>테마 3종 완성(말랑·모노 장식 적용), 설정 화면의 테마 선택, 지도 타일 필터</li>
+<li>Playwright로 1440×900, 390×844 화면을 테마 3종 모두 확인</li>
 </ul>
 <h3 id="m4-다듬기와-배포-p1">M4. 다듬기와 배포 (P1)</h3>
 <ul>
@@ -1063,6 +1131,14 @@ public/data/meta.json           데이터 기준일, 출처, 생성 시각
 <tr>
 <td>사용자</td>
 <td>본인 전용, 완성 후 포트폴리오에 등록</td>
+</tr>
+<tr>
+<td>화면 테마</td>
+<td>서재·말랑·모노 3종 모두 구현, 기본은 서재</td>
+</tr>
+<tr>
+<td>문서 구조</td>
+<td><code>docs/</code>(PRD), <code>design/</code>(디자인 가이드·시안), 루트 <code>CLAUDE.md</code></td>
 </tr>
 </tbody>
 </table>
